@@ -1,0 +1,31 @@
+# Build outputs
+bin/
+obj/
+build/
+*.pdb
+*.exe
+
+# Game reference DLLs (copy from game installation)
+libs/
+
+# SDK (download separately)
+BasSDK/
+BasSDK.zip
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userprefs
+
+# NuGet
+packages/
+*.nupkg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rider
+.idea/

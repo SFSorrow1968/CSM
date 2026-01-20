@@ -1,5 +1,8 @@
 using CSM.Configuration;
+using CSM.Hooks;
+#if !NOMAD
 using CSM.Patches;
+#endif
 using ThunderRoad;
 using UnityEngine;
 
@@ -13,10 +16,21 @@ namespace CSM.Core
         {
             base.ScriptLoaded(modData);
             ModPath = modData.fullPath;
-            Debug.Log("[CSM] Loading...");
+#if NOMAD
+            Debug.Log("[CSM] Loading (Nomad)...");
+#else
+            Debug.Log("[CSM] Loading (PCVR)...");
+#endif
             new CSMSettings().Load(ModPath);
             CSMManager.Instance.Initialize();
+
+#if NOMAD
+            // Nomad: Use EventManager hooks (IL2CPP compatible)
+            EventHooks.Subscribe();
+#else
+            // PCVR: Use Harmony patches for more comprehensive hooks
             CSMPatches.ApplyPatches();
+#endif
             Debug.Log("[CSM] Loaded!");
         }
 
@@ -30,7 +44,14 @@ namespace CSM.Core
         {
             base.ScriptDisable();
             CSMManager.Instance.CancelSlowMotion();
+
+#if NOMAD
+            EventHooks.Unsubscribe();
+            EventHooks.ResetState();
+#else
             CSMPatches.RemovePatches();
+            PlayerPatches.ResetState();
+#endif
             Debug.Log("[CSM] Unloaded.");
         }
     }

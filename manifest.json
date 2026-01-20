@@ -3,5 +3,5 @@
   "Description": "Matrix-style slow motion effects triggered by combat events like kills, dismemberment, parries, and critical moments.",
   "Author": "dkatz",
   "ModVersion": "1.0.0",
-  "GameVersion": "1.0"
+  "GameVersion": "1.0.0.0"
 }

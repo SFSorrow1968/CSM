@@ -1,0 +1,40 @@
+Common KeyCodes for Configuration:
+
+BackQuote (~)
+Tab
+Return (Enter)
+Escape
+Space
+Backspace
+
+Alpha0 - Alpha9 (Top row numbers)
+Keypad0 - Keypad9 (Numpad numbers)
+
+F1 - F12
+
+A - Z
+
+UpArrow
+DownArrow
+LeftArrow
+RightArrow
+
+Insert
+Delete
+Home
+End
+PageUp
+PageDown
+
+LeftShift
+RightShift
+LeftControl
+RightControl
+LeftAlt
+RightAlt
+
+Mouse0 (Left Click)
+Mouse1 (Right Click)
+Mouse2 (Middle Click)
+
+For a full list, search for "Unity KeyCode" online.

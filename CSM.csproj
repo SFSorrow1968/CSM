@@ -8,7 +8,20 @@
     <Nullable>disable</Nullable>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;Release;Nomad</Configurations>
   </PropertyGroup>
+
+  <!-- Only include CSM source files, exclude SDK and reference projects -->
+  <ItemGroup>
+    <Compile Include="**\*.cs" Exclude="BasSDK\**;7dtd Reference\**;obj\**;bin\**" />
+  </ItemGroup>
+
+  <!-- Exclude Harmony patches from Nomad build -->
+  <ItemGroup Condition="'$(Configuration)'=='Nomad'">
+    <Compile Remove="Patches\**\*.cs" />
+  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
@@ -21,31 +34,50 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 
+  <!-- Nomad configuration: IL2CPP compatible, no Harmony -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Nomad|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <DefineConstants>NOMAD</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
-    <!-- Blade & Sorcery DLLs - Update paths to match your installation -->
+    <!-- Blade & Sorcery DLLs - copied to libs folder -->
+    <Reference Include="ThunderRoad">
+      <HintPath>libs\ThunderRoad.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\BasSDK\Library\ScriptAssemblies\Assembly-CSharp.dll</HintPath>
+      <HintPath>libs\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>libs\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\BasSDK\Library\ScriptAssemblies\UnityEngine.dll</HintPath>
+      <HintPath>libs\UnityEngine.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\BasSDK\Library\ScriptAssemblies\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>libs\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- NuGet packages -->
+  <!-- Harmony only for PCVR builds -->
+  <ItemGroup Condition="'$(Configuration)'!='Nomad'">
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <!-- Post-build: Copy DLL to mod folder (optional) -->
-  <Target Name="CopyToModFolder" AfterTargets="Build" Condition="'$(Configuration)'=='Release'">
-    <Message Importance="high" Text="Build complete: $(OutputPath)$(AssemblyName).dll" />
+  <!-- Post-build messages -->
+  <Target Name="PostBuildMessage" AfterTargets="Build">
+    <Message Importance="high" Text="Build complete: $(OutputPath)$(AssemblyName).dll ($(Configuration))" />
   </Target>
 
 </Project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+  <Name value="CinematicKill" />
+  <DisplayName value="Kill Cam Slow Motion" />
+  <Version value="1.0.0" />
+  <Description value="Adds cinematic slow-motion effects on kills and dismemberments with configurable settings." />
+  <Author value="SFSorrow1968" />
+  <Website value="" />
+</xml>
