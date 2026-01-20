@@ -1,9 +1,16 @@
 # Build outputs
 bin/
 obj/
-*.dll
+build/
 *.pdb
 *.exe
+
+# Game reference DLLs (copy from game installation)
+libs/
+
+# SDK (download separately)
+BasSDK/
+BasSDK.zip
 
 # IDE
 .vs/
