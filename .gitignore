@@ -8,7 +8,8 @@ build/
 # Game reference DLLs (copy from game installation)
 libs/
 
-# SDK (download separately)
+# Reference mods and log files (never commit)
+References/
 BasSDK/
 BasSDK.zip
 
