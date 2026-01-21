@@ -15,7 +15,7 @@
 
   <!-- Only include CSM source files, exclude SDK and reference projects -->
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="BasSDK\**;7dtd Reference\**;obj\**;bin\**" />
+    <Compile Include="**\*.cs" Exclude="BasSDK\**;7dtd Reference\**;References\**;obj\**;bin\**;builds\**" />
   </ItemGroup>
 
   <!-- Exclude Harmony patches from Nomad build -->
@@ -71,9 +71,7 @@
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
+  <!-- Newtonsoft.Json removed - using ModOptions for all configuration -->
 
   <!-- Post-build messages -->
   <Target Name="PostBuildMessage" AfterTargets="Build">

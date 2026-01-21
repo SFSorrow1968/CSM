@@ -32,7 +32,7 @@ namespace CSM.Patches
                 if (!__instance.isPlayer) return;
 
                 float currentHealth = GetHealthRatio(__instance);
-                float threshold = CSMSettings.Instance.LastStandHealthThreshold;
+                float threshold = CSMModOptions.LastStandThreshold;
 
                 if (_lastPlayerHealthRatio > threshold && currentHealth <= threshold && currentHealth > 0 && !_lastStandTriggered)
                 {
@@ -44,7 +44,11 @@ namespace CSM.Patches
                 _lastPlayerHealthRatio = currentHealth;
             }
 
-            private static float GetHealthRatio(Creature c) => 1f; // Placeholder
+            private static float GetHealthRatio(Creature c)
+            {
+                if (c == null || c.maxHealth <= 0) return 1f;
+                return Mathf.Clamp01(c.currentHealth / c.maxHealth);
+            }
         }
 
         public static void ResetState()

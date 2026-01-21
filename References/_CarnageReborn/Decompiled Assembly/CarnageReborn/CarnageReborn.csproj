@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C6B3C63-3EEF-4D9E-8462-B79C86CC1959}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CarnageReborn</RootNamespace>
+    <AssemblyName>CarnageReborn</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IngameDebugConsole.Runtime" />
+    <Reference Include="System.Core" />
+    <Reference Include="ThunderRoad" />
+    <Reference Include="ThunderRoad.Manikin" />
+    <Reference Include="Unity.TextMeshPro" />
+    <Reference Include="UnityEngine.AnimationModule" />
+    <Reference Include="UnityEngine.AudioModule" />
+    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnityEngine.PhysicsModule" />
+    <Reference Include="UnityEngine.UIModule" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllySyringe.cs" />
+    <Compile Include="BoneProfile.cs" />
+    <Compile Include="CarnageCreature.cs" />
+    <Compile Include="CarnageEventManager.cs" />
+    <Compile Include="ChickenSyringe.cs" />
+    <Compile Include="CreatureAnimationModule.cs" />
+    <Compile Include="CreatureBoneBreakingModule.cs" />
+    <Compile Include="CreatureConciousnessModule.cs" />
+    <Compile Include="CreatureEffectsModule.cs" />
+    <Compile Include="CreatureModule.cs" />
+    <Compile Include="CreatureTorsoGibModule.cs" />
+    <Compile Include="Definitions.cs" />
+    <Compile Include="Deform.cs" />
+    <Compile Include="Deformable.cs" />
+    <Compile Include="DeformableRestored.cs" />
+    <Compile Include="Deformation\MeshAPI.cs" />
+    <Compile Include="Deformed.cs" />
+    <Compile Include="Deformer.cs" />
+    <Compile Include="DeformRequest.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="Explodable.cs" />
+    <Compile Include="Exploded.cs" />
+    <Compile Include="EyeballPopped.cs" />
+    <Compile Include="FinisherSyringe.cs" />
+    <Compile Include="GeneralUtilities.cs" />
+    <Compile Include="GoreFactory.cs" />
+    <Compile Include="Gore\Eyeball.cs" />
+    <Compile Include="HeadExplodeSyringe.cs" />
+    <Compile Include="HealSyringe.cs" />
+    <Compile Include="LevelExecutioner.cs" />
+    <Compile Include="MainThread.cs" />
+    <Compile Include="Math.cs" />
+    <Compile Include="ModOptions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Restorer.cs" />
+    <Compile Include="RevivalSyringe.cs" />
+    <Compile Include="SelfDeformer.cs" />
+    <Compile Include="SleepSyringe.cs" />
+    <Compile Include="StupifySyringe.cs" />
+    <Compile Include="Syringe.cs" />
+    <Compile Include="SyringeData.cs" />
+    <Compile Include="ThroatSlit.cs" />
+    <Compile Include="UnityHelper.cs" />
+    <Compile Include="Utilities\Commands.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

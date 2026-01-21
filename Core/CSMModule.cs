@@ -1,3 +1,4 @@
+using System;
 using CSM.Configuration;
 using CSM.Hooks;
 #if !NOMAD
@@ -8,51 +9,98 @@ using UnityEngine;
 
 namespace CSM.Core
 {
+    /// <summary>
+    /// Main ThunderScript entry point for CSM.
+    /// Simplified to match working Nomad mod pattern.
+    /// </summary>
     public class CSMModule : ThunderScript
     {
-        public static string ModPath { get; private set; }
+        public static CSMModule Instance { get; private set; }
 
-        public override void ScriptLoaded(ModManager.ModData modData)
+        public override void ScriptEnable()
         {
-            base.ScriptLoaded(modData);
-            ModPath = modData.fullPath;
-#if NOMAD
-            Debug.Log("[CSM] Loading (Nomad)...");
-#else
-            Debug.Log("[CSM] Loading (PCVR)...");
-#endif
-            new CSMSettings().Load(ModPath);
-            CSMManager.Instance.Initialize();
+            base.ScriptEnable();
+
+            try
+            {
+                Instance = this;
 
 #if NOMAD
-            // Nomad: Use EventManager hooks (IL2CPP compatible)
-            EventHooks.Subscribe();
+                Debug.Log("[CSM] === CSM v" + CSMModOptions.VERSION + " (Nomad) ===");
 #else
-            // PCVR: Use Harmony patches for more comprehensive hooks
-            CSMPatches.ApplyPatches();
+                Debug.Log("[CSM] === CSM v" + CSMModOptions.VERSION + " (PCVR) ===");
 #endif
-            Debug.Log("[CSM] Loaded!");
+
+                // Initialize managers
+                CSMManager.Instance.Initialize();
+                KillcamManager.Instance.Initialize();
+
+#if NOMAD
+                // Nomad: Use EventManager hooks (IL2CPP compatible)
+                Debug.Log("[CSM] Subscribing event hooks (Nomad mode)...");
+                EventHooks.Subscribe();
+#else
+                // PCVR: Use Harmony patches
+                Debug.Log("[CSM] Applying Harmony patches (PCVR mode)...");
+                try
+                {
+                    CSMPatches.ApplyPatches();
+                    Debug.Log("[CSM] Harmony patches applied");
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("[CSM] Harmony patches failed: " + ex.Message);
+                    EventHooks.Subscribe();
+                }
+#endif
+
+                Debug.Log("[CSM] ScriptEnable complete - CSM is active!");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[CSM] ScriptEnable FAILED: " + ex.Message);
+            }
         }
 
         public override void ScriptUpdate()
         {
-            base.ScriptUpdate();
-            CSMManager.Instance.Update();
+            try
+            {
+                base.ScriptUpdate();
+                CSMManager.Instance?.Update();
+                KillcamManager.Instance?.Update();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[CSM] ScriptUpdate error: " + ex.Message);
+            }
         }
 
         public override void ScriptDisable()
         {
-            base.ScriptDisable();
-            CSMManager.Instance.CancelSlowMotion();
+            try
+            {
+                Debug.Log("[CSM] ScriptDisable...");
+
+                KillcamManager.Instance?.Shutdown();
+                CSMManager.Instance?.CancelSlowMotion();
 
 #if NOMAD
-            EventHooks.Unsubscribe();
-            EventHooks.ResetState();
+                EventHooks.Unsubscribe();
+                EventHooks.ResetState();
 #else
-            CSMPatches.RemovePatches();
-            PlayerPatches.ResetState();
+                try { CSMPatches.RemovePatches(); } catch { }
+                try { EventHooks.Unsubscribe(); EventHooks.ResetState(); } catch { }
 #endif
-            Debug.Log("[CSM] Unloaded.");
+
+                Debug.Log("[CSM] CSM deactivated");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[CSM] ScriptDisable error: " + ex.Message);
+            }
+
+            base.ScriptDisable();
         }
     }
 }

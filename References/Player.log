@@ -1,0 +1,1460 @@
+2026-01-20T23:15:07.024 INFO ThunderRoad.GameManager.Awake                   : EnableAlphaToCoverage: False MSAA is disabled
+2026-01-20T23:15:07.025 INFO ThunderRoad.GameManager.Awake                   : Tonemapping: set defaults
+2026-01-20T23:15:07.030 INFO Unity: Disabling InputSystemUIInputModule on Android
+2026-01-20T23:15:07.356 INFO T.ThunderRoadSettings.GetAudioMixerGroup        : ThunderRoad settings loaded, game settings: BladeAndSorcery, build settings: Quest
+2026-01-20T23:15:07.357 WARN Unity: [Bhaptics] no player running, feature disabled.
+2026-01-20T23:15:07.365 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : GameManager init started in 0.55 sec
+2026-01-20T23:15:07.366 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Build: Quest
+2026-01-20T23:15:07.367 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Build Quality: Android
+2026-01-20T23:15:07.585 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Found XR Loader: Unity.XR.Oculus.OculusLoader
+2026-01-20T23:15:07.742 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : XR Active Loader : Oculus Loader - Unity.XR.Oculus.OculusLoader
+2026-01-20T23:15:07.743 INFO T.PlayerControl.<LoadXR>d__103.MoveNext         : Using XR input system
+2026-01-20T23:15:07.745 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Found Left controller Oculus Touch Controller - Left | Oculus | supportsImpulse: True
+2026-01-20T23:15:07.746 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Found Right controller Oculus Touch Controller - Right | Oculus | supportsImpulse: True
+2026-01-20T23:15:07.746 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : HeadDevice: Meta Quest 3
+2026-01-20T23:15:07.747 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Loader: Oculus | Controllers: OculusTouch
+2026-01-20T23:15:07.768 INFO ThunderRoad.InputXR.Update                      : System menu closed
+2026-01-20T23:15:07.770 INFO ThunderRoad.UpdateManager.Update                : User presence detected
+2026-01-20T23:15:07.806 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Platform [Android] Meta: Dynamic resolution scaling enabled
+2026-01-20T23:15:07.808 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Platform [Android] initialized
+2026-01-20T23:15:07.809 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Headset refresh rate: 72
+2026-01-20T23:15:07.809 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Create mods directory (android) and copy readme.txt
+2026-01-20T23:15:07.811 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Game version: 1.1.2.251210002
+Operating system: Android OS 14 / API-34 (UP1A.231005.007.A1/1871560109600610)
+Quality Level: Android
+
+2026-01-20T23:15:07.812 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : [system info]
+[deviceModel] :Oculus Quest
+[deviceType] :Handheld
+[graphicsDeviceName] :Adreno (TM) 740
+[graphicsDeviceType] :Vulkan
+[graphicsDeviceVendor] :Qualcomm
+[graphicsMemorySize] :8012
+[graphicsShaderLevel] :50
+[operatingSystem] :Android OS 14 / API-34 (UP1A.231005.007.A1/1871560109600610)
+[processorType] :ARM64
+[processorCount] :3
+[processorFrequency] :2361
+[systemMemorySize] :7756
+[IsMobilePlatform] :True
+[supportsMultisampleAutoResolve] :True
+[platformRequiresExplicitMsaaResolve] :False
+[RenderingThreadMode: MultiThreaded]
+[HiddenSurfaceRemoval: True]
+
+2026-01-20T23:15:07.829 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load options...
+2026-01-20T23:15:07.851 INFO ThunderRoad.Options..ctor                       : OVRManager.suggestedCpuPerfLevel: Boost
+2026-01-20T23:15:07.852 INFO ThunderRoad.Options..ctor                       : OVRManager.suggestedGpuPerfLevel: Boost
+2026-01-20T23:15:07.853 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Creating new option file. Version: 9
+2026-01-20T23:15:07.905 INFO ThunderRoad.StoreOculus.EntitlementCallback     : [ThunderRoad.StoreOculus] Entitlement successful
+2026-01-20T23:15:07.917 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load default json catalog...
+2026-01-20T23:15:07.919 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Loading default catalogs
+2026-01-20T23:15:07.919 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Loading default catalog in folder: bas
+2026-01-20T23:15:07.920 INFO ThunderRoad.Catalog.LoadDefaultCatalogs         : [Catalog][bas] Loading file: com.Warpfrog.BladeAndSorcery/bas.jsondb
+2026-01-20T23:15:13.823 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : [Catalog][bas]- Loaded file: com.Warpfrog.BladeAndSorcery/bas.jsondb
+2026-01-20T23:15:13.824 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Loaded catalog in folder: bas
+2026-01-20T23:15:13.825 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Finished loading default catalogs
+2026-01-20T23:15:13.825 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ------------> Default json catalog loaded in 5.91 sec
+2026-01-20T23:15:13.834 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_ALL_ACHIEVEMENTS, Type: Simple, Target: 0
+2026-01-20T23:15:13.835 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_DRAINAGE_LEVER, Type: Simple, Target: 0
+2026-01-20T23:15:13.836 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_WATERFALL_LEVER, Type: Simple, Target: 0
+2026-01-20T23:15:13.836 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CARL, Type: Simple, Target: 0
+2026-01-20T23:15:13.837 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CUPBENDING, Type: Simple, Target: 0
+2026-01-20T23:15:13.838 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BIRD_NEST, Type: Simple, Target: 0
+2026-01-20T23:15:13.838 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_WATCHTOWER_WELL, Type: Simple, Target: 0
+2026-01-20T23:15:13.839 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_EAT_POO, Type: Simple, Target: 0
+2026-01-20T23:15:13.839 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_FIND_POO, Type: Simple, Target: 0
+2026-01-20T23:15:13.840 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CLIMBING_CHASM, Type: Simple, Target: 0
+2026-01-20T23:15:13.841 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_MARKET_WELL, Type: Simple, Target: 0
+2026-01-20T23:15:13.841 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_KILL_SHOPKEEPER, Type: Simple, Target: 0
+2026-01-20T23:15:13.842 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CHANDELIER, Type: Simple, Target: 0
+2026-01-20T23:15:13.842 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CITADEL_SKYCELL, Type: Simple, Target: 0
+2026-01-20T23:15:13.843 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BARON_HAT, Type: Simple, Target: 0
+2026-01-20T23:15:13.843 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_FALCHION, Type: Simple, Target: 0
+2026-01-20T23:15:13.844 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CITADEL_TUNNELS, Type: Simple, Target: 0
+2026-01-20T23:15:13.844 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BAGUETTE_SWORD, Type: Simple, Target: 0
+2026-01-20T23:15:13.845 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CHICKEN, Type: Simple, Target: 0
+2026-01-20T23:15:13.845 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_CITADEL_PEAK, Type: Simple, Target: 0
+2026-01-20T23:15:13.846 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_FIRST_CRYSTAL_MERGE, Type: Simple, Target: 0
+2026-01-20T23:15:13.847 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_COMPLETE_DALGARIAN, Type: Simple, Target: 0
+2026-01-20T23:15:13.847 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_COMPLETE_TUTORIAL, Type: Simple, Target: 0
+2026-01-20T23:15:13.848 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_NO_KILL_DUNGEON, Type: Simple, Target: 0
+2026-01-20T23:15:13.848 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_T3_DUNGEON_T0_EQUIPMENT, Type: Simple, Target: 0
+2026-01-20T23:15:13.849 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_COMPLETE_SURVIVAL_10, Type: Simple, Target: 0
+2026-01-20T23:15:13.849 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_KHEMENET_ENDING, Type: Simple, Target: 0
+2026-01-20T23:15:13.850 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_T3_ARMOR, Type: Simple, Target: 0
+2026-01-20T23:15:13.850 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BUY_T4_WEAPON, Type: Simple, Target: 0
+2026-01-20T23:15:13.851 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BUY_ALL_SKILLS_IN_TREE, Type: Simple, Target: 0
+2026-01-20T23:15:13.851 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_T3_CRYSTAL_MERGE, Type: Simple, Target: 0
+2026-01-20T23:15:13.852 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_COMPLETE_PERMADEATH, Type: Simple, Target: 0
+2026-01-20T23:15:13.852 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_COMPLETE_SURVIVAL_50, Type: Simple, Target: 0
+2026-01-20T23:15:13.853 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_SHOP_LORE, Type: Simple, Target: 0
+2026-01-20T23:15:13.853 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BUY_ALL_SKILLS, Type: Simple, Target: 0
+2026-01-20T23:15:13.854 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_BUY_ALL_T4_WEAPONS, Type: Simple, Target: 0
+2026-01-20T23:15:13.854 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement: ACH_ANNIHILATION_ENDING, Type: Simple, Target: 0
+2026-01-20T23:15:13.855 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : process command line args: /system/bin/app_process64
+2026-01-20T23:15:13.856 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Force load default folder: bas
+2026-01-20T23:15:13.875 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ------------> Addressables InitializeAsync..
+2026-01-20T23:15:13.891 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ------------> Addressables InitializeAsync completed in 0.02 sec
+2026-01-20T23:15:13.917 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load addressable assets...
+2026-01-20T23:15:13.937 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load default assets...
+2026-01-20T23:15:14.068 INFO DelegateList`1.Invoke                           : Successfully loaded content catalog at path /sdcard/Android/obb/com.Warpfrog.BladeAndSorcery/catalog_bas.json
+2026-01-20T23:15:14.070 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Successfully loaded default assets
+2026-01-20T23:15:14.071 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ------------> Content catalog loaded in 0.14 sec
+2026-01-20T23:15:14.072 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Refresh catalog...
+2026-01-20T23:15:14.100 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Game data refreshed in 0.02 sec
+2026-01-20T23:15:14.128 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Text refreshed 11 entries in 0.03 sec
+2026-01-20T23:15:14.150 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Wave refreshed 108 entries in 0.02 sec
+2026-01-20T23:15:14.178 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Creature refreshed 6 entries in 0.03 sec
+2026-01-20T23:15:14.192 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] CreatureTable refreshed 78 entries in 0.01 sec
+2026-01-20T23:15:14.211 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] LootTable refreshed 202 entries in 0.02 sec
+2026-01-20T23:15:14.228 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Container refreshed 74 entries in 0.02 sec
+2026-01-20T23:15:14.732 INFO ThunderRoad.TimeManager.CheckRefreshRateChange  : Refresh Timestep | Headset refresh rate: 72
+2026-01-20T23:15:15.484 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Item refreshed 491 entries in 1.26 sec
+2026-01-20T23:15:15.491 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Brain refreshed 13 entries in 0.01 sec
+2026-01-20T23:15:15.508 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Effect refreshed 280 entries in 0.02 sec
+2026-01-20T23:15:15.560 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Material refreshed 18 entries in 0.05 sec
+2026-01-20T23:15:15.611 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Interactable refreshed 68 entries in 0.05 sec
+2026-01-20T23:15:15.634 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Damager refreshed 40 entries in 0.02 sec
+2026-01-20T23:15:15.656 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] HandPose refreshed 50 entries in 0.02 sec
+2026-01-20T23:15:15.674 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Expression refreshed 5 entries in 0.02 sec
+2026-01-20T23:15:15.835 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Level refreshed 16 entries in 0.16 sec
+2026-01-20T23:15:15.899 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Menu refreshed 4 entries in 0.06 sec
+2026-01-20T23:15:15.913 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] ColliderGroup refreshed 19 entries in 0.01 sec
+2026-01-20T23:15:15.928 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] DamageModifier refreshed 22 entries in 0.01 sec
+2026-01-20T23:15:15.945 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Skill refreshed 96 entries in 0.02 sec
+2026-01-20T23:15:15.958 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] BehaviorTree refreshed 28 entries in 0.01 sec
+2026-01-20T23:15:15.973 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EffectGroup refreshed 22 entries in 0.01 sec
+2026-01-20T23:15:15.988 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Liquid refreshed 1 entries in 0.01 sec
+2026-01-20T23:15:16.003 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] MusicGroup refreshed 34 entries in 0.01 sec
+2026-01-20T23:15:16.018 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Music refreshed 8 entries in 0.01 sec
+2026-01-20T23:15:16.032 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Animation refreshed 30 entries in 0.01 sec
+2026-01-20T23:15:16.046 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Voice refreshed 18 entries in 0.01 sec
+2026-01-20T23:15:16.060 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaConnectionType refreshed 7 entries in 0.01 sec
+2026-01-20T23:15:17.364 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Area refreshed 103 entries in 1.30 sec
+2026-01-20T23:15:17.388 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaTable refreshed 25 entries in 0.02 sec
+2026-01-20T23:15:17.433 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaCollection refreshed 19 entries in 0.04 sec
+2026-01-20T23:15:17.458 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Shop refreshed 1 entries in 0.02 sec
+2026-01-20T23:15:17.478 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Custom refreshed 0 entries in 0.02 sec
+2026-01-20T23:15:17.536 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Keyboard refreshed 2 entries in 0.06 sec
+2026-01-20T23:15:17.568 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] GameMode refreshed 2 entries in 0.03 sec
+2026-01-20T23:15:17.579 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Status refreshed 8 entries in 0.01 sec
+2026-01-20T23:15:17.592 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Stance refreshed 3 entries in 0.01 sec
+2026-01-20T23:15:17.606 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EntityModule refreshed 0 entries in 0.01 sec
+2026-01-20T23:15:17.620 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] SkillTree refreshed 6 entries in 0.01 sec
+2026-01-20T23:15:17.633 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EnemyConfig refreshed 9 entries in 0.01 sec
+2026-01-20T23:15:17.647 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] LootConfig refreshed 7 entries in 0.01 sec
+2026-01-20T23:15:17.648 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Refreshed 651 entries in 3.58 sec
+2026-01-20T23:15:17.701 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Set monitor resolution...
+2026-01-20T23:15:17.703 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load menu prefab...
+2026-01-20T23:15:17.824 INFO ThunderRoad.GameManager.<Init>d__80.MoveNext    : Apply options
+2026-01-20T23:15:17.927 INFO ThunderRoad.Options.Apply                       : Refresh Timestep | Headset refresh rate: 72
+2026-01-20T23:15:17.932 WARN T.LocalizationManager.OnLanguageChanged         : [Localization Manager] Text Data - Duplicated text group: Default
+2026-01-20T23:15:17.936 WARN T.LocalizationManager.OnLanguageChanged         : [Localization Manager] Text Data - Duplicated text group: Default
+2026-01-20T23:15:18.227 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ------------> Master level loaded in 0.29 sec
+2026-01-20T23:15:18.310 INFO ThunderRoad.UIList.Init                         : displayFrequenciesAvailable 72
+2026-01-20T23:15:18.311 INFO ThunderRoad.UIList.Init                         : displayFrequenciesAvailable 80
+2026-01-20T23:15:18.312 INFO ThunderRoad.UIList.Init                         : displayFrequenciesAvailable 90
+2026-01-20T23:15:18.313 INFO ThunderRoad.UIList.Init                         : displayFrequenciesAvailable 120
+2026-01-20T23:15:18.328 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Achievements Manager] Initializing achievements...
+2026-01-20T23:15:18.402 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Achievements Manager] Loaded 37 achievements
+2026-01-20T23:15:18.408 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Current level  unloaded in: 0.00 sec
+2026-01-20T23:15:18.413 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Load Addressable Assets...
+2026-01-20T23:15:18.462 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Game data Addressable Assets loaded in 0.04 sec
+2026-01-20T23:15:18.476 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Text loaded addressable assets for 11 entries in 0.01 sec
+2026-01-20T23:15:18.495 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Wave loaded addressable assets for 108 entries in 0.02 sec
+2026-01-20T23:15:18.691 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][BuyAllTier4Weapons] Success:True | Unlocked: False
+2026-01-20T23:15:18.710 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][BuyT4Weapon] Success:True | Unlocked: False
+2026-01-20T23:15:18.717 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][BuyAllSkills] Success:True | Unlocked: False
+2026-01-20T23:15:18.731 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][BuyAllSkillsInTree] Success:True | Unlocked: False
+2026-01-20T23:15:18.745 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][BirdNest] Success:True | Unlocked: False
+2026-01-20T23:15:18.746 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CitadelPeak] Success:True | Unlocked: False
+2026-01-20T23:15:18.759 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CitadelTunnels] Success:True | Unlocked: False
+2026-01-20T23:15:18.786 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CitadelSkyCell] Success:True | Unlocked: False
+2026-01-20T23:15:18.787 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][ClimbingChasm] Success:True | Unlocked: False
+2026-01-20T23:15:18.814 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CollectAllShopLore] Success:True | Unlocked: False
+2026-01-20T23:15:18.815 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CompleteSurvivalWaves10] Success:True | Unlocked: False
+2026-01-20T23:15:18.816 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][DrainageLever] Success:True | Unlocked: False
+2026-01-20T23:15:18.830 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement ACH_COMPLETE_TUTORIAL unlocked: True
+2026-01-20T23:15:18.831 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CompleteAllAchievements] Success:True | Unlocked: False
+2026-01-20T23:15:18.832 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CompleteTutorial] Success:True | Unlocked: True
+2026-01-20T23:15:18.856 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CompleteDalgarian] Success:True | Unlocked: False
+2026-01-20T23:15:18.870 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][CompleteSurvivalWaves50] Success:True | Unlocked: False
+2026-01-20T23:15:18.871 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][EatPoo] Success:True | Unlocked: False
+2026-01-20T23:15:18.871 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindBaguetteSword] Success:True | Unlocked: False
+2026-01-20T23:15:18.883 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindBaronHat] Success:True | Unlocked: False
+2026-01-20T23:15:18.897 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindCupbending] Success:True | Unlocked: False
+2026-01-20T23:15:18.911 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindCarl] Success:True | Unlocked: False
+2026-01-20T23:15:18.925 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][AnnihilationEnding] Success:True | Unlocked: False
+2026-01-20T23:15:18.926 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Creature loaded addressable assets for 6 entries in 0.43 sec
+2026-01-20T23:15:18.939 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindFalchion] Success:True | Unlocked: False
+2026-01-20T23:15:18.940 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] CreatureTable loaded addressable assets for 78 entries in 0.01 sec
+2026-01-20T23:15:18.953 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindPoo] Success:True | Unlocked: False
+2026-01-20T23:15:18.955 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] LootTable loaded addressable assets for 202 entries in 0.01 sec
+2026-01-20T23:15:18.967 INFO Oculus.Platform.Request`1.HandleMessage         : [Oculus] Achievement ACH_CHICKEN unlocked: True
+2026-01-20T23:15:18.968 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FindChicken] Success:True | Unlocked: True
+2026-01-20T23:15:18.969 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][FullTier3Apparel] Success:True | Unlocked: False
+2026-01-20T23:15:18.970 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Container loaded addressable assets for 74 entries in 0.01 sec
+2026-01-20T23:15:18.981 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][KhemenetEnding] Success:True | Unlocked: False
+2026-01-20T23:15:18.982 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][MarketWell] Success:True | Unlocked: False
+2026-01-20T23:15:19.578 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][KillShopKeeper] Success:True | Unlocked: False
+2026-01-20T23:15:19.579 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][MergeCrystalsFirst] Success:True | Unlocked: False
+2026-01-20T23:15:19.581 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][MergeCrystalsT3] Success:True | Unlocked: False
+2026-01-20T23:15:19.582 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][NoKillDungeon] Success:True | Unlocked: False
+2026-01-20T23:15:19.583 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][OutpostWatchtowerWell] Success:True | Unlocked: False
+2026-01-20T23:15:19.583 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][PermadeathCompletion] Success:True | Unlocked: False
+2026-01-20T23:15:19.584 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][SanctuaryChandelier] Success:True | Unlocked: False
+2026-01-20T23:15:19.584 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][T3DungeonT0Equipment] Success:True | Unlocked: False
+2026-01-20T23:15:19.585 INFO T.S.<.MoveNext                                  : [Achievements Manager][Oculus][WaterfallLever] Success:True | Unlocked: False
+2026-01-20T23:15:19.585 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : [CompleteAllAchievements] TryUnlockCompletion.
+2026-01-20T23:15:19.586 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Failed to unlock completion achievement. Outputting missing achievements.
+2026-01-20T23:15:19.586 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'AnnihilationEnding' (Unlock logic type: GameCompletionAchievement)
+2026-01-20T23:15:19.587 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'BirdNest' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.587 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'BuyAllSkills' (Unlock logic type: BuyAllSkillsAchievement)
+2026-01-20T23:15:19.588 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'BuyAllSkillsInTree' (Unlock logic type: CompleteSkillTreeAchievement)
+2026-01-20T23:15:19.588 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'BuyAllTier4Weapons' (Unlock logic type: BuyAllT4Weapons)
+2026-01-20T23:15:19.589 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'BuyT4Weapon' (Unlock logic type: BuyT4WeaponAchievement)
+2026-01-20T23:15:19.589 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CitadelPeak' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.590 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CitadelSkyCell' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.590 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CitadelTunnels' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.591 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'ClimbingChasm' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.592 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CollectAllShopLore' (Unlock logic type: CollectShopkeeperLore)
+2026-01-20T23:15:19.592 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CompleteAllAchievements' (Unlock logic type: CompleteAllAchievements)
+2026-01-20T23:15:19.593 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CompleteDalgarian' (Unlock logic type: CompleteDalgarianAchievement)
+2026-01-20T23:15:19.593 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CompleteSurvivalWaves10' (Unlock logic type: SurvivalWaveAchievement)
+2026-01-20T23:15:19.594 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'CompleteSurvivalWaves50' (Unlock logic type: SurvivalWaveAchievement)
+2026-01-20T23:15:19.594 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'DrainageLever' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.595 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'EatPoo' (Unlock logic type: EatPooAchievement)
+2026-01-20T23:15:19.595 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FindBaguetteSword' (Unlock logic type: FindBaguetteSword)
+2026-01-20T23:15:19.596 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FindBaronHat' (Unlock logic type: FindBaronHatAchievement)
+2026-01-20T23:15:19.596 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FindCarl' (Unlock logic type: FindCarlAchievement)
+2026-01-20T23:15:19.597 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FindCupbending' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.597 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FindFalchion' (Unlock logic type: FindFalchionAchievement)
+2026-01-20T23:15:19.598 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FindPoo' (Unlock logic type: FindPooAchievement)
+2026-01-20T23:15:19.598 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'FullTier3Apparel' (Unlock logic type: FullT3Apparel)
+2026-01-20T23:15:19.599 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'KhemenetEnding' (Unlock logic type: GameCompletionAchievement)
+2026-01-20T23:15:19.599 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'KillShopKeeper' (Unlock logic type: KillShopKeeperAchievement)
+2026-01-20T23:15:19.600 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'MarketWell' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.600 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'MergeCrystalsFirst' (Unlock logic type: MergeCrystalAchievement)
+2026-01-20T23:15:19.601 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'MergeCrystalsT3' (Unlock logic type: MergeCrystalT3Achievement)
+2026-01-20T23:15:19.601 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'NoKillDungeon' (Unlock logic type: NoKillDungeonAchievement)
+2026-01-20T23:15:19.602 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'OutpostWatchtowerWell' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.602 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'PermadeathCompletion' (Unlock logic type: GameCompletionAchievement)
+2026-01-20T23:15:19.603 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'SanctuaryChandelier' (Unlock logic type: DarkMessiahAchievement)
+2026-01-20T23:15:19.603 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'T3DungeonT0Equipment' (Unlock logic type: T3DungeonT0EquipmentAchievement)
+2026-01-20T23:15:19.604 INFO T.A.A.<LoadAchievementsCoroutine>d__10.MoveNext : Missing 'WaterfallLever' (Unlock logic type: AchievementTool activated (zone or event linker))
+2026-01-20T23:15:19.661 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Item loaded addressable assets for 491 entries in 0.69 sec
+2026-01-20T23:15:19.675 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Brain loaded addressable assets for 13 entries in 0.01 sec
+2026-01-20T23:15:23.410 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Effect loaded addressable assets for 280 entries in 3.73 sec
+2026-01-20T23:15:23.424 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Material loaded addressable assets for 18 entries in 0.01 sec
+2026-01-20T23:15:23.438 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Interactable loaded addressable assets for 68 entries in 0.01 sec
+2026-01-20T23:15:23.452 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Damager loaded addressable assets for 40 entries in 0.01 sec
+2026-01-20T23:15:23.466 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] HandPose loaded addressable assets for 50 entries in 0.01 sec
+2026-01-20T23:15:23.480 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Expression loaded addressable assets for 5 entries in 0.01 sec
+2026-01-20T23:15:23.494 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Level loaded addressable assets for 16 entries in 0.01 sec
+2026-01-20T23:15:23.508 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Menu loaded addressable assets for 4 entries in 0.01 sec
+2026-01-20T23:15:23.522 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] ColliderGroup loaded addressable assets for 19 entries in 0.01 sec
+2026-01-20T23:15:23.536 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] DamageModifier loaded addressable assets for 22 entries in 0.01 sec
+2026-01-20T23:15:23.551 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Skill loaded addressable assets for 96 entries in 0.01 sec
+2026-01-20T23:15:23.564 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] BehaviorTree loaded addressable assets for 28 entries in 0.01 sec
+2026-01-20T23:15:23.578 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EffectGroup loaded addressable assets for 22 entries in 0.01 sec
+2026-01-20T23:15:23.591 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Liquid loaded addressable assets for 1 entries in 0.01 sec
+2026-01-20T23:15:23.606 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] MusicGroup loaded addressable assets for 34 entries in 0.01 sec
+2026-01-20T23:15:23.620 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Music loaded addressable assets for 8 entries in 0.01 sec
+2026-01-20T23:15:23.957 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Animation loaded addressable assets for 30 entries in 0.34 sec
+2026-01-20T23:15:25.412 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Voice loaded addressable assets for 18 entries in 1.45 sec
+2026-01-20T23:15:25.426 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaConnectionType loaded addressable assets for 7 entries in 0.01 sec
+2026-01-20T23:15:25.440 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Area loaded addressable assets for 103 entries in 0.01 sec
+2026-01-20T23:15:25.453 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaTable loaded addressable assets for 25 entries in 0.01 sec
+2026-01-20T23:15:25.467 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaCollection loaded addressable assets for 19 entries in 0.01 sec
+2026-01-20T23:15:25.481 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Shop loaded addressable assets for 1 entries in 0.01 sec
+2026-01-20T23:15:25.495 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Custom loaded addressable assets for 0 entries in 0.01 sec
+2026-01-20T23:15:25.620 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Keyboard loaded addressable assets for 2 entries in 0.12 sec
+2026-01-20T23:15:25.634 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] GameMode loaded addressable assets for 2 entries in 0.01 sec
+2026-01-20T23:15:25.647 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Status loaded addressable assets for 8 entries in 0.01 sec
+2026-01-20T23:15:25.910 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Stance loaded addressable assets for 3 entries in 0.26 sec
+2026-01-20T23:15:25.932 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EntityModule loaded addressable assets for 0 entries in 0.02 sec
+2026-01-20T23:15:25.951 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] SkillTree loaded addressable assets for 6 entries in 0.02 sec
+2026-01-20T23:15:25.967 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EnemyConfig loaded addressable assets for 9 entries in 0.02 sec
+2026-01-20T23:15:25.984 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] LootConfig loaded addressable assets for 7 entries in 0.02 sec
+2026-01-20T23:15:25.985 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Loaded Addressable Assets for 830 entries in 7.57 sec
+2026-01-20T23:15:25.986 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Loaded LoadAddressableAssetsCoroutine in: 7.57 sec
+2026-01-20T23:15:26.001 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Load level MainMenu
+Modules:
+
+2026-01-20T23:15:26.476 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Tonemapping: set defaults
+2026-01-20T23:15:26.529 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [MusicManager] Music MusicMainMenu loaded !
+2026-01-20T23:15:27.678 INFO UnityEngine.Events.InvokableCall`1.Invoke       : [MusicManager] Start transition from type :  to type : MainMenuIntro
+2026-01-20T23:15:27.685 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Level MainMenu OnLevelLoadCoroutine in: 1.21 sec
+2026-01-20T23:15:27.685 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Level MainMenu loaded in: 1.68 sec
+2026-01-20T23:15:27.686 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Total time to load MainMenu: 9.28 sec
+2026-01-20T23:15:27.699 INFO ThunderRoad.PlayerFoot.Awake                    : SetDefaultPosition
+2026-01-20T23:15:27.701 INFO ThunderRoad.PlayerFoot.Awake                    : SetDefaultPosition
+2026-01-20T23:15:27.705 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ------------> Game loaded in 20.89 sec
+2026-01-20T23:15:30.388 INFO T.ModManager.<LoadCoroutine>d__19.MoveNext      : [ModManager] Loaded mod folder CSM
+2026-01-20T23:15:30.390 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Assembly] Loading Metadata Assemblies
+2026-01-20T23:15:30.394 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Assembly] Loaded 0 of Metadata Assemblies
+2026-01-20T23:15:30.404 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Assembly] Loading Mod Assemblies
+2026-01-20T23:15:30.406 INFO ThunderRoad.ModManager.LoadAssembly             : [ModManager][Assembly][CSM] Loading Assembly: CSM/CSM.dll
+2026-01-20T23:15:30.408 INFO ThunderRoad.ModManager.LoadAssembly             : [ModManager][Assembly][CSM] Loaded Assembly: CSM/CSM.dll
+2026-01-20T23:15:30.423 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Assembly] Loaded Mod Assemblies
+2026-01-20T23:15:30.424 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Addressable] Loading Mod Addressables
+2026-01-20T23:15:30.452 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Addressable] Loaded Mod Addressables
+2026-01-20T23:15:30.452 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Catalog] Loading Mod Catalogs
+2026-01-20T23:15:30.466 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][Catalog] Loaded Mod Catalogs
+2026-01-20T23:15:30.467 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][AddressableAsset] Loading Mod Addressable Assets
+2026-01-20T23:15:30.484 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][AddressableAsset] Loaded Mod Addressable Assets
+2026-01-20T23:15:30.485 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][ModOption] Loading Mod Options
+2026-01-20T23:15:30.488 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][ModOption][CSM] Loaded 36 ModOptions
+2026-01-20T23:15:30.497 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][ModOption] Loaded Mod Options
+2026-01-20T23:15:30.498 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][ThunderScript] Loading Mod ThunderScripts
+2026-01-20T23:15:30.500 INFO ThunderRoad.ThunderScript.Enable                : [CSM] === CSM v1.2.1 (Nomad) ===
+2026-01-20T23:15:30.502 INFO ThunderRoad.ThunderScript.Enable                : [CSM] Manager initialized
+2026-01-20T23:15:30.503 INFO ThunderRoad.ThunderScript.Enable                : [CSM] Subscribing event hooks (Nomad mode)...
+2026-01-20T23:15:30.503 INFO ThunderRoad.ThunderScript.Enable                : [CSM] Subscribing to EventManager events...
+2026-01-20T23:15:30.504 INFO ThunderRoad.ThunderScript.Enable                : [CSM] Event hooks subscribed successfully
+2026-01-20T23:15:30.505 INFO ThunderRoad.ThunderScript.Enable                : [CSM] ScriptEnable complete - CSM is active!
+2026-01-20T23:15:30.506 INFO T.M.<LoadModThunderScripts>d__27.MoveNext       : [ModManager][ThunderScript][CSM] Loaded ThunderScript: CSM.Core.CSMModule on mod: CSM - Conditional Slow Motion in assembly: CSM, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-01-20T23:15:30.511 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [ModManager][ThunderScript] Loaded Mod ThunderScripts
+2026-01-20T23:15:30.511 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Refresh catalog...
+2026-01-20T23:15:30.538 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Game data refreshed in 0.01 sec
+2026-01-20T23:15:30.553 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Text refreshed 11 entries in 0.01 sec
+2026-01-20T23:15:30.572 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Wave refreshed 108 entries in 0.02 sec
+2026-01-20T23:15:30.594 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Creature refreshed 6 entries in 0.02 sec
+2026-01-20T23:15:30.609 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] CreatureTable refreshed 78 entries in 0.01 sec
+2026-01-20T23:15:30.625 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] LootTable refreshed 202 entries in 0.02 sec
+2026-01-20T23:15:30.639 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Container refreshed 74 entries in 0.01 sec
+2026-01-20T23:15:30.721 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Item refreshed 491 entries in 0.08 sec
+2026-01-20T23:15:30.735 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Brain refreshed 13 entries in 0.01 sec
+2026-01-20T23:15:30.751 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Effect refreshed 280 entries in 0.01 sec
+2026-01-20T23:15:30.764 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Material refreshed 18 entries in 0.01 sec
+2026-01-20T23:15:30.790 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Interactable refreshed 68 entries in 0.02 sec
+2026-01-20T23:15:30.805 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Damager refreshed 40 entries in 0.01 sec
+2026-01-20T23:15:30.819 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] HandPose refreshed 50 entries in 0.01 sec
+2026-01-20T23:15:30.833 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Expression refreshed 5 entries in 0.01 sec
+2026-01-20T23:15:30.946 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Level refreshed 16 entries in 0.11 sec
+2026-01-20T23:15:31.002 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Menu refreshed 4 entries in 0.06 sec
+2026-01-20T23:15:31.016 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] ColliderGroup refreshed 19 entries in 0.01 sec
+2026-01-20T23:15:31.030 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] DamageModifier refreshed 22 entries in 0.01 sec
+2026-01-20T23:15:31.044 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Skill refreshed 96 entries in 0.01 sec
+2026-01-20T23:15:31.057 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] BehaviorTree refreshed 28 entries in 0.01 sec
+2026-01-20T23:15:31.071 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EffectGroup refreshed 22 entries in 0.01 sec
+2026-01-20T23:15:31.085 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Liquid refreshed 1 entries in 0.01 sec
+2026-01-20T23:15:31.099 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] MusicGroup refreshed 34 entries in 0.01 sec
+2026-01-20T23:15:31.112 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Music refreshed 8 entries in 0.01 sec
+2026-01-20T23:15:31.126 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Animation refreshed 30 entries in 0.01 sec
+2026-01-20T23:15:31.140 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Voice refreshed 18 entries in 0.01 sec
+2026-01-20T23:15:31.154 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaConnectionType refreshed 7 entries in 0.01 sec
+2026-01-20T23:15:31.266 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Area refreshed 103 entries in 0.11 sec
+2026-01-20T23:15:31.280 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaTable refreshed 25 entries in 0.01 sec
+2026-01-20T23:15:31.293 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] AreaCollection refreshed 19 entries in 0.01 sec
+2026-01-20T23:15:31.308 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Shop refreshed 1 entries in 0.01 sec
+2026-01-20T23:15:31.321 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Custom refreshed 0 entries in 0.01 sec
+2026-01-20T23:15:31.349 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Keyboard refreshed 2 entries in 0.03 sec
+2026-01-20T23:15:31.377 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] GameMode refreshed 2 entries in 0.03 sec
+2026-01-20T23:15:31.391 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Status refreshed 8 entries in 0.01 sec
+2026-01-20T23:15:31.405 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Stance refreshed 3 entries in 0.01 sec
+2026-01-20T23:15:31.418 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EntityModule refreshed 0 entries in 0.01 sec
+2026-01-20T23:15:31.432 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] SkillTree refreshed 6 entries in 0.01 sec
+2026-01-20T23:15:31.446 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] EnemyConfig refreshed 9 entries in 0.01 sec
+2026-01-20T23:15:31.460 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] LootConfig refreshed 7 entries in 0.01 sec
+2026-01-20T23:15:31.461 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Catalog] Refreshed 651 entries in 0.95 sec
+2026-01-20T23:15:31.461 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Options] Applying mod options
+2026-01-20T23:15:31.499 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [Options] Applied mod options
+2026-01-20T23:15:31.500 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : [ModManager] Reloading localization after mods loaded
+2026-01-20T23:15:31.503 WARN T.LocalizationManager.OnLanguageChanged         : [Localization Manager] Text Data - Duplicated text group: Default
+2026-01-20T23:15:31.506 WARN T.LocalizationManager.OnLanguageChanged         : [Localization Manager] Text Data - Duplicated text group: Default
+2026-01-20T23:15:31.513 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [SaveGame] Load player characters
+2026-01-20T23:15:31.528 INFO T.P.<LoadCharacterSaves>d__33.MoveNext          : Create new player save 6f7b6af8-bfb1-40b8-bb01-3f5dce859c84 on GameMode: Sandbox
+2026-01-20T23:15:31.529 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [SaveGame] Created new save on game mode: Sandbox - 6f7b6af8-bfb1-40b8-bb01-3f5dce859c84
+2026-01-20T23:15:31.530 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [SaveGame] Loaded player 6f7b6af8-bfb1-40b8-bb01-3f5dce859c84
+2026-01-20T23:15:33.464 ERROR ThunderRoad.UIText.Refresh                      : [Localization Manager] Cannot get localized text for a null or empty group Id.
+2026-01-20T23:15:36.114 INFO ThunderRoad.CharacterSelection.SpawnNewCharacter: Create new player save 7868a472-e7aa-42e0-aa1d-c1f53aa070d2 on GameMode: Sandbox
+2026-01-20T23:15:37.207 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Saved player data 7868a472-e7aa-42e0-aa1d-c1f53aa070d2 to file. Playtime: 00:00:01.0567880
+2026-01-20T23:15:39.585 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Saved player data 7868a472-e7aa-42e0-aa1d-c1f53aa070d2 to file. Playtime: 00:00:03.4627470
+2026-01-20T23:15:42.669 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Saved player data 7868a472-e7aa-42e0-aa1d-c1f53aa070d2 to file. Playtime: 00:00:06.5479240
+2026-01-20T23:15:44.897 INFO ThunderRoad.CharacterSelection.Play             : [ThunderRoad.SandboxSaveData] InitialiseSaveData for Sandbox
+2026-01-20T23:15:45.295 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Current level mainmenu unloaded in: 0.40 sec
+2026-01-20T23:15:45.296 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [GameModeManager] Loading game mode: Sandbox
+2026-01-20T23:15:45.302 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [GameModeManager] Loaded game mode: Sandbox
+2026-01-20T23:15:45.303 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Loaded LoadAddressableAssetsCoroutine in: 0.00 sec
+2026-01-20T23:15:45.329 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brains...
+2026-01-20T23:15:45.331 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... Chicken
+2026-01-20T23:15:45.337 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... ChickenStatic
+2026-01-20T23:15:45.341 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanDummy
+2026-01-20T23:15:45.354 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain Chicken
+2026-01-20T23:15:45.355 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanEasy
+2026-01-20T23:15:45.356 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain ChickenStatic
+2026-01-20T23:15:45.364 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanHard
+2026-01-20T23:15:45.376 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanHardHeavy
+2026-01-20T23:15:45.393 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanMedium
+2026-01-20T23:15:45.420 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanMediumHeavy
+2026-01-20T23:15:45.442 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanShortSightTutorial
+2026-01-20T23:15:45.469 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanStatic
+2026-01-20T23:15:45.497 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... HumanVIP
+2026-01-20T23:15:45.506 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanDummy
+2026-01-20T23:15:45.524 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... Player
+2026-01-20T23:15:45.533 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Pooling Brain... ShopkeeperBrain
+2026-01-20T23:15:45.579 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Brain pooling Tasks setup in 0 seconds.
+2026-01-20T23:15:45.580 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : BrainData pool task generation finished in: 0.28 sec
+2026-01-20T23:15:45.592 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... DynamicProjectile
+2026-01-20T23:15:45.595 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... Meteor
+2026-01-20T23:15:45.596 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... Arrow
+2026-01-20T23:15:45.598 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... ArrowOld
+2026-01-20T23:15:45.601 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... ArrowPiercing
+2026-01-20T23:15:45.605 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... ThrowablesDagger
+2026-01-20T23:15:45.608 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... ThrowablesRock
+2026-01-20T23:15:45.609 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling items... ThrowablesRaktaThrowingStar
+2026-01-20T23:15:45.653 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanShortSightTutorial
+2026-01-20T23:15:45.665 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : ItemData pool generation finished in: 0.08 sec
+2026-01-20T23:15:45.697 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling creature prefab - Bas.Creature.HumanFemale x 20
+2026-01-20T23:15:45.700 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Pooling creature prefab - Bas.Creature.HumanMale x 20
+2026-01-20T23:15:45.825 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanStatic
+2026-01-20T23:15:45.960 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanVIP
+2026-01-20T23:15:45.972 WARN T.B.<>c__DisplayClass31_0.<GeneratePools>b__0   : BrainData Player with hash id '-1743160731' specifies no tree to load, skipping loading behaviour tree.
+2026-01-20T23:15:45.974 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain Player
+2026-01-20T23:15:46.023 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain ShopkeeperBrain
+2026-01-20T23:15:46.124 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanHard
+2026-01-20T23:15:46.132 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanEasy
+2026-01-20T23:15:46.134 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanHardHeavy
+2026-01-20T23:15:46.139 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanMedium
+2026-01-20T23:15:46.144 INFO System.Threading.ExecutionContext.RunInternal   : Finished pooling Brain HumanMediumHeavy
+2026-01-20T23:15:46.984 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : CreatureData pool generation finished in: 1.32 sec
+2026-01-20T23:15:47.085 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : VoiceData gameobjects created: 2370
+2026-01-20T23:15:47.087 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : VoiceData pool generation finished in: 0.10 sec
+2026-01-20T23:15:47.223 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleAudio gameobjects created: 1340
+2026-01-20T23:15:47.223 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleAudio pool generation finished in: 0.14 sec
+2026-01-20T23:15:47.278 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleVfx pool generation finished in: 0.05 sec
+2026-01-20T23:15:47.323 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleDecal pool generation finished in: 0.04 sec
+2026-01-20T23:15:47.482 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleParticle pool generation finished in: 0.16 sec
+2026-01-20T23:15:47.536 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleShader pool generation finished in: 0.05 sec
+2026-01-20T23:15:47.592 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleReveal pool generation finished in: 0.05 sec
+2026-01-20T23:15:47.712 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleMesh pool generation finished in: 0.12 sec
+2026-01-20T23:15:47.767 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : EffectModuleLight pool generation finished in: 0.05 sec
+2026-01-20T23:15:47.800 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Complete pool generation finished in: 2.50 sec
+2026-01-20T23:15:47.815 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load level Home using mode Sandbox
+Modules:
+Module: LevelModuleCleaner
+Module: LevelModuleMusic
+
+2026-01-20T23:15:49.384 INFO T.PlayablePlatformBinder.BindDependingOnPlatform: Tower_Anim_Android
+2026-01-20T23:15:49.384 INFO T.PlayablePlatformBinder.BindDependingOnPlatform: Tower_Anim_PC
+2026-01-20T23:15:49.385 INFO T.PlayablePlatformBinder.BindDependingOnPlatform: Tower_Anim_Activation
+2026-01-20T23:15:49.429 WARN Unity: BakeLODGroup - Can't apply lightmap to a targetMeshRenderer because it's null on /MESHES/_EXTERIOR/TORN ROCKY COAST/PROPS/Boats/DistantBoat_Broken_01_Animated/Mesh
+2026-01-20T23:15:49.454 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Tonemapping: set defaults
+2026-01-20T23:15:49.554 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Unknown
+2026-01-20T23:15:50.688 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [MusicManager] Music MusicDalgarian loaded !
+2026-01-20T23:15:51.038 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Spawning player at: /Level/StartHome. default
+2026-01-20T23:15:51.044 INFO ThunderRoad.PlayerFoot.Awake                    : SetDefaultPosition
+2026-01-20T23:15:51.045 INFO ThunderRoad.PlayerFoot.Awake                    : SetDefaultPosition
+2026-01-20T23:15:51.106 INFO ThunderRoad.Creature.Load                       : Loaded player skills:
+ - BoostJump
+ - StaticDisarm
+ - CombatFocus
+ - Telespin
+ - Telethrow
+ - Arcwire
+ - InfernoStaff
+ - GravityHammer
+ - Ignition
+ - MassReduction
+2026-01-20T23:15:51.107 WARN ThunderRoad.Brain.Load                          : BrainData: [ Player ] pool is empty.
+2026-01-20T23:15:51.112 INFO T.PlayerSpawner.<SpawnCoroutine>d__20.MoveNext  : Player take possession of : HumanMale_Android(Clone)
+2026-01-20T23:15:51.119 INFO ThunderRoad.Player.SetCreature                  : SetCreature
+2026-01-20T23:15:51.120 INFO ThunderRoad.Player.SetCreature                  : SetCreature
+2026-01-20T23:15:51.121 INFO ThunderRoad.EventManager.InvokePossession       : Subscribing to SandboxDefault
+2026-01-20T23:15:52.336 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Level Home OnLevelLoadCoroutine in: 2.88 sec
+2026-01-20T23:15:52.337 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Level Home loaded in: 4.52 sec
+2026-01-20T23:15:52.337 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Total time to load Home: 7.44 sec
+2026-01-20T23:15:52.348 INFO ThunderRoad.Container.LoadFromContainerId       : Spawning persistent items from container HomePersistenceContainer. Max items: 30
+[1] AxeLongOldLumber
+[2] Stool2
+[3] WoodLog7
+
+2026-01-20T23:15:52.378 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Daggers
+2026-01-20T23:17:36.672 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Greatswords
+2026-01-20T23:17:48.545 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Swords
+2026-01-20T23:18:08.641 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Axes
+2026-01-20T23:18:43.882 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale0
+2026-01-20T23:18:43.884 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:18:43.885 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:18:43.886 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:18:43.887 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:18:43.888 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:18:51.828 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale1
+2026-01-20T23:18:51.830 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:18:51.831 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:18:51.832 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:18:51.833 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.2 duration=1.5
+2026-01-20T23:18:51.834 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:18:51.835 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:18:51.836 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:18:51.837 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:18:51.845 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:18:51.847 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:18:51.848 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] SlowMo START: Decapitation at 10% for 5.0s
+2026-01-20T23:18:51.849 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] DECAPITATION!
+2026-01-20T23:18:51.852 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:18:51.853 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:18:51.854 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Global cooldown
+2026-01-20T23:18:51.882 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android
+2026-01-20T23:18:56.832 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Decapitation
+2026-01-20T23:18:57.320 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:18:57.322 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:18:57.323 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:11.206 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale2
+2026-01-20T23:19:11.207 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:19:11.208 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:19:11.209 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:19:11.210 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:19:11.210 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:19:11.898 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android
+2026-01-20T23:19:20.694 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale3
+2026-01-20T23:19:20.696 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:19:20.697 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:19:20.697 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:19:20.698 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:19:20.699 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:19:29.364 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale4
+2026-01-20T23:19:29.366 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:19:29.367 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:19:29.368 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:19:29.369 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:19:29.370 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:19:29.402 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android
+2026-01-20T23:19:30.300 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:30.302 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:30.302 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] SlowMo START: Decapitation at 10% for 5.0s
+2026-01-20T23:19:30.303 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] DECAPITATION!
+2026-01-20T23:19:35.303 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Decapitation
+2026-01-20T23:19:39.477 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale5
+2026-01-20T23:19:39.479 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:19:39.480 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=True
+2026-01-20T23:19:39.481 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Decapitation detected
+2026-01-20T23:19:39.482 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:39.483 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:39.484 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:19:39.485 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.2 duration=1.5
+2026-01-20T23:19:39.486 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:19:39.487 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Dismemberment detected
+2026-01-20T23:19:39.488 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:19:39.489 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:19:39.490 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:19:39.491 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:19:39.492 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:19:39.496 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:39.497 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:39.498 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:39.536 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android
+2026-01-20T23:19:40.408 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:40.409 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:40.410 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] SlowMo START: Decapitation at 10% for 5.0s
+2026-01-20T23:19:40.411 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] DECAPITATION!
+2026-01-20T23:19:40.413 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:40.414 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:40.415 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Global cooldown
+2026-01-20T23:19:45.412 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Decapitation
+2026-01-20T23:19:49.193 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale6
+2026-01-20T23:19:49.194 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:19:49.195 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=True
+2026-01-20T23:19:49.196 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Decapitation detected
+2026-01-20T23:19:49.197 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:49.198 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:49.199 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:19:49.200 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.2 duration=1.5
+2026-01-20T23:19:49.201 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:19:49.202 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Dismemberment detected
+2026-01-20T23:19:49.203 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:19:49.204 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:19:49.205 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:19:49.206 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:19:49.207 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:19:49.210 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:49.212 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:49.213 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:49.237 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:19:49.977 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:49.978 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:49.979 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:49.993 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:49.995 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:49.996 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:49.997 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:19:49.999 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:19:50.000 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger cooldown
+2026-01-20T23:19:58.858 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale7
+2026-01-20T23:19:58.859 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:19:58.860 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:19:58.861 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:19:58.862 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.2 duration=1.5
+2026-01-20T23:19:58.863 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:19:58.864 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:19:58.865 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:19:58.866 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:20:23.819 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale8
+2026-01-20T23:20:23.820 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:20:23.821 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=True
+2026-01-20T23:20:23.822 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Decapitation detected
+2026-01-20T23:20:23.823 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:20:23.824 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:20:23.825 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:20:23.826 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.5 duration=1.5
+2026-01-20T23:20:23.827 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 50% for 1.5s
+2026-01-20T23:20:23.828 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:20:23.855 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:20:25.310 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:20:38.238 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale9
+2026-01-20T23:20:38.240 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:20:38.240 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:20:38.241 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:20:38.242 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:20:38.243 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:21:07.316 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:21:08.317 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : MusicDalgarianFight
+2026-01-20T23:21:10.513 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale10
+2026-01-20T23:21:10.514 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:21:10.515 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: RightArm isHeadOrNeck=False isSliced=False
+2026-01-20T23:21:10.515 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:21:10.516 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=0.2 timeScale=0.3 duration=1
+2026-01-20T23:21:10.517 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:21:11.338 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianFight to type : 
+2026-01-20T23:21:16.092 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale11
+2026-01-20T23:21:16.094 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:21:16.095 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:21:16.096 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:21:16.096 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:21:16.097 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 10% for 2.5s
+2026-01-20T23:21:16.098 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:21:18.592 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:21:25.701 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:21:27.857 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale12
+2026-01-20T23:21:27.859 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:21:27.860 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:21:27.860 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:21:27.861 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:21:27.862 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 10% for 2.5s
+2026-01-20T23:21:27.863 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:21:30.357 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:21:30.995 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:22:10.638 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale13
+2026-01-20T23:22:10.639 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:10.640 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:22:10.641 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:10.642 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:10.642 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (81% vs 30%)
+2026-01-20T23:22:17.051 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale14
+2026-01-20T23:22:17.052 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:17.053 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:22:17.054 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:17.054 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:17.055 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 1.0s
+2026-01-20T23:22:17.056 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:22:18.043 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:22:26.196 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale15
+2026-01-20T23:22:26.198 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:26.199 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: LeftArm isHeadOrNeck=False isSliced=False
+2026-01-20T23:22:26.200 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:26.201 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:26.202 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 1.0s
+2026-01-20T23:22:26.203 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:22:26.236 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android(Clone)
+2026-01-20T23:22:26.237 ERROR R.MeshDismemberment.Dismemberment.CompleteRip   : Dismemberment issue : Renderer HumanMale_Civilian_Hand_Left_LOD1 bind poses = System.Collections.Generic.List`1[UnityEngine.Matrix4x4] and bone Mask = Unity.Collections.NativeArray`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] are not the same size
+2026-01-20T23:22:26.238 ERROR R.MeshDismemberment.Dismemberment.CompleteRip   : Dismemberment issue : Renderer HumanMale_Civilian_Hand_Left_LOD2 bind poses = System.Collections.Generic.List`1[UnityEngine.Matrix4x4] and bone Mask = Unity.Collections.NativeArray`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] are not the same size
+2026-01-20T23:22:26.270 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal dismemberment detected
+2026-01-20T23:22:26.271 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:22:26.272 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:22:27.180 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:22:27.793 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal dismemberment detected
+2026-01-20T23:22:27.795 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:22:27.796 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:22:34.792 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:22:35.559 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale16
+2026-01-20T23:22:35.560 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:35.561 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:22:35.562 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:22:35.563 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:22:35.564 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:22:35.564 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:35.565 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:35.566 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (68% vs 30%)
+2026-01-20T23:22:35.813 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:22:39.843 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Ignore transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:22:41.034 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale17
+2026-01-20T23:22:41.036 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:41.037 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=True
+2026-01-20T23:22:41.038 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Decapitation detected
+2026-01-20T23:22:41.039 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:22:41.040 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:22:41.041 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:22:41.042 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:22:41.043 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:22:41.044 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Dismemberment detected
+2026-01-20T23:22:41.045 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:22:41.046 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:22:41.047 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:41.048 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:41.049 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (50% vs 30%)
+2026-01-20T23:22:41.075 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:22:41.872 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:22:45.897 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:22:47.278 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale18
+2026-01-20T23:22:47.279 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:47.280 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:22:47.281 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:22:47.282 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:22:47.282 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:22:47.283 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:47.284 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:47.285 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (84% vs 30%)
+2026-01-20T23:22:51.470 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale19
+2026-01-20T23:22:51.471 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:51.472 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:22:51.473 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:22:51.474 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:22:51.475 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:22:51.475 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:51.476 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:51.477 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (73% vs 30%)
+2026-01-20T23:22:57.111 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale20
+2026-01-20T23:22:57.112 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:22:57.113 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:22:57.114 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:22:57.114 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:22:57.115 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:22:57.116 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:22:57.117 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:22:57.118 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (94% vs 30%)
+2026-01-20T23:22:58.039 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:02.130 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale21
+2026-01-20T23:23:02.132 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:02.133 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:23:02.134 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:02.135 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:23:02.136 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (59% vs 30%)
+2026-01-20T23:23:02.160 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android
+2026-01-20T23:23:03.077 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:23:03.079 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:23:03.080 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:23:03.083 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:23:03.084 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:23:03.085 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:23:06.106 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:23:07.466 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale22
+2026-01-20T23:23:07.467 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:07.468 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:23:07.469 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:07.470 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:23:07.471 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (80% vs 30%)
+2026-01-20T23:23:11.408 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale23
+2026-01-20T23:23:11.409 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:11.410 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:23:11.411 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:23:11.412 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:23:11.412 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:23:11.413 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:11.414 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:23:11.415 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (65% vs 30%)
+2026-01-20T23:23:12.194 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:14.217 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Ignore transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:16.004 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale24
+2026-01-20T23:23:16.006 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:16.007 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:23:16.008 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:16.009 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.3 timeScale=0.3 duration=1
+2026-01-20T23:23:16.009 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 1.0s
+2026-01-20T23:23:16.010 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:23:16.799 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:16.994 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:23:34.742 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale25
+2026-01-20T23:23:34.744 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:34.745 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:23:34.746 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:23:34.746 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:23:34.747 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:23:34.748 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:34.749 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.1 timeScale=0.3 duration=1
+2026-01-20T23:23:34.750 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (70% vs 10%)
+2026-01-20T23:23:38.099 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:23:38.935 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale26
+2026-01-20T23:23:38.937 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:38.938 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: LeftArm isHeadOrNeck=False isSliced=False
+2026-01-20T23:23:38.939 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:38.940 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.1 timeScale=0.3 duration=1
+2026-01-20T23:23:38.941 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (20% vs 10%)
+2026-01-20T23:23:38.972 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:23:39.124 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:42.153 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Ignore transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:43.843 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale27
+2026-01-20T23:23:43.844 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:43.845 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:23:43.846 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:43.847 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.1 timeScale=0.3 duration=1
+2026-01-20T23:23:43.848 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (91% vs 10%)
+2026-01-20T23:23:44.171 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:48.198 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Ignore transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:23:48.850 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale28
+2026-01-20T23:23:48.852 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:23:48.852 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:23:48.853 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:23:48.854 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=0.1 timeScale=0.3 duration=1
+2026-01-20T23:23:48.855 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Chance roll failed (72% vs 10%)
+2026-01-20T23:23:49.212 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:24:13.418 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:24:14.133 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale29
+2026-01-20T23:24:14.134 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:24:14.135 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:24:14.136 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:24:14.136 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:14.137 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:24:14.138 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:24:16.629 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:24:16.684 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:24:21.722 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:24:23.068 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale30
+2026-01-20T23:24:23.070 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:24:23.071 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=True
+2026-01-20T23:24:23.072 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Decapitation detected
+2026-01-20T23:24:23.073 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:24:23.074 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:24:23.074 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:24:23.076 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:23.077 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:24:23.078 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Dismemberment detected
+2026-01-20T23:24:23.079 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:24:23.080 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:24:23.081 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:24:23.082 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:23.083 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:24:23.084 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:24:23.109 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:24:25.572 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:24:26.280 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:24:26.281 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:24:26.282 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:24:29.040 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:24:31.042 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Ignore transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:24:32.961 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale31
+2026-01-20T23:24:32.962 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:24:32.963 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:24:32.964 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:24:32.965 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:32.965 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:24:32.966 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:24:33.928 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:24:35.455 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:24:38.327 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:24:39.635 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale32
+2026-01-20T23:24:39.636 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:24:39.637 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:24:39.638 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:24:39.639 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:39.640 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:24:39.640 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:24:42.126 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:24:45.656 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:24:52.498 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale33
+2026-01-20T23:24:52.499 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:24:52.500 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:24:52.501 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:24:52.502 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:52.503 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:24:52.503 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:24:52.504 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:24:52.505 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:24:52.506 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:24:54.704 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:24:54.995 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:25:04.023 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:25:06.401 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale34
+2026-01-20T23:25:06.403 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:25:06.404 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:25:06.405 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:25:06.406 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:06.406 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:25:06.407 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:25:06.408 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:06.409 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:25:06.410 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:25:08.900 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:25:09.302 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:25:14.352 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:25:22.478 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale38
+2026-01-20T23:25:22.480 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Wave tracking: max enemies = 4
+2026-01-20T23:25:22.481 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:25:22.481 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:25:22.482 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:22.483 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:25:22.484 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:25:22.485 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:22.486 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:25:22.486 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:25:24.964 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:25:31.603 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale37
+2026-01-20T23:25:31.604 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: RightArm isHeadOrNeck=False isSliced=False
+2026-01-20T23:25:31.605 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:25:31.606 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:31.607 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:25:31.608 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:25:31.662 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:25:32.630 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : MusicDalgarianFight
+2026-01-20T23:25:33.334 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal dismemberment detected
+2026-01-20T23:25:33.335 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:25:33.336 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:25:33.348 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal dismemberment detected
+2026-01-20T23:25:33.349 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): enabled=False chance=0.75 timeScale=0.2 duration=1.5
+2026-01-20T23:25:33.351 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Dismemberment): BLOCKED - Trigger disabled
+2026-01-20T23:25:34.086 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:25:37.251 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale36
+2026-01-20T23:25:37.252 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:25:37.253 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:25:37.254 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:37.255 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:25:37.256 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:25:37.257 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:37.258 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:25:37.259 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:25:39.754 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:25:42.234 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale35
+2026-01-20T23:25:42.235 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:25:42.236 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:25:42.237 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:25:42.238 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:42.239 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:25:42.240 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:25:42.250 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianFight to type : 
+2026-01-20T23:25:42.279 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android
+2026-01-20T23:25:44.727 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:25:45.627 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:25:45.629 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:25:45.630 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:25:51.551 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:25:55.508 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale42
+2026-01-20T23:25:55.510 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Wave tracking: max enemies = 4
+2026-01-20T23:25:55.511 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:25:55.512 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:25:55.513 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:55.514 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:25:55.515 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:25:55.516 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:25:55.517 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:25:55.518 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:25:57.987 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:26:03.015 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale41
+2026-01-20T23:26:03.016 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:26:03.017 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:26:03.018 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:03.019 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:26:03.020 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:26:03.021 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:03.021 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:26:03.022 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:26:05.516 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:26:07.446 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale39
+2026-01-20T23:26:07.448 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:26:07.448 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:26:07.449 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:07.450 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:26:07.451 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:26:07.452 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:07.453 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:26:07.453 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:26:09.942 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:26:12.195 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale40
+2026-01-20T23:26:12.196 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:26:12.197 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:26:12.198 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:26:12.199 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:12.200 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:26:12.200 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:26:12.201 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:12.202 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:26:12.203 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:26:14.679 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:26:14.692 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:26:20.384 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanFemale_Vfx_Android(Clone)
+2026-01-20T23:26:20.405 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:26:20.406 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:26:20.407 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:26:23.776 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:26:25.348 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale43
+2026-01-20T23:26:25.349 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:26:25.350 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:26:25.351 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:26:25.352 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:25.353 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:26:25.354 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:26:25.354 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:25.355 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:26:25.356 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:26:27.845 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:26:28.039 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:26:35.285 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:26:35.286 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:26:35.287 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:26:35.322 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android(Clone)
+2026-01-20T23:26:35.428 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:26:35.429 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:26:35.430 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:26:39.095 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:26:40.085 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale44
+2026-01-20T23:26:40.087 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:26:40.088 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:26:40.089 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:26:40.089 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:40.090 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:26:40.091 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:26:40.092 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:40.092 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:26:40.093 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:26:40.246 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:26:42.583 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:26:47.398 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:26:48.593 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale45
+2026-01-20T23:26:48.594 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:26:48.596 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:26:48.596 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:26:48.597 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:26:48.598 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:26:48.599 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:26:51.096 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:27:03.440 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale46
+2026-01-20T23:27:03.441 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:27:03.442 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:27:03.443 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:27:03.444 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:27:03.445 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:27:03.446 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:27:05.926 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:27:05.979 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:27:20.117 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale47
+2026-01-20T23:27:20.119 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:27:20.120 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:27:20.121 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:27:20.122 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:27:20.123 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:27:20.124 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:27:20.125 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:27:20.126 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:27:20.127 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:27:22.606 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:27:27.382 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:27:29.701 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale48
+2026-01-20T23:27:29.703 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:27:29.704 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:27:29.705 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:27:29.706 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:27:29.707 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:27:29.708 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:27:29.709 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:27:29.710 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 10% for 2.5s
+2026-01-20T23:27:29.711 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:27:32.190 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:27:32.676 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:27:35.713 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:27:49.722 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale49
+2026-01-20T23:27:49.723 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:27:49.724 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:27:49.725 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:27:49.726 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:27:49.728 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:27:49.729 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:27:49.730 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.2 duration=5
+2026-01-20T23:27:49.731 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 20% for 5.0s
+2026-01-20T23:27:49.732 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:27:50.282 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:27:54.711 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:27:57.864 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:28:00.251 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale50
+2026-01-20T23:28:00.253 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:28:00.254 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:28:00.255 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:28:00.256 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:28:00.257 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:28:00.258 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:28:00.259 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.2 duration=5
+2026-01-20T23:28:00.260 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 20% for 5.0s
+2026-01-20T23:28:00.261 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:28:03.465 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:28:05.231 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:28:08.904 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:28:11.273 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale51
+2026-01-20T23:28:11.275 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:28:11.276 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:28:11.277 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:28:11.278 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:28:11.279 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:28:11.280 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:28:11.281 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.2 duration=5
+2026-01-20T23:28:11.282 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 20% for 5.0s
+2026-01-20T23:28:11.283 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:28:16.264 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:28:34.830 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale52
+2026-01-20T23:28:34.832 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:28:34.833 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:28:34.834 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:28:34.835 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:28:34.836 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:28:34.837 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:28:34.838 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:28:34.839 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:28:34.840 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:28:35.719 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:28:39.820 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:28:44.619 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:28:49.226 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale53
+2026-01-20T23:28:49.227 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:28:49.228 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:28:49.229 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:28:49.230 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:28:49.231 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:28:49.232 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:28:49.233 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:28:49.234 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:28:49.235 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:28:50.676 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:28:54.210 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:28:57.185 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:29:01.354 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale54
+2026-01-20T23:29:01.356 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:29:01.357 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:29:01.358 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:29:01.359 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:29:01.360 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:29:01.361 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:29:01.362 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:29:01.363 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:29:01.364 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:29:04.275 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:29:06.345 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:29:09.768 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:29:12.671 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale55
+2026-01-20T23:29:12.673 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:29:12.674 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:29:12.675 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:29:12.676 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:29:12.677 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:29:12.678 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:29:12.679 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:29:12.680 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:29:12.680 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:29:17.657 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:29:21.311 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:29:28.275 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale56
+2026-01-20T23:29:28.277 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:29:28.278 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:29:28.279 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:29:28.280 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:29:28.281 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:29:33.287 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:29:36.915 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:29:50.980 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale57
+2026-01-20T23:29:50.982 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:29:50.983 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:29:50.984 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:29:50.985 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:29:50.986 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:29:50.987 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:29:50.988 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:29:50.990 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:29:50.991 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:29:51.026 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android(Clone)
+2026-01-20T23:29:51.028 ERROR R.MeshDismemberment.Dismemberment.CompleteRip   : Dismemberment issue : Renderer HumanMale_Civilian_Hand_Right_LOD1 bind poses = System.Collections.Generic.List`1[UnityEngine.Matrix4x4] and bone Mask = Unity.Collections.NativeArray`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] are not the same size
+2026-01-20T23:29:51.029 ERROR R.MeshDismemberment.Dismemberment.CompleteRip   : Dismemberment issue : Renderer HumanMale_Civilian_Hand_Right_LOD2 bind poses = System.Collections.Generic.List`1[UnityEngine.Matrix4x4] and bone Mask = Unity.Collections.NativeArray`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] are not the same size
+2026-01-20T23:29:51.068 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android(Clone)
+2026-01-20T23:29:51.070 ERROR R.MeshDismemberment.Dismemberment.CompleteRip   : Dismemberment issue : Renderer HumanMale_Civilian_Hand_Left_LOD1 bind poses = System.Collections.Generic.List`1[UnityEngine.Matrix4x4] and bone Mask = Unity.Collections.NativeArray`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] are not the same size
+2026-01-20T23:29:51.071 ERROR R.MeshDismemberment.Dismemberment.CompleteRip   : Dismemberment issue : Renderer HumanMale_Civilian_Hand_Left_LOD2 bind poses = System.Collections.Generic.List`1[UnityEngine.Matrix4x4] and bone Mask = Unity.Collections.NativeArray`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] are not the same size
+2026-01-20T23:29:51.087 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:29:55.981 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:30:05.292 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale58
+2026-01-20T23:30:05.294 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:30:05.294 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:30:05.295 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:30:05.296 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:30:05.297 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:30:05.298 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:30:05.299 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:30:05.300 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:30:05.301 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:30:09.654 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:30:10.295 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:30:11.537 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale59
+2026-01-20T23:30:11.538 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Wave tracking: max enemies = 2
+2026-01-20T23:30:11.539 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:30:11.540 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:30:11.541 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:30:11.542 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:30:11.543 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:30:11.544 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:30:11.544 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:30:11.545 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:30:16.529 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:30:17.886 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale60
+2026-01-20T23:30:17.887 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:30:17.888 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:30:17.889 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:30:17.890 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:30:17.891 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:30:17.892 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:30:17.893 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.3 duration=5
+2026-01-20T23:30:17.894 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 30% for 5.0s
+2026-01-20T23:30:17.895 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:30:20.388 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:30:22.874 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:31:23.546 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale61
+2026-01-20T23:31:23.547 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:31:23.548 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:31:23.549 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:31:23.550 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.1 duration=2.5
+2026-01-20T23:31:23.551 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 10% for 2.5s
+2026-01-20T23:31:23.552 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:31:23.754 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:31:23.755 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:31:23.756 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:31:23.789 WARN R.M.Dismemberment.CompleteRenderer              : No MaterialInstance component found on HumanMale_Vfx_Android(Clone)
+2026-01-20T23:31:26.041 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:31:26.587 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Non-lethal decapitation detected
+2026-01-20T23:31:26.589 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:31:26.590 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(Decapitation): BLOCKED - Trigger disabled
+2026-01-20T23:32:02.051 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:32:06.403 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale62
+2026-01-20T23:32:06.405 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:32:06.406 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:32:06.406 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:32:06.407 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.4 duration=0.5
+2026-01-20T23:32:06.408 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 40% for 0.5s
+2026-01-20T23:32:06.409 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:32:06.900 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:32:07.402 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:32:13.442 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:32:16.057 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale63
+2026-01-20T23:32:16.058 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:32:16.059 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:32:16.060 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:32:16.061 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:32:16.061 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 10% for 5.0s
+2026-01-20T23:32:16.062 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:32:20.084 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:32:21.057 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:32:39.002 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale64
+2026-01-20T23:32:39.003 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:32:39.004 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:32:39.005 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:32:39.006 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=True chance=1 timeScale=0.4 duration=5
+2026-01-20T23:32:39.007 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: BasicKill at 40% for 5.0s
+2026-01-20T23:32:39.007 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] KILL
+2026-01-20T23:32:44.002 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: BasicKill
+2026-01-20T23:32:47.148 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:32:53.154 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale65
+2026-01-20T23:32:53.155 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:32:53.156 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:32:53.157 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:32:53.158 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:32:53.159 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 10% for 5.0s
+2026-01-20T23:32:53.160 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:32:53.561 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:32:58.147 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:33:40.070 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type :  to type : MusicDalgarianChase
+2026-01-20T23:33:44.748 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale66
+2026-01-20T23:33:44.749 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:33:44.750 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:33:44.750 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:33:44.751 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:33:44.753 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:33:45.111 INFO T.M.OnPlayerExposureChangeEvent                 : [MusicManager] Start transition from type : MusicDalgarianChase to type : 
+2026-01-20T23:33:52.262 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale67
+2026-01-20T23:33:52.263 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:33:52.264 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:33:52.265 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:33:52.266 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=False chance=1 timeScale=0.1 duration=5
+2026-01-20T23:33:52.267 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Trigger disabled
+2026-01-20T23:33:52.268 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:33:52.268 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:33:52.269 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:34:11.050 INFO ThunderRoad.EventManager.InvokeLevelUnload      : ContainerSaver - Saving...
+2026-01-20T23:34:11.053 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position wpn_AS03_war(Clone) to container PlayerStash
+2026-01-20T23:34:11.054 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position wpn_SS04_bastard(Clone) to container PlayerStash
+2026-01-20T23:34:11.055 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position wpn_SG04_zweihander(Clone) to container PlayerStash
+2026-01-20T23:34:11.056 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position wpn_AS02_small(Clone) to container PlayerStash
+2026-01-20T23:34:11.057 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position WoodLog7(Clone) to container HomePersistence
+2026-01-20T23:34:11.058 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position Stool_Wood(Clone) to container HomePersistence
+2026-01-20T23:34:11.059 INFO ThunderRoad.EventManager.InvokeLevelUnload      : Save current item position wpn_AL00_oldlumberaxe(Clone) to container HomePersistence
+2026-01-20T23:34:11.060 INFO ThunderRoad.Extensions.AsSynchronous            : Update player inventory for save...
+2026-01-20T23:34:11.061 INFO ThunderRoad.Extensions.AsSynchronous            : Save item wpn_DA02_common(Clone) in holster HipsRight
+2026-01-20T23:34:11.065 INFO ThunderRoad.Extensions.AsSynchronous            : Saved player data 7868a472-e7aa-42e0-aa1d-c1f53aa070d2 to file. Playtime: 00:18:32.7124450
+2026-01-20T23:34:11.096 INFO ThunderRoad.Creature.Despawn                    : Player release possession of : HumanMale_Android(Clone)
+2026-01-20T23:34:11.099 INFO ThunderRoad.Player.ReleaseCreature              : ReleaseCreature
+2026-01-20T23:34:11.100 INFO ThunderRoad.Player.ReleaseCreature              : ReleaseCreature
+2026-01-20T23:34:11.102 INFO ThunderRoad.EventManager.InvokeUnpossession     : Unsubscribing from SandboxDefault
+2026-01-20T23:34:11.372 INFO Unity: Item spawner - OnDisable
+2026-01-20T23:34:11.773 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Saved player data 7868a472-e7aa-42e0-aa1d-c1f53aa070d2 to file. Playtime: 00:18:33.0646620
+2026-01-20T23:34:11.774 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Current level home unloaded in: 0.72 sec
+2026-01-20T23:34:11.786 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Loaded LoadAddressableAssetsCoroutine in: 0.00 sec
+2026-01-20T23:34:11.829 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Load level Arena using mode Sandbox
+Modules:
+Module: LevelModuleCleaner
+Module: LevelModuleMusic
+Module: LevelModuleResetSpawners
+
+2026-01-20T23:34:12.281 INFO T.L.<LoadLevelCoroutine>d__16.MoveNext          : Tonemapping: set defaults
+2026-01-20T23:34:12.326 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Unknown
+2026-01-20T23:34:12.843 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : [MusicManager] Music MusicArena loaded !
+2026-01-20T23:34:12.973 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Spawning player at: /LevelDefinition/Start. default
+2026-01-20T23:34:12.980 INFO ThunderRoad.PlayerFoot.Awake                    : SetDefaultPosition
+2026-01-20T23:34:12.982 INFO ThunderRoad.PlayerFoot.Awake                    : SetDefaultPosition
+2026-01-20T23:34:13.034 INFO ThunderRoad.Creature.Load                       : Loaded player skills:
+ - BoostJump
+ - StaticDisarm
+ - CombatFocus
+ - Telespin
+ - Telethrow
+ - Arcwire
+ - InfernoStaff
+ - GravityHammer
+ - Ignition
+ - MassReduction
+2026-01-20T23:34:13.035 WARN ThunderRoad.Brain.Load                          : BrainData: [ Player ] pool is empty.
+2026-01-20T23:34:13.040 INFO T.PlayerSpawner.<SpawnCoroutine>d__20.MoveNext  : Player take possession of : HumanMale_Android(Clone)
+2026-01-20T23:34:13.048 INFO ThunderRoad.Player.SetCreature                  : SetCreature
+2026-01-20T23:34:13.049 INFO ThunderRoad.Player.SetCreature                  : SetCreature
+2026-01-20T23:34:13.050 INFO ThunderRoad.EventManager.InvokePossession       : Subscribing to SandboxDefault
+2026-01-20T23:34:14.263 INFO ThunderRoad.Common.<WrapSafely>d__16.MoveNext   : Level Arena OnLevelLoadCoroutine in: 1.98 sec
+2026-01-20T23:34:14.264 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Level Arena loaded in: 2.44 sec
+2026-01-20T23:34:14.266 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Total time to load Arena: 3.22 sec
+2026-01-20T23:34:14.274 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Daggers
+2026-01-20T23:34:24.134 INFO UnityEngine.SetupCoroutine.InvokeMoveNext       : Refreshing Item Spawner with category: Blunt
+2026-01-20T23:34:35.501 INFO T.M.<.MoveNext                                  : [MusicManager] Start transition from type :  to type : ArenaStartFight
+2026-01-20T23:35:02.136 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale69
+2026-01-20T23:35:02.138 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Wave tracking: max enemies = 3
+2026-01-20T23:35:02.139 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:35:02.140 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:35:02.141 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=3
+2026-01-20T23:35:02.142 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 3.0s
+2026-01-20T23:35:02.143 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:35:05.136 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:35:12.700 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale68
+2026-01-20T23:35:12.701 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:35:12.702 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:35:12.703 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:35:12.704 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:35:24.669 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale72
+2026-01-20T23:35:24.670 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:35:24.672 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:35:24.673 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:35:24.674 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:35:24.675 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:35:26.673 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:35:35.460 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale70
+2026-01-20T23:35:35.462 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:35:35.463 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:35:35.464 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:35:35.465 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:35:35.466 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:35:37.450 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:35:50.874 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale74
+2026-01-20T23:35:50.876 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:35:50.877 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:35:50.878 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:35:50.879 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:35:57.392 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale71
+2026-01-20T23:35:57.393 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:35:57.394 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:35:57.395 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:35:57.396 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:35:57.397 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:35:59.379 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:36:07.342 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale75
+2026-01-20T23:36:07.343 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:36:07.344 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:36:07.345 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:36:07.347 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:36:07.348 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:36:09.349 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:36:14.691 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale76
+2026-01-20T23:36:14.693 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:36:14.694 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:36:14.695 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:36:14.696 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:36:23.394 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale77
+2026-01-20T23:36:23.396 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:36:23.397 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:36:23.397 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:36:23.398 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:36:23.400 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:36:25.387 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:36:34.760 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale73
+2026-01-20T23:36:34.761 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:36:34.762 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:36:34.763 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:36:34.764 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:36:34.764 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:36:36.761 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:36:41.072 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale78
+2026-01-20T23:36:41.073 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:36:41.074 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:36:41.075 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:36:41.076 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:36:41.077 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:36:43.063 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:36:49.032 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale80
+2026-01-20T23:36:49.033 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:36:49.034 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:36:49.035 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:36:49.036 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:36:49.037 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:36:51.021 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:36:55.225 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale81
+2026-01-20T23:36:55.226 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:36:55.227 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:36:55.228 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:36:55.229 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:37:01.367 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale79
+2026-01-20T23:37:01.369 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:37:01.370 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:37:01.370 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:37:01.371 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:37:01.372 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:37:03.358 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:37:08.629 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale82
+2026-01-20T23:37:08.630 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Head isHeadOrNeck=True isSliced=False
+2026-01-20T23:37:08.631 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:37:08.632 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:37:08.633 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:37:08.634 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:37:10.629 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:37:19.135 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale85
+2026-01-20T23:37:19.137 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:37:19.138 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:37:19.139 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:37:19.140 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:37:22.998 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale84
+2026-01-20T23:37:22.999 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:37:23.000 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:37:23.001 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:37:23.002 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:37:26.211 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale86
+2026-01-20T23:37:26.212 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:37:26.213 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:37:26.214 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:37:26.215 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] SlowMo START: Critical at 30% for 2.0s
+2026-01-20T23:37:26.216 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CRITICAL!
+2026-01-20T23:37:28.201 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: Critical
+2026-01-20T23:37:29.741 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] Last Stand triggered! Health: 10%
+2026-01-20T23:37:29.743 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] TriggerSlow(LastStand): enabled=True chance=1 timeScale=0.1 duration=5
+2026-01-20T23:37:29.744 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] SlowMo START: LastStand at 10% for 5.0s
+2026-01-20T23:37:29.745 INFO ThunderRoad.EventManager.InvokeCreatureHit      : [CSM] LAST STAND!
+2026-01-20T23:37:34.149 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanMale83
+2026-01-20T23:37:34.150 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Neck isHeadOrNeck=True isSliced=False
+2026-01-20T23:37:34.151 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Critical kill detected
+2026-01-20T23:37:34.152 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): enabled=True chance=1 timeScale=0.3 duration=2
+2026-01-20T23:37:34.153 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(Critical): BLOCKED - Global cooldown
+2026-01-20T23:37:34.154 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:37:34.155 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:37:34.156 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:37:34.736 INFO T.ThunderScriptManager.ThunderScriptLoop        : [CSM] SlowMo END: LastStand
+2026-01-20T23:37:41.762 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] CreatureKill event: HumanFemale87
+2026-01-20T23:37:41.764 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] IsSmartLastEnemy: alive=0 maxWave=0 minRequired=2 result=False
+2026-01-20T23:37:41.765 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Hit part: Torso isHeadOrNeck=False isSliced=False
+2026-01-20T23:37:41.765 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] Basic kill
+2026-01-20T23:37:41.766 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): enabled=False chance=1 timeScale=0.4 duration=5
+2026-01-20T23:37:41.767 INFO ThunderRoad.EventManager.InvokeCreatureKill     : [CSM] TriggerSlow(BasicKill): BLOCKED - Trigger disabled
+2026-01-20T23:37:43.270 INFO UnityEngine.Events.UnityEvent.Invoke            : [MusicManager] Start transition from type : ArenaStartFight to type : 
