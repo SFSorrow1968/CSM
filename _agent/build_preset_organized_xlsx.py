@@ -256,7 +256,7 @@ base_balanced = {t: intensity_values.get(t, {}).get("Balanced", {}) for t in tri
 
 
 def compute_chance_value(base_chance: float, preset_name: str) -> str:
-    if preset_name in ("Off", "Always"):
+    if preset_name == "Off":
         return "100%"
     mult = chance_presets.get(preset_name, 1.0)
     return format_percent(min(1.0, base_chance * mult))
@@ -437,7 +437,7 @@ def make_sheet(title: str, notes: list[str], blocks: list[tuple[str, list[list[s
     return title, rows, row_types
 
 
-chance_preset_note = "Chance Preset Off disables chance rolls (cooldown only). Always forces 100%."
+chance_preset_note = "Chance Preset Off disables chance rolls (cooldown only)."
 cooldown_preset_note = "Cooldown Preset Off disables per-trigger cooldowns."
 
 # Overview sheet
@@ -470,8 +470,6 @@ for preset in preset_order:
 for preset in chance_order:
     if preset == "Off":
         header = "Chance Preset: Off (Cooldown Only)"
-    elif preset == "Always":
-        header = "Chance Preset: Always (100%)"
     else:
         mult = chance_presets.get(preset, 1.0)
         header = f"Chance Preset: {preset} (Chance x{format_number(mult)})"

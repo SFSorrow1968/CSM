@@ -113,3 +113,16 @@
 - Result: success
 - Notes: Generated MENU_MOCK.xlsx from CSMModOptions menu metadata.
 
+
+- Command: dotnet build CSM.csproj -c Release
+- Result: success
+- Notes: Build succeeded (0 warnings, 0 errors).
+
+- Command: python _agent/build_preset_organized_xlsx.py
+- Result: success
+- Notes: Regenerated PRESET_GUIDE_ORGANIZED.xlsx after chance preset and category updates.
+
+- Command: python _agent/build_menu_mock_xlsx.py
+- Result: success
+- Notes: Regenerated MENU_MOCK.xlsx after category and preset updates.
+

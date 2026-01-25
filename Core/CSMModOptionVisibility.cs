@@ -121,10 +121,10 @@ namespace CSM.Core
         private bool ApplyChancePreset(bool force)
         {
             string presetValue = NormalizePreset(ref CSMModOptions.ChancePresetSetting, "Off");
-            if (presetValue == "Chaos")
+            if (presetValue == "Chaos" || presetValue == "Always")
             {
-                CSMModOptions.ChancePresetSetting = "Always";
-                presetValue = "Always";
+                CSMModOptions.ChancePresetSetting = "Off";
+                presetValue = "Off";
             }
             if (!force && string.Equals(_lastChancePreset, presetValue, StringComparison.Ordinal))
                 return false;

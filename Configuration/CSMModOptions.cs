@@ -42,8 +42,7 @@ namespace CSM.Configuration
             Off = 0,
             Rare = 1,
             Balanced = 2,
-            Frequent = 3,
-            Always = 4
+            Frequent = 3
         }
 
         public enum CooldownPreset
@@ -126,8 +125,7 @@ namespace CSM.Configuration
                 new ModOptionString("Off (Cooldown Only)", "Off"),
                 new ModOptionString("Rare", "Rare"),
                 new ModOptionString("Balanced", "Balanced"),
-                new ModOptionString("Frequent", "Frequent"),
-                new ModOptionString("Always (100%)", "Always")
+                new ModOptionString("Frequent", "Frequent")
             };
         }
 
@@ -446,50 +444,49 @@ namespace CSM.Configuration
 
         #region CSM (Main Settings)
 
-        [ModOption(name = "Enable Mod", category = "CSM", defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
+        [ModOption(name = "Enable Mod", category = "Presets", defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = "Third Person Distribution", category = "CSM", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controls how often third-person killcam appears when Camera Mode is Default.")]
+        [ModOption(name = "Third Person Distribution", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controls how often third-person killcam appears when Camera Mode is Default.")]
         public static string CameraDistribution = "First Person Only";
 
-        [ModOption(name = "Camera Mode", category = "CSM", defaultValueIndex = 0, valueSourceName = "CameraModeProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Default = Third Person Distribution decides. First Person only disables killcam. Third Person only forces third-person killcam when eligible.")]
+        [ModOption(name = "Camera Mode", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "CameraModeProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Default = Third Person Distribution decides. First Person only disables killcam. Third Person only forces third-person killcam when eligible.")]
         public static string CameraMode = "Default";
 
-        [ModOption(name = "Intensity Preset", category = "CSM", defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Balanced = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
+        [ModOption(name = "Intensity Preset", category = "Preset Settings", defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Balanced = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
         public static string CurrentPreset = "Balanced";
 
-        [ModOption(name = "Chance Preset", category = "CSM", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
+        [ModOption(name = "Chance Preset", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = "Cooldown Preset", category = "CSM", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
+        [ModOption(name = "Cooldown Preset", category = "Preset Settings", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Balanced";
 
-        [ModOption(name = "Duration Preset", category = "CSM", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
+        [ModOption(name = "Duration Preset", category = "Preset Settings", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Balanced";
 
-        [ModOption(name = "Smoothness Preset", category = "CSM", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
+        [ModOption(name = "Smoothness Preset", category = "Preset Settings", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
         public static string SmoothnessPresetSetting = "Balanced";
 
-        [ModOption(name = "Trigger Profile", category = "CSM", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
+        [ModOption(name = "Trigger Profile", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
-        [ModOption(name = "Global Cooldown", category = "CSM", defaultValueIndex = 2, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
+        [ModOption(name = "Global Cooldown", category = "Global Overrides", defaultValueIndex = 2, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
         public static float GlobalCooldown = 3f;
 
-        [ModOption(name = "Global Smoothing", category = "CSM", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
+        [ModOption(name = "Global Smoothing", category = "Global Overrides", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
         public static float GlobalSmoothing = -1f;
 
-        [ModOption(name = "Haptic Feedback", category = "CSM", defaultValueIndex = 2, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
+        [ModOption(name = "Haptic Feedback", category = "Global Overrides", defaultValueIndex = 2, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
         public static float HapticIntensity = 0.6f;
 
-        [ModOption(name = "Dynamic Intensity", category = "CSM", defaultValueIndex = 1, tooltip = "Scale intensity based on damage dealt")]
+        [ModOption(name = "Dynamic Intensity", category = "Global Overrides", defaultValueIndex = 1, tooltip = "Scale intensity based on damage dealt")]
         public static bool DynamicIntensity = true;
 
-        [ModOption(name = "Last Stand Threshold", category = "CSM", defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
+        [ModOption(name = "Last Stand Threshold", category = "Trigger Conditions", defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
         public static float LastStandThreshold = 0.15f;
 
-        [ModOption(name = "Last Enemy Min Group", category = "CSM", defaultValueIndex = 1, valueSourceName = "MinEnemyGroupProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum enemies in wave for Last Enemy to trigger")]
-        public static int LastEnemyMinimumGroup = 2;
+        public static int LastEnemyMinimumGroup = 1;
 
         #endregion
 
@@ -754,8 +751,8 @@ namespace CSM.Configuration
                 case "Rare": return ChancePreset.Rare;
                 case "Balanced": return ChancePreset.Balanced;
                 case "Frequent": return ChancePreset.Frequent;
-                case "Always": return ChancePreset.Always;
-                case "Chaos": return ChancePreset.Always;
+                case "Always": return ChancePreset.Off;
+                case "Chaos": return ChancePreset.Off;
                 default: return ChancePreset.Off;
             }
         }
@@ -918,9 +915,6 @@ namespace CSM.Configuration
             switch (preset)
             {
                 case ChancePreset.Off:
-                    chance = 1.0f;
-                    return;
-                case ChancePreset.Always:
                     chance = 1.0f;
                     return;
                 case ChancePreset.Rare:
