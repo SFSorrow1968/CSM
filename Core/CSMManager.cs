@@ -200,14 +200,12 @@ namespace CSM.Core
                 // Log trigger name for visibility
                 Debug.Log("[CSM] " + GetTriggerDisplayName(type));
 
-                // Optional killcam (third-person) if enabled for this trigger or forced by camera mode
-                var cameraMode = CSMModOptions.GetCameraMode();
-                bool forceThirdPerson = cameraMode == CSMModOptions.CameraModePreference.ThirdPersonOnly;
+                // Optional killcam (third-person) if enabled by distribution
                 float distribution = CSMModOptions.GetThirdPersonDistribution(type);
                 bool allowThirdPerson = distribution > 0f;
-                if (CSMModOptions.IsThirdPersonEligible(type) && (allowThirdPerson || forceThirdPerson))
+                if (CSMModOptions.IsThirdPersonEligible(type) && allowThirdPerson)
                 {
-                    CSMKillcam.Instance.TryStartKillcam(type, targetCreature, duration, allowThirdPerson || forceThirdPerson);
+                    CSMKillcam.Instance.TryStartKillcam(type, targetCreature, duration, allowThirdPerson);
                 }
                 
                 return true;
@@ -280,7 +278,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.5f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.35f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -307,7 +305,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.4f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.25f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -334,7 +332,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.45f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.3f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -361,7 +359,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.35f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.2f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -388,7 +386,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.45f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.3f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -415,7 +413,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.35f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.2f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -442,7 +440,7 @@ namespace CSM.Core
                         case CSMModOptions.Preset.Subtle:
                             timeScale = 0.25f;
                             break;
-                        case CSMModOptions.Preset.Balanced:
+                        case CSMModOptions.Preset.Standard:
                             timeScale = 0.15f;
                             break;
                         case CSMModOptions.Preset.Dramatic:
@@ -546,16 +544,17 @@ namespace CSM.Core
 
                 // Dynamic intensity: scale time based on damage dealt
                 float finalTimeScale = timeScale;
-                if (damageDealt > 0f && CSMModOptions.DynamicIntensity)
+                var dynamicPreset = CSMModOptions.GetDynamicIntensityPreset();
+                if (damageDealt > 0f && dynamicPreset != CSMModOptions.DynamicIntensityPreset.Off)
                 {
-                    // More damage = slower time (more dramatic)
-                    // Scale factor: 100+ damage gets full effect, less damage scales down
-                    float damageMultiplier = Mathf.Clamp01(damageDealt / 100f);
-                    float intensityBonus = (1f - timeScale) * damageMultiplier * 0.3f; // Up to 30% slower
-                    finalTimeScale = Mathf.Max(0.05f, timeScale - intensityBonus);
+                    GetDynamicIntensitySettings(dynamicPreset, out float damageForMax, out float maxReduction);
+                    float damageMultiplier = Mathf.Clamp01(damageDealt / damageForMax);
+                    float reductionStrength = damageMultiplier * maxReduction;
+                    float minTimeScale = 0.05f;
+                    finalTimeScale = Mathf.Max(minTimeScale, Mathf.Lerp(timeScale, minTimeScale, reductionStrength));
 
                     if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Dynamic intensity: damage=" + damageDealt + " multiplier=" + damageMultiplier + " finalScale=" + finalTimeScale);
+                        Debug.Log("[CSM] Dynamic intensity: preset=" + dynamicPreset + " damage=" + damageDealt + " multiplier=" + damageMultiplier + " finalScale=" + finalTimeScale);
                 }
 
                 // Start smooth transition
@@ -690,6 +689,29 @@ namespace CSM.Core
                 case TriggerType.LastStand: return "LAST STAND!";
                 case TriggerType.Parry: return "PARRY!";
                 default: return "SLOW MOTION";
+            }
+        }
+
+        private static void GetDynamicIntensitySettings(CSMModOptions.DynamicIntensityPreset preset, out float damageForMax, out float maxReduction)
+        {
+            switch (preset)
+            {
+                case CSMModOptions.DynamicIntensityPreset.LowSensitivity:
+                    damageForMax = 200f;
+                    maxReduction = 0.3f;
+                    break;
+                case CSMModOptions.DynamicIntensityPreset.MediumSensitivity:
+                    damageForMax = 120f;
+                    maxReduction = 0.6f;
+                    break;
+                case CSMModOptions.DynamicIntensityPreset.HighSensitivity:
+                    damageForMax = 70f;
+                    maxReduction = 1.0f;
+                    break;
+                default:
+                    damageForMax = 9999f;
+                    maxReduction = 0f;
+                    break;
             }
         }
     }

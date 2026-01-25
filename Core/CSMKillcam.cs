@@ -103,27 +103,14 @@ namespace CSM.Core
 
         public bool TryStartKillcam(TriggerType triggerType, Creature targetCreature, float slowMoDuration, bool allowThirdPerson)
         {
-            if (!CSMModOptions.KillcamEnabled) return false;
             if (_active) return false;
             if (targetCreature == null) return false;
             if (Time.unscaledTime < _nextAllowedTime) return false;
-            if (!IsKillcamTriggerEnabled(triggerType)) return false;
+            if (!allowThirdPerson) return false;
 
-            var cameraMode = CSMModOptions.GetCameraMode();
-            if (cameraMode == CSMModOptions.CameraModePreference.FirstPersonOnly) return false;
-
-            bool forceThirdPerson = cameraMode == CSMModOptions.CameraModePreference.ThirdPersonOnly;
-            if (!allowThirdPerson && !forceThirdPerson) return false;
-
-            if (!forceThirdPerson && !IsKillcamTriggerEnabled(triggerType))
+            float chance = CSMModOptions.GetKillcamChance(triggerType);
+            if (chance < 1f && UnityEngine.Random.value > chance)
                 return false;
-
-            if (!forceThirdPerson)
-            {
-                float chance = CSMModOptions.GetKillcamChance(triggerType);
-                if (chance < 1f && UnityEngine.Random.value > chance)
-                    return false;
-            }
 
             Transform targetTransform = ResolveTargetTransform(targetCreature);
             if (targetTransform == null) return false;
@@ -134,7 +121,7 @@ namespace CSM.Core
             }
 
             Camera cam = null;
-            if (!TryUseThirdPersonCamera(forceThirdPerson, out cam))
+            if (!TryUseThirdPersonCamera(out cam))
             {
                 cam = FindBestNonHmdCamera();
             }
@@ -186,21 +173,6 @@ namespace CSM.Core
         {
             if (slowMoDuration <= 0f) return DefaultDuration;
             return Mathf.Max(MinDuration, slowMoDuration);
-        }
-
-        private static bool IsKillcamTriggerEnabled(TriggerType triggerType)
-        {
-            switch (triggerType)
-            {
-                case TriggerType.Decapitation:
-                    return CSMModOptions.KillcamOnDecapitation;
-                case TriggerType.Critical:
-                    return CSMModOptions.KillcamOnCritical;
-                case TriggerType.LastEnemy:
-                    return CSMModOptions.KillcamOnLastEnemy;
-                default:
-                    return true;
-            }
         }
 
         private static Transform ResolveTargetTransform(Creature creature)
@@ -271,7 +243,7 @@ namespace CSM.Core
             return bestScore <= -50 ? null : best;
         }
 
-        private bool TryUseThirdPersonCamera(bool forceThirdPerson, out Camera cam)
+        private bool TryUseThirdPersonCamera(out Camera cam)
         {
             cam = null;
 
@@ -286,11 +258,7 @@ namespace CSM.Core
             bool wasActive = view.isActive;
             bool wasEnabled = view.enabled;
 
-            bool canActivate = CSMModOptions.KillcamShowPlayerBody || forceThirdPerson;
-            if (!canActivate && !wasActive)
-                return false;
-
-            if (canActivate && !wasActive)
+            if (!wasActive)
             {
                 view.Activate(true);
             }

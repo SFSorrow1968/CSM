@@ -16,17 +16,10 @@ namespace CSM.Configuration
         public enum Preset
         {
             Subtle = 0,
-            Balanced = 1,
+            Standard = 1,
             Dramatic = 2,
             Cinematic = 3,
             Epic = 4
-        }
-
-        public enum CameraModePreference
-        {
-            Default = 0,
-            FirstPersonOnly = 1,
-            ThirdPersonOnly = 2
         }
 
         public enum TriggerProfilePreset
@@ -41,7 +34,7 @@ namespace CSM.Configuration
         {
             Off = 0,
             Rare = 1,
-            Balanced = 2,
+            Standard = 2,
             Frequent = 3
         }
 
@@ -49,7 +42,7 @@ namespace CSM.Configuration
         {
             Off = 0,
             Short = 1,
-            Balanced = 2,
+            Standard = 2,
             Long = 3,
             Extended = 4
         }
@@ -57,7 +50,7 @@ namespace CSM.Configuration
         public enum DurationPreset
         {
             Short = 0,
-            Balanced = 1,
+            Standard = 1,
             Long = 2,
             Extended = 3
         }
@@ -66,10 +59,18 @@ namespace CSM.Configuration
         {
             VerySnappy = 0,
             Snappy = 1,
-            Balanced = 2,
+            Standard = 2,
             Smooth = 3,
             Cinematic = 4,
             UltraSmooth = 5
+        }
+
+        public enum DynamicIntensityPreset
+        {
+            Off = 0,
+            LowSensitivity = 1,
+            MediumSensitivity = 2,
+            HighSensitivity = 3
         }
 
         public enum CameraDistributionPreset
@@ -90,20 +91,10 @@ namespace CSM.Configuration
             return new ModOptionString[]
             {
                 new ModOptionString("Subtle", "Subtle"),
-                new ModOptionString("Balanced", "Balanced"),
+                new ModOptionString("Standard", "Standard"),
                 new ModOptionString("Dramatic", "Dramatic"),
                 new ModOptionString("Cinematic", "Cinematic"),
                 new ModOptionString("Epic", "Epic")
-            };
-        }
-
-        public static ModOptionString[] CameraModeProvider()
-        {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Default (Preset)", "Default"),
-                new ModOptionString("First Person Only", "First Person Only"),
-                new ModOptionString("Third Person Only", "Third Person Only")
             };
         }
 
@@ -124,7 +115,7 @@ namespace CSM.Configuration
             {
                 new ModOptionString("Off (Cooldown Only)", "Off"),
                 new ModOptionString("Rare", "Rare"),
-                new ModOptionString("Balanced", "Balanced"),
+                new ModOptionString("Standard", "Standard"),
                 new ModOptionString("Frequent", "Frequent")
             };
         }
@@ -135,7 +126,7 @@ namespace CSM.Configuration
             {
                 new ModOptionString("Off (No Cooldown)", "Off"),
                 new ModOptionString("Short", "Short"),
-                new ModOptionString("Balanced", "Balanced"),
+                new ModOptionString("Standard", "Standard"),
                 new ModOptionString("Long", "Long"),
                 new ModOptionString("Extended", "Extended")
             };
@@ -146,7 +137,7 @@ namespace CSM.Configuration
             return new ModOptionString[]
             {
                 new ModOptionString("Short", "Short"),
-                new ModOptionString("Balanced", "Balanced"),
+                new ModOptionString("Standard", "Standard"),
                 new ModOptionString("Long", "Long"),
                 new ModOptionString("Extended", "Extended")
             };
@@ -158,10 +149,21 @@ namespace CSM.Configuration
             {
                 new ModOptionString("Very Snappy", "Very Snappy"),
                 new ModOptionString("Snappy", "Snappy"),
-                new ModOptionString("Balanced", "Balanced"),
+                new ModOptionString("Standard", "Standard"),
                 new ModOptionString("Smooth", "Smooth"),
                 new ModOptionString("Cinematic", "Cinematic"),
                 new ModOptionString("Ultra Smooth", "Ultra Smooth")
+            };
+        }
+
+        public static ModOptionString[] DynamicIntensityPresetProvider()
+        {
+            return new ModOptionString[]
+            {
+                new ModOptionString("Off", "Off"),
+                new ModOptionString("Low Sensitivity", "Low Sensitivity"),
+                new ModOptionString("Medium Sensitivity", "Medium Sensitivity"),
+                new ModOptionString("High Sensitivity", "High Sensitivity")
             };
         }
 
@@ -447,41 +449,38 @@ namespace CSM.Configuration
         [ModOption(name = "Enable Mod", category = "Presets", defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = "Third Person Distribution", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controls how often third-person killcam appears when Camera Mode is Default.")]
+        [ModOption(name = "Third Person Distribution", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controls how often third-person killcam appears.")]
         public static string CameraDistribution = "First Person Only";
 
-        [ModOption(name = "Camera Mode", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "CameraModeProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Default = Third Person Distribution decides. First Person only disables killcam. Third Person only forces third-person killcam when eligible.")]
-        public static string CameraMode = "Default";
+        [ModOption(name = "Intensity Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
+        public static string CurrentPreset = "Standard";
 
-        [ModOption(name = "Intensity Preset", category = "Preset Settings", defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Balanced = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
-        public static string CurrentPreset = "Balanced";
-
-        [ModOption(name = "Chance Preset", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
+        [ModOption(name = "Chance Preset", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = "Cooldown Preset", category = "Preset Settings", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
-        public static string CooldownPresetSetting = "Balanced";
+        [ModOption(name = "Cooldown Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
+        public static string CooldownPresetSetting = "Standard";
 
-        [ModOption(name = "Duration Preset", category = "Preset Settings", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
-        public static string DurationPresetSetting = "Balanced";
+        [ModOption(name = "Duration Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
+        public static string DurationPresetSetting = "Standard";
 
-        [ModOption(name = "Smoothness Preset", category = "Preset Settings", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
-        public static string SmoothnessPresetSetting = "Balanced";
+        [ModOption(name = "Smoothness Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
+        public static string SmoothnessPresetSetting = "Standard";
 
-        [ModOption(name = "Trigger Profile", category = "Preset Settings", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
+        [ModOption(name = "Trigger Profile", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
-        [ModOption(name = "Global Cooldown", category = "Global Overrides", defaultValueIndex = 2, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
-        public static float GlobalCooldown = 3f;
+        [ModOption(name = "Global Cooldown", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
+        public static float GlobalCooldown = 0f;
 
-        [ModOption(name = "Global Smoothing", category = "Global Overrides", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
+        [ModOption(name = "Global Smoothing", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
         public static float GlobalSmoothing = -1f;
 
-        [ModOption(name = "Haptic Feedback", category = "Global Overrides", defaultValueIndex = 2, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
-        public static float HapticIntensity = 0.6f;
+        [ModOption(name = "Haptic Feedback", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
+        public static float HapticIntensity = 0f;
 
-        [ModOption(name = "Dynamic Intensity", category = "Global Overrides", defaultValueIndex = 1, tooltip = "Scale intensity based on damage dealt")]
-        public static bool DynamicIntensity = true;
+        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Scale slowdown based on damage. Low = dampened, High = can reach near-instant slow-mo.")]
+        public static string DynamicIntensitySetting = "Off";
 
         public static int LastEnemyMinimumGroup = 1;
 
@@ -517,9 +516,6 @@ namespace CSM.Configuration
 
         #region CSM Killcam
 
-        [ModOption(name = "Enable Killcam", category = "CSM Killcam", defaultValueIndex = 0, tooltip = "WARNING: May cause VR motion sickness")]
-        public static bool KillcamEnabled = false;
-
         [ModOption(name = "Camera Distance", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target")]
         public static float KillcamDistance = 3f;
 
@@ -528,18 +524,6 @@ namespace CSM.Configuration
 
         [ModOption(name = "Orbit Speed", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)")]
         public static float KillcamOrbitSpeed = 15f;
-
-        [ModOption(name = "On Decapitation", category = "CSM Killcam", defaultValueIndex = 1, tooltip = "Trigger killcam on decapitation kills")]
-        public static bool KillcamOnDecapitation = true;
-
-        [ModOption(name = "On Critical Kill", category = "CSM Killcam", defaultValueIndex = 1, tooltip = "Trigger killcam on critical (head/neck) kills")]
-        public static bool KillcamOnCritical = true;
-
-        [ModOption(name = "On Last Enemy", category = "CSM Killcam", defaultValueIndex = 1, tooltip = "Trigger killcam when killing the last enemy")]
-        public static bool KillcamOnLastEnemy = true;
-
-        [ModOption(name = "Show Player Body", category = "CSM Killcam", defaultValueIndex = 1, tooltip = "Show player body during killcam (third-person view)")]
-        public static bool KillcamShowPlayerBody = true;
 
         #endregion
 
@@ -705,24 +689,12 @@ namespace CSM.Configuration
             switch (CurrentPreset)
             {
                 case "Subtle": return Preset.Subtle;
-                case "Balanced": return Preset.Balanced;
+                case "Standard": return Preset.Standard;
                 case "Dramatic": return Preset.Dramatic;
                 case "Cinematic": return Preset.Cinematic;
                 case "Epic": return Preset.Epic;
-                default: return Preset.Balanced;
-            }
-        }
-
-        /// <summary>
-        /// Get the global camera mode preference.
-        /// </summary>
-        public static CameraModePreference GetCameraMode()
-        {
-            switch (CameraMode)
-            {
-                case "First Person Only": return CameraModePreference.FirstPersonOnly;
-                case "Third Person Only": return CameraModePreference.ThirdPersonOnly;
-                default: return CameraModePreference.Default;
+                case "Balanced": return Preset.Standard;
+                default: return Preset.Standard;
             }
         }
 
@@ -749,10 +721,11 @@ namespace CSM.Configuration
             switch (ChancePresetSetting)
             {
                 case "Rare": return ChancePreset.Rare;
-                case "Balanced": return ChancePreset.Balanced;
+                case "Standard": return ChancePreset.Standard;
                 case "Frequent": return ChancePreset.Frequent;
                 case "Always": return ChancePreset.Off;
                 case "Chaos": return ChancePreset.Off;
+                case "Balanced": return ChancePreset.Standard;
                 default: return ChancePreset.Off;
             }
         }
@@ -771,7 +744,9 @@ namespace CSM.Configuration
                 case "Rare": return CooldownPreset.Long;
                 case "Frequent": return CooldownPreset.Short;
                 case "Chaos": return CooldownPreset.Short;
-                default: return CooldownPreset.Balanced;
+                case "Standard": return CooldownPreset.Standard;
+                case "Balanced": return CooldownPreset.Standard;
+                default: return CooldownPreset.Standard;
             }
         }
 
@@ -785,7 +760,9 @@ namespace CSM.Configuration
                 case "Short": return DurationPreset.Short;
                 case "Long": return DurationPreset.Long;
                 case "Extended": return DurationPreset.Extended;
-                default: return DurationPreset.Balanced;
+                case "Standard": return DurationPreset.Standard;
+                case "Balanced": return DurationPreset.Standard;
+                default: return DurationPreset.Standard;
             }
         }
 
@@ -801,7 +778,28 @@ namespace CSM.Configuration
                 case "Smooth": return SmoothnessPreset.Smooth;
                 case "Cinematic": return SmoothnessPreset.Cinematic;
                 case "Ultra Smooth": return SmoothnessPreset.UltraSmooth;
-                default: return SmoothnessPreset.Balanced;
+                case "Standard": return SmoothnessPreset.Standard;
+                case "Balanced": return SmoothnessPreset.Standard;
+                default: return SmoothnessPreset.Standard;
+            }
+        }
+
+        public static DynamicIntensityPreset GetDynamicIntensityPreset()
+        {
+            switch (DynamicIntensitySetting)
+            {
+                case "Low Sensitivity": return DynamicIntensityPreset.LowSensitivity;
+                case "Medium Sensitivity": return DynamicIntensityPreset.MediumSensitivity;
+                case "High Sensitivity": return DynamicIntensityPreset.HighSensitivity;
+                case "True":
+                case "true":
+                case "On":
+                    return DynamicIntensityPreset.MediumSensitivity;
+                case "False":
+                case "false":
+                case "Off":
+                    return DynamicIntensityPreset.Off;
+                default: return DynamicIntensityPreset.Off;
             }
         }
 
@@ -818,6 +816,7 @@ namespace CSM.Configuration
                 case "Rare":
                     return CameraDistributionPreset.MostlyFirstPerson;
                 case "Mixed":
+                case "Standard":
                 case "Balanced":
                     return CameraDistributionPreset.Mixed;
                 case "Mostly Third Person":

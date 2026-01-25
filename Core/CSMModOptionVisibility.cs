@@ -101,7 +101,12 @@ namespace CSM.Core
 
         private bool ApplyIntensityPreset(bool force)
         {
-            string presetValue = NormalizePreset(ref CSMModOptions.CurrentPreset, "Balanced");
+            string presetValue = NormalizePreset(ref CSMModOptions.CurrentPreset, "Standard");
+            if (presetValue == "Balanced")
+            {
+                CSMModOptions.CurrentPreset = "Standard";
+                presetValue = "Standard";
+            }
             if (!force && string.Equals(_lastIntensityPreset, presetValue, StringComparison.Ordinal))
                 return false;
 
@@ -133,7 +138,7 @@ namespace CSM.Core
             {
                 if (!IsTriggerEnabled(trigger))
                     continue;
-                CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
+                CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyChancePreset(ref chance);
                 SetChance(trigger, chance);
             }
@@ -144,7 +149,7 @@ namespace CSM.Core
 
         private bool ApplyCooldownPreset(bool force)
         {
-            string presetValue = NormalizePreset(ref CSMModOptions.CooldownPresetSetting, "Balanced");
+            string presetValue = NormalizePreset(ref CSMModOptions.CooldownPresetSetting, "Standard");
             if (presetValue == "Rare")
             {
                 CSMModOptions.CooldownPresetSetting = "Long";
@@ -160,6 +165,11 @@ namespace CSM.Core
                 CSMModOptions.CooldownPresetSetting = "Short";
                 presetValue = "Short";
             }
+            else if (presetValue == "Balanced")
+            {
+                CSMModOptions.CooldownPresetSetting = "Standard";
+                presetValue = "Standard";
+            }
             if (!force && string.Equals(_lastCooldownPreset, presetValue, StringComparison.Ordinal))
                 return false;
 
@@ -167,7 +177,7 @@ namespace CSM.Core
             {
                 if (!IsTriggerEnabled(trigger))
                     continue;
-                CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
+                CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyCooldownPreset(ref cooldown);
                 SetCooldown(trigger, cooldown);
             }
@@ -178,7 +188,12 @@ namespace CSM.Core
 
         private bool ApplyDurationPreset(bool force)
         {
-            string presetValue = NormalizePreset(ref CSMModOptions.DurationPresetSetting, "Balanced");
+            string presetValue = NormalizePreset(ref CSMModOptions.DurationPresetSetting, "Standard");
+            if (presetValue == "Balanced")
+            {
+                CSMModOptions.DurationPresetSetting = "Standard";
+                presetValue = "Standard";
+            }
             if (!force && string.Equals(_lastDurationPreset, presetValue, StringComparison.Ordinal))
                 return false;
 
@@ -186,7 +201,7 @@ namespace CSM.Core
             {
                 if (!IsTriggerEnabled(trigger))
                     continue;
-                CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
+                CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyDurationPreset(ref duration);
                 SetDuration(trigger, duration);
             }
@@ -197,7 +212,12 @@ namespace CSM.Core
 
         private bool ApplySmoothnessPreset(bool force)
         {
-            string presetValue = NormalizePreset(ref CSMModOptions.SmoothnessPresetSetting, "Balanced");
+            string presetValue = NormalizePreset(ref CSMModOptions.SmoothnessPresetSetting, "Standard");
+            if (presetValue == "Balanced")
+            {
+                CSMModOptions.SmoothnessPresetSetting = "Standard";
+                presetValue = "Standard";
+            }
             if (!force && string.Equals(_lastSmoothnessPreset, presetValue, StringComparison.Ordinal))
                 return false;
 
@@ -205,7 +225,7 @@ namespace CSM.Core
             {
                 if (!IsTriggerEnabled(trigger))
                     continue;
-                CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
+                CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplySmoothnessPreset(ref smoothing);
                 SetSmoothing(trigger, smoothing);
             }

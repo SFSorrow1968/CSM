@@ -190,7 +190,7 @@ camera_distribution_labels = {
         "Mostly First Person",
         "Rare",
     ),
-    "Mixed": pick_display(camera_distribution_display, "Mixed", "Mixed", "Balanced"),
+    "Mixed": pick_display(camera_distribution_display, "Mixed", "Mixed", "Standard"),
     "MostlyThirdPerson": pick_display(camera_distribution_display, "Mostly Third Person", "Mostly Third Person", "Frequent"),
     "ThirdPersonOnly": pick_display(camera_distribution_display, "Third Person Only", "Third Person Only", "Always"),
 }
@@ -252,7 +252,7 @@ duration_order = parse_enum(options_text, "DurationPreset")
 smoothness_order = parse_enum(options_text, "SmoothnessPreset")
 profile_order = parse_enum(options_text, "TriggerProfilePreset")
 
-base_balanced = {t: intensity_values.get(t, {}).get("Balanced", {}) for t in trigger_order}
+base_standard = {t: intensity_values.get(t, {}).get("Standard", {}) for t in trigger_order}
 
 
 def compute_chance_value(base_chance: float, preset_name: str) -> str:
@@ -475,7 +475,7 @@ for preset in chance_order:
         header = f"Chance Preset: {preset} (Chance x{format_number(mult)})"
     table = [["Trigger", "Chance"]]
     for trigger in trigger_order:
-        base = base_balanced.get(trigger, {})
+        base = base_standard.get(trigger, {})
         base_chance = float(base.get("chance", 0.0))
         table.append([display_trigger(trigger), compute_chance_value(base_chance, preset)])
     overview_blocks.append((header, table))
@@ -484,7 +484,7 @@ for preset in chance_order:
 for preset in cooldown_order:
     table = [["Trigger", "Cooldown (s)"]]
     for trigger in trigger_order:
-        base = base_balanced.get(trigger, {})
+        base = base_standard.get(trigger, {})
         base_cooldown = float(base.get("cooldown", 0.0))
         table.append([display_trigger(trigger), compute_cooldown_value(base_cooldown, preset)])
     if preset == "Off":
@@ -501,7 +501,7 @@ for preset in duration_order:
     mult = duration_presets[preset]
     table = [["Trigger", "Duration (s)"]]
     for trigger in trigger_order:
-        base = base_balanced.get(trigger, {})
+        base = base_standard.get(trigger, {})
         duration = max(0.05, float(base.get("duration", 0.0)) * mult)
         table.append([display_trigger(trigger), format_number(duration)])
     overview_blocks.append((f"Duration Preset: {preset} (Duration x{format_number(mult)})", table))
@@ -513,7 +513,7 @@ for preset in smoothness_order:
     mult = smoothness_presets[preset]
     table = [["Trigger", "Smoothing"]]
     for trigger in trigger_order:
-        base = base_balanced.get(trigger, {})
+        base = base_standard.get(trigger, {})
         smoothing = max(0.0, float(base.get("smoothing", 0.0)) * mult)
         table.append([display_trigger(trigger), format_number(smoothing)])
     overview_blocks.append((f"Smoothness Preset: {preset} (Smoothing x{format_number(mult)})", table))
@@ -522,11 +522,11 @@ overview_sheet = make_sheet(
     "Overview (Preset-First)",
     [
         "Intensity tab shows only TimeScale.",
-        "Chance/Cooldown/Duration/Smoothness tables are derived from Intensity = Balanced.",
+        "Chance/Cooldown/Duration/Smoothness tables are derived from Intensity = Standard.",
         chance_preset_note,
         cooldown_preset_note,
         "Killcam chance = Base Chance x Third Person Distribution.",
-        "Killcam tables assume Camera Mode = Default.",
+        "Killcam tables assume Third Person Distribution controls killcam.",
     ],
     overview_blocks,
 )
@@ -567,18 +567,18 @@ for trigger in trigger_order:
 
     # Chance preset table
     table = [["Preset", "Chance"]]
-    base = base_balanced.get(trigger, {})
+    base = base_standard.get(trigger, {})
     for preset in chance_order:
         base_chance = float(base.get("chance", 0.0))
         table.append([preset, compute_chance_value(base_chance, preset)])
-    blocks.append(("Chance Presets (from Intensity Balanced)", table))
+    blocks.append(("Chance Presets (from Intensity Standard)", table))
 
     # Cooldown preset table
     table = [["Preset", "Cooldown (s)"]]
     for preset in cooldown_order:
         base_cooldown = float(base.get("cooldown", 0.0))
         table.append([preset, compute_cooldown_value(base_cooldown, preset)])
-    blocks.append(("Cooldown Presets (from Intensity Balanced)", table))
+    blocks.append(("Cooldown Presets (from Intensity Standard)", table))
 
     # Duration table
     table = [["Preset", "Duration (s)"]]
@@ -588,7 +588,7 @@ for trigger in trigger_order:
         mult = duration_presets[preset]
         duration = max(0.05, float(base.get("duration", 0.0)) * mult)
         table.append([preset, format_number(duration)])
-    blocks.append(("Duration Presets (from Intensity Balanced)", table))
+    blocks.append(("Duration Presets (from Intensity Standard)", table))
 
     # Smoothness table
     table = [["Preset", "Smoothing"]]
@@ -598,7 +598,7 @@ for trigger in trigger_order:
         mult = smoothness_presets[preset]
         smoothing = max(0.0, float(base.get("smoothing", 0.0)) * mult)
         table.append([preset, format_number(smoothing)])
-    blocks.append(("Smoothness Presets (from Intensity Balanced)", table))
+    blocks.append(("Smoothness Presets (from Intensity Standard)", table))
 
     # Trigger profiles table
     table = [["Profile", "Enabled"]]
@@ -627,7 +627,7 @@ for trigger in trigger_order:
         f"{trigger_name}",
         [
             "Intensity table shows only TimeScale.",
-            "Chance/Cooldown/Duration/Smoothness derived from Intensity = Balanced.",
+            "Chance/Cooldown/Duration/Smoothness derived from Intensity = Standard.",
             chance_preset_note,
             "Killcam chance = Base Chance x Third Person Distribution.",
             "Killcam only triggers if eligible unless camera mode forces third person.",
