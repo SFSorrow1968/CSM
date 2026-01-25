@@ -48,10 +48,11 @@ namespace CSM.Configuration
 
         public enum CooldownPreset
         {
-            Short = 0,
-            Balanced = 1,
-            Long = 2,
-            Extended = 3
+            Off = 0,
+            Short = 1,
+            Balanced = 2,
+            Long = 3,
+            Extended = 4
         }
 
         public enum DurationPreset
@@ -64,10 +65,12 @@ namespace CSM.Configuration
 
         public enum SmoothnessPreset
         {
-            Snappy = 0,
-            Balanced = 1,
-            Smooth = 2,
-            UltraSmooth = 3
+            VerySnappy = 0,
+            Snappy = 1,
+            Balanced = 2,
+            Smooth = 3,
+            Cinematic = 4,
+            UltraSmooth = 5
         }
 
         public enum CameraDistributionPreset
@@ -132,6 +135,7 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
+                new ModOptionString("Off (No Cooldown)", "Off"),
                 new ModOptionString("Short", "Short"),
                 new ModOptionString("Balanced", "Balanced"),
                 new ModOptionString("Long", "Long"),
@@ -154,9 +158,11 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
+                new ModOptionString("Very Snappy", "Very Snappy"),
                 new ModOptionString("Snappy", "Snappy"),
                 new ModOptionString("Balanced", "Balanced"),
                 new ModOptionString("Smooth", "Smooth"),
+                new ModOptionString("Cinematic", "Cinematic"),
                 new ModOptionString("Ultra Smooth", "Ultra Smooth")
             };
         }
@@ -455,13 +461,13 @@ namespace CSM.Configuration
         [ModOption(name = "Chance Preset", category = "CSM", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = "Cooldown Preset", category = "CSM", defaultValueIndex = 1, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values.")]
+        [ModOption(name = "Cooldown Preset", category = "CSM", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Balanced";
 
         [ModOption(name = "Duration Preset", category = "CSM", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Balanced";
 
-        [ModOption(name = "Smoothness Preset", category = "CSM", defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
+        [ModOption(name = "Smoothness Preset", category = "CSM", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
         public static string SmoothnessPresetSetting = "Balanced";
 
         [ModOption(name = "Trigger Profile", category = "CSM", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
@@ -761,6 +767,7 @@ namespace CSM.Configuration
         {
             switch (CooldownPresetSetting)
             {
+                case "Off": return CooldownPreset.Off;
                 case "Short": return CooldownPreset.Short;
                 case "Long": return CooldownPreset.Long;
                 case "Extended": return CooldownPreset.Extended;
@@ -792,8 +799,10 @@ namespace CSM.Configuration
         {
             switch (SmoothnessPresetSetting)
             {
+                case "Very Snappy": return SmoothnessPreset.VerySnappy;
                 case "Snappy": return SmoothnessPreset.Snappy;
                 case "Smooth": return SmoothnessPreset.Smooth;
+                case "Cinematic": return SmoothnessPreset.Cinematic;
                 case "Ultra Smooth": return SmoothnessPreset.UltraSmooth;
                 default: return SmoothnessPreset.Balanced;
             }
@@ -935,6 +944,9 @@ namespace CSM.Configuration
 
             switch (preset)
             {
+                case CooldownPreset.Off:
+                    cooldown = 0f;
+                    return;
                 case CooldownPreset.Short:
                     cooldownMultiplier = 0.7f;
                     break;
@@ -983,11 +995,17 @@ namespace CSM.Configuration
 
             switch (preset)
             {
+                case SmoothnessPreset.VerySnappy:
+                    smoothingMultiplier = 1.6f;
+                    break;
                 case SmoothnessPreset.Snappy:
                     smoothingMultiplier = 1.25f;
                     break;
                 case SmoothnessPreset.Smooth:
                     smoothingMultiplier = 0.75f;
+                    break;
+                case SmoothnessPreset.Cinematic:
+                    smoothingMultiplier = 0.6f;
                     break;
                 case SmoothnessPreset.UltraSmooth:
                     smoothingMultiplier = 0.5f;

@@ -99,3 +99,12 @@
 - Result: success
 - Notes: Regenerated PRESET_GUIDE_ORGANIZED.xlsx after third-person eligibility and preset renames.
 
+
+- Command: dotnet build CSM.csproj -c Release
+- Result: success
+- Notes: Build succeeded (0 warnings, 0 errors).
+
+- Command: python _agent/build_preset_organized_xlsx.py
+- Result: success
+- Notes: Regenerated PRESET_GUIDE_ORGANIZED.xlsx after cooldown/smoothness/preset-gating updates.
+

@@ -108,6 +108,8 @@ namespace CSM.Core
             var preset = CSMModOptions.GetCurrentPreset();
             foreach (var trigger in TriggerTypes)
             {
+                if (!IsTriggerEnabled(trigger))
+                    continue;
                 CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 SetTimeScale(trigger, timeScale);
             }
@@ -129,6 +131,8 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
+                if (!IsTriggerEnabled(trigger))
+                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyChancePreset(ref chance);
                 SetChance(trigger, chance);
@@ -161,6 +165,8 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
+                if (!IsTriggerEnabled(trigger))
+                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyCooldownPreset(ref cooldown);
                 SetCooldown(trigger, cooldown);
@@ -178,6 +184,8 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
+                if (!IsTriggerEnabled(trigger))
+                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyDurationPreset(ref duration);
                 SetDuration(trigger, duration);
@@ -195,6 +203,8 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
+                if (!IsTriggerEnabled(trigger))
+                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Balanced, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplySmoothnessPreset(ref smoothing);
                 SetSmoothing(trigger, smoothing);
@@ -213,6 +223,8 @@ namespace CSM.Core
             float multiplier = CSMModOptions.GetCameraDistributionMultiplier(CSMModOptions.GetCameraDistributionPreset());
             foreach (var trigger in TriggerTypes)
             {
+                if (!IsTriggerEnabled(trigger))
+                    continue;
                 if (!CSMModOptions.IsThirdPersonEligible(trigger))
                     continue;
                 SetDistribution(trigger, multiplier);
@@ -356,6 +368,21 @@ namespace CSM.Core
                 case TriggerType.Dismemberment: CSMModOptions.DismembermentThirdPersonDistribution = value; break;
                 case TriggerType.Decapitation: CSMModOptions.DecapitationThirdPersonDistribution = value; break;
                 case TriggerType.LastEnemy: CSMModOptions.LastEnemyThirdPersonDistribution = value; break;
+            }
+        }
+
+        private static bool IsTriggerEnabled(TriggerType type)
+        {
+            switch (type)
+            {
+                case TriggerType.BasicKill: return CSMModOptions.EnableBasicKill;
+                case TriggerType.Critical: return CSMModOptions.EnableCriticalKill;
+                case TriggerType.Dismemberment: return CSMModOptions.EnableDismemberment;
+                case TriggerType.Decapitation: return CSMModOptions.EnableDecapitation;
+                case TriggerType.Parry: return CSMModOptions.EnableParry;
+                case TriggerType.LastEnemy: return CSMModOptions.EnableLastEnemy;
+                case TriggerType.LastStand: return CSMModOptions.EnableLastStand;
+                default: return false;
             }
         }
     }

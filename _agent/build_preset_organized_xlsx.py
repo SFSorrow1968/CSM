@@ -263,6 +263,8 @@ def compute_chance_value(base_chance: float, preset_name: str) -> str:
 
 
 def compute_cooldown_value(base_cooldown: float, preset_name: str) -> str:
+    if preset_name == "Off":
+        return "0"
     mult = cooldown_presets.get(preset_name, 1.0)
     return format_number(max(0.0, base_cooldown * mult))
 
@@ -436,6 +438,7 @@ def make_sheet(title: str, notes: list[str], blocks: list[tuple[str, list[list[s
 
 
 chance_preset_note = "Chance Preset Off disables chance rolls (cooldown only). Always forces 100%."
+cooldown_preset_note = "Cooldown Preset Off disables per-trigger cooldowns."
 
 # Overview sheet
 overview_blocks: list[tuple[str, list[list[str]]]] = []
@@ -481,13 +484,17 @@ for preset in chance_order:
 
 # Cooldown preset blocks
 for preset in cooldown_order:
-    mult = cooldown_presets.get(preset, 1.0)
     table = [["Trigger", "Cooldown (s)"]]
     for trigger in trigger_order:
         base = base_balanced.get(trigger, {})
         base_cooldown = float(base.get("cooldown", 0.0))
         table.append([display_trigger(trigger), compute_cooldown_value(base_cooldown, preset)])
-    overview_blocks.append((f"Cooldown Preset: {preset} (Cooldown x{format_number(mult)})", table))
+    if preset == "Off":
+        header = "Cooldown Preset: Off (Disabled)"
+    else:
+        mult = cooldown_presets.get(preset, 1.0)
+        header = f"Cooldown Preset: {preset} (Cooldown x{format_number(mult)})"
+    overview_blocks.append((header, table))
 
 # Duration blocks
 for preset in duration_order:
@@ -519,6 +526,7 @@ overview_sheet = make_sheet(
         "Intensity tab shows only TimeScale.",
         "Chance/Cooldown/Duration/Smoothness tables are derived from Intensity = Balanced.",
         chance_preset_note,
+        cooldown_preset_note,
         "Killcam chance = Base Chance x Third Person Distribution.",
         "Killcam tables assume Camera Mode = Default.",
     ],
