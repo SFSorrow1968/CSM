@@ -483,9 +483,6 @@ namespace CSM.Configuration
         [ModOption(name = "Dynamic Intensity", category = "Global Overrides", defaultValueIndex = 1, tooltip = "Scale intensity based on damage dealt")]
         public static bool DynamicIntensity = true;
 
-        [ModOption(name = "Last Stand Threshold", category = "Trigger Conditions", defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
-        public static float LastStandThreshold = 0.15f;
-
         public static int LastEnemyMinimumGroup = 1;
 
         #endregion
@@ -509,6 +506,9 @@ namespace CSM.Configuration
 
         [ModOption(name = "Last Stand", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
         public static bool EnableLastStand = true;
+
+        [ModOption(name = "Last Stand Threshold", category = "CSM Triggers", defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
+        public static float LastStandThreshold = 0.15f;
 
         [ModOption(name = "Parry", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
         public static bool EnableParry = true;

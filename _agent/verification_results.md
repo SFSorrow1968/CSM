@@ -126,3 +126,8 @@
 - Result: success
 - Notes: Regenerated MENU_MOCK.xlsx after category and preset updates.
 
+
+- Command: python _agent/build_menu_mock_xlsx.py
+- Result: success
+- Notes: Regenerated MENU_MOCK.xlsx after moving Last Stand Threshold into CSM Triggers.
+
