@@ -470,6 +470,22 @@ namespace CSM.Configuration
         [ModOption(name = "Trigger Profile", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
+        #region Optional Overrides
+
+        [ModOption(name = "Global Cooldown", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
+        public static float GlobalCooldown = 0f;
+
+        [ModOption(name = "Global Smoothing", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
+        public static float GlobalSmoothing = -1f;
+
+        [ModOption(name = "Haptic Feedback", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
+        public static float HapticIntensity = 0f;
+
+        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
+        public static string DynamicIntensitySetting = "Off";
+
+        #endregion
+
         public static int LastEnemyMinimumGroup = 1;
 
         #endregion
@@ -499,22 +515,6 @@ namespace CSM.Configuration
 
         [ModOption(name = "Parry", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
         public static bool EnableParry = true;
-
-        #endregion
-
-        #region Optional Overrides
-
-        [ModOption(name = "Global Cooldown", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
-        public static float GlobalCooldown = 0f;
-
-        [ModOption(name = "Global Smoothing", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
-        public static float GlobalSmoothing = -1f;
-
-        [ModOption(name = "Haptic Feedback", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
-        public static float HapticIntensity = 0f;
-
-        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
-        public static string DynamicIntensitySetting = "Off";
 
         #endregion
 

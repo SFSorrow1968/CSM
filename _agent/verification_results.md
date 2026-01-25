@@ -219,3 +219,28 @@
 - Result: success
 - Notes: Updated Nomad build artifact.
 
+
+- Command: dotnet build CSM.csproj -c Release
+- Result: success
+- Notes: Build succeeded (0 warnings, 0 errors).
+
+- Command: dotnet build CSM.csproj -c Nomad
+- Result: success
+- Notes: Build succeeded (0 warnings, 0 errors).
+
+- Command: python _agent/build_preset_organized_xlsx.py
+- Result: success
+- Notes: Regenerated PRESET_GUIDE_ORGANIZED.xlsx after menu ordering changes.
+
+- Command: python _agent/build_menu_mock_xlsx.py
+- Result: success
+- Notes: Regenerated MENU_MOCK.xlsx with ModOptions file order.
+
+- Command: Copy-Item bin/Release/CSM.dll -> builds/CSM-PCVR/CSM/CSM.dll
+- Result: success
+- Notes: Updated PCVR build artifact.
+
+- Command: Copy-Item bin/Nomad/CSM.dll -> builds/CSM-Nomad/CSM/CSM.dll
+- Result: success
+- Notes: Updated Nomad build artifact.
+

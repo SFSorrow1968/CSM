@@ -165,20 +165,15 @@ def parse_modoptions(source: str) -> list[dict[str, str]]:
 providers = parse_provider_values(text)
 options = parse_modoptions(text)
 
-# Sort categories/options to match in-game ModOptions ordering
+# Preserve ModOptions order (first occurrence in file)
+category_order: list[str] = []
 by_category: dict[str, list[dict[str, str]]] = {}
 for option in options:
     category = option["category"] or ""
-    by_category.setdefault(category, []).append(option)
-
-def category_sort_key(name: str) -> tuple[int, str]:
-    if name == "":
-        return (0, "")
-    return (1, name.lower())
-
-category_order = sorted(by_category.keys(), key=category_sort_key)
-for category, values in by_category.items():
-    values.sort(key=lambda item: item["name"].lower())
+    if category not in by_category:
+        by_category[category] = []
+        category_order.append(category)
+    by_category[category].append(option)
 
 
 def control_type(option: dict[str, str]) -> str:
