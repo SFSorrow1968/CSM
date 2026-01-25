@@ -23,15 +23,15 @@ namespace CSM.Patches
 
                 if (IsLastEnemy())
                 {
-                    if (CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy)) return;
+                    if (CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, __instance)) return;
                 }
 
                 if (WasCriticalKill(__instance))
                 {
-                    if (CSMManager.Instance.TriggerSlow(TriggerType.Critical)) return;
+                    if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, 0f, __instance)) return;
                 }
 
-                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill);
+                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, 0f, __instance);
             }
 
             private static bool IsLastEnemy()

@@ -33,7 +33,8 @@ namespace CSM.Core
 
                 // Initialize managers
                 CSMManager.Instance.Initialize();
-                KillcamManager.Instance.Initialize();
+                CSMKillcam.Instance.Initialize();
+                CSMModOptionVisibility.Instance.Initialize();
 
 #if NOMAD
                 // Nomad: Use EventManager hooks (IL2CPP compatible)
@@ -68,7 +69,8 @@ namespace CSM.Core
             {
                 base.ScriptUpdate();
                 CSMManager.Instance?.Update();
-                KillcamManager.Instance?.Update();
+                CSMKillcam.Instance?.Update();
+                CSMModOptionVisibility.Instance?.Update();
             }
             catch (Exception ex)
             {
@@ -82,8 +84,9 @@ namespace CSM.Core
             {
                 Debug.Log("[CSM] ScriptDisable...");
 
-                KillcamManager.Instance?.Shutdown();
                 CSMManager.Instance?.CancelSlowMotion();
+                CSMKillcam.Instance?.Shutdown();
+                CSMModOptionVisibility.Instance?.Shutdown();
 
 #if NOMAD
                 EventHooks.Unsubscribe();

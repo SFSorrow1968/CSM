@@ -19,10 +19,10 @@ namespace CSM.Patches
 
                 if (((__instance.type & (RagdollPart.Type.Head | RagdollPart.Type.Neck)) != 0))
                 {
-                    if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation)) return;
+                    if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, 0f, __instance.ragdoll?.creature)) return;
                 }
 
-                CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment);
+                CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, 0f, __instance.ragdoll?.creature);
             }
         }
     }

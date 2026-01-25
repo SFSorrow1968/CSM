@@ -30,10 +30,6 @@ namespace CSM.Core
         private float _transitionInSpeed = 8f;
         private float _transitionOutSpeed = 4f;
 
-        // Killcam state
-        private Creature _targetCreature;
-        private bool _useThirdPerson;
-
         public bool IsActive => _isSlowMotionActive;
 
         public void Initialize()
@@ -114,6 +110,13 @@ namespace CSM.Core
             Time.fixedDeltaTime = _originalFixedDeltaTime * clampedScale;
         }
 
+        private static float ApplyGlobalSmoothing(float smoothing)
+        {
+            float global = CSMModOptions.GlobalSmoothing;
+            if (global < 0f) return smoothing;
+            return global;
+        }
+
         public bool TriggerSlow(TriggerType type)
         {
             return TriggerSlow(type, 0f, null);
@@ -126,7 +129,6 @@ namespace CSM.Core
 
         public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature)
         {
-            _targetCreature = targetCreature;
             try
             {
                 // Check if mod is enabled
@@ -140,11 +142,11 @@ namespace CSM.Core
                 // Get config for this trigger type
                 bool enabled;
                 float chance, timeScale, duration, cooldown, smoothing;
-                bool thirdPerson;
-                GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown, out smoothing, out thirdPerson);
+                GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown, out smoothing);
+                smoothing = ApplyGlobalSmoothing(smoothing);
 
                 if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] TriggerSlow(" + type + "): enabled=" + enabled + " chance=" + chance + " timeScale=" + timeScale + " duration=" + duration + " smoothing=" + smoothing + " thirdPerson=" + thirdPerson);
+                    Debug.Log("[CSM] TriggerSlow(" + type + "): enabled=" + enabled + " chance=" + chance + " timeScale=" + timeScale + " duration=" + duration + " smoothing=" + smoothing);
 
                 if (!enabled)
                 {
@@ -190,13 +192,23 @@ namespace CSM.Core
 
                 // Start slow motion
                 Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
-                StartSlowMotion(type, timeScale, duration, cooldown, damageDealt, smoothing, thirdPerson);
+                StartSlowMotion(type, timeScale, duration, cooldown, damageDealt, smoothing);
                 
                 // Trigger haptic feedback
                 TriggerHapticFeedback();
                 
                 // Log trigger name for visibility
                 Debug.Log("[CSM] " + GetTriggerDisplayName(type));
+
+                // Optional killcam (third-person) if enabled for this trigger or forced by camera mode
+                var cameraMode = CSMModOptions.GetCameraMode();
+                bool forceThirdPerson = cameraMode == CSMModOptions.CameraModePreference.ThirdPersonOnly;
+                float distribution = CSMModOptions.GetThirdPersonDistribution(type);
+                bool allowThirdPerson = distribution > 0f;
+                if (CSMModOptions.IsThirdPersonEligible(type) && (allowThirdPerson || forceThirdPerson))
+                {
+                    CSMKillcam.Instance.TryStartKillcam(type, targetCreature, duration, allowThirdPerson || forceThirdPerson);
+                }
                 
                 return true;
             }
@@ -207,7 +219,7 @@ namespace CSM.Core
             }
         }
 
-        private void GetTriggerConfig(TriggerType type, out bool enabled, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing, out bool thirdPerson)
+        private void GetTriggerConfig(TriggerType type, out bool enabled, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
             // Check if trigger is enabled in the Triggers menu
             enabled = IsTriggerEnabled(type);
@@ -218,21 +230,9 @@ namespace CSM.Core
                 duration = 1f;
                 cooldown = 0f;
                 smoothing = 8f;
-                thirdPerson = false;
                 return;
             }
-
-            var preset = CSMModOptions.GetCurrentPreset();
-
-            // Custom mode: read from per-trigger ModOptions
-            if (preset == CSMModOptions.Preset.Custom)
-            {
-                GetCustomTriggerConfig(type, out chance, out timeScale, out duration, out cooldown, out smoothing, out thirdPerson);
-                return;
-            }
-
-            // Preset mode: use hardcoded values tailored per trigger
-            GetPresetValues(preset, type, out chance, out timeScale, out duration, out cooldown, out smoothing, out thirdPerson);
+            GetCustomTriggerConfig(type, out chance, out timeScale, out duration, out cooldown, out smoothing);
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace CSM.Core
         /// Get hardcoded preset values for each trigger type.
         /// Each trigger has unique values tailored to its cinematic importance.
         /// </summary>
-        private void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing, out bool thirdPerson)
+        public static void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
             // Default values
             chance = 0.5f;
@@ -265,102 +265,167 @@ namespace CSM.Core
             duration = 1.5f;
             cooldown = 5f;
             smoothing = 8f;
-            thirdPerson = false;
 
             switch (type)
             {
                 case TriggerType.BasicKill:
                     // Basic kills are common - keep subtle
+                    chance = 0.25f;
+                    duration = 1.0f;
+                    cooldown = 5f;
+                    smoothing = 8f;
+                    timeScale = 0.35f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            chance = 0.15f; timeScale = 0.5f; duration = 0.5f; cooldown = 10f; smoothing = 12f; thirdPerson = false;
+                            timeScale = 0.5f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            chance = 0.25f; timeScale = 0.35f; duration = 1.0f; cooldown = 5f; smoothing = 8f; thirdPerson = false;
+                            timeScale = 0.35f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.3f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            chance = 0.4f; timeScale = 0.25f; duration = 1.5f; cooldown = 3f; smoothing = 4f; thirdPerson = false;
+                            timeScale = 0.25f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.2f;
                             break;
                     }
                     break;
 
                 case TriggerType.Critical:
                     // Head/throat shots are impactful - more dramatic
+                    chance = 0.75f;
+                    duration = 1.5f;
+                    cooldown = 5f;
+                    smoothing = 8f;
+                    timeScale = 0.25f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            chance = 0.5f; timeScale = 0.4f; duration = 1.0f; cooldown = 8f; smoothing = 12f; thirdPerson = false;
+                            timeScale = 0.4f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            chance = 0.75f; timeScale = 0.25f; duration = 1.5f; cooldown = 5f; smoothing = 8f; thirdPerson = false;
+                            timeScale = 0.25f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.2f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            chance = 1.0f; timeScale = 0.15f; duration = 2.5f; cooldown = 3f; smoothing = 4f; thirdPerson = true;
+                            timeScale = 0.15f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.1f;
                             break;
                     }
                     break;
 
                 case TriggerType.Dismemberment:
                     // Limb severing - moderately dramatic
+                    chance = 0.6f;
+                    duration = 1.5f;
+                    cooldown = 5f;
+                    smoothing = 8f;
+                    timeScale = 0.3f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            chance = 0.4f; timeScale = 0.45f; duration = 1.0f; cooldown = 8f; smoothing = 12f; thirdPerson = false;
+                            timeScale = 0.45f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            chance = 0.6f; timeScale = 0.3f; duration = 1.5f; cooldown = 5f; smoothing = 8f; thirdPerson = false;
+                            timeScale = 0.3f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.25f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            chance = 0.85f; timeScale = 0.2f; duration = 2.5f; cooldown = 3f; smoothing = 4f; thirdPerson = false;
+                            timeScale = 0.2f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.15f;
                             break;
                     }
                     break;
 
                 case TriggerType.Decapitation:
                     // Decapitation is rare and epic - maximum impact
+                    chance = 0.9f;
+                    duration = 2.0f;
+                    cooldown = 4f;
+                    smoothing = 6f;
+                    timeScale = 0.2f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            chance = 0.7f; timeScale = 0.35f; duration = 1.5f; cooldown = 5f; smoothing = 8f; thirdPerson = false;
+                            timeScale = 0.35f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            chance = 0.9f; timeScale = 0.2f; duration = 2.0f; cooldown = 4f; smoothing = 6f; thirdPerson = true;
+                            timeScale = 0.2f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.15f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            chance = 1.0f; timeScale = 0.1f; duration = 3.5f; cooldown = 2f; smoothing = 4f; thirdPerson = true;
+                            timeScale = 0.1f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.08f;
                             break;
                     }
                     break;
 
                 case TriggerType.Parry:
                     // Parries need quick response - shorter duration
+                    chance = 0.5f;
+                    duration = 1.2f;
+                    cooldown = 7f;
+                    smoothing = 10f;
+                    timeScale = 0.3f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            chance = 0.3f; timeScale = 0.45f; duration = 0.8f; cooldown = 10f; smoothing = 12f; thirdPerson = false;
+                            timeScale = 0.45f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            chance = 0.5f; timeScale = 0.3f; duration = 1.2f; cooldown = 7f; smoothing = 10f; thirdPerson = false;
+                            timeScale = 0.3f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.25f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            chance = 0.75f; timeScale = 0.2f; duration = 1.8f; cooldown = 5f; smoothing = 8f; thirdPerson = false;
+                            timeScale = 0.2f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.15f;
                             break;
                     }
                     break;
 
                 case TriggerType.LastEnemy:
                     // Final kill of wave - celebratory, dramatic
+                    chance = 1.0f;
+                    duration = 3.0f;
+                    cooldown = 0f;
+                    smoothing = 4f;
+                    timeScale = 0.2f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            chance = 0.8f; timeScale = 0.35f; duration = 2.0f; cooldown = 0f; smoothing = 6f; thirdPerson = false;
+                            timeScale = 0.35f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            chance = 1.0f; timeScale = 0.2f; duration = 3.0f; cooldown = 0f; smoothing = 4f; thirdPerson = true;
+                            timeScale = 0.2f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.15f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            chance = 1.0f; timeScale = 0.1f; duration = 5.0f; cooldown = 0f; smoothing = 2f; thirdPerson = true;
+                            timeScale = 0.1f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.08f;
                             break;
                     }
                     break;
@@ -368,16 +433,26 @@ namespace CSM.Core
                 case TriggerType.LastStand:
                     // Near-death experience - intense and prolonged
                     chance = 1.0f; // Always triggers when threshold is met
+                    duration = 5.0f;
+                    cooldown = 45f;
+                    smoothing = 4f;
+                    timeScale = 0.15f;
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.25f; duration = 3.0f; cooldown = 60f; smoothing = 4f; thirdPerson = false;
+                            timeScale = 0.25f;
                             break;
                         case CSMModOptions.Preset.Balanced:
-                            timeScale = 0.15f; duration = 5.0f; cooldown = 45f; smoothing = 4f; thirdPerson = false;
+                            timeScale = 0.15f;
+                            break;
+                        case CSMModOptions.Preset.Dramatic:
+                            timeScale = 0.12f;
                             break;
                         case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.1f; duration = 8.0f; cooldown = 30f; smoothing = 2f; thirdPerson = false;
+                            timeScale = 0.1f;
+                            break;
+                        case CSMModOptions.Preset.Epic:
+                            timeScale = 0.08f;
                             break;
                     }
                     break;
@@ -387,7 +462,7 @@ namespace CSM.Core
         /// <summary>
         /// Get trigger config from Custom ModOption settings.
         /// </summary>
-        private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing, out bool thirdPerson)
+        private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
             switch (type)
             {
@@ -397,7 +472,6 @@ namespace CSM.Core
                     duration = CSMModOptions.BasicKillDuration;
                     cooldown = CSMModOptions.BasicKillCooldown;
                     smoothing = CSMModOptions.BasicKillSmoothing;
-                    thirdPerson = CSMModOptions.BasicKillThirdPerson;
                     break;
                 case TriggerType.Critical:
                     chance = CSMModOptions.CriticalKillChance;
@@ -405,7 +479,6 @@ namespace CSM.Core
                     duration = CSMModOptions.CriticalKillDuration;
                     cooldown = CSMModOptions.CriticalKillCooldown;
                     smoothing = CSMModOptions.CriticalKillSmoothing;
-                    thirdPerson = CSMModOptions.CriticalKillThirdPerson;
                     break;
                 case TriggerType.Dismemberment:
                     chance = CSMModOptions.DismembermentChance;
@@ -413,7 +486,6 @@ namespace CSM.Core
                     duration = CSMModOptions.DismembermentDuration;
                     cooldown = CSMModOptions.DismembermentCooldown;
                     smoothing = CSMModOptions.DismembermentSmoothing;
-                    thirdPerson = CSMModOptions.DismembermentThirdPerson;
                     break;
                 case TriggerType.Decapitation:
                     chance = CSMModOptions.DecapitationChance;
@@ -421,7 +493,6 @@ namespace CSM.Core
                     duration = CSMModOptions.DecapitationDuration;
                     cooldown = CSMModOptions.DecapitationCooldown;
                     smoothing = CSMModOptions.DecapitationSmoothing;
-                    thirdPerson = CSMModOptions.DecapitationThirdPerson;
                     break;
                 case TriggerType.Parry:
                     chance = CSMModOptions.ParryChance;
@@ -429,7 +500,6 @@ namespace CSM.Core
                     duration = CSMModOptions.ParryDuration;
                     cooldown = CSMModOptions.ParryCooldown;
                     smoothing = CSMModOptions.ParrySmoothing;
-                    thirdPerson = CSMModOptions.ParryThirdPerson;
                     break;
                 case TriggerType.LastEnemy:
                     chance = CSMModOptions.LastEnemyChance;
@@ -437,7 +507,6 @@ namespace CSM.Core
                     duration = CSMModOptions.LastEnemyDuration;
                     cooldown = CSMModOptions.LastEnemyCooldown;
                     smoothing = CSMModOptions.LastEnemySmoothing;
-                    thirdPerson = CSMModOptions.LastEnemyThirdPerson;
                     break;
                 case TriggerType.LastStand:
                     chance = 1.0f; // Always trigger
@@ -445,7 +514,6 @@ namespace CSM.Core
                     duration = CSMModOptions.LastStandDuration;
                     cooldown = CSMModOptions.LastStandCooldown;
                     smoothing = CSMModOptions.LastStandSmoothing;
-                    thirdPerson = CSMModOptions.LastStandThirdPerson;
                     break;
                 default:
                     chance = 0f;
@@ -453,12 +521,11 @@ namespace CSM.Core
                     duration = 1f;
                     cooldown = 0f;
                     smoothing = 8f;
-                    thirdPerson = false;
                     break;
             }
         }
 
-        private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt, float smoothing, bool thirdPerson)
+        private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt, float smoothing)
         {
             try
             {
@@ -472,7 +539,6 @@ namespace CSM.Core
                 _isSlowMotionActive = true;
                 _activeTriggerType = type;
                 _slowMotionEndTime = Time.unscaledTime + duration;
-                _useThirdPerson = thirdPerson;
 
                 // Set smoothing speeds (use half for exit transition)
                 _transitionInSpeed = smoothing;
@@ -507,12 +573,6 @@ namespace CSM.Core
                 float now = Time.unscaledTime;
                 _globalCooldownEndTime = now + duration + CSMModOptions.GlobalCooldown;
                 _triggerCooldownEndTimes[type] = now + duration + cooldown;
-
-                // Try to start killcam if target creature is available AND third person is enabled for this trigger
-                if (_targetCreature != null && thirdPerson && CSMModOptions.KillcamEnabled)
-                {
-                    KillcamManager.Instance.TryStartKillcam(_targetCreature, type, duration);
-                }
             }
             catch (Exception ex)
             {
@@ -530,15 +590,10 @@ namespace CSM.Core
                 var endedType = _activeTriggerType;
                 _isSlowMotionActive = false;
 
-                // End killcam if active
-                KillcamManager.Instance.EndKillcam();
-
                 // Start smooth transition back to normal
                 _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
                 _isTransitioning = true;
                 _transitioningOut = true;
-
-                _targetCreature = null;
 
                 Debug.Log("[CSM] SlowMo END: " + endedType);
             }
@@ -557,13 +612,10 @@ namespace CSM.Core
             {
                 _isSlowMotionActive = false;
                 _slowMotionEndTime = 0f;
-                _targetCreature = null;
-
-                // Force end killcam immediately
-                KillcamManager.Instance.ForceEndKillcam();
 
                 TryRestoreTimeScale();
                 Debug.Log("[CSM] SlowMo cancelled");
+                CSMKillcam.Instance.Stop(false);
             }
             catch (Exception ex)
             {
