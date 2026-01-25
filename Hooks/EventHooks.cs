@@ -15,6 +15,7 @@ namespace CSM.Hooks
         private static EventHooks _instance;
         private bool _subscribed = false;
         private bool _deflectSubscribed = false;
+        private bool _parrySubscribed = false;
         private float _lastPlayerHealthRatio = 1f;
         private bool _lastStandTriggered = false;
         
@@ -39,6 +40,7 @@ namespace CSM.Hooks
                 _instance = new EventHooks();
             }
             _instance.SubscribeDeflectEvent();
+            _instance.SubscribeParryEvent();
         }
 
         public static void Unsubscribe()
@@ -73,8 +75,10 @@ namespace CSM.Hooks
                 EventManager.onCreatureKill += new EventManager.CreatureKillEvent(this.OnCreatureKill);
                 EventManager.onCreatureHit += new EventManager.CreatureHitEvent(this.OnCreatureHit);
                 EventManager.onDeflect += new EventManager.DeflectEvent(this.OnDeflect);
+                EventManager.onCreatureAttackParry += new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
                 _subscribed = true;
                 _deflectSubscribed = true;
+                _parrySubscribed = true;
                 Debug.Log("[CSM] Event hooks subscribed successfully");
             }
             catch (Exception ex)
@@ -101,6 +105,23 @@ namespace CSM.Hooks
             }
         }
 
+        private void SubscribeParryEvent()
+        {
+            if (_parrySubscribed) return;
+
+            try
+            {
+                EventManager.onCreatureAttackParry += new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
+                _parrySubscribed = true;
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Parry hook subscribed");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[CSM] Failed to subscribe parry hook: " + ex.Message);
+            }
+        }
+
         private void UnsubscribeEvents()
         {
             Debug.Log("[CSM] Unsubscribing from events...");
@@ -110,11 +131,13 @@ namespace CSM.Hooks
                 EventManager.onCreatureKill -= new EventManager.CreatureKillEvent(this.OnCreatureKill);
                 EventManager.onCreatureHit -= new EventManager.CreatureHitEvent(this.OnCreatureHit);
                 EventManager.onDeflect -= new EventManager.DeflectEvent(this.OnDeflect);
+                EventManager.onCreatureAttackParry -= new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
             }
             catch { }
 
             _subscribed = false;
             _deflectSubscribed = false;
+            _parrySubscribed = false;
         }
 
         private void OnCreatureKill(Creature creature, Player player, CollisionInstance collisionInstance, EventTime eventTime)
@@ -434,12 +457,12 @@ namespace CSM.Hooks
                 if (!playerDeflected)
                 {
                     if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Deflect skipped - not player weapon");
+                        Debug.Log("[CSM] Deflect skipped - not player weapon (item=" + (deflectingItem ? deflectingItem.name : "null") + ")");
                     return;
                 }
 
                 if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] Parry detected via deflect event");
+                    Debug.Log("[CSM] Parry detected via deflect event (item=" + (deflectingItem ? deflectingItem.name : "null") + ")");
 
                 CSMManager.Instance.TriggerSlow(TriggerType.Parry);
             }
@@ -447,6 +470,33 @@ namespace CSM.Hooks
             {
                 if (CSMModOptions.DebugLogging)
                     Debug.LogError("[CSM] OnDeflect error: " + ex.Message);
+            }
+        }
+
+        private void OnCreatureAttackParry(Creature attacker, Item attackerItem, Creature defender, Item defenderItem, CollisionInstance collisionInstance)
+        {
+            try
+            {
+                bool playerParried = defender?.isPlayer == true ||
+                                     defenderItem?.mainHandler?.creature?.isPlayer == true ||
+                                     defenderItem?.lastHandler?.creature?.isPlayer == true;
+
+                if (!playerParried)
+                {
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Parry skipped - defender not player (attacker=" + (attacker ? attacker.name : "null") + ")");
+                    return;
+                }
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Parry detected via attack parry event (attacker=" + (attacker ? attacker.name : "null") + ", defender=" + (defender ? defender.name : "null") + ")");
+
+                CSMManager.Instance.TriggerSlow(TriggerType.Parry);
+            }
+            catch (Exception ex)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogError("[CSM] OnCreatureAttackParry error: " + ex.Message);
             }
         }
     }
