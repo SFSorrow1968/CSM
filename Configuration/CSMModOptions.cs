@@ -449,25 +449,25 @@ namespace CSM.Configuration
         [ModOption(name = "Enable Mod", defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = "Third Person Distribution", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controls how often third-person killcam appears.")]
+        [ModOption(name = "Third Person Distribution", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
         public static string CameraDistribution = "First Person Only";
 
         [ModOption(name = "Intensity Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
         public static string CurrentPreset = "Standard";
 
-        [ModOption(name = "Chance Preset", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
+        [ModOption(name = "Chance Preset", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = "Cooldown Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
+        [ModOption(name = "Cooldown Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Standard";
 
-        [ModOption(name = "Duration Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
+        [ModOption(name = "Duration Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Standard";
 
-        [ModOption(name = "Smoothness Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
+        [ModOption(name = "Smoothness Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
         public static string SmoothnessPresetSetting = "Standard";
 
-        [ModOption(name = "Trigger Profile", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
+        [ModOption(name = "Trigger Profile", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
         public static int LastEnemyMinimumGroup = 1;
@@ -513,7 +513,7 @@ namespace CSM.Configuration
         [ModOption(name = "Haptic Feedback", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
         public static float HapticIntensity = 0f;
 
-        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
+        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
         public static string DynamicIntensitySetting = "Off";
 
         #endregion
