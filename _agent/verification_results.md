@@ -108,3 +108,8 @@
 - Result: success
 - Notes: Regenerated PRESET_GUIDE_ORGANIZED.xlsx after cooldown/smoothness/preset-gating updates.
 
+
+- Command: python _agent/build_menu_mock_xlsx.py
+- Result: success
+- Notes: Generated MENU_MOCK.xlsx from CSMModOptions menu metadata.
+
