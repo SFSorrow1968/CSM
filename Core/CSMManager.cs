@@ -538,32 +538,34 @@ namespace CSM.Core
                 _activeTriggerType = type;
                 _slowMotionEndTime = Time.unscaledTime + duration;
 
-                // Set smoothing speeds (use half for exit transition)
-                _transitionInSpeed = smoothing;
-                _transitionOutSpeed = smoothing > 0 ? smoothing / 2f : 0f;
-
-                // Dynamic intensity: scale time based on damage dealt
-                float finalTimeScale = timeScale;
+                // Dynamic intensity: scale transition-in speed based on damage dealt
+                float transitionInSpeed = smoothing;
                 var dynamicPreset = CSMModOptions.GetDynamicIntensityPreset();
-                if (damageDealt > 0f && dynamicPreset != CSMModOptions.DynamicIntensityPreset.Off)
+                if (damageDealt > 0f && dynamicPreset != CSMModOptions.DynamicIntensityPreset.Off && smoothing > 0f)
                 {
-                    GetDynamicIntensitySettings(dynamicPreset, out float damageForMax, out float maxReduction);
-                    float damageMultiplier = Mathf.Clamp01(damageDealt / damageForMax);
-                    float reductionStrength = damageMultiplier * maxReduction;
-                    float minTimeScale = 0.05f;
-                    finalTimeScale = Mathf.Max(minTimeScale, Mathf.Lerp(timeScale, minTimeScale, reductionStrength));
+                    GetDynamicIntensitySettings(dynamicPreset, out float damageForInstant, out float maxSpeedMultiplier, out bool allowInstant);
+                    float damageMultiplier = Mathf.Clamp01(damageDealt / damageForInstant);
+                    float speedMultiplier = Mathf.Lerp(1f, maxSpeedMultiplier, damageMultiplier);
+                    transitionInSpeed = smoothing * speedMultiplier;
+
+                    if (allowInstant && damageMultiplier >= 1f)
+                        transitionInSpeed = 0f;
 
                     if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Dynamic intensity: preset=" + dynamicPreset + " damage=" + damageDealt + " multiplier=" + damageMultiplier + " finalScale=" + finalTimeScale);
+                        Debug.Log("[CSM] Dynamic intensity: preset=" + dynamicPreset + " damage=" + damageDealt + " multiplier=" + damageMultiplier + " transitionIn=" + transitionInSpeed);
                 }
 
+                // Set smoothing speeds (use half for exit transition)
+                _transitionInSpeed = transitionInSpeed;
+                _transitionOutSpeed = smoothing > 0 ? smoothing / 2f : 0f;
+
                 // Start smooth transition
-                _targetTimeScale = Mathf.Clamp(finalTimeScale, 0.05f, 1f);
-                _isTransitioning = smoothing > 0;
+                _targetTimeScale = Mathf.Clamp(timeScale, 0.05f, 1f);
+                _isTransitioning = transitionInSpeed > 0f;
                 _transitioningOut = false;
 
                 // If no smoothing, apply time scale immediately
-                if (smoothing <= 0)
+                if (transitionInSpeed <= 0f)
                 {
                     _currentTimeScale = _targetTimeScale;
                     ApplyTimeScale(_currentTimeScale);
@@ -692,25 +694,29 @@ namespace CSM.Core
             }
         }
 
-        private static void GetDynamicIntensitySettings(CSMModOptions.DynamicIntensityPreset preset, out float damageForMax, out float maxReduction)
+        private static void GetDynamicIntensitySettings(CSMModOptions.DynamicIntensityPreset preset, out float damageForInstant, out float maxSpeedMultiplier, out bool allowInstant)
         {
             switch (preset)
             {
                 case CSMModOptions.DynamicIntensityPreset.LowSensitivity:
-                    damageForMax = 200f;
-                    maxReduction = 0.3f;
+                    damageForInstant = 250f;
+                    maxSpeedMultiplier = 1.5f;
+                    allowInstant = false;
                     break;
                 case CSMModOptions.DynamicIntensityPreset.MediumSensitivity:
-                    damageForMax = 120f;
-                    maxReduction = 0.6f;
+                    damageForInstant = 150f;
+                    maxSpeedMultiplier = 2.5f;
+                    allowInstant = false;
                     break;
                 case CSMModOptions.DynamicIntensityPreset.HighSensitivity:
-                    damageForMax = 70f;
-                    maxReduction = 1.0f;
+                    damageForInstant = 90f;
+                    maxSpeedMultiplier = 4.0f;
+                    allowInstant = true;
                     break;
                 default:
-                    damageForMax = 9999f;
-                    maxReduction = 0f;
+                    damageForInstant = 9999f;
+                    maxSpeedMultiplier = 1.0f;
+                    allowInstant = false;
                     break;
             }
         }
