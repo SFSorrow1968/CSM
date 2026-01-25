@@ -18,6 +18,7 @@ namespace CSM.Core
         private string _lastSmoothnessPreset;
         private string _lastDistributionPreset;
         private string _lastTriggerProfile;
+        private bool _lastShowEffectiveValues;
 
         private static readonly TriggerType[] TriggerTypes =
         {
@@ -43,6 +44,7 @@ namespace CSM.Core
             _lastSmoothnessPreset = null;
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
+            _lastShowEffectiveValues = false;
 
             TryInitialize();
             if (_initialized)
@@ -96,6 +98,49 @@ namespace CSM.Core
             changed |= ApplySmoothnessPreset(force);
             changed |= ApplyDistributionPreset(force);
             changed |= ApplyTriggerProfile(force);
+            changed |= ApplyDiagnostics(force);
+            return changed;
+        }
+
+        private bool ApplyDiagnostics(bool force)
+        {
+            bool changed = false;
+
+            if (CSMModOptions.QuickTestNow)
+            {
+                var trigger = CSMModOptions.GetQuickTestTrigger();
+                CSMManager.Instance.TriggerSlow(trigger, 0f, null, true);
+                CSMModOptions.QuickTestNow = false;
+                changed = true;
+            }
+
+            bool show = CSMModOptions.ShowEffectiveValues;
+            if (force || show != _lastShowEffectiveValues)
+            {
+                _lastShowEffectiveValues = show;
+                changed = true;
+            }
+
+            if (!show)
+            {
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveBasicKill, "Off");
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveCriticalKill, "Off");
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveDismemberment, "Off");
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveDecapitation, "Off");
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveParry, "Off");
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastEnemy, "Off");
+                changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastStand, "Off");
+                return changed;
+            }
+
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveBasicKill, BuildEffectiveSummary(TriggerType.BasicKill));
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveCriticalKill, BuildEffectiveSummary(TriggerType.Critical));
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveDismemberment, BuildEffectiveSummary(TriggerType.Dismemberment));
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveDecapitation, BuildEffectiveSummary(TriggerType.Decapitation));
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveParry, BuildEffectiveSummary(TriggerType.Parry));
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastEnemy, BuildEffectiveSummary(TriggerType.LastEnemy));
+            changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastStand, BuildEffectiveSummary(TriggerType.LastStand));
+
             return changed;
         }
 
@@ -308,6 +353,113 @@ namespace CSM.Core
             if (string.IsNullOrWhiteSpace(value) || value == "Custom")
                 value = fallback;
             return value;
+        }
+
+        private static bool SetIfDifferent(ref string target, string value)
+        {
+            if (string.Equals(target, value, StringComparison.Ordinal))
+                return false;
+            target = value;
+            return true;
+        }
+
+        private static string BuildEffectiveSummary(TriggerType type)
+        {
+            if (!IsTriggerEnabled(type))
+                return "Disabled";
+
+            float chance;
+            float timeScale;
+            float duration;
+            float cooldown;
+            float smoothing;
+
+            switch (type)
+            {
+                case TriggerType.BasicKill:
+                    chance = CSMModOptions.BasicKillChance;
+                    timeScale = CSMModOptions.BasicKillTimeScale;
+                    duration = CSMModOptions.BasicKillDuration;
+                    cooldown = CSMModOptions.BasicKillCooldown;
+                    smoothing = CSMModOptions.BasicKillSmoothing;
+                    break;
+                case TriggerType.Critical:
+                    chance = CSMModOptions.CriticalKillChance;
+                    timeScale = CSMModOptions.CriticalKillTimeScale;
+                    duration = CSMModOptions.CriticalKillDuration;
+                    cooldown = CSMModOptions.CriticalKillCooldown;
+                    smoothing = CSMModOptions.CriticalKillSmoothing;
+                    break;
+                case TriggerType.Dismemberment:
+                    chance = CSMModOptions.DismembermentChance;
+                    timeScale = CSMModOptions.DismembermentTimeScale;
+                    duration = CSMModOptions.DismembermentDuration;
+                    cooldown = CSMModOptions.DismembermentCooldown;
+                    smoothing = CSMModOptions.DismembermentSmoothing;
+                    break;
+                case TriggerType.Decapitation:
+                    chance = CSMModOptions.DecapitationChance;
+                    timeScale = CSMModOptions.DecapitationTimeScale;
+                    duration = CSMModOptions.DecapitationDuration;
+                    cooldown = CSMModOptions.DecapitationCooldown;
+                    smoothing = CSMModOptions.DecapitationSmoothing;
+                    break;
+                case TriggerType.Parry:
+                    chance = CSMModOptions.ParryChance;
+                    timeScale = CSMModOptions.ParryTimeScale;
+                    duration = CSMModOptions.ParryDuration;
+                    cooldown = CSMModOptions.ParryCooldown;
+                    smoothing = CSMModOptions.ParrySmoothing;
+                    break;
+                case TriggerType.LastEnemy:
+                    chance = CSMModOptions.LastEnemyChance;
+                    timeScale = CSMModOptions.LastEnemyTimeScale;
+                    duration = CSMModOptions.LastEnemyDuration;
+                    cooldown = CSMModOptions.LastEnemyCooldown;
+                    smoothing = CSMModOptions.LastEnemySmoothing;
+                    break;
+                case TriggerType.LastStand:
+                    chance = 1.0f;
+                    timeScale = CSMModOptions.LastStandTimeScale;
+                    duration = CSMModOptions.LastStandDuration;
+                    cooldown = CSMModOptions.LastStandCooldown;
+                    smoothing = CSMModOptions.LastStandSmoothing;
+                    break;
+                default:
+                    return "Disabled";
+            }
+
+            if (CSMModOptions.GlobalSmoothing >= 0f)
+                smoothing = CSMModOptions.GlobalSmoothing;
+
+            string chanceLabel = (chance * 100f).ToString("F0") + "%";
+            string scaleLabel = (timeScale * 100f).ToString("F0") + "%";
+            string durationLabel = duration.ToString("F1") + "s";
+            string cooldownLabel = cooldown.ToString("F1") + "s";
+            string smoothingLabel = smoothing <= 0f ? "Instant" : smoothing.ToString("0.#") + "x";
+
+            string tpLabel;
+            if (!CSMModOptions.IsThirdPersonEligible(type))
+            {
+                tpLabel = "N/A";
+            }
+            else
+            {
+                float dist = CSMModOptions.GetThirdPersonDistribution(type);
+                if (dist <= 0f)
+                    tpLabel = "Off";
+                else if (dist >= 99f)
+                    tpLabel = "Always";
+                else
+                    tpLabel = dist.ToString("0.#") + "x";
+            }
+
+            return "Chance " + chanceLabel +
+                   " | Scale " + scaleLabel +
+                   " | Dur " + durationLabel +
+                   " | CD " + cooldownLabel +
+                   " | Smooth " + smoothingLabel +
+                   " | TP " + tpLabel;
         }
 
         private static void SetChance(TriggerType type, float value)

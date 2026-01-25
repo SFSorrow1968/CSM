@@ -109,6 +109,20 @@ namespace CSM.Configuration
             };
         }
 
+        public static ModOptionString[] QuickTestTriggerProvider()
+        {
+            return new ModOptionString[]
+            {
+                new ModOptionString("Basic Kill", "Basic Kill"),
+                new ModOptionString("Critical Kill", "Critical Kill"),
+                new ModOptionString("Dismemberment", "Dismemberment"),
+                new ModOptionString("Decapitation", "Decapitation"),
+                new ModOptionString("Parry", "Parry"),
+                new ModOptionString("Last Enemy", "Last Enemy"),
+                new ModOptionString("Last Stand", "Last Stand")
+            };
+        }
+
         public static ModOptionString[] ChancePresetProvider()
         {
             return new ModOptionString[]
@@ -442,6 +456,59 @@ namespace CSM.Configuration
             };
         }
 
+        private static ModOptionString[] SingleValueProvider(string value)
+        {
+            return new ModOptionString[]
+            {
+                new ModOptionString(value, value)
+            };
+        }
+
+        public static ModOptionString[] LastTriggerProvider()
+        {
+            return SingleValueProvider(LastTriggerSummary);
+        }
+
+        public static ModOptionString[] LastTriggerReasonProvider()
+        {
+            return SingleValueProvider(LastTriggerReason);
+        }
+
+        public static ModOptionString[] EffectiveBasicProvider()
+        {
+            return SingleValueProvider(EffectiveBasicKill);
+        }
+
+        public static ModOptionString[] EffectiveCriticalProvider()
+        {
+            return SingleValueProvider(EffectiveCriticalKill);
+        }
+
+        public static ModOptionString[] EffectiveDismembermentProvider()
+        {
+            return SingleValueProvider(EffectiveDismemberment);
+        }
+
+        public static ModOptionString[] EffectiveDecapitationProvider()
+        {
+            return SingleValueProvider(EffectiveDecapitation);
+        }
+
+        public static ModOptionString[] EffectiveParryProvider()
+        {
+            return SingleValueProvider(EffectiveParry);
+        }
+
+        public static ModOptionString[] EffectiveLastEnemyProvider()
+        {
+            return SingleValueProvider(EffectiveLastEnemy);
+        }
+
+        public static ModOptionString[] EffectiveLastStandProvider()
+        {
+            return SingleValueProvider(EffectiveLastStand);
+        }
+
         #endregion
 
         #region CSM (Main Settings)
@@ -687,6 +754,42 @@ namespace CSM.Configuration
         [ModOption(name = "Debug Logging", category = "CSM Advanced", defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
 
+        [ModOption(name = "Show Effective Values", category = "CSM Advanced", defaultValueIndex = 0, tooltip = "Show effective per-trigger values after presets and overrides")]
+        public static bool ShowEffectiveValues = false;
+
+        [ModOption(name = "Last Trigger", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "LastTriggerProvider", tooltip = "Last trigger attempt")]
+        public static string LastTriggerSummary = "None";
+
+        [ModOption(name = "Last Trigger Reason", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "LastTriggerReasonProvider", tooltip = "Why the last trigger did or didn't fire")]
+        public static string LastTriggerReason = "None";
+
+        [ModOption(name = "Quick Test Trigger", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
+        public static string QuickTestTrigger = "Basic Kill";
+
+        [ModOption(name = "Quick Test Now", category = "CSM Advanced", defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
+        public static bool QuickTestNow = false;
+
+        [ModOption(name = "Effective: Basic Kill", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveBasicProvider", tooltip = "Effective values for Basic Kill")]
+        public static string EffectiveBasicKill = "Off";
+
+        [ModOption(name = "Effective: Critical Kill", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveCriticalProvider", tooltip = "Effective values for Critical Kill")]
+        public static string EffectiveCriticalKill = "Off";
+
+        [ModOption(name = "Effective: Dismemberment", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveDismembermentProvider", tooltip = "Effective values for Dismemberment")]
+        public static string EffectiveDismemberment = "Off";
+
+        [ModOption(name = "Effective: Decapitation", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveDecapitationProvider", tooltip = "Effective values for Decapitation")]
+        public static string EffectiveDecapitation = "Off";
+
+        [ModOption(name = "Effective: Parry", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveParryProvider", tooltip = "Effective values for Parry")]
+        public static string EffectiveParry = "Off";
+
+        [ModOption(name = "Effective: Last Enemy", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveLastEnemyProvider", tooltip = "Effective values for Last Enemy")]
+        public static string EffectiveLastEnemy = "Off";
+
+        [ModOption(name = "Effective: Last Stand", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveLastStandProvider", tooltip = "Effective values for Last Stand")]
+        public static string EffectiveLastStand = "Off";
+
         #endregion
 
         #region Helper Methods
@@ -720,6 +823,24 @@ namespace CSM.Configuration
                 case "Highlights": return TriggerProfilePreset.Highlights;
                 case "Last Enemy Only": return TriggerProfilePreset.LastEnemyOnly;
                 default: return TriggerProfilePreset.All;
+            }
+        }
+
+        /// <summary>
+        /// Get selected quick test trigger.
+        /// </summary>
+        public static TriggerType GetQuickTestTrigger()
+        {
+            switch (QuickTestTrigger)
+            {
+                case "Basic Kill": return TriggerType.BasicKill;
+                case "Critical Kill": return TriggerType.Critical;
+                case "Dismemberment": return TriggerType.Dismemberment;
+                case "Decapitation": return TriggerType.Decapitation;
+                case "Parry": return TriggerType.Parry;
+                case "Last Enemy": return TriggerType.LastEnemy;
+                case "Last Stand": return TriggerType.LastStand;
+                default: return TriggerType.BasicKill;
             }
         }
 

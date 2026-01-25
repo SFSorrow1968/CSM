@@ -127,7 +127,7 @@ namespace CSM.Core
             return TriggerSlow(type, damageDealt, null);
         }
 
-        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature)
+        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, bool isQuickTest = false)
         {
             try
             {
@@ -136,6 +136,7 @@ namespace CSM.Core
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Mod disabled");
+                    SetLastTriggerDebug(type, "Blocked: Mod disabled", isQuickTest);
                     return false;
                 }
 
@@ -152,6 +153,7 @@ namespace CSM.Core
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Trigger disabled");
+                    SetLastTriggerDebug(type, "Blocked: Trigger disabled", isQuickTest);
                     return false;
                 }
 
@@ -162,6 +164,7 @@ namespace CSM.Core
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Global cooldown");
+                    SetLastTriggerDebug(type, "Blocked: Global cooldown", isQuickTest);
                     return false;
                 }
 
@@ -170,6 +173,7 @@ namespace CSM.Core
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Trigger cooldown");
+                    SetLastTriggerDebug(type, "Blocked: Trigger cooldown", isQuickTest);
                     return false;
                 }
 
@@ -178,6 +182,7 @@ namespace CSM.Core
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - SlowMo already active");
+                    SetLastTriggerDebug(type, "Blocked: SlowMo already active", isQuickTest);
                     return false;
                 }
 
@@ -187,12 +192,14 @@ namespace CSM.Core
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Chance roll failed (" + (roll*100).ToString("F0") + "% vs " + (chance*100).ToString("F0") + "%)");
+                    SetLastTriggerDebug(type, "Blocked: Chance failed (" + (roll * 100f).ToString("F0") + "% > " + (chance * 100f).ToString("F0") + "%)", isQuickTest);
                     return false;
                 }
 
                 // Start slow motion
                 Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
                 StartSlowMotion(type, timeScale, duration, cooldown, damageDealt, smoothing);
+                SetLastTriggerDebug(type, "Triggered", isQuickTest);
                 
                 // Trigger haptic feedback
                 TriggerHapticFeedback();
@@ -213,6 +220,7 @@ namespace CSM.Core
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] TriggerSlow error: " + ex.Message);
+                SetLastTriggerDebug(type, "Error: " + ex.Message, isQuickTest);
                 return false;
             }
         }
@@ -691,6 +699,44 @@ namespace CSM.Core
                 case TriggerType.LastStand: return "LAST STAND!";
                 case TriggerType.Parry: return "PARRY!";
                 default: return "SLOW MOTION";
+            }
+        }
+
+        private static string GetTriggerUiName(TriggerType type)
+        {
+            switch (type)
+            {
+                case TriggerType.BasicKill: return "Basic Kill";
+                case TriggerType.Critical: return "Critical Kill";
+                case TriggerType.Dismemberment: return "Dismemberment";
+                case TriggerType.Decapitation: return "Decapitation";
+                case TriggerType.Parry: return "Parry";
+                case TriggerType.LastEnemy: return "Last Enemy";
+                case TriggerType.LastStand: return "Last Stand";
+                default: return "Unknown";
+            }
+        }
+
+        private static void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
+        {
+            string summary = GetTriggerUiName(type);
+            string finalReason = isQuickTest ? reason + " (Quick Test)" : reason;
+
+            bool changed = !string.Equals(CSMModOptions.LastTriggerSummary, summary, StringComparison.Ordinal) ||
+                           !string.Equals(CSMModOptions.LastTriggerReason, finalReason, StringComparison.Ordinal);
+
+            if (!changed) return;
+
+            CSMModOptions.LastTriggerSummary = summary;
+            CSMModOptions.LastTriggerReason = finalReason;
+
+            try
+            {
+                ModManager.RefreshModOptionsUI();
+            }
+            catch
+            {
+                // Ignore UI refresh failures outside menu
             }
         }
 
