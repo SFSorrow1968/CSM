@@ -328,16 +328,16 @@ namespace CSM.Configuration
         {
             return new ModOptionFloat[]
             {
-                new ModOptionFloat("2", 2f),
-                new ModOptionFloat("3", 3f),
-                new ModOptionFloat("4", 4f),
-                new ModOptionFloat("4.5", 4.5f),
-                new ModOptionFloat("5", 5f),
-                new ModOptionFloat("6", 6f),
-                new ModOptionFloat("7.5", 7.5f),
-                new ModOptionFloat("8", 8f),
-                new ModOptionFloat("10", 10f),
-                new ModOptionFloat("12.5", 12.5f)
+                new ModOptionFloat("2x", 2f),
+                new ModOptionFloat("3x", 3f),
+                new ModOptionFloat("4x", 4f),
+                new ModOptionFloat("4.5x", 4.5f),
+                new ModOptionFloat("5x", 5f),
+                new ModOptionFloat("6x", 6f),
+                new ModOptionFloat("7.5x", 7.5f),
+                new ModOptionFloat("8x", 8f),
+                new ModOptionFloat("10x", 10f),
+                new ModOptionFloat("12.5x", 12.5f)
             };
         }
 
@@ -464,7 +464,7 @@ namespace CSM.Configuration
         [ModOption(name = "Duration Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Standard";
 
-        [ModOption(name = "Smoothness Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed values (lower = smoother).")]
+        [ModOption(name = "Smoothness Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
         public static string SmoothnessPresetSetting = "Standard";
 
         [ModOption(name = "Trigger Profile", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
@@ -523,8 +523,14 @@ namespace CSM.Configuration
         [ModOption(name = "Camera Distance", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target")]
         public static float KillcamDistance = 3f;
 
+        [ModOption(name = "Randomize Distance", category = "CSM Killcam", defaultValueIndex = 0, tooltip = "Randomize distance per killcam")]
+        public static bool KillcamRandomizeDistance = false;
+
         [ModOption(name = "Camera Height", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamHeightProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Height offset")]
         public static float KillcamHeight = 1.5f;
+
+        [ModOption(name = "Randomize Height", category = "CSM Killcam", defaultValueIndex = 0, tooltip = "Randomize height per killcam")]
+        public static bool KillcamRandomizeHeight = false;
 
         [ModOption(name = "Orbit Speed", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)")]
         public static float KillcamOrbitSpeed = 15f;

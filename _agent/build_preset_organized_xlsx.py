@@ -511,7 +511,7 @@ for preset in smoothness_order:
     if preset not in smoothness_presets:
         continue
     mult = smoothness_presets[preset]
-    table = [["Trigger", "Smoothing"]]
+    table = [["Trigger", "Smoothing (x)"]]
     for trigger in trigger_order:
         base = base_standard.get(trigger, {})
         smoothing = max(0.0, float(base.get("smoothing", 0.0)) * mult)
@@ -591,7 +591,7 @@ for trigger in trigger_order:
     blocks.append(("Duration Presets (from Intensity Standard)", table))
 
     # Smoothness table
-    table = [["Preset", "Smoothing"]]
+    table = [["Preset", "Smoothing (x)"]]
     for preset in smoothness_order:
         if preset not in smoothness_presets:
             continue

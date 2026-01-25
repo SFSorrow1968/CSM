@@ -15,6 +15,11 @@ namespace CSM.Core
         private const float KillcamFov = 55f;
         private const float CooldownSeconds = 1.0f;
         private const float RandomYawOffsetMax = 20f;
+        private const float KillcamDistanceMin = 2f;
+        private const float KillcamDistanceMax = 5f;
+        private const float KillcamHeightMin = 1f;
+        private const float KillcamHeightMax = 2f;
+        private const float RandomizeRangePercent = 0.2f;
 
         public static CSMKillcam Instance { get; } = new CSMKillcam();
 
@@ -35,6 +40,8 @@ namespace CSM.Core
         private bool _thirdPersonWasActive;
         private bool _thirdPersonWasEnabled;
         private bool _thirdPersonActivated;
+        private float _distance;
+        private float _height;
 
         private CSMKillcam() { }
 
@@ -54,6 +61,8 @@ namespace CSM.Core
             _thirdPersonActivated = false;
             _orbitDirection = 1f;
             _orbitOffset = 0f;
+            _distance = 0f;
+            _height = 0f;
         }
 
         public void Shutdown()
@@ -78,8 +87,8 @@ namespace CSM.Core
             float sweep = Mathf.Lerp(-_orbitSweep * 0.5f, _orbitSweep * 0.5f, eased);
             float angle = _baseYaw + _orbitOffset + (_orbitDirection * sweep);
 
-            float distance = Mathf.Max(0.5f, CSMModOptions.KillcamDistance);
-            float height = CSMModOptions.KillcamHeight;
+            float distance = Mathf.Max(0.5f, _distance);
+            float height = _height;
 
             Vector3 desiredOffset = Quaternion.Euler(0f, angle, 0f) * new Vector3(0f, height, -distance);
             Vector3 desiredPos = pivot + desiredOffset;
@@ -140,6 +149,8 @@ namespace CSM.Core
             _startTime = Time.unscaledTime;
             _endTime = _startTime + duration;
             _nextAllowedTime = _endTime + CooldownSeconds;
+            _distance = ResolveDistance();
+            _height = ResolveHeight();
             _baseYaw = ComputeBaseYaw(cam, targetTransform);
             _orbitSweep = Mathf.Abs(CSMModOptions.KillcamOrbitSpeed) * duration;
             _orbitDirection = UnityEngine.Random.value < 0.5f ? -1f : 1f;
@@ -204,6 +215,32 @@ namespace CSM.Core
             }
 
             return Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
+        }
+
+        private static float ResolveDistance()
+        {
+            float distance = Mathf.Clamp(CSMModOptions.KillcamDistance, 0.5f, KillcamDistanceMax);
+            if (!CSMModOptions.KillcamRandomizeDistance)
+                return distance;
+            return RandomizeValue(distance, KillcamDistanceMin, KillcamDistanceMax);
+        }
+
+        private static float ResolveHeight()
+        {
+            float height = Mathf.Clamp(CSMModOptions.KillcamHeight, KillcamHeightMin, KillcamHeightMax);
+            if (!CSMModOptions.KillcamRandomizeHeight)
+                return height;
+            return RandomizeValue(height, KillcamHeightMin, KillcamHeightMax);
+        }
+
+        private static float RandomizeValue(float baseValue, float min, float max)
+        {
+            float range = baseValue * RandomizeRangePercent;
+            float low = Mathf.Max(min, baseValue - range);
+            float high = Mathf.Min(max, baseValue + range);
+            if (high <= low)
+                return baseValue;
+            return UnityEngine.Random.Range(low, high);
         }
 
         private static Camera FindBestNonHmdCamera()
