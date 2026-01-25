@@ -14,6 +14,7 @@ namespace CSM.Hooks
     {
         private static EventHooks _instance;
         private bool _subscribed = false;
+        private bool _deflectSubscribed = false;
         private float _lastPlayerHealthRatio = 1f;
         private bool _lastStandTriggered = false;
         
@@ -29,6 +30,15 @@ namespace CSM.Hooks
                 _instance = new EventHooks();
             }
             _instance.SubscribeEvents();
+        }
+
+        public static void SubscribeDeflect()
+        {
+            if (_instance == null)
+            {
+                _instance = new EventHooks();
+            }
+            _instance.SubscribeDeflectEvent();
         }
 
         public static void Unsubscribe()
@@ -64,12 +74,30 @@ namespace CSM.Hooks
                 EventManager.onCreatureHit += new EventManager.CreatureHitEvent(this.OnCreatureHit);
                 EventManager.onDeflect += new EventManager.DeflectEvent(this.OnDeflect);
                 _subscribed = true;
+                _deflectSubscribed = true;
                 Debug.Log("[CSM] Event hooks subscribed successfully");
             }
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] Failed to subscribe to events: " + ex.Message);
                 _subscribed = false;
+            }
+        }
+
+        private void SubscribeDeflectEvent()
+        {
+            if (_deflectSubscribed) return;
+
+            try
+            {
+                EventManager.onDeflect += new EventManager.DeflectEvent(this.OnDeflect);
+                _deflectSubscribed = true;
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Deflect hook subscribed");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[CSM] Failed to subscribe deflect hook: " + ex.Message);
             }
         }
 
@@ -86,6 +114,7 @@ namespace CSM.Hooks
             catch { }
 
             _subscribed = false;
+            _deflectSubscribed = false;
         }
 
         private void OnCreatureKill(Creature creature, Player player, CollisionInstance collisionInstance, EventTime eventTime)

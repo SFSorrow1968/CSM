@@ -53,6 +53,9 @@ namespace CSM.Core
                     Debug.LogError("[CSM] Harmony patches failed: " + ex.Message);
                     EventHooks.Subscribe();
                 }
+
+                // Ensure parry works on PCVR via deflect events
+                EventHooks.SubscribeDeflect();
 #endif
 
                 Debug.Log("[CSM] ScriptEnable complete - CSM is active!");
