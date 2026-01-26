@@ -964,7 +964,7 @@ namespace CSM.Configuration
 
         #endregion
 
-        public const float ThrownImpactWindowSeconds = 0.2f;
+        public const float ThrownImpactWindowSeconds = 0f;
 
         #region Helper Methods
 

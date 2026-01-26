@@ -105,7 +105,7 @@ namespace CSM.Core
                 return;
             }
 
-            float delta = _transitioningOut ? Time.deltaTime : Time.unscaledDeltaTime;
+            float delta = Time.unscaledDeltaTime;
             _currentTimeScale = Mathf.Lerp(_currentTimeScale, _targetTimeScale, delta * speed);
 
             if (Mathf.Abs(_currentTimeScale - _targetTimeScale) < 0.01f)

@@ -24,11 +24,7 @@ namespace CSM.Hooks
         private float _lastSliceCleanupTime = 0f;
         private const float SLICE_REARM_SECONDS = 30f;
         private const float SLICE_CLEANUP_INTERVAL = 10f;
-        private readonly Dictionary<int, float> _recentThrownCreatures = new Dictionary<int, float>();
         private readonly HashSet<Ragdoll> _hookedRagdolls = new HashSet<Ragdoll>();
-        private float _lastThrownCleanupTime = 0f;
-        private static float ThrownKillWindowSeconds => CSMModOptions.ThrownImpactWindowSeconds;
-        private const float THROWN_CLEANUP_INTERVAL = 5f;
 
         public static void Subscribe()
         {
@@ -73,9 +69,8 @@ namespace CSM.Hooks
                 _instance._lastWaveResetTime = 0f;
                 _instance._recentSlicedParts.Clear();
                 _instance._lastSliceCleanupTime = 0f;
-                _instance._recentThrownCreatures.Clear();
                 _instance._hookedRagdolls.Clear();
-                _instance._lastThrownCleanupTime = 0f;
+                ThrowTracker.Reset();
             }
         }
 
@@ -235,7 +230,7 @@ namespace CSM.Hooks
             if (!playerReleased) return;
 
             var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
-            MarkCreatureThrown(creature, "Grab");
+            ThrowTracker.RecordThrow(creature, "Grab");
         }
 
         private void OnRagdollTelekinesisRelease(ThunderRoad.Skill.SpellPower.SpellTelekinesis spellTelekinesis, HandleRagdoll handleRagdoll, bool lastHandler)
@@ -247,55 +242,7 @@ namespace CSM.Hooks
             if (!playerReleased) return;
 
             var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
-            MarkCreatureThrown(creature, "Telekinesis");
-        }
-
-        private void MarkCreatureThrown(Creature creature, string source)
-        {
-            if (creature == null || creature.isPlayer) return;
-            _recentThrownCreatures[creature.GetInstanceID()] = Time.unscaledTime;
-            CleanupThrownCache(Time.unscaledTime);
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Thrown release recorded (" + source + ", window " + ThrownKillWindowSeconds.ToString("0.###") + "s): " + creature.name);
-        }
-
-        private bool WasRecentlyThrownByPlayer(Creature creature)
-        {
-            if (creature == null) return false;
-            if (!CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
-                return false;
-
-            int id = creature.GetInstanceID();
-            if (!_recentThrownCreatures.TryGetValue(id, out float releaseTime))
-                return false;
-
-            float now = Time.unscaledTime;
-            if (now - releaseTime > ThrownKillWindowSeconds)
-                return false;
-
-            _recentThrownCreatures.Remove(id);
-            return true;
-        }
-
-        private void CleanupThrownCache(float now)
-        {
-            if (now - _lastThrownCleanupTime < THROWN_CLEANUP_INTERVAL)
-                return;
-
-            _lastThrownCleanupTime = now;
-            List<int> expired = null;
-            foreach (var kvp in _recentThrownCreatures)
-            {
-                if (now - kvp.Value > ThrownKillWindowSeconds * 2f)
-                {
-                    if (expired == null) expired = new List<int>();
-                    expired.Add(kvp.Key);
-                }
-            }
-
-            if (expired == null) return;
-            foreach (var key in expired)
-                _recentThrownCreatures.Remove(key);
+            ThrowTracker.RecordThrow(creature, "Telekinesis");
         }
 
         private void OnCreatureKill(Creature creature, Player player, CollisionInstance collisionInstance, EventTime eventTime)
@@ -320,7 +267,7 @@ namespace CSM.Hooks
                 bool thrownImpactKill = false;
                 if (!killedByPlayer)
                 {
-                    thrownImpactKill = WasRecentlyThrownByPlayer(creature);
+                    thrownImpactKill = ThrowTracker.WasRecentlyThrown(creature);
                     if (!thrownImpactKill)
                     {
                         if (CSMModOptions.DebugLogging)

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using CSM.Configuration;
 using CSM.Core;
@@ -10,13 +9,6 @@ namespace CSM.Patches
 {
     public static class KillPatches
     {
-        private static float ThrownKillWindowSeconds => CSMModOptions.ThrownImpactWindowSeconds;
-        private static readonly Dictionary<int, float> RecentThrownCreatures = new Dictionary<int, float>();
-        private static readonly HashSet<Ragdoll> HookedRagdolls = new HashSet<Ragdoll>();
-        private static float _lastCleanupTime = 0f;
-        private const float CleanupInterval = 5f;
-        private static bool _hooksInitialized = false;
-
         [HarmonyPatch(typeof(Creature), "Kill")]
         public static class CreatureKillPatch
         {
@@ -34,7 +26,7 @@ namespace CSM.Patches
                     if (CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, __instance)) return;
                 }
 
-                if (!WasKilledByPlayer(__instance) && WasRecentlyThrownByPlayer(__instance))
+                if (!WasKilledByPlayer(__instance) && ThrowTracker.WasRecentlyThrown(__instance))
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Thrown impact kill detected");
@@ -94,103 +86,6 @@ namespace CSM.Patches
                     return false;
                 }
             }
-        }
-
-        private static void HookExistingCreatures()
-        {
-            try
-            {
-                foreach (var creature in Creature.allActive)
-                {
-                    HookRagdoll(creature);
-                }
-            }
-            catch { }
-        }
-
-        public static void EnsureHooks()
-        {
-            if (_hooksInitialized) return;
-            _hooksInitialized = true;
-            HookExistingCreatures();
-        }
-
-        private static void HookRagdoll(Creature creature)
-        {
-            if (creature == null || creature.ragdoll == null) return;
-            var ragdoll = creature.ragdoll;
-            if (HookedRagdolls.Contains(ragdoll)) return;
-
-            ragdoll.OnUngrabEvent += OnRagdollUngrab;
-            ragdoll.OnTelekinesisReleaseEvent += OnRagdollTelekinesisRelease;
-            HookedRagdolls.Add(ragdoll);
-        }
-
-        private static void OnRagdollUngrab(RagdollHand ragdollHand, HandleRagdoll handleRagdoll, bool lastHandler)
-        {
-            if (!lastHandler) return;
-            bool playerReleased = ragdollHand != null && (ragdollHand.playerHand != null || ragdollHand.creature?.isPlayer == true);
-            if (!playerReleased) return;
-            var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
-            MarkCreatureThrown(creature, "Grab");
-        }
-
-        private static void OnRagdollTelekinesisRelease(ThunderRoad.Skill.SpellPower.SpellTelekinesis spellTelekinesis, HandleRagdoll handleRagdoll, bool lastHandler)
-        {
-            if (!lastHandler) return;
-            bool playerReleased = spellTelekinesis?.spellCaster?.ragdollHand?.playerHand != null ||
-                                  spellTelekinesis?.spellCaster?.ragdollHand?.creature?.isPlayer == true;
-            if (!playerReleased) return;
-            var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
-            MarkCreatureThrown(creature, "Telekinesis");
-        }
-
-        private static void MarkCreatureThrown(Creature creature, string source)
-        {
-            if (creature == null || creature.isPlayer) return;
-            RecentThrownCreatures[creature.GetInstanceID()] = Time.unscaledTime;
-            CleanupThrownCache(Time.unscaledTime);
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Thrown release recorded (" + source + ", window " + ThrownKillWindowSeconds.ToString("0.###") + "s): " + creature.name);
-        }
-
-        private static bool WasRecentlyThrownByPlayer(Creature creature)
-        {
-            if (creature == null) return false;
-            if (!CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
-                return false;
-
-            int id = creature.GetInstanceID();
-            if (!RecentThrownCreatures.TryGetValue(id, out float releaseTime))
-                return false;
-
-            float now = Time.unscaledTime;
-            if (now - releaseTime > ThrownKillWindowSeconds)
-                return false;
-
-            RecentThrownCreatures.Remove(id);
-            return true;
-        }
-
-        private static void CleanupThrownCache(float now)
-        {
-            if (now - _lastCleanupTime < CleanupInterval)
-                return;
-
-            _lastCleanupTime = now;
-            List<int> expired = null;
-            foreach (var kvp in RecentThrownCreatures)
-            {
-                if (now - kvp.Value > ThrownKillWindowSeconds * 2f)
-                {
-                    if (expired == null) expired = new List<int>();
-                    expired.Add(kvp.Key);
-                }
-            }
-
-            if (expired == null) return;
-            foreach (var key in expired)
-                RecentThrownCreatures.Remove(key);
         }
     }
 }
