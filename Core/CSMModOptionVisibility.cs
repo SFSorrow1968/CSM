@@ -203,6 +203,10 @@ namespace CSM.Core
             presetChanged |= local;
             changed |= ApplyDiagnostics(force);
             changed |= UpdateCustomTooltips(force, presetChanged);
+            if (CSMModOptions.DebugLogging && _lastDebugLogging != CSMModOptions.DebugLogging)
+            {
+                LogMenuState("Debug Enabled");
+            }
             if ((force || presetChanged || _lastDebugLogging != CSMModOptions.DebugLogging) && CSMModOptions.DebugLogging)
             {
                 LogEffectiveValues();
@@ -245,6 +249,7 @@ namespace CSM.Core
             }
 
             _lastIntensityPreset = presetValue;
+            LogPresetApply("Intensity Preset", presetValue);
             return true;
         }
 
@@ -268,6 +273,7 @@ namespace CSM.Core
             }
 
             _lastChancePreset = presetValue;
+            LogPresetApply("Chance Preset", presetValue);
             return true;
         }
 
@@ -306,6 +312,7 @@ namespace CSM.Core
             }
 
             _lastCooldownPreset = presetValue;
+            LogPresetApply("Cooldown Preset", presetValue);
             return true;
         }
 
@@ -329,6 +336,7 @@ namespace CSM.Core
             }
 
             _lastDurationPreset = presetValue;
+            LogPresetApply("Duration Preset", presetValue);
             return true;
         }
 
@@ -352,6 +360,7 @@ namespace CSM.Core
             }
 
             _lastSmoothnessPreset = presetValue;
+            LogPresetApply("Smoothness Preset", presetValue);
             return true;
         }
 
@@ -371,6 +380,7 @@ namespace CSM.Core
             }
 
             _lastDistributionPreset = presetValue;
+            LogPresetApply("Third Person Distribution", presetValue);
             return true;
         }
 
@@ -420,6 +430,17 @@ namespace CSM.Core
             CSMModOptions.EnableLastStand = lastStand;
 
             _lastTriggerProfile = presetValue;
+            if (CSMModOptions.DebugLogging)
+            {
+                Debug.Log("[CSM] Trigger profile applied: " + presetValue +
+                          " | Basic=" + basicKill +
+                          " Critical=" + critical +
+                          " Dismember=" + dismemberment +
+                          " Decap=" + decapitation +
+                          " Parry=" + parry +
+                          " LastEnemy=" + lastEnemy +
+                          " LastStand=" + lastStand);
+            }
             return true;
         }
 
@@ -440,20 +461,37 @@ namespace CSM.Core
         private bool SyncOptionValue(string optionName, float value)
         {
             if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionName);
                 return false;
+            }
 
             if (option.parameterValues == null || option.parameterValues.Length == 0)
                 option.LoadModOptionParameters();
 
+            if (option.parameterValues == null || option.parameterValues.Length == 0)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync missing parameters: " + optionName);
+                return false;
+            }
+
             int index = FindParameterIndex(option.parameterValues, value);
             if (index < 0)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync no parameter match: " + optionName + " value=" + value);
                 return false;
+            }
 
             if (option.currentValueIndex == index)
                 return false;
 
             option.Apply(index);
             option.RefreshUI();
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Menu sync updated: " + optionName + " -> " + value);
             return true;
         }
 
@@ -649,7 +687,37 @@ namespace CSM.Core
 
             option.tooltip = newTooltip;
             option.RefreshUI();
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Menu tooltip updated: " + optionName);
             return true;
+        }
+
+        private void LogPresetApply(string label, string value)
+        {
+            if (!CSMModOptions.DebugLogging)
+                return;
+
+            Debug.Log("[CSM] Menu preset applied: " + label + " = " + value);
+        }
+
+        private void LogMenuState(string context)
+        {
+            Debug.Log("[CSM] Menu state (" + context + "): " +
+                      "Intensity=" + CSMModOptions.CurrentPreset +
+                      " | Chance=" + CSMModOptions.ChancePresetSetting +
+                      " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
+                      " | Duration=" + CSMModOptions.DurationPresetSetting +
+                      " | Smoothness=" + CSMModOptions.SmoothnessPresetSetting +
+                      " | ThirdPerson=" + CSMModOptions.CameraDistribution +
+                      " | TriggerProfile=" + CSMModOptions.TriggerProfile);
+            Debug.Log("[CSM] Menu triggers: " +
+                      "Basic=" + CSMModOptions.EnableBasicKill +
+                      " Critical=" + CSMModOptions.EnableCriticalKill +
+                      " Dismember=" + CSMModOptions.EnableDismemberment +
+                      " Decap=" + CSMModOptions.EnableDecapitation +
+                      " Parry=" + CSMModOptions.EnableParry +
+                      " LastEnemy=" + CSMModOptions.EnableLastEnemy +
+                      " LastStand=" + CSMModOptions.EnableLastStand);
         }
 
         private void LogEffectiveValues()
