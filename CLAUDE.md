@@ -11,3 +11,4 @@ When making changes in this repo:
 - Check `References/` for new logs/screenshots before starting; screenshots live in `References/Screenshots/`.
 - Common edit points: UI options in `Configuration/CSMModOptions.cs`, UI sync/tooltips in `Core/CSMModOptionVisibility.cs`, runtime logic in `Core/CSMManager.cs` and `Core/CSMKillcam.cs`.
 - Only add new pointers to these agent files if a redundant task cost significant time and the note would materially help onboarding agents avoid it.
+- If the user says "publish", follow `PUBLISH.md`.

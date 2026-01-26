@@ -1,0 +1,18 @@
+# Description
+
+## Overview (<=250 chars)
+Conditional Slow Motion adds cinematic slow motion for key combat moments with presets, trigger profiles, third-person distribution, and per-trigger customization, plus killcam positioning, haptics, and debug tools.
+
+## Detailed Description (<=50,000 chars)
+Conditional Slow Motion (CSM) brings controlled, cinematic slow motion to Blade & Sorcery. It triggers on meaningful combat moments and provides a clear, layered configuration model: presets set the baseline, optional overrides refine behavior, trigger toggles control eligibility, and per-trigger custom values override everything else.
+
+Key features:
+- Trigger profiles: All, Kills Only, Highlights, and Last Enemy Only to quickly scope which events are active.
+- Preset system: intensity, chance, cooldown, duration, smoothing, and third-person distribution presets set consistent defaults across all triggers.
+- Per-trigger customization: adjust chance, time scale, duration, cooldown, smoothing, and third-person distribution for each trigger.
+- Third-person distribution control: configurable frequency for killcam use, with first-person defaults for VR and per-trigger eligibility.
+- Optional overrides: global cooldown, global smoothing, dynamic intensity scaling based on damage, and haptic feedback.
+- Killcam positioning: distance, height, and orbit speed with optional randomization.
+- Debug/QA tools: quick-test trigger and detailed debug logging, including effective values tooltips.
+
+The system is designed so presets and profiles shape behavior quickly, while per-trigger controls allow fine-tuning without hidden state. It supports both PCVR and Nomad builds.
