@@ -29,6 +29,9 @@ namespace CSM.Core
         private bool _transitioningOut;
         private float _transitionInSpeed = 8f;
         private float _transitionOutSpeed = 4f;
+        private float _transitionOutStartTime;
+        private const float TransitionOutTimeoutSeconds = 5f;
+        private const float EndOverrunGraceSeconds = 2f;
 
         public bool IsActive => _isSlowMotionActive;
 
@@ -66,6 +69,12 @@ namespace CSM.Core
                 {
                     EndSlowMotion();
                 }
+
+                if (_isSlowMotionActive && Time.unscaledTime > _slowMotionEndTime + EndOverrunGraceSeconds)
+                {
+                    Debug.LogWarning("[CSM] SlowMo exceeded expected duration. Forcing cancel.");
+                    CancelSlowMotion();
+                }
             }
             catch (Exception ex)
             {
@@ -87,6 +96,17 @@ namespace CSM.Core
                 return;
             }
 
+            if (_transitioningOut && _transitionOutStartTime > 0f &&
+                Time.unscaledTime - _transitionOutStartTime > TransitionOutTimeoutSeconds)
+            {
+                _currentTimeScale = _targetTimeScale;
+                _isTransitioning = false;
+                _transitioningOut = false;
+                ApplyTimeScale(_currentTimeScale);
+                Debug.LogWarning("[CSM] Transition out timed out. Forcing time scale restore.");
+                return;
+            }
+
             float delta = _transitioningOut ? Time.deltaTime : Time.unscaledDeltaTime;
             _currentTimeScale = Mathf.Lerp(_currentTimeScale, _targetTimeScale, delta * speed);
 
@@ -95,6 +115,7 @@ namespace CSM.Core
             {
                 _currentTimeScale = _targetTimeScale;
                 _isTransitioning = false;
+                _transitioningOut = false;
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Transition complete: " + _currentTimeScale);
@@ -546,6 +567,7 @@ namespace CSM.Core
                 _isSlowMotionActive = true;
                 _activeTriggerType = type;
                 _slowMotionEndTime = Time.unscaledTime + duration;
+                _transitionOutStartTime = 0f;
 
                 // Dynamic intensity: scale transition-in speed based on damage dealt
                 float transitionInSpeed = smoothing;
@@ -604,6 +626,7 @@ namespace CSM.Core
                 _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
                 _isTransitioning = true;
                 _transitioningOut = true;
+                _transitionOutStartTime = Time.unscaledTime;
 
                 Debug.Log("[CSM] SlowMo END: " + endedType);
             }
