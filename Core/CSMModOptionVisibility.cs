@@ -464,28 +464,46 @@ namespace CSM.Core
             if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
                 return false;
 
-            object currentValue = option.GetValue(option.currentValueIndex);
-            if (currentValue is float fValue)
-            {
-                if (Mathf.Abs(fValue - value) < 0.0001f)
-                    return false;
-            }
-            else if (currentValue is double dValue)
-            {
-                if (Mathf.Abs((float)dValue - value) < 0.0001f)
-                    return false;
-            }
-            else if (currentValue is int iValue)
-            {
-                if (Mathf.Abs(iValue - value) < 0.0001f)
-                    return false;
-            }
-            else if (currentValue is null && Mathf.Abs(value) < 0.0001f)
+            if (option.parameterValues == null || option.parameterValues.Length == 0)
+                option.LoadModOptionParameters();
+
+            int index = FindParameterIndex(option.parameterValues, value);
+            if (index < 0)
                 return false;
 
-            option.Reload();
+            if (option.currentValueIndex == index)
+                return false;
+
+            option.Apply(index);
             option.RefreshUI();
             return true;
+        }
+
+        private static int FindParameterIndex(ModOptionParameter[] parameters, float value)
+        {
+            if (parameters == null) return -1;
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var paramValue = parameters[i]?.value;
+                if (paramValue is float fValue)
+                {
+                    if (Mathf.Abs(fValue - value) < 0.0001f)
+                        return i;
+                }
+                else if (paramValue is double dValue)
+                {
+                    if (Mathf.Abs((float)dValue - value) < 0.0001f)
+                        return i;
+                }
+                else if (paramValue is int iValue)
+                {
+                    if (Mathf.Abs(iValue - value) < 0.0001f)
+                        return i;
+                }
+            }
+
+            return -1;
         }
 
         private bool UpdateReadOnlyOption(string optionName, string value)
@@ -498,7 +516,8 @@ namespace CSM.Core
 
             if (_modOptionsByName.TryGetValue(optionName, out ModOption option))
             {
-                option.Reload();
+                option.LoadModOptionParameters();
+                option.Apply(0);
                 option.RefreshUI();
             }
 
