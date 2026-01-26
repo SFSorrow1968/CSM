@@ -27,7 +27,7 @@ namespace CSM.Hooks
         private readonly Dictionary<int, float> _recentThrownCreatures = new Dictionary<int, float>();
         private readonly HashSet<Ragdoll> _hookedRagdolls = new HashSet<Ragdoll>();
         private float _lastThrownCleanupTime = 0f;
-        private const float THROWN_KILL_WINDOW_SECONDS = 0.5f;
+        private static float ThrownKillWindowSeconds => CSMModOptions.ThrownImpactWindowSeconds;
         private const float THROWN_CLEANUP_INTERVAL = 5f;
 
         public static void Subscribe()
@@ -256,7 +256,7 @@ namespace CSM.Hooks
             _recentThrownCreatures[creature.GetInstanceID()] = Time.unscaledTime;
             CleanupThrownCache(Time.unscaledTime);
             if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Thrown release recorded (" + source + "): " + creature.name);
+                Debug.Log("[CSM] Thrown release recorded (" + source + ", window " + ThrownKillWindowSeconds.ToString("0.###") + "s): " + creature.name);
         }
 
         private bool WasRecentlyThrownByPlayer(Creature creature)
@@ -270,7 +270,7 @@ namespace CSM.Hooks
                 return false;
 
             float now = Time.unscaledTime;
-            if (now - releaseTime > THROWN_KILL_WINDOW_SECONDS)
+            if (now - releaseTime > ThrownKillWindowSeconds)
                 return false;
 
             _recentThrownCreatures.Remove(id);
@@ -286,7 +286,7 @@ namespace CSM.Hooks
             List<int> expired = null;
             foreach (var kvp in _recentThrownCreatures)
             {
-                if (now - kvp.Value > THROWN_KILL_WINDOW_SECONDS * 2f)
+                if (now - kvp.Value > ThrownKillWindowSeconds * 2f)
                 {
                     if (expired == null) expired = new List<int>();
                     expired.Add(kvp.Key);

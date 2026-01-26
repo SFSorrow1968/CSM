@@ -48,6 +48,8 @@ namespace CSM.Core
                 }
 
                 EventHooks.SubscribeDeflect();
+                EventHooks.SubscribeThrowTracking();
+                CSM.Patches.KillPatches.EnsureHooks();
 #endif
 
                 Debug.Log("[CSM] ScriptEnable complete - CSM is active!");

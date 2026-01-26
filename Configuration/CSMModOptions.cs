@@ -964,6 +964,8 @@ namespace CSM.Configuration
 
         #endregion
 
+        public const float ThrownImpactWindowSeconds = 0.2f;
+
         #region Helper Methods
 
         public enum TriggerField
