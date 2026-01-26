@@ -227,6 +227,10 @@ namespace CSM.Core
             {
                 LogMenuState("Debug Enabled");
             }
+            if (CSMModOptions.DebugLogging && presetChanged)
+            {
+                LogMenuState("Preset Changed");
+            }
             if ((force || presetChanged || _lastDebugLogging != CSMModOptions.DebugLogging) && CSMModOptions.DebugLogging)
             {
                 LogEffectiveValues();
@@ -543,19 +547,26 @@ namespace CSM.Core
                 return "Disabled";
 
             var values = CSMModOptions.GetCustomValues(type);
-            float chance = values.Chance;
-            float timeScale = values.TimeScale;
-            float duration = values.Duration;
-            float cooldown = values.Cooldown;
             float smoothing = values.Smoothing;
 
             if (CSMModOptions.GlobalSmoothing >= 0f)
                 smoothing = CSMModOptions.GlobalSmoothing;
 
-            string chanceLabel = (chance * 100f).ToString("F0") + "%";
-            string scaleLabel = (timeScale * 100f).ToString("F0") + "%";
-            string durationLabel = duration.ToString("F1") + "s";
-            string cooldownLabel = cooldown.ToString("F1") + "s";
+            return BuildSummary(type, values, smoothing);
+        }
+
+        private static string BuildRawSummary(TriggerType type)
+        {
+            var values = CSMModOptions.GetCustomValues(type);
+            return BuildSummary(type, values, values.Smoothing);
+        }
+
+        private static string BuildSummary(TriggerType type, CSMModOptions.TriggerCustomValues values, float smoothing)
+        {
+            string chanceLabel = (values.Chance * 100f).ToString("F0") + "%";
+            string scaleLabel = (values.TimeScale * 100f).ToString("F0") + "%";
+            string durationLabel = values.Duration.ToString("F1") + "s";
+            string cooldownLabel = values.Cooldown.ToString("F1") + "s";
             string smoothingLabel = smoothing <= 0f ? "Instant" : smoothing.ToString("0.#") + "x";
 
             string tpLabel;
@@ -565,7 +576,7 @@ namespace CSM.Core
             }
             else
             {
-                float dist = CSMModOptions.GetThirdPersonDistribution(type);
+                float dist = values.Distribution;
                 if (dist <= 0f)
                     tpLabel = "Off";
                 else if (dist >= 99f)
@@ -621,6 +632,8 @@ namespace CSM.Core
                     continue;
 
                 _lastCustomValues[trigger] = current;
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Custom override changed: " + GetTriggerUiName(trigger) + " " + BuildSummary(trigger, last, last.Smoothing) + " -> " + BuildSummary(trigger, current, current.Smoothing));
                 if (!CSMModOptions.IsTriggerEnabled(trigger))
                 {
                     CSMModOptions.SetTriggerEnabled(trigger, true);
@@ -720,10 +733,16 @@ namespace CSM.Core
                       "Intensity=" + CSMModOptions.CurrentPreset +
                       " | Chance=" + CSMModOptions.ChancePresetSetting +
                       " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
-                      " | Duration=" + CSMModOptions.DurationPresetSetting +
-                      " | Smoothness=" + CSMModOptions.SmoothnessPresetSetting +
+                      " | Duration=" + CSMModOptions.DurationPresetSetting + " (x" + CSMModOptions.GetDurationMultiplier().ToString("0.##") + ")" +
+                      " | Smoothness=" + CSMModOptions.SmoothnessPresetSetting + " (x" + CSMModOptions.GetSmoothnessMultiplier().ToString("0.##") + ")" +
                       " | ThirdPerson=" + CSMModOptions.CameraDistribution +
                       " | TriggerProfile=" + CSMModOptions.TriggerProfile);
+            string globalSmoothing = CSMModOptions.GlobalSmoothing < 0f ? "Per Trigger" : CSMModOptions.GlobalSmoothing.ToString("0.##");
+            Debug.Log("[CSM] Menu overrides: " +
+                      "GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##") +
+                      " | GlobalSmoothing=" + globalSmoothing +
+                      " | DynamicIntensity=" + CSMModOptions.DynamicIntensitySetting +
+                      " | Haptic=" + CSMModOptions.HapticIntensity.ToString("0.##"));
             Debug.Log("[CSM] Menu triggers: " +
                       "Basic=" + CSMModOptions.EnableBasicKill +
                       " Critical=" + CSMModOptions.EnableCriticalKill +
@@ -739,7 +758,7 @@ namespace CSM.Core
             Debug.Log("[CSM] Effective Values:");
             foreach (var trigger in TriggerTypes)
             {
-                Debug.Log("[CSM] " + GetTriggerUiName(trigger) + " -> " + BuildEffectiveSummary(trigger));
+                Debug.Log("[CSM] " + GetTriggerUiName(trigger) + " raw -> " + BuildRawSummary(trigger) + " | effective -> " + BuildEffectiveSummary(trigger));
             }
         }
 

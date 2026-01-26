@@ -1322,60 +1322,53 @@ namespace CSM.Configuration
             cooldown = Mathf.Max(0f, cooldown * cooldownMultiplier);
         }
 
-        public static void ApplyDurationPreset(ref float duration)
+        public static float GetDurationMultiplier()
         {
             var preset = GetDurationPreset();
-            float durationMultiplier;
-
             switch (preset)
             {
                 case DurationPreset.VeryShort:
-                    durationMultiplier = 0.5f;
-                    break;
+                    return 0.5f;
                 case DurationPreset.Short:
-                    durationMultiplier = 0.6f;
-                    break;
+                    return 0.6f;
                 case DurationPreset.Long:
-                    durationMultiplier = 1.4f;
-                    break;
+                    return 1.4f;
                 case DurationPreset.Extended:
-                    durationMultiplier = 1.8f;
-                    break;
+                    return 1.8f;
                 default:
-                    durationMultiplier = 1.0f;
-                    break;
+                    return 1.0f;
             }
+        }
 
+        public static void ApplyDurationPreset(ref float duration)
+        {
+            float durationMultiplier = GetDurationMultiplier();
             duration = Mathf.Max(0.05f, duration * durationMultiplier);
+        }
+
+        public static float GetSmoothnessMultiplier()
+        {
+            var preset = GetSmoothnessPreset();
+            switch (preset)
+            {
+                case SmoothnessPreset.VerySnappy:
+                    return 2.0f;
+                case SmoothnessPreset.Snappy:
+                    return 1.5f;
+                case SmoothnessPreset.Smooth:
+                    return 0.75f;
+                case SmoothnessPreset.Cinematic:
+                    return 0.5f;
+                case SmoothnessPreset.UltraSmooth:
+                    return 0.45f;
+                default:
+                    return 1.0f;
+            }
         }
 
         public static void ApplySmoothnessPreset(ref float smoothing)
         {
-            var preset = GetSmoothnessPreset();
-            float smoothingMultiplier;
-
-            switch (preset)
-            {
-                case SmoothnessPreset.VerySnappy:
-                    smoothingMultiplier = 2.0f;
-                    break;
-                case SmoothnessPreset.Snappy:
-                    smoothingMultiplier = 1.5f;
-                    break;
-                case SmoothnessPreset.Smooth:
-                    smoothingMultiplier = 0.75f;
-                    break;
-                case SmoothnessPreset.Cinematic:
-                    smoothingMultiplier = 0.5f;
-                    break;
-                case SmoothnessPreset.UltraSmooth:
-                    smoothingMultiplier = 0.45f;
-                    break;
-                default:
-                    smoothingMultiplier = 1.0f;
-                    break;
-            }
-
+            float smoothingMultiplier = GetSmoothnessMultiplier();
             smoothing = Mathf.Max(0f, smoothing * smoothingMultiplier);
         }
 

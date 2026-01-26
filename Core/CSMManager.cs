@@ -84,6 +84,8 @@ namespace CSM.Core
 
             if (speed <= 0f)
             {
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Transition immediate: target=" + _targetTimeScale.ToString("0.###"));
                 _currentTimeScale = _targetTimeScale;
                 _isTransitioning = false;
                 ApplyTimeScale(_currentTimeScale);
@@ -159,7 +161,20 @@ namespace CSM.Core
                 smoothing = ApplyGlobalSmoothing(smoothing);
 
                 if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] TriggerSlow(" + type + "): enabled=" + enabled + " chance=" + chance + " timeScale=" + timeScale + " duration=" + duration + " smoothing=" + smoothing);
+                {
+                    var raw = CSMModOptions.GetCustomValues(type);
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, raw.Smoothing, type, raw.Distribution));
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, smoothing, type, raw.Distribution));
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") presets: " +
+                              "Intensity=" + CSMModOptions.CurrentPreset +
+                              " | Chance=" + CSMModOptions.ChancePresetSetting +
+                              " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
+                              " | Duration=" + CSMModOptions.DurationPresetSetting + " (x" + CSMModOptions.GetDurationMultiplier().ToString("0.##") + ")" +
+                              " | Smoothness=" + CSMModOptions.SmoothnessPresetSetting + " (x" + CSMModOptions.GetSmoothnessMultiplier().ToString("0.##") + ")" +
+                              " | GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##") +
+                              " | GlobalSmoothing=" + FormatGlobalSmoothing() +
+                              " | DynamicIntensity=" + CSMModOptions.DynamicIntensitySetting);
+                }
 
                 if (!enabled)
                 {
@@ -496,6 +511,17 @@ namespace CSM.Core
                 float now = Time.unscaledTime;
                 _globalCooldownEndTime = now + duration + CSMModOptions.GlobalCooldown;
                 _triggerCooldownEndTimes[type] = now + duration + cooldown;
+
+                if (CSMModOptions.DebugLogging)
+                {
+                    Debug.Log("[CSM] SlowMo config: target=" + _targetTimeScale.ToString("0.###") +
+                              " duration=" + duration.ToString("0.###") +
+                              " cooldown=" + cooldown.ToString("0.###") +
+                              " transitionIn=" + _transitionInSpeed.ToString("0.###") +
+                              " transitionOut=" + _transitionOutSpeed.ToString("0.###") +
+                              " endAt=" + _slowMotionEndTime.ToString("0.###") +
+                              " now=" + now.ToString("0.###"));
+                }
             }
             catch (Exception ex)
             {
@@ -517,6 +543,13 @@ namespace CSM.Core
                 _isTransitioning = true;
                 _transitioningOut = true;
                 _transitionOutStartTime = Time.unscaledTime;
+
+                if (CSMModOptions.DebugLogging)
+                {
+                    Debug.Log("[CSM] Transition out: target=" + _targetTimeScale.ToString("0.###") +
+                              " speed=" + _transitionOutSpeed.ToString("0.###") +
+                              " start=" + _transitionOutStartTime.ToString("0.###"));
+                }
 
                 Debug.Log("[CSM] SlowMo END: " + endedType);
             }
@@ -625,6 +658,42 @@ namespace CSM.Core
                 case TriggerType.LastStand: return "Last Stand";
                 default: return "Unknown";
             }
+        }
+
+        private static string FormatValues(float chance, float timeScale, float duration, float cooldown, float smoothing, TriggerType type, float distribution)
+        {
+            string chanceLabel = (chance * 100f).ToString("F0") + "%";
+            string scaleLabel = (timeScale * 100f).ToString("F0") + "%";
+            string durationLabel = duration.ToString("F1") + "s";
+            string cooldownLabel = cooldown.ToString("F1") + "s";
+            string smoothingLabel = smoothing <= 0f ? "Instant" : smoothing.ToString("0.#") + "x";
+
+            string tpLabel;
+            if (!CSMModOptions.IsThirdPersonEligible(type))
+            {
+                tpLabel = "N/A";
+            }
+            else
+            {
+                if (distribution <= 0f)
+                    tpLabel = "Off";
+                else if (distribution >= 99f)
+                    tpLabel = "Always";
+                else
+                    tpLabel = distribution.ToString("0.#") + "x";
+            }
+
+            return "Chance " + chanceLabel +
+                   " | Scale " + scaleLabel +
+                   " | Dur " + durationLabel +
+                   " | CD " + cooldownLabel +
+                   " | Smooth " + smoothingLabel +
+                   " | TP " + tpLabel;
+        }
+
+        private static string FormatGlobalSmoothing()
+        {
+            return CSMModOptions.GlobalSmoothing < 0f ? "Per Trigger" : CSMModOptions.GlobalSmoothing.ToString("0.##");
         }
 
         private static void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
