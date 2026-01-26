@@ -274,3 +274,15 @@
 - Command: Copy-Item -Force "bin/Release/CSM.dll" "builds/CSM-PCVR/CSM/CSM.dll"; Copy-Item -Force "bin/Nomad/CSM.dll" "builds/CSM-Nomad/CSM/CSM.dll"
   Result: Success
   Notes: Updated build artifacts
+- Command: python _agent/build_menu_mock_xlsx.py
+  Result: Success
+  Notes: Updated MENU_MOCK.xlsx (category/order sync)
+- Command: dotnet build CSM.csproj -c Release
+  Result: Success
+  Notes: Build complete: bin\Release\CSM.dll
+- Command: dotnet build CSM.csproj -c Nomad
+  Result: Success
+  Notes: Build complete: bin\Nomad\CSM.dll
+- Command: Copy-Item -Force "bin/Release/CSM.dll" "builds/CSM-PCVR/CSM/CSM.dll"; Copy-Item -Force "bin/Nomad/CSM.dll" "builds/CSM-Nomad/CSM/CSM.dll"
+  Result: Success
+  Notes: Updated build artifacts

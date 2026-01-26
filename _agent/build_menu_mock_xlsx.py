@@ -154,6 +154,8 @@ def parse_modoptions(source: str) -> list[dict[str, str]]:
                 "valueSourceName": strip_quotes(kv.get("valueSourceName", "")),
                 "defaultValueIndex": kv.get("defaultValueIndex", ""),
                 "interactionType": kv.get("interactionType", ""),
+                "order": kv.get("order", ""),
+                "categoryOrder": kv.get("categoryOrder", ""),
                 "fieldType": field_type,
                 "fieldName": field_name,
                 "fieldValue": field_value.strip(),
@@ -165,15 +167,46 @@ def parse_modoptions(source: str) -> list[dict[str, str]]:
 providers = parse_provider_values(text)
 options = parse_modoptions(text)
 
-# Preserve ModOptions order (first occurrence in file)
+def parse_int(value: str) -> int | None:
+    value = value.strip()
+    if not value:
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        return None
+
+
+# Preserve ModOptions order (first occurrence in file), but respect explicit order values
 category_order: list[str] = []
+category_order_values: dict[str, int] = {}
 by_category: dict[str, list[dict[str, str]]] = {}
-for option in options:
+for idx, option in enumerate(options):
+    option["index"] = idx
     category = option["category"] or ""
     if category not in by_category:
         by_category[category] = []
         category_order.append(category)
     by_category[category].append(option)
+    category_order_val = parse_int(option.get("categoryOrder", ""))
+    if category_order_val is not None:
+        if category not in category_order_values:
+            category_order_values[category] = category_order_val
+        else:
+            category_order_values[category] = min(category_order_values[category], category_order_val)
+
+
+def category_sort_key(category: str) -> tuple[int, int]:
+    if category in category_order_values:
+        return (0, category_order_values[category])
+    return (1, category_order.index(category))
+
+
+def option_sort_key(option: dict[str, str]) -> tuple[int, int]:
+    order_val = parse_int(option.get("order", ""))
+    if order_val is not None:
+        return (0, order_val)
+    return (1, option["index"])
 
 
 def control_type(option: dict[str, str]) -> str:
@@ -218,10 +251,10 @@ menu_row_types.append("blank")
 menu_rows.append(["Category", "Option", "Control", "Default", "Values", "Source", "Tooltip"])
 menu_row_types.append("header")
 
-for category in category_order:
+for category in sorted(category_order, key=category_sort_key):
     menu_rows.append([category])
     menu_row_types.append("section")
-    for option in by_category[category]:
+    for option in sorted(by_category[category], key=option_sort_key):
         src = option["valueSourceName"]
         menu_rows.append(
             [

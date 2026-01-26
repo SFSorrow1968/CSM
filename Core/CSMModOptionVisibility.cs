@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 using CSM.Configuration;
 using ThunderRoad;
 
@@ -19,6 +21,11 @@ namespace CSM.Core
         private string _lastDistributionPreset;
         private string _lastTriggerProfile;
         private bool _lastShowEffectiveValues;
+        private readonly Dictionary<string, string> _readOnlyCache =
+            new Dictionary<string, string>(StringComparer.Ordinal);
+
+        private readonly Dictionary<string, ModOption> _modOptionsByName =
+            new Dictionary<string, ModOption>(StringComparer.Ordinal);
 
         private static readonly TriggerType[] TriggerTypes =
         {
@@ -29,6 +36,69 @@ namespace CSM.Core
             TriggerType.Parry,
             TriggerType.LastEnemy,
             TriggerType.LastStand,
+        };
+
+        private static readonly Dictionary<TriggerType, string> ChanceOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Chance" },
+            { TriggerType.Critical, "Critical Chance" },
+            { TriggerType.Dismemberment, "Dismember Chance" },
+            { TriggerType.Decapitation, "Decapitation Chance" },
+            { TriggerType.Parry, "Parry Chance" },
+            { TriggerType.LastEnemy, "Last Enemy Chance" }
+        };
+
+        private static readonly Dictionary<TriggerType, string> TimeScaleOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Time Scale" },
+            { TriggerType.Critical, "Critical Time Scale" },
+            { TriggerType.Dismemberment, "Dismember Time Scale" },
+            { TriggerType.Decapitation, "Decapitation Time Scale" },
+            { TriggerType.Parry, "Parry Time Scale" },
+            { TriggerType.LastEnemy, "Last Enemy Time Scale" },
+            { TriggerType.LastStand, "Last Stand Time Scale" }
+        };
+
+        private static readonly Dictionary<TriggerType, string> DurationOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Duration" },
+            { TriggerType.Critical, "Critical Duration" },
+            { TriggerType.Dismemberment, "Dismember Duration" },
+            { TriggerType.Decapitation, "Decapitation Duration" },
+            { TriggerType.Parry, "Parry Duration" },
+            { TriggerType.LastEnemy, "Last Enemy Duration" },
+            { TriggerType.LastStand, "Last Stand Duration" }
+        };
+
+        private static readonly Dictionary<TriggerType, string> CooldownOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Cooldown" },
+            { TriggerType.Critical, "Critical Cooldown" },
+            { TriggerType.Dismemberment, "Dismember Cooldown" },
+            { TriggerType.Decapitation, "Decapitation Cooldown" },
+            { TriggerType.Parry, "Parry Cooldown" },
+            { TriggerType.LastEnemy, "Last Enemy Cooldown" },
+            { TriggerType.LastStand, "Last Stand Cooldown" }
+        };
+
+        private static readonly Dictionary<TriggerType, string> SmoothingOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Smoothing" },
+            { TriggerType.Critical, "Critical Smoothing" },
+            { TriggerType.Dismemberment, "Dismember Smoothing" },
+            { TriggerType.Decapitation, "Decapitation Smoothing" },
+            { TriggerType.Parry, "Parry Smoothing" },
+            { TriggerType.LastEnemy, "Last Enemy Smoothing" },
+            { TriggerType.LastStand, "Last Stand Smoothing" }
+        };
+
+        private static readonly Dictionary<TriggerType, string> DistributionOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Third Person Distribution" },
+            { TriggerType.Critical, "Critical Third Person Distribution" },
+            { TriggerType.Dismemberment, "Dismember Third Person Distribution" },
+            { TriggerType.Decapitation, "Decapitation Third Person Distribution" },
+            { TriggerType.LastEnemy, "Last Enemy Third Person Distribution" }
         };
 
         private CSMModOptionVisibility() { }
@@ -45,6 +115,7 @@ namespace CSM.Core
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastShowEffectiveValues = false;
+            _readOnlyCache.Clear();
 
             TryInitialize();
             if (_initialized)
@@ -85,7 +156,20 @@ namespace CSM.Core
             if (_modData?.modOptions == null || _modData.modOptions.Count == 0)
                 return;
 
+            CacheModOptions();
             _initialized = true;
+        }
+
+        private void CacheModOptions()
+        {
+            _modOptionsByName.Clear();
+            if (_modData?.modOptions == null) return;
+
+            foreach (var option in _modData.modOptions)
+            {
+                if (option == null || string.IsNullOrEmpty(option.name)) continue;
+                _modOptionsByName[option.name] = option;
+            }
         }
 
         private bool ApplyAllPresets(bool force)
@@ -114,6 +198,9 @@ namespace CSM.Core
                 changed = true;
             }
 
+            changed |= UpdateReadOnlyOption("Last Trigger", CSMModOptions.LastTriggerSummary);
+            changed |= UpdateReadOnlyOption("Last Trigger Reason", CSMModOptions.LastTriggerReason);
+
             bool show = CSMModOptions.ShowEffectiveValues;
             if (force || show != _lastShowEffectiveValues)
             {
@@ -130,6 +217,14 @@ namespace CSM.Core
                 changed |= SetIfDifferent(ref CSMModOptions.EffectiveParry, "Off");
                 changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastEnemy, "Off");
                 changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastStand, "Off");
+
+                changed |= UpdateReadOnlyOption("Effective: Basic Kill", CSMModOptions.EffectiveBasicKill);
+                changed |= UpdateReadOnlyOption("Effective: Critical Kill", CSMModOptions.EffectiveCriticalKill);
+                changed |= UpdateReadOnlyOption("Effective: Dismemberment", CSMModOptions.EffectiveDismemberment);
+                changed |= UpdateReadOnlyOption("Effective: Decapitation", CSMModOptions.EffectiveDecapitation);
+                changed |= UpdateReadOnlyOption("Effective: Parry", CSMModOptions.EffectiveParry);
+                changed |= UpdateReadOnlyOption("Effective: Last Enemy", CSMModOptions.EffectiveLastEnemy);
+                changed |= UpdateReadOnlyOption("Effective: Last Stand", CSMModOptions.EffectiveLastStand);
                 return changed;
             }
 
@@ -140,6 +235,14 @@ namespace CSM.Core
             changed |= SetIfDifferent(ref CSMModOptions.EffectiveParry, BuildEffectiveSummary(TriggerType.Parry));
             changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastEnemy, BuildEffectiveSummary(TriggerType.LastEnemy));
             changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastStand, BuildEffectiveSummary(TriggerType.LastStand));
+
+            changed |= UpdateReadOnlyOption("Effective: Basic Kill", CSMModOptions.EffectiveBasicKill);
+            changed |= UpdateReadOnlyOption("Effective: Critical Kill", CSMModOptions.EffectiveCriticalKill);
+            changed |= UpdateReadOnlyOption("Effective: Dismemberment", CSMModOptions.EffectiveDismemberment);
+            changed |= UpdateReadOnlyOption("Effective: Decapitation", CSMModOptions.EffectiveDecapitation);
+            changed |= UpdateReadOnlyOption("Effective: Parry", CSMModOptions.EffectiveParry);
+            changed |= UpdateReadOnlyOption("Effective: Last Enemy", CSMModOptions.EffectiveLastEnemy);
+            changed |= UpdateReadOnlyOption("Effective: Last Stand", CSMModOptions.EffectiveLastStand);
 
             return changed;
         }
@@ -158,10 +261,9 @@ namespace CSM.Core
             var preset = CSMModOptions.GetCurrentPreset();
             foreach (var trigger in TriggerTypes)
             {
-                if (!IsTriggerEnabled(trigger))
-                    continue;
                 CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 SetTimeScale(trigger, timeScale);
+                SyncOptionValue(TimeScaleOptionNames, trigger, timeScale);
             }
 
             _lastIntensityPreset = presetValue;
@@ -181,11 +283,10 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
-                if (!IsTriggerEnabled(trigger))
-                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyChancePreset(ref chance);
                 SetChance(trigger, chance);
+                SyncOptionValue(ChanceOptionNames, trigger, chance);
             }
 
             _lastChancePreset = presetValue;
@@ -220,11 +321,10 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
-                if (!IsTriggerEnabled(trigger))
-                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyCooldownPreset(ref cooldown);
                 SetCooldown(trigger, cooldown);
+                SyncOptionValue(CooldownOptionNames, trigger, cooldown);
             }
 
             _lastCooldownPreset = presetValue;
@@ -244,11 +344,10 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
-                if (!IsTriggerEnabled(trigger))
-                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplyDurationPreset(ref duration);
                 SetDuration(trigger, duration);
+                SyncOptionValue(DurationOptionNames, trigger, duration);
             }
 
             _lastDurationPreset = presetValue;
@@ -268,11 +367,10 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
-                if (!IsTriggerEnabled(trigger))
-                    continue;
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
                 CSMModOptions.ApplySmoothnessPreset(ref smoothing);
                 SetSmoothing(trigger, smoothing);
+                SyncOptionValue(SmoothingOptionNames, trigger, smoothing);
             }
 
             _lastSmoothnessPreset = presetValue;
@@ -288,11 +386,10 @@ namespace CSM.Core
             float multiplier = CSMModOptions.GetCameraDistributionMultiplier(CSMModOptions.GetCameraDistributionPreset());
             foreach (var trigger in TriggerTypes)
             {
-                if (!IsTriggerEnabled(trigger))
-                    continue;
                 if (!CSMModOptions.IsThirdPersonEligible(trigger))
                     continue;
                 SetDistribution(trigger, multiplier);
+                SyncOptionValue(DistributionOptionNames, trigger, multiplier);
             }
 
             _lastDistributionPreset = presetValue;
@@ -353,6 +450,59 @@ namespace CSM.Core
             if (string.IsNullOrWhiteSpace(value) || value == "Custom")
                 value = fallback;
             return value;
+        }
+
+        private bool SyncOptionValue(Dictionary<TriggerType, string> map, TriggerType type, float value)
+        {
+            if (!map.TryGetValue(type, out string optionName))
+                return false;
+            return SyncOptionValue(optionName, value);
+        }
+
+        private bool SyncOptionValue(string optionName, float value)
+        {
+            if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+                return false;
+
+            object currentValue = option.GetValue(option.currentValueIndex);
+            if (currentValue is float fValue)
+            {
+                if (Mathf.Abs(fValue - value) < 0.0001f)
+                    return false;
+            }
+            else if (currentValue is double dValue)
+            {
+                if (Mathf.Abs((float)dValue - value) < 0.0001f)
+                    return false;
+            }
+            else if (currentValue is int iValue)
+            {
+                if (Mathf.Abs(iValue - value) < 0.0001f)
+                    return false;
+            }
+            else if (currentValue is null && Mathf.Abs(value) < 0.0001f)
+                return false;
+
+            option.Reload();
+            option.RefreshUI();
+            return true;
+        }
+
+        private bool UpdateReadOnlyOption(string optionName, string value)
+        {
+            if (_readOnlyCache.TryGetValue(optionName, out string cached) &&
+                string.Equals(cached, value, StringComparison.Ordinal))
+                return false;
+
+            _readOnlyCache[optionName] = value;
+
+            if (_modOptionsByName.TryGetValue(optionName, out ModOption option))
+            {
+                option.Reload();
+                option.RefreshUI();
+            }
+
+            return true;
         }
 
         private static bool SetIfDifferent(ref string target, string value)

@@ -729,15 +729,6 @@ namespace CSM.Core
 
             CSMModOptions.LastTriggerSummary = summary;
             CSMModOptions.LastTriggerReason = finalReason;
-
-            try
-            {
-                ModManager.RefreshModOptionsUI();
-            }
-            catch
-            {
-                // Ignore UI refresh failures outside menu
-            }
         }
 
         private static void GetDynamicIntensitySettings(CSMModOptions.DynamicIntensityPreset preset, out float damageForInstant, out float maxSpeedMultiplier, out bool allowInstant)

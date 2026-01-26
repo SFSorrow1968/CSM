@@ -511,44 +511,57 @@ namespace CSM.Configuration
 
         #endregion
 
+        private const int CategoryOrderPreset = 10;
+        private const int CategoryOrderOptional = 20;
+        private const int CategoryOrderTriggers = 30;
+        private const int CategoryOrderKillcam = 40;
+        private const int CategoryOrderCustomBasic = 50;
+        private const int CategoryOrderCustomCritical = 51;
+        private const int CategoryOrderCustomDismemberment = 52;
+        private const int CategoryOrderCustomDecapitation = 53;
+        private const int CategoryOrderCustomLastEnemy = 54;
+        private const int CategoryOrderCustomLastStand = 55;
+        private const int CategoryOrderCustomParry = 56;
+        private const int CategoryOrderAdvanced = 90;
+
         #region CSM (Main Settings)
 
-        [ModOption(name = "Enable Mod", defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
+        [ModOption(name = "Enable Mod", order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = "Third Person Distribution", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
+        [ModOption(name = "Third Person Distribution", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
         public static string CameraDistribution = "First Person Only";
 
-        [ModOption(name = "Intensity Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
+        [ModOption(name = "Intensity Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
         public static string CurrentPreset = "Standard";
 
-        [ModOption(name = "Chance Preset", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
+        [ModOption(name = "Chance Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = "Cooldown Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
+        [ModOption(name = "Cooldown Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Standard";
 
-        [ModOption(name = "Duration Preset", category = "Preset Selection", defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
+        [ModOption(name = "Duration Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 1, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Standard";
 
-        [ModOption(name = "Smoothness Preset", category = "Preset Selection", defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
+        [ModOption(name = "Smoothness Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
         public static string SmoothnessPresetSetting = "Standard";
 
-        [ModOption(name = "Trigger Profile", category = "Preset Selection", defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
+        [ModOption(name = "Trigger Profile", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 70, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
         #region Optional Overrides
 
-        [ModOption(name = "Global Cooldown", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
+        [ModOption(name = "Global Cooldown", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 10, defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
         public static float GlobalCooldown = 0f;
 
-        [ModOption(name = "Global Smoothing", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
+        [ModOption(name = "Global Smoothing", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 20, defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
         public static float GlobalSmoothing = -1f;
 
-        [ModOption(name = "Haptic Feedback", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
+        [ModOption(name = "Haptic Feedback", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 40, defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
         public static float HapticIntensity = 0f;
 
-        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
+        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 30, defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
         public static string DynamicIntensitySetting = "Off";
 
         #endregion
@@ -559,235 +572,235 @@ namespace CSM.Configuration
 
         #region CSM Triggers (Enable/Disable)
 
-        [ModOption(name = "Basic Kill", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
+        [ModOption(name = "Basic Kill", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
         public static bool EnableBasicKill = true;
 
-        [ModOption(name = "Critical Kill", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
+        [ModOption(name = "Critical Kill", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
         public static bool EnableCriticalKill = true;
 
-        [ModOption(name = "Dismemberment", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
+        [ModOption(name = "Dismemberment", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
         public static bool EnableDismemberment = true;
 
-        [ModOption(name = "Decapitation", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
+        [ModOption(name = "Decapitation", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
         public static bool EnableDecapitation = true;
 
-        [ModOption(name = "Last Enemy", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
+        [ModOption(name = "Last Enemy", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
         public static bool EnableLastEnemy = true;
 
-        [ModOption(name = "Last Stand", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
+        [ModOption(name = "Last Stand", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
         public static bool EnableLastStand = true;
 
-        [ModOption(name = "Last Stand Threshold", category = "CSM Triggers", defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
+        [ModOption(name = "Last Stand Threshold", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
         public static float LastStandThreshold = 0.15f;
 
-        [ModOption(name = "Parry", category = "CSM Triggers", defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
+        [ModOption(name = "Parry", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
         public static bool EnableParry = true;
 
         #endregion
 
         #region CSM Killcam
 
-        [ModOption(name = "Camera Distance", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target")]
+        [ModOption(name = "Camera Distance", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 10, defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target")]
         public static float KillcamDistance = 3f;
 
-        [ModOption(name = "Randomize Distance", category = "CSM Killcam", defaultValueIndex = 0, tooltip = "Randomize distance per killcam")]
+        [ModOption(name = "Randomize Distance", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 20, defaultValueIndex = 0, tooltip = "Randomize distance per killcam")]
         public static bool KillcamRandomizeDistance = false;
 
-        [ModOption(name = "Camera Height", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamHeightProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Height offset")]
+        [ModOption(name = "Camera Height", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 30, defaultValueIndex = 1, valueSourceName = "KillcamHeightProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Height offset")]
         public static float KillcamHeight = 1.5f;
 
-        [ModOption(name = "Randomize Height", category = "CSM Killcam", defaultValueIndex = 0, tooltip = "Randomize height per killcam")]
+        [ModOption(name = "Randomize Height", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 40, defaultValueIndex = 0, tooltip = "Randomize height per killcam")]
         public static bool KillcamRandomizeHeight = false;
 
-        [ModOption(name = "Orbit Speed", category = "CSM Killcam", defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)")]
+        [ModOption(name = "Orbit Speed", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 50, defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)")]
         public static float KillcamOrbitSpeed = 15f;
 
         #endregion
 
         #region Custom: Basic Kill
 
-        [ModOption(name = "Basic Chance", category = "Custom: Basic Kill", defaultValueIndex = 1, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = "Basic Chance", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 10, defaultValueIndex = 1, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float BasicKillChance = 0.25f;
 
-        [ModOption(name = "Basic Time Scale", category = "Custom: Basic Kill", defaultValueIndex = 7, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Basic Time Scale", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 7, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float BasicKillTimeScale = 0.35f;
 
-        [ModOption(name = "Basic Duration", category = "Custom: Basic Kill", defaultValueIndex = 2, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Basic Duration", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 2, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float BasicKillDuration = 1.0f;
 
-        [ModOption(name = "Basic Cooldown", category = "Custom: Basic Kill", defaultValueIndex = 7, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Basic Cooldown", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 7, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 5f;
 
-        [ModOption(name = "Basic Smoothing", category = "Custom: Basic Kill", defaultValueIndex = 7, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Basic Smoothing", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 7, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float BasicKillSmoothing = 8f;
 
-        [ModOption(name = "Basic Third Person Distribution", category = "Custom: Basic Kill", defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = "Basic Third Person Distribution", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float BasicKillThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Critical Kill
 
-        [ModOption(name = "Critical Chance", category = "Custom: Critical Kill", defaultValueIndex = 10, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = "Critical Chance", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 10, defaultValueIndex = 10, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float CriticalKillChance = 0.75f;
 
-        [ModOption(name = "Critical Time Scale", category = "Custom: Critical Kill", defaultValueIndex = 5, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Critical Time Scale", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 5, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float CriticalKillTimeScale = 0.25f;
 
-        [ModOption(name = "Critical Duration", category = "Custom: Critical Kill", defaultValueIndex = 6, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Critical Duration", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 6, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float CriticalKillDuration = 1.5f;
 
-        [ModOption(name = "Critical Cooldown", category = "Custom: Critical Kill", defaultValueIndex = 7, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Critical Cooldown", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 7, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 5f;
 
-        [ModOption(name = "Critical Smoothing", category = "Custom: Critical Kill", defaultValueIndex = 7, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Critical Smoothing", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 7, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float CriticalKillSmoothing = 8f;
 
-        [ModOption(name = "Critical Third Person Distribution", category = "Custom: Critical Kill", defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = "Critical Third Person Distribution", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float CriticalKillThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Dismemberment
 
-        [ModOption(name = "Dismember Chance", category = "Custom: Dismemberment", defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = "Dismember Chance", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 10, defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DismembermentChance = 0.6f;
 
-        [ModOption(name = "Dismember Time Scale", category = "Custom: Dismemberment", defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Dismember Time Scale", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DismembermentTimeScale = 0.3f;
 
-        [ModOption(name = "Dismember Duration", category = "Custom: Dismemberment", defaultValueIndex = 6, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Dismember Duration", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 6, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DismembermentDuration = 1.5f;
 
-        [ModOption(name = "Dismember Cooldown", category = "Custom: Dismemberment", defaultValueIndex = 7, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Dismember Cooldown", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 7, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 5f;
 
-        [ModOption(name = "Dismember Smoothing", category = "Custom: Dismemberment", defaultValueIndex = 7, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Dismember Smoothing", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 7, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float DismembermentSmoothing = 8f;
 
-        [ModOption(name = "Dismember Third Person Distribution", category = "Custom: Dismemberment", defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = "Dismember Third Person Distribution", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DismembermentThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Decapitation
 
-        [ModOption(name = "Decapitation Chance", category = "Custom: Decapitation", defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = "Decapitation Chance", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 10, defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DecapitationChance = 0.9f;
 
-        [ModOption(name = "Decapitation Time Scale", category = "Custom: Decapitation", defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Decapitation Time Scale", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DecapitationTimeScale = 0.2f;
 
-        [ModOption(name = "Decapitation Duration", category = "Custom: Decapitation", defaultValueIndex = 9, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Decapitation Duration", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 9, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DecapitationDuration = 2.0f;
 
-        [ModOption(name = "Decapitation Cooldown", category = "Custom: Decapitation", defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Decapitation Cooldown", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 4f;
 
-        [ModOption(name = "Decapitation Smoothing", category = "Custom: Decapitation", defaultValueIndex = 5, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Decapitation Smoothing", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 5, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float DecapitationSmoothing = 6f;
 
-        [ModOption(name = "Decapitation Third Person Distribution", category = "Custom: Decapitation", defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = "Decapitation Third Person Distribution", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DecapitationThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Last Enemy
 
-        [ModOption(name = "Last Enemy Chance", category = "Custom: Last Enemy", defaultValueIndex = 13, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = "Last Enemy Chance", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 10, defaultValueIndex = 13, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float LastEnemyChance = 1.0f;
 
-        [ModOption(name = "Last Enemy Time Scale", category = "Custom: Last Enemy", defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Last Enemy Time Scale", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastEnemyTimeScale = 0.2f;
 
-        [ModOption(name = "Last Enemy Duration", category = "Custom: Last Enemy", defaultValueIndex = 12, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Last Enemy Duration", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 12, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastEnemyDuration = 3.0f;
 
-        [ModOption(name = "Last Enemy Cooldown", category = "Custom: Last Enemy", defaultValueIndex = 0, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Last Enemy Cooldown", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 0, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastEnemyCooldown = 0f;
 
-        [ModOption(name = "Last Enemy Smoothing", category = "Custom: Last Enemy", defaultValueIndex = 2, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Last Enemy Smoothing", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 2, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float LastEnemySmoothing = 4f;
 
-        [ModOption(name = "Last Enemy Third Person Distribution", category = "Custom: Last Enemy", defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = "Last Enemy Third Person Distribution", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float LastEnemyThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Last Stand
 
-        [ModOption(name = "Last Stand Time Scale", category = "Custom: Last Stand", defaultValueIndex = 3, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Last Stand Time Scale", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 3, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastStandTimeScale = 0.15f;
 
-        [ModOption(name = "Last Stand Duration", category = "Custom: Last Stand", defaultValueIndex = 15, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Last Stand Duration", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 15, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastStandDuration = 5.0f;
 
-        [ModOption(name = "Last Stand Cooldown", category = "Custom: Last Stand", defaultValueIndex = 14, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Last Stand Cooldown", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 14, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 45f;
 
-        [ModOption(name = "Last Stand Smoothing", category = "Custom: Last Stand", defaultValueIndex = 2, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Last Stand Smoothing", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 2, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float LastStandSmoothing = 4f;
 
         #endregion
 
         #region Custom: Parry
 
-        [ModOption(name = "Parry Chance", category = "Custom: Parry", defaultValueIndex = 6, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = "Parry Chance", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 10, defaultValueIndex = 6, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float ParryChance = 0.5f;
 
-        [ModOption(name = "Parry Time Scale", category = "Custom: Parry", defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = "Parry Time Scale", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float ParryTimeScale = 0.3f;
 
-        [ModOption(name = "Parry Duration", category = "Custom: Parry", defaultValueIndex = 4, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = "Parry Duration", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 4, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float ParryDuration = 1.2f;
 
-        [ModOption(name = "Parry Cooldown", category = "Custom: Parry", defaultValueIndex = 9, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = "Parry Cooldown", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 9, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 7f;
 
-        [ModOption(name = "Parry Smoothing", category = "Custom: Parry", defaultValueIndex = 8, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = "Parry Smoothing", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 8, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float ParrySmoothing = 10f;
 
         #endregion
 
         #region CSM Advanced
 
-        [ModOption(name = "Debug Logging", category = "CSM Advanced", defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
+        [ModOption(name = "Debug Logging", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
 
-        [ModOption(name = "Show Effective Values", category = "CSM Advanced", defaultValueIndex = 0, tooltip = "Show effective per-trigger values after presets and overrides")]
+        [ModOption(name = "Show Effective Values", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, tooltip = "Show effective per-trigger values after presets and overrides")]
         public static bool ShowEffectiveValues = false;
 
-        [ModOption(name = "Last Trigger", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "LastTriggerProvider", tooltip = "Last trigger attempt")]
+        [ModOption(name = "Last Trigger", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, valueSourceName = "LastTriggerProvider", tooltip = "Last trigger attempt")]
         public static string LastTriggerSummary = "None";
 
-        [ModOption(name = "Last Trigger Reason", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "LastTriggerReasonProvider", tooltip = "Why the last trigger did or didn't fire")]
+        [ModOption(name = "Last Trigger Reason", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 40, defaultValueIndex = 0, valueSourceName = "LastTriggerReasonProvider", tooltip = "Why the last trigger did or didn't fire")]
         public static string LastTriggerReason = "None";
 
-        [ModOption(name = "Quick Test Trigger", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
+        [ModOption(name = "Quick Test Trigger", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 50, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
         public static string QuickTestTrigger = "Basic Kill";
 
-        [ModOption(name = "Quick Test Now", category = "CSM Advanced", defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
+        [ModOption(name = "Quick Test Now", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 60, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
         public static bool QuickTestNow = false;
 
-        [ModOption(name = "Effective: Basic Kill", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveBasicProvider", tooltip = "Effective values for Basic Kill")]
+        [ModOption(name = "Effective: Basic Kill", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 70, defaultValueIndex = 0, valueSourceName = "EffectiveBasicProvider", tooltip = "Effective values for Basic Kill")]
         public static string EffectiveBasicKill = "Off";
 
-        [ModOption(name = "Effective: Critical Kill", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveCriticalProvider", tooltip = "Effective values for Critical Kill")]
+        [ModOption(name = "Effective: Critical Kill", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 80, defaultValueIndex = 0, valueSourceName = "EffectiveCriticalProvider", tooltip = "Effective values for Critical Kill")]
         public static string EffectiveCriticalKill = "Off";
 
-        [ModOption(name = "Effective: Dismemberment", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveDismembermentProvider", tooltip = "Effective values for Dismemberment")]
+        [ModOption(name = "Effective: Dismemberment", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 90, defaultValueIndex = 0, valueSourceName = "EffectiveDismembermentProvider", tooltip = "Effective values for Dismemberment")]
         public static string EffectiveDismemberment = "Off";
 
-        [ModOption(name = "Effective: Decapitation", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveDecapitationProvider", tooltip = "Effective values for Decapitation")]
+        [ModOption(name = "Effective: Decapitation", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 100, defaultValueIndex = 0, valueSourceName = "EffectiveDecapitationProvider", tooltip = "Effective values for Decapitation")]
         public static string EffectiveDecapitation = "Off";
 
-        [ModOption(name = "Effective: Parry", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveParryProvider", tooltip = "Effective values for Parry")]
+        [ModOption(name = "Effective: Parry", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 110, defaultValueIndex = 0, valueSourceName = "EffectiveParryProvider", tooltip = "Effective values for Parry")]
         public static string EffectiveParry = "Off";
 
-        [ModOption(name = "Effective: Last Enemy", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveLastEnemyProvider", tooltip = "Effective values for Last Enemy")]
+        [ModOption(name = "Effective: Last Enemy", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 120, defaultValueIndex = 0, valueSourceName = "EffectiveLastEnemyProvider", tooltip = "Effective values for Last Enemy")]
         public static string EffectiveLastEnemy = "Off";
 
-        [ModOption(name = "Effective: Last Stand", category = "CSM Advanced", defaultValueIndex = 0, valueSourceName = "EffectiveLastStandProvider", tooltip = "Effective values for Last Stand")]
+        [ModOption(name = "Effective: Last Stand", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 130, defaultValueIndex = 0, valueSourceName = "EffectiveLastStandProvider", tooltip = "Effective values for Last Stand")]
         public static string EffectiveLastStand = "Off";
 
         #endregion
