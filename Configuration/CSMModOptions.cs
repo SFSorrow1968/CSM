@@ -296,27 +296,39 @@ namespace CSM.Configuration
             {
                 new ModOptionFloat("0.5s", 0.5f),
                 new ModOptionFloat("0.6s", 0.6f),
+                new ModOptionFloat("0.72s", 0.72f),
                 new ModOptionFloat("0.75s", 0.75f),
                 new ModOptionFloat("0.90s", 0.9f),
                 new ModOptionFloat("1.0s", 1.0f),
                 new ModOptionFloat("1.125s", 1.125f),
                 new ModOptionFloat("1.2s", 1.2f),
                 new ModOptionFloat("1.25s", 1.25f),
+                new ModOptionFloat("1.4s", 1.4f),
                 new ModOptionFloat("1.5s", 1.5f),
+                new ModOptionFloat("1.68s", 1.68f),
                 new ModOptionFloat("1.8s", 1.8f),
                 new ModOptionFloat("1.875s", 1.875f),
                 new ModOptionFloat("2.0s", 2.0f),
+                new ModOptionFloat("2.1s", 2.1f),
+                new ModOptionFloat("2.16s", 2.16f),
                 new ModOptionFloat("2.25s", 2.25f),
                 new ModOptionFloat("2.4s", 2.4f),
                 new ModOptionFloat("2.5s", 2.5f),
+                new ModOptionFloat("2.7s", 2.7f),
+                new ModOptionFloat("2.8s", 2.8f),
                 new ModOptionFloat("3.0s", 3.0f),
+                new ModOptionFloat("3.6s", 3.6f),
                 new ModOptionFloat("3.75s", 3.75f),
                 new ModOptionFloat("4.0s", 4.0f),
+                new ModOptionFloat("4.2s", 4.2f),
                 new ModOptionFloat("4.5s", 4.5f),
                 new ModOptionFloat("5.0s", 5.0f),
+                new ModOptionFloat("5.4s", 5.4f),
                 new ModOptionFloat("6.0s", 6.0f),
                 new ModOptionFloat("6.25s", 6.25f),
+                new ModOptionFloat("7.0s", 7.0f),
                 new ModOptionFloat("7.5s", 7.5f),
+                new ModOptionFloat("9.0s", 9.0f),
                 new ModOptionFloat("10.0s", 10.0f),
             };
         }
@@ -328,28 +340,39 @@ namespace CSM.Configuration
                 new ModOptionFloat("0s", 0f),
                 new ModOptionFloat("1.6s", 1.6f),
                 new ModOptionFloat("2.0s", 2f),
+                new ModOptionFloat("2.4s", 2.4f),
                 new ModOptionFloat("2.5s", 2.5f),
                 new ModOptionFloat("2.8s", 2.8f),
+                new ModOptionFloat("3.0s", 3.0f),
                 new ModOptionFloat("3.5s", 3.5f),
                 new ModOptionFloat("4.0s", 4f),
+                new ModOptionFloat("4.2s", 4.2f),
                 new ModOptionFloat("4.9s", 4.9f),
                 new ModOptionFloat("5.0s", 5f),
                 new ModOptionFloat("6.0s", 6f),
                 new ModOptionFloat("7.0s", 7f),
+                new ModOptionFloat("7.2s", 7.2f),
                 new ModOptionFloat("7.5s", 7.5f),
                 new ModOptionFloat("8.0s", 8f),
+                new ModOptionFloat("9.0s", 9f),
                 new ModOptionFloat("10.0s", 10f),
                 new ModOptionFloat("10.5s", 10.5f),
+                new ModOptionFloat("11.2s", 11.2f),
+                new ModOptionFloat("12.6s", 12.6f),
                 new ModOptionFloat("14.0s", 14f),
                 new ModOptionFloat("17.5s", 17.5f),
                 new ModOptionFloat("18.0s", 18f),
+                new ModOptionFloat("19.6s", 19.6f),
                 new ModOptionFloat("22.5s", 22.5f),
                 new ModOptionFloat("24.5s", 24.5f),
+                new ModOptionFloat("27.0s", 27.0f),
                 new ModOptionFloat("28.0s", 28f),
                 new ModOptionFloat("31.5s", 31.5f),
                 new ModOptionFloat("45.0s", 45f),
                 new ModOptionFloat("67.5s", 67.5f),
+                new ModOptionFloat("81.0s", 81.0f),
                 new ModOptionFloat("90.0s", 90f),
+                new ModOptionFloat("126.0s", 126.0f),
                 new ModOptionFloat("157.5s", 157.5f)
             };
         }
@@ -359,10 +382,13 @@ namespace CSM.Configuration
             return new ModOptionFloat[]
             {
                 new ModOptionFloat("1.6x", 1.6f),
+                new ModOptionFloat("1.8x", 1.8f),
                 new ModOptionFloat("2x", 2f),
                 new ModOptionFloat("2.4x", 2.4f),
+                new ModOptionFloat("2.7x", 2.7f),
                 new ModOptionFloat("3x", 3f),
                 new ModOptionFloat("3.2x", 3.2f),
+                new ModOptionFloat("3.6x", 3.6f),
                 new ModOptionFloat("4x", 4f),
                 new ModOptionFloat("4.5x", 4.5f),
                 new ModOptionFloat("5x", 5f),
@@ -374,6 +400,7 @@ namespace CSM.Configuration
                 new ModOptionFloat("12x", 12f),
                 new ModOptionFloat("12.5x", 12.5f),
                 new ModOptionFloat("15x", 15f),
+                new ModOptionFloat("16x", 16f),
                 new ModOptionFloat("20x", 20f),
                 new ModOptionFloat("25x", 25f)
             };
@@ -1026,13 +1053,13 @@ namespace CSM.Configuration
                     cooldown = 0f;
                     return;
                 case CooldownPreset.Short:
-                    cooldownMultiplier = 0.5f;
+                    cooldownMultiplier = 0.6f;
                     break;
                 case CooldownPreset.Long:
-                    cooldownMultiplier = 2.0f;
+                    cooldownMultiplier = 1.8f;
                     break;
                 case CooldownPreset.Extended:
-                    cooldownMultiplier = 3.5f;
+                    cooldownMultiplier = 2.8f;
                     break;
                 default:
                     cooldownMultiplier = 1.0f;
@@ -1050,13 +1077,13 @@ namespace CSM.Configuration
             switch (preset)
             {
                 case DurationPreset.Short:
-                    durationMultiplier = 0.5f;
+                    durationMultiplier = 0.6f;
                     break;
                 case DurationPreset.Long:
-                    durationMultiplier = 1.5f;
+                    durationMultiplier = 1.4f;
                     break;
                 case DurationPreset.Extended:
-                    durationMultiplier = 2.0f;
+                    durationMultiplier = 1.8f;
                     break;
                 default:
                     durationMultiplier = 1.0f;
@@ -1074,7 +1101,7 @@ namespace CSM.Configuration
             switch (preset)
             {
                 case SmoothnessPreset.VerySnappy:
-                    smoothingMultiplier = 2.5f;
+                    smoothingMultiplier = 2.0f;
                     break;
                 case SmoothnessPreset.Snappy:
                     smoothingMultiplier = 1.5f;
@@ -1086,7 +1113,7 @@ namespace CSM.Configuration
                     smoothingMultiplier = 0.5f;
                     break;
                 case SmoothnessPreset.UltraSmooth:
-                    smoothingMultiplier = 0.4f;
+                    smoothingMultiplier = 0.45f;
                     break;
                 default:
                     smoothingMultiplier = 1.0f;
