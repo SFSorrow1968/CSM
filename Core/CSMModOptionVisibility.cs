@@ -26,8 +26,10 @@ namespace CSM.Core
         private readonly Dictionary<string, string> _baseTooltips =
             new Dictionary<string, string>(StringComparer.Ordinal);
 
-        private readonly Dictionary<string, ModOption> _modOptionsByName =
+        private readonly Dictionary<string, ModOption> _modOptionsByKey =
             new Dictionary<string, ModOption>(StringComparer.Ordinal);
+
+        private const string OptionKeySeparator = "||";
 
         private static readonly TriggerType[] TriggerTypes =
         {
@@ -42,76 +44,76 @@ namespace CSM.Core
 
         private static readonly Dictionary<TriggerType, string> ChanceOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Chance" },
-            { TriggerType.Critical, "Critical Chance" },
-            { TriggerType.Dismemberment, "Dismember Chance" },
-            { TriggerType.Decapitation, "Decapitation Chance" },
-            { TriggerType.Parry, "Parry Chance" },
-            { TriggerType.LastEnemy, "Last Enemy Chance" }
+            { TriggerType.BasicKill, MakeKey("Custom: Basic Kill", "Chance") },
+            { TriggerType.Critical, MakeKey("Custom: Critical Kill", "Chance") },
+            { TriggerType.Dismemberment, MakeKey("Custom: Dismemberment", "Chance") },
+            { TriggerType.Decapitation, MakeKey("Custom: Decapitation", "Chance") },
+            { TriggerType.Parry, MakeKey("Custom: Parry", "Chance") },
+            { TriggerType.LastEnemy, MakeKey("Custom: Last Enemy", "Chance") }
         };
 
         private static readonly Dictionary<TriggerType, string> TimeScaleOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Time Scale" },
-            { TriggerType.Critical, "Critical Time Scale" },
-            { TriggerType.Dismemberment, "Dismember Time Scale" },
-            { TriggerType.Decapitation, "Decapitation Time Scale" },
-            { TriggerType.Parry, "Parry Time Scale" },
-            { TriggerType.LastEnemy, "Last Enemy Time Scale" },
-            { TriggerType.LastStand, "Last Stand Time Scale" }
+            { TriggerType.BasicKill, MakeKey("Custom: Basic Kill", "Time Scale") },
+            { TriggerType.Critical, MakeKey("Custom: Critical Kill", "Time Scale") },
+            { TriggerType.Dismemberment, MakeKey("Custom: Dismemberment", "Time Scale") },
+            { TriggerType.Decapitation, MakeKey("Custom: Decapitation", "Time Scale") },
+            { TriggerType.Parry, MakeKey("Custom: Parry", "Time Scale") },
+            { TriggerType.LastEnemy, MakeKey("Custom: Last Enemy", "Time Scale") },
+            { TriggerType.LastStand, MakeKey("Custom: Last Stand", "Time Scale") }
         };
 
         private static readonly Dictionary<TriggerType, string> DurationOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Duration" },
-            { TriggerType.Critical, "Critical Duration" },
-            { TriggerType.Dismemberment, "Dismember Duration" },
-            { TriggerType.Decapitation, "Decapitation Duration" },
-            { TriggerType.Parry, "Parry Duration" },
-            { TriggerType.LastEnemy, "Last Enemy Duration" },
-            { TriggerType.LastStand, "Last Stand Duration" }
+            { TriggerType.BasicKill, MakeKey("Custom: Basic Kill", "Duration") },
+            { TriggerType.Critical, MakeKey("Custom: Critical Kill", "Duration") },
+            { TriggerType.Dismemberment, MakeKey("Custom: Dismemberment", "Duration") },
+            { TriggerType.Decapitation, MakeKey("Custom: Decapitation", "Duration") },
+            { TriggerType.Parry, MakeKey("Custom: Parry", "Duration") },
+            { TriggerType.LastEnemy, MakeKey("Custom: Last Enemy", "Duration") },
+            { TriggerType.LastStand, MakeKey("Custom: Last Stand", "Duration") }
         };
 
         private static readonly Dictionary<TriggerType, string> CooldownOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Cooldown" },
-            { TriggerType.Critical, "Critical Cooldown" },
-            { TriggerType.Dismemberment, "Dismember Cooldown" },
-            { TriggerType.Decapitation, "Decapitation Cooldown" },
-            { TriggerType.Parry, "Parry Cooldown" },
-            { TriggerType.LastEnemy, "Last Enemy Cooldown" },
-            { TriggerType.LastStand, "Last Stand Cooldown" }
+            { TriggerType.BasicKill, MakeKey("Custom: Basic Kill", "Cooldown") },
+            { TriggerType.Critical, MakeKey("Custom: Critical Kill", "Cooldown") },
+            { TriggerType.Dismemberment, MakeKey("Custom: Dismemberment", "Cooldown") },
+            { TriggerType.Decapitation, MakeKey("Custom: Decapitation", "Cooldown") },
+            { TriggerType.Parry, MakeKey("Custom: Parry", "Cooldown") },
+            { TriggerType.LastEnemy, MakeKey("Custom: Last Enemy", "Cooldown") },
+            { TriggerType.LastStand, MakeKey("Custom: Last Stand", "Cooldown") }
         };
 
         private static readonly Dictionary<TriggerType, string> SmoothingOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Smoothing" },
-            { TriggerType.Critical, "Critical Smoothing" },
-            { TriggerType.Dismemberment, "Dismember Smoothing" },
-            { TriggerType.Decapitation, "Decapitation Smoothing" },
-            { TriggerType.Parry, "Parry Smoothing" },
-            { TriggerType.LastEnemy, "Last Enemy Smoothing" },
-            { TriggerType.LastStand, "Last Stand Smoothing" }
+            { TriggerType.BasicKill, MakeKey("Custom: Basic Kill", "Smoothing") },
+            { TriggerType.Critical, MakeKey("Custom: Critical Kill", "Smoothing") },
+            { TriggerType.Dismemberment, MakeKey("Custom: Dismemberment", "Smoothing") },
+            { TriggerType.Decapitation, MakeKey("Custom: Decapitation", "Smoothing") },
+            { TriggerType.Parry, MakeKey("Custom: Parry", "Smoothing") },
+            { TriggerType.LastEnemy, MakeKey("Custom: Last Enemy", "Smoothing") },
+            { TriggerType.LastStand, MakeKey("Custom: Last Stand", "Smoothing") }
         };
 
         private static readonly Dictionary<TriggerType, string> DistributionOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Third Person Distribution" },
-            { TriggerType.Critical, "Critical Third Person Distribution" },
-            { TriggerType.Dismemberment, "Dismember Third Person Distribution" },
-            { TriggerType.Decapitation, "Decapitation Third Person Distribution" },
-            { TriggerType.LastEnemy, "Last Enemy Third Person Distribution" }
+            { TriggerType.BasicKill, MakeKey("Custom: Basic Kill", "Third Person Distribution") },
+            { TriggerType.Critical, MakeKey("Custom: Critical Kill", "Third Person Distribution") },
+            { TriggerType.Dismemberment, MakeKey("Custom: Dismemberment", "Third Person Distribution") },
+            { TriggerType.Decapitation, MakeKey("Custom: Decapitation", "Third Person Distribution") },
+            { TriggerType.LastEnemy, MakeKey("Custom: Last Enemy", "Third Person Distribution") }
         };
 
         private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, "Basic Kill" },
-            { TriggerType.Critical, "Critical Kill" },
-            { TriggerType.Dismemberment, "Dismemberment" },
-            { TriggerType.Decapitation, "Decapitation" },
-            { TriggerType.Parry, "Parry" },
-            { TriggerType.LastEnemy, "Last Enemy" },
-            { TriggerType.LastStand, "Last Stand" }
+            { TriggerType.BasicKill, MakeKey("CSM Triggers", "Basic Kill") },
+            { TriggerType.Critical, MakeKey("CSM Triggers", "Critical Kill") },
+            { TriggerType.Dismemberment, MakeKey("CSM Triggers", "Dismemberment") },
+            { TriggerType.Decapitation, MakeKey("CSM Triggers", "Decapitation") },
+            { TriggerType.Parry, MakeKey("CSM Triggers", "Parry") },
+            { TriggerType.LastEnemy, MakeKey("CSM Triggers", "Last Enemy") },
+            { TriggerType.LastStand, MakeKey("CSM Triggers", "Last Stand") }
         };
 
         private struct CustomValues
@@ -186,15 +188,16 @@ namespace CSM.Core
 
         private void CacheModOptions()
         {
-            _modOptionsByName.Clear();
+            _modOptionsByKey.Clear();
             if (_modData?.modOptions == null) return;
 
             foreach (var option in _modData.modOptions)
             {
                 if (option == null || string.IsNullOrEmpty(option.name)) continue;
-                _modOptionsByName[option.name] = option;
-                if (!_baseTooltips.ContainsKey(option.name))
-                    _baseTooltips[option.name] = option.tooltip ?? string.Empty;
+                string key = MakeKey(option.category, option.name);
+                _modOptionsByKey[key] = option;
+                if (!_baseTooltips.ContainsKey(key))
+                    _baseTooltips[key] = option.tooltip ?? string.Empty;
             }
         }
 
@@ -487,6 +490,18 @@ namespace CSM.Core
             return true;
         }
 
+        private static string MakeKey(string category, string name)
+        {
+            return (category ?? string.Empty) + OptionKeySeparator + (name ?? string.Empty);
+        }
+
+        private static string DescribeOption(ModOption option)
+        {
+            if (option == null) return string.Empty;
+            if (string.IsNullOrEmpty(option.category)) return option.name;
+            return option.category + " / " + option.name;
+        }
+
         private static string NormalizePreset(ref string value, string fallback)
         {
             if (string.IsNullOrWhiteSpace(value) || value == "Custom")
@@ -496,24 +511,24 @@ namespace CSM.Core
 
         private bool SyncOptionValue(Dictionary<TriggerType, string> map, TriggerType type, float value)
         {
-            if (!map.TryGetValue(type, out string optionName))
+            if (!map.TryGetValue(type, out string optionKey))
                 return false;
-            return SyncOptionValue(optionName, value);
+            return SyncOptionValue(optionKey, value);
         }
 
         private bool SyncToggleOption(Dictionary<TriggerType, string> map, TriggerType type, bool value)
         {
-            if (!map.TryGetValue(type, out string optionName))
+            if (!map.TryGetValue(type, out string optionKey))
                 return false;
-            return SyncToggleOption(optionName, value);
+            return SyncToggleOption(optionKey, value);
         }
 
-        private bool SyncOptionValue(string optionName, float value)
+        private bool SyncOptionValue(string optionKey, float value)
         {
-            if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+            if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
             {
                 if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionName);
+                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionKey);
                 return false;
             }
 
@@ -523,7 +538,7 @@ namespace CSM.Core
             if (option.parameterValues == null || option.parameterValues.Length == 0)
             {
                 if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing parameters: " + optionName);
+                    Debug.LogWarning("[CSM] Menu sync missing parameters: " + DescribeOption(option));
                 return false;
             }
 
@@ -531,7 +546,7 @@ namespace CSM.Core
             if (index < 0)
             {
                 if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync no parameter match: " + optionName + " value=" + value);
+                    Debug.LogWarning("[CSM] Menu sync no parameter match: " + DescribeOption(option) + " value=" + value);
                 return false;
             }
 
@@ -541,16 +556,16 @@ namespace CSM.Core
             option.Apply(index);
             option.RefreshUI();
             if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu sync updated: " + optionName + " -> " + value);
+                Debug.Log("[CSM] Menu sync updated: " + DescribeOption(option) + " -> " + value);
             return true;
         }
 
-        private bool SyncToggleOption(string optionName, bool value)
+        private bool SyncToggleOption(string optionKey, bool value)
         {
-            if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+            if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
             {
                 if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionName);
+                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionKey);
                 return false;
             }
 
@@ -564,7 +579,7 @@ namespace CSM.Core
             option.Apply(index);
             option.RefreshUI();
             if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu toggle updated: " + optionName + " -> " + (value ? "Enabled" : "Disabled"));
+                Debug.Log("[CSM] Menu toggle updated: " + DescribeOption(option) + " -> " + (value ? "Enabled" : "Disabled"));
             return true;
         }
 
@@ -845,18 +860,18 @@ namespace CSM.Core
 
         private bool UpdateTooltip(Dictionary<TriggerType, string> map, TriggerType type, string effectiveSummary)
         {
-            if (!map.TryGetValue(type, out string optionName))
+            if (!map.TryGetValue(type, out string optionKey))
                 return false;
 
-            return UpdateTooltip(optionName, effectiveSummary);
+            return UpdateTooltip(optionKey, effectiveSummary);
         }
 
-        private bool UpdateTooltip(string optionName, string effectiveSummary)
+        private bool UpdateTooltip(string optionKey, string effectiveSummary)
         {
-            if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+            if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
                 return false;
 
-            if (!_baseTooltips.TryGetValue(optionName, out string baseTooltip))
+            if (!_baseTooltips.TryGetValue(optionKey, out string baseTooltip))
                 baseTooltip = option.tooltip ?? string.Empty;
 
             string newTooltip = baseTooltip ?? string.Empty;
@@ -874,7 +889,7 @@ namespace CSM.Core
             option.tooltip = newTooltip;
             option.RefreshUI();
             if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu tooltip updated: " + optionName);
+                Debug.Log("[CSM] Menu tooltip updated: " + DescribeOption(option));
             return true;
         }
 
