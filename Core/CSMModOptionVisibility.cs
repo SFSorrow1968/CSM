@@ -446,6 +446,14 @@ namespace CSM.Core
                     parry = false;
                     lastStand = false;
                     break;
+                case CSMModOptions.TriggerProfilePreset.ParryOnly:
+                    basicKill = false;
+                    critical = false;
+                    dismemberment = false;
+                    decapitation = false;
+                    lastEnemy = false;
+                    lastStand = false;
+                    break;
             }
 
             CSMModOptions.EnableBasicKill = basicKill;
