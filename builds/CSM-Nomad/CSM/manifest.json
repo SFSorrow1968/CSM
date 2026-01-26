@@ -1,5 +1,5 @@
 {
-  "Name": "CSM - Conditional Slow Motion",
+  "Name": "CSM",
   "Description": "Matrix-style slow motion effects triggered by combat events like kills, dismemberment, parries, and critical moments.",
   "Author": "dkatz",
   "ModVersion": "1.5.0",
