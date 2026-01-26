@@ -13,6 +13,7 @@ namespace CSM.Core
 
         private bool _isSlowMotionActive;
         private float _slowMotionEndTime;
+        private float _slowMotionStartTime;
         private float _originalTimeScale = 1f;
         private float _originalFixedDeltaTime = 0.02f;
         private TriggerType _activeTriggerType;
@@ -38,6 +39,7 @@ namespace CSM.Core
                 _originalTimeScale = 1f;
                 _originalFixedDeltaTime = Time.fixedDeltaTime;
                 _isSlowMotionActive = false;
+                _slowMotionStartTime = 0f;
                 _globalCooldownEndTime = 0f;
                 _triggerCooldownEndTimes.Clear();
 
@@ -476,7 +478,8 @@ namespace CSM.Core
 
                 _isSlowMotionActive = true;
                 _activeTriggerType = type;
-                _slowMotionEndTime = Time.unscaledTime + duration;
+                _slowMotionStartTime = Time.unscaledTime;
+                _slowMotionEndTime = _slowMotionStartTime + duration;
                 _transitionOutStartTime = 0f;
 
                 float transitionInSpeed = smoothing;
@@ -546,9 +549,14 @@ namespace CSM.Core
 
                 if (CSMModOptions.DebugLogging)
                 {
+                    float elapsed = Time.unscaledTime - _slowMotionStartTime;
+                    float expected = _slowMotionEndTime - _slowMotionStartTime;
                     Debug.Log("[CSM] Transition out: target=" + _targetTimeScale.ToString("0.###") +
                               " speed=" + _transitionOutSpeed.ToString("0.###") +
                               " start=" + _transitionOutStartTime.ToString("0.###"));
+                    Debug.Log("[CSM] SlowMo elapsed: " + elapsed.ToString("0.###") +
+                              "s (expected " + expected.ToString("0.###") +
+                              "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
                 }
 
                 Debug.Log("[CSM] SlowMo END: " + endedType);
@@ -566,11 +574,19 @@ namespace CSM.Core
 
             try
             {
+                float elapsed = Time.unscaledTime - _slowMotionStartTime;
+                float expected = _slowMotionEndTime - _slowMotionStartTime;
                 _isSlowMotionActive = false;
                 _slowMotionEndTime = 0f;
 
                 TryRestoreTimeScale();
                 Debug.Log("[CSM] SlowMo cancelled");
+                if (CSMModOptions.DebugLogging)
+                {
+                    Debug.Log("[CSM] SlowMo elapsed (cancel): " + elapsed.ToString("0.###") +
+                              "s (expected " + expected.ToString("0.###") +
+                              "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
+                }
                 CSMKillcam.Instance.Stop(false);
             }
             catch (Exception ex)
