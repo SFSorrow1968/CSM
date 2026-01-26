@@ -6,6 +6,7 @@ When making changes in this repo:
 - Always commit your changes.
 - `DEVELOPMENT.md` contains platform/ModOptions notes; consult it when needed.
 - Quick refs: `DEVELOPMENT.md` sections "Platform Differences", "ModOptions System", "EventManager Events".
+- When adding/renaming presets or ModOption labels, follow `PRESET_CHANGE_CHECKLIST.md`.
 - Build artifacts live at `builds/CSM-PCVR/CSM/CSM.dll` and `builds/CSM-Nomad/CSM/CSM.dll`.
 - `MENU_MOCK.xlsx` is the current UI reference (preset guide removed).
 - Check `References/` for new logs/screenshots before starting; screenshots live in `References/Screenshots/`.
