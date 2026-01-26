@@ -9,3 +9,4 @@ When making changes in this repo:
 - Build artifacts live at `builds/CSM-PCVR/CSM/CSM.dll` and `builds/CSM-Nomad/CSM/CSM.dll`.
 - `MENU_MOCK.xlsx` is the current UI reference (preset guide removed).
 - Check `References/` for new logs/screenshots before starting; screenshots live in `References/Screenshots/`.
+- Common edit points: UI options in `Configuration/CSMModOptions.cs`, UI sync/tooltips in `Core/CSMModOptionVisibility.cs`, runtime logic in `Core/CSMManager.cs` and `Core/CSMKillcam.cs`.
