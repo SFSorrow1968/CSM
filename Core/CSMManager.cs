@@ -250,7 +250,7 @@ namespace CSM.Core
         private void GetTriggerConfig(TriggerType type, out bool enabled, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
             // Check if trigger is enabled in the Triggers menu
-            enabled = IsTriggerEnabled(type);
+            enabled = CSMModOptions.IsTriggerEnabled(type);
             if (!enabled)
             {
                 chance = 0f;
@@ -261,24 +261,6 @@ namespace CSM.Core
                 return;
             }
             GetCustomTriggerConfig(type, out chance, out timeScale, out duration, out cooldown, out smoothing);
-        }
-
-        /// <summary>
-        /// Check if a trigger type is enabled in the CSM Triggers menu.
-        /// </summary>
-        private bool IsTriggerEnabled(TriggerType type)
-        {
-            switch (type)
-            {
-                case TriggerType.BasicKill: return CSMModOptions.EnableBasicKill;
-                case TriggerType.Critical: return CSMModOptions.EnableCriticalKill;
-                case TriggerType.Dismemberment: return CSMModOptions.EnableDismemberment;
-                case TriggerType.Decapitation: return CSMModOptions.EnableDecapitation;
-                case TriggerType.Parry: return CSMModOptions.EnableParry;
-                case TriggerType.LastEnemy: return CSMModOptions.EnableLastEnemy;
-                case TriggerType.LastStand: return CSMModOptions.EnableLastStand;
-                default: return false;
-            }
         }
 
         /// <summary>
@@ -492,65 +474,12 @@ namespace CSM.Core
         /// </summary>
         private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
-            switch (type)
-            {
-                case TriggerType.BasicKill:
-                    chance = CSMModOptions.BasicKillChance;
-                    timeScale = CSMModOptions.BasicKillTimeScale;
-                    duration = CSMModOptions.BasicKillDuration;
-                    cooldown = CSMModOptions.BasicKillCooldown;
-                    smoothing = CSMModOptions.BasicKillSmoothing;
-                    break;
-                case TriggerType.Critical:
-                    chance = CSMModOptions.CriticalKillChance;
-                    timeScale = CSMModOptions.CriticalKillTimeScale;
-                    duration = CSMModOptions.CriticalKillDuration;
-                    cooldown = CSMModOptions.CriticalKillCooldown;
-                    smoothing = CSMModOptions.CriticalKillSmoothing;
-                    break;
-                case TriggerType.Dismemberment:
-                    chance = CSMModOptions.DismembermentChance;
-                    timeScale = CSMModOptions.DismembermentTimeScale;
-                    duration = CSMModOptions.DismembermentDuration;
-                    cooldown = CSMModOptions.DismembermentCooldown;
-                    smoothing = CSMModOptions.DismembermentSmoothing;
-                    break;
-                case TriggerType.Decapitation:
-                    chance = CSMModOptions.DecapitationChance;
-                    timeScale = CSMModOptions.DecapitationTimeScale;
-                    duration = CSMModOptions.DecapitationDuration;
-                    cooldown = CSMModOptions.DecapitationCooldown;
-                    smoothing = CSMModOptions.DecapitationSmoothing;
-                    break;
-                case TriggerType.Parry:
-                    chance = CSMModOptions.ParryChance;
-                    timeScale = CSMModOptions.ParryTimeScale;
-                    duration = CSMModOptions.ParryDuration;
-                    cooldown = CSMModOptions.ParryCooldown;
-                    smoothing = CSMModOptions.ParrySmoothing;
-                    break;
-                case TriggerType.LastEnemy:
-                    chance = CSMModOptions.LastEnemyChance;
-                    timeScale = CSMModOptions.LastEnemyTimeScale;
-                    duration = CSMModOptions.LastEnemyDuration;
-                    cooldown = CSMModOptions.LastEnemyCooldown;
-                    smoothing = CSMModOptions.LastEnemySmoothing;
-                    break;
-                case TriggerType.LastStand:
-                    chance = 1.0f; // Always trigger
-                    timeScale = CSMModOptions.LastStandTimeScale;
-                    duration = CSMModOptions.LastStandDuration;
-                    cooldown = CSMModOptions.LastStandCooldown;
-                    smoothing = CSMModOptions.LastStandSmoothing;
-                    break;
-                default:
-                    chance = 0f;
-                    timeScale = 0.5f;
-                    duration = 1f;
-                    cooldown = 0f;
-                    smoothing = 8f;
-                    break;
-            }
+            var values = CSMModOptions.GetCustomValues(type);
+            chance = values.Chance;
+            timeScale = values.TimeScale;
+            duration = values.Duration;
+            cooldown = values.Cooldown;
+            smoothing = values.Smoothing;
         }
 
         private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt, float smoothing)

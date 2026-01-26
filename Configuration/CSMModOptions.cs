@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using ThunderRoad;
 using UnityEngine;
 
@@ -10,6 +12,62 @@ namespace CSM.Configuration
     public static class CSMModOptions
     {
         public const string VERSION = "1.5.0";
+
+        #region Labels and Categories
+
+        public const string CategoryPresetSelection = "Preset Selection";
+        public const string CategoryOptionalOverrides = "Optional Overrides";
+        public const string CategoryTriggers = "CSM Triggers";
+        public const string CategoryKillcam = "CSM Killcam";
+        public const string CategoryAdvanced = "CSM Advanced";
+        public const string CategoryCustomBasic = "Custom: Basic Kill";
+        public const string CategoryCustomCritical = "Custom: Critical Kill";
+        public const string CategoryCustomDismemberment = "Custom: Dismemberment";
+        public const string CategoryCustomDecapitation = "Custom: Decapitation";
+        public const string CategoryCustomLastEnemy = "Custom: Last Enemy";
+        public const string CategoryCustomLastStand = "Custom: Last Stand";
+        public const string CategoryCustomParry = "Custom: Parry";
+
+        public const string OptionEnableMod = "Enable Mod";
+        public const string OptionThirdPersonDistribution = "Third Person Distribution";
+        public const string OptionIntensityPreset = "Intensity Preset";
+        public const string OptionChancePreset = "Chance Preset";
+        public const string OptionCooldownPreset = "Cooldown Preset";
+        public const string OptionDurationPreset = "Duration Preset";
+        public const string OptionSmoothnessPreset = "Smoothness Preset";
+        public const string OptionTriggerProfile = "Trigger Profile";
+        public const string OptionGlobalCooldown = "Global Cooldown";
+        public const string OptionGlobalSmoothing = "Global Smoothing";
+        public const string OptionHapticFeedback = "Haptic Feedback";
+        public const string OptionDynamicIntensity = "Dynamic Intensity";
+
+        public const string TriggerBasicKill = "Basic Kill";
+        public const string TriggerCriticalKill = "Critical Kill";
+        public const string TriggerDismemberment = "Dismemberment";
+        public const string TriggerDecapitation = "Decapitation";
+        public const string TriggerLastEnemy = "Last Enemy";
+        public const string TriggerLastStand = "Last Stand";
+        public const string TriggerParry = "Parry";
+
+        public const string OptionLastStandThreshold = "Last Stand Threshold";
+
+        public const string OptionCameraDistance = "Camera Distance";
+        public const string OptionRandomizeDistance = "Randomize Distance";
+        public const string OptionCameraHeight = "Camera Height";
+        public const string OptionRandomizeHeight = "Randomize Height";
+        public const string OptionOrbitSpeed = "Orbit Speed";
+
+        public const string OptionChance = "Chance";
+        public const string OptionTimeScale = "Time Scale";
+        public const string OptionDuration = "Duration";
+        public const string OptionCooldown = "Cooldown";
+        public const string OptionSmoothing = "Smoothing";
+
+        public const string OptionDebugLogging = "Debug Logging";
+        public const string OptionQuickTestTrigger = "Quick Test Trigger";
+        public const string OptionQuickTestNow = "Quick Test Now";
+
+        #endregion
 
         #region Enums
 
@@ -87,115 +145,241 @@ namespace CSM.Configuration
 
         #endregion
 
+        private readonly struct PresetOption<TEnum>
+        {
+            public PresetOption(string label, string value, TEnum preset)
+            {
+                Label = label;
+                Value = value;
+                Preset = preset;
+            }
+
+            public string Label { get; }
+            public string Value { get; }
+            public TEnum Preset { get; }
+        }
+
+        private static ModOptionString[] BuildStringOptions<TEnum>(PresetOption<TEnum>[] options)
+        {
+            var result = new ModOptionString[options.Length];
+            for (int i = 0; i < options.Length; i++)
+            {
+                var option = options[i];
+                result[i] = new ModOptionString(option.Label, option.Value);
+            }
+            return result;
+        }
+
+        private static Dictionary<string, TEnum> BuildPresetMap<TEnum>(PresetOption<TEnum>[] options, Dictionary<string, TEnum> aliases = null)
+        {
+            var map = new Dictionary<string, TEnum>(StringComparer.OrdinalIgnoreCase);
+            for (int i = 0; i < options.Length; i++)
+            {
+                var option = options[i];
+                if (!string.IsNullOrEmpty(option.Label))
+                    map[option.Label] = option.Preset;
+                if (!string.IsNullOrEmpty(option.Value))
+                    map[option.Value] = option.Preset;
+            }
+            if (aliases != null)
+            {
+                foreach (var pair in aliases)
+                    map[pair.Key] = pair.Value;
+            }
+            return map;
+        }
+
+        private static TEnum ParsePreset<TEnum>(string value, Dictionary<string, TEnum> map, TEnum fallback)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return fallback;
+            return map.TryGetValue(value, out var preset) ? preset : fallback;
+        }
+
+        private static readonly PresetOption<Preset>[] IntensityPresetOptions =
+        {
+            new PresetOption<Preset>("Subtle", "Subtle", Preset.Subtle),
+            new PresetOption<Preset>("Standard", "Standard", Preset.Standard),
+            new PresetOption<Preset>("Dramatic", "Dramatic", Preset.Dramatic),
+            new PresetOption<Preset>("Cinematic", "Cinematic", Preset.Cinematic),
+            new PresetOption<Preset>("Epic", "Epic", Preset.Epic)
+        };
+
+        private static readonly PresetOption<TriggerProfilePreset>[] TriggerProfileOptions =
+        {
+            new PresetOption<TriggerProfilePreset>("All Triggers", "All", TriggerProfilePreset.All),
+            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", TriggerProfilePreset.KillsOnly),
+            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", TriggerProfilePreset.Highlights),
+            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", TriggerProfilePreset.LastEnemyOnly),
+            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", TriggerProfilePreset.ParryOnly)
+        };
+
+        private static readonly PresetOption<ChancePreset>[] ChancePresetOptions =
+        {
+            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", ChancePreset.Off),
+            new PresetOption<ChancePreset>("Very Rare", "Very Rare", ChancePreset.VeryRare),
+            new PresetOption<ChancePreset>("Rare", "Rare", ChancePreset.Rare),
+            new PresetOption<ChancePreset>("Standard", "Standard", ChancePreset.Standard),
+            new PresetOption<ChancePreset>("Frequent", "Frequent", ChancePreset.Frequent)
+        };
+
+        private static readonly PresetOption<CooldownPreset>[] CooldownPresetOptions =
+        {
+            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", CooldownPreset.Off),
+            new PresetOption<CooldownPreset>("Short", "Short", CooldownPreset.Short),
+            new PresetOption<CooldownPreset>("Standard", "Standard", CooldownPreset.Standard),
+            new PresetOption<CooldownPreset>("Long", "Long", CooldownPreset.Long),
+            new PresetOption<CooldownPreset>("Extended", "Extended", CooldownPreset.Extended)
+        };
+
+        private static readonly PresetOption<DurationPreset>[] DurationPresetOptions =
+        {
+            new PresetOption<DurationPreset>("Very Short", "Very Short", DurationPreset.VeryShort),
+            new PresetOption<DurationPreset>("Short", "Short", DurationPreset.Short),
+            new PresetOption<DurationPreset>("Standard", "Standard", DurationPreset.Standard),
+            new PresetOption<DurationPreset>("Long", "Long", DurationPreset.Long),
+            new PresetOption<DurationPreset>("Extended", "Extended", DurationPreset.Extended)
+        };
+
+        private static readonly PresetOption<SmoothnessPreset>[] SmoothnessPresetOptions =
+        {
+            new PresetOption<SmoothnessPreset>("Very Snappy", "Very Snappy", SmoothnessPreset.VerySnappy),
+            new PresetOption<SmoothnessPreset>("Snappy", "Snappy", SmoothnessPreset.Snappy),
+            new PresetOption<SmoothnessPreset>("Standard", "Standard", SmoothnessPreset.Standard),
+            new PresetOption<SmoothnessPreset>("Smooth", "Smooth", SmoothnessPreset.Smooth),
+            new PresetOption<SmoothnessPreset>("Ultra Smooth", "Ultra Smooth", SmoothnessPreset.UltraSmooth)
+        };
+
+        private static readonly PresetOption<DynamicIntensityPreset>[] DynamicIntensityOptions =
+        {
+            new PresetOption<DynamicIntensityPreset>("Off", "Off", DynamicIntensityPreset.Off),
+            new PresetOption<DynamicIntensityPreset>("Low Sensitivity", "Low Sensitivity", DynamicIntensityPreset.LowSensitivity),
+            new PresetOption<DynamicIntensityPreset>("Medium Sensitivity", "Medium Sensitivity", DynamicIntensityPreset.MediumSensitivity),
+            new PresetOption<DynamicIntensityPreset>("High Sensitivity", "High Sensitivity", DynamicIntensityPreset.HighSensitivity)
+        };
+
+        private static readonly PresetOption<CameraDistributionPreset>[] CameraDistributionOptions =
+        {
+            new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", CameraDistributionPreset.FirstPersonOnly),
+            new PresetOption<CameraDistributionPreset>("Mixed (Rare Third Person)", "Mixed (Rare Third Person)", CameraDistributionPreset.MostlyFirstPerson),
+            new PresetOption<CameraDistributionPreset>("Mixed", "Mixed", CameraDistributionPreset.Mixed),
+            new PresetOption<CameraDistributionPreset>("Mostly Third Person", "Mostly Third Person", CameraDistributionPreset.MostlyThirdPerson),
+            new PresetOption<CameraDistributionPreset>("Third Person Only", "Third Person Only", CameraDistributionPreset.ThirdPersonOnly)
+        };
+
+        private static readonly Dictionary<string, Preset> IntensityPresetMap = BuildPresetMap(IntensityPresetOptions,
+            new Dictionary<string, Preset>
+            {
+                { "Balanced", Preset.Standard }
+            });
+
+        private static readonly Dictionary<string, TriggerProfilePreset> TriggerProfileMap = BuildPresetMap(TriggerProfileOptions);
+
+        private static readonly Dictionary<string, ChancePreset> ChancePresetMap = BuildPresetMap(ChancePresetOptions,
+            new Dictionary<string, ChancePreset>
+            {
+                { "Always", ChancePreset.Off },
+                { "Chaos", ChancePreset.Off },
+                { "Balanced", ChancePreset.Standard }
+            });
+
+        private static readonly Dictionary<string, CooldownPreset> CooldownPresetMap = BuildPresetMap(CooldownPresetOptions,
+            new Dictionary<string, CooldownPreset>
+            {
+                { "Rare", CooldownPreset.Long },
+                { "Frequent", CooldownPreset.Short },
+                { "Chaos", CooldownPreset.Short },
+                { "Balanced", CooldownPreset.Standard }
+            });
+
+        private static readonly Dictionary<string, DurationPreset> DurationPresetMap = BuildPresetMap(DurationPresetOptions,
+            new Dictionary<string, DurationPreset>
+            {
+                { "Balanced", DurationPreset.Standard }
+            });
+
+        private static readonly Dictionary<string, SmoothnessPreset> SmoothnessPresetMap = BuildPresetMap(SmoothnessPresetOptions,
+            new Dictionary<string, SmoothnessPreset>
+            {
+                { "Balanced", SmoothnessPreset.Standard },
+                { "Cinematic", SmoothnessPreset.Cinematic }
+            });
+
+        private static readonly Dictionary<string, DynamicIntensityPreset> DynamicIntensityMap = BuildPresetMap(DynamicIntensityOptions,
+            new Dictionary<string, DynamicIntensityPreset>
+            {
+                { "True", DynamicIntensityPreset.MediumSensitivity },
+                { "true", DynamicIntensityPreset.MediumSensitivity },
+                { "On", DynamicIntensityPreset.MediumSensitivity },
+                { "False", DynamicIntensityPreset.Off },
+                { "false", DynamicIntensityPreset.Off }
+            });
+
+        private static readonly Dictionary<string, CameraDistributionPreset> CameraDistributionMap = BuildPresetMap(CameraDistributionOptions,
+            new Dictionary<string, CameraDistributionPreset>
+            {
+                { "Mostly First Person", CameraDistributionPreset.MostlyFirstPerson },
+                { "Rare", CameraDistributionPreset.MostlyFirstPerson },
+                { "Standard", CameraDistributionPreset.Mixed },
+                { "Balanced", CameraDistributionPreset.Mixed },
+                { "Frequent", CameraDistributionPreset.MostlyThirdPerson },
+                { "Always", CameraDistributionPreset.ThirdPersonOnly }
+            });
+
         #region Value Providers
 
         public static ModOptionString[] PresetProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Subtle", "Subtle"),
-                new ModOptionString("Standard", "Standard"),
-                new ModOptionString("Dramatic", "Dramatic"),
-                new ModOptionString("Cinematic", "Cinematic"),
-                new ModOptionString("Epic", "Epic")
-            };
+            return BuildStringOptions(IntensityPresetOptions);
         }
 
         public static ModOptionString[] TriggerProfileProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("All Triggers", "All"),
-                new ModOptionString("Kills Only", "Kills Only"),
-                new ModOptionString("Highlights", "Highlights"),
-                new ModOptionString("Last Enemy Only", "Last Enemy Only"),
-                new ModOptionString("Parry Only", "Parry Only")
-            };
+            return BuildStringOptions(TriggerProfileOptions);
         }
 
         public static ModOptionString[] QuickTestTriggerProvider()
         {
             return new ModOptionString[]
             {
-                new ModOptionString("Basic Kill", "Basic Kill"),
-                new ModOptionString("Critical Kill", "Critical Kill"),
-                new ModOptionString("Dismemberment", "Dismemberment"),
-                new ModOptionString("Decapitation", "Decapitation"),
-                new ModOptionString("Parry", "Parry"),
-                new ModOptionString("Last Enemy", "Last Enemy"),
-                new ModOptionString("Last Stand", "Last Stand")
+                new ModOptionString(TriggerBasicKill, TriggerBasicKill),
+                new ModOptionString(TriggerCriticalKill, TriggerCriticalKill),
+                new ModOptionString(TriggerDismemberment, TriggerDismemberment),
+                new ModOptionString(TriggerDecapitation, TriggerDecapitation),
+                new ModOptionString(TriggerParry, TriggerParry),
+                new ModOptionString(TriggerLastEnemy, TriggerLastEnemy),
+                new ModOptionString(TriggerLastStand, TriggerLastStand)
             };
         }
 
         public static ModOptionString[] ChancePresetProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Off (Cooldown Only)", "Off"),
-                new ModOptionString("Very Rare", "Very Rare"),
-                new ModOptionString("Rare", "Rare"),
-                new ModOptionString("Standard", "Standard"),
-                new ModOptionString("Frequent", "Frequent")
-            };
+            return BuildStringOptions(ChancePresetOptions);
         }
 
         public static ModOptionString[] CooldownPresetProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Off (No Cooldown)", "Off"),
-                new ModOptionString("Short", "Short"),
-                new ModOptionString("Standard", "Standard"),
-                new ModOptionString("Long", "Long"),
-                new ModOptionString("Extended", "Extended")
-            };
+            return BuildStringOptions(CooldownPresetOptions);
         }
 
         public static ModOptionString[] DurationPresetProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Very Short", "Very Short"),
-                new ModOptionString("Short", "Short"),
-                new ModOptionString("Standard", "Standard"),
-                new ModOptionString("Long", "Long"),
-                new ModOptionString("Extended", "Extended")
-            };
+            return BuildStringOptions(DurationPresetOptions);
         }
 
         public static ModOptionString[] SmoothnessPresetProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Very Snappy", "Very Snappy"),
-                new ModOptionString("Snappy", "Snappy"),
-                new ModOptionString("Standard", "Standard"),
-                new ModOptionString("Smooth", "Smooth"),
-                new ModOptionString("Ultra Smooth", "Ultra Smooth")
-            };
+            return BuildStringOptions(SmoothnessPresetOptions);
         }
 
         public static ModOptionString[] DynamicIntensityPresetProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("Off", "Off"),
-                new ModOptionString("Low Sensitivity", "Low Sensitivity"),
-                new ModOptionString("Medium Sensitivity", "Medium Sensitivity"),
-                new ModOptionString("High Sensitivity", "High Sensitivity")
-            };
+            return BuildStringOptions(DynamicIntensityOptions);
         }
 
         public static ModOptionString[] CameraDistributionProvider()
         {
-            return new ModOptionString[]
-            {
-                new ModOptionString("First Person Only", "First Person Only"),
-                new ModOptionString("Mixed (Rare Third Person)", "Mixed (Rare Third Person)"),
-                new ModOptionString("Mixed", "Mixed"),
-                new ModOptionString("Mostly Third Person", "Mostly Third Person"),
-                new ModOptionString("Third Person Only", "Third Person Only")
-            };
+            return BuildStringOptions(CameraDistributionOptions);
         }
 
         public static ModOptionFloat[] TimeScaleProvider()
@@ -531,42 +715,42 @@ namespace CSM.Configuration
 
         #region CSM (Main Settings)
 
-        [ModOption(name = "Enable Mod", order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
+        [ModOption(name = OptionEnableMod, order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = "Third Person Distribution", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
+        [ModOption(name = OptionThirdPersonDistribution, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
         public static string CameraDistribution = "First Person Only";
 
-        [ModOption(name = "Intensity Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
+        [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
         public static string CurrentPreset = "Standard";
 
-        [ModOption(name = "Chance Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
+        [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = "Cooldown Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
+        [ModOption(name = OptionCooldownPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Standard";
 
-        [ModOption(name = "Duration Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
+        [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Standard";
 
-        [ModOption(name = "Smoothness Preset", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
+        [ModOption(name = OptionSmoothnessPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Sets per-trigger transition speed multipliers (x). Lower = smoother.")]
         public static string SmoothnessPresetSetting = "Standard";
 
-        [ModOption(name = "Trigger Profile", category = "Preset Selection", categoryOrder = CategoryOrderPreset, order = 70, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
+        [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 70, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
         #region Optional Overrides
 
-        [ModOption(name = "Global Cooldown", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 10, defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
+        [ModOption(name = OptionGlobalCooldown, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 10, defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
         public static float GlobalCooldown = 0f;
 
-        [ModOption(name = "Global Smoothing", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 20, defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
+        [ModOption(name = OptionGlobalSmoothing, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 20, defaultValueIndex = 0, valueSourceName = "GlobalSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Override transition speed for all triggers. Per Trigger uses per-trigger smoothing (plus Smoothness Preset).")]
         public static float GlobalSmoothing = -1f;
 
-        [ModOption(name = "Haptic Feedback", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 40, defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
+        [ModOption(name = OptionHapticFeedback, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 40, defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
         public static float HapticIntensity = 0f;
 
-        [ModOption(name = "Dynamic Intensity", category = "Optional Overrides", categoryOrder = CategoryOrderOptional, order = 30, defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
+        [ModOption(name = OptionDynamicIntensity, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 30, defaultValueIndex = 0, valueSourceName = "DynamicIntensityPresetProvider", tooltip = "Scale slow-mo start speed based on damage. Low = dampened, High = can reach near-instant.")]
         public static string DynamicIntensitySetting = "Off";
 
         #endregion
@@ -577,226 +761,401 @@ namespace CSM.Configuration
 
         #region CSM Triggers (Enable/Disable)
 
-        [ModOption(name = "Basic Kill", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
+        [ModOption(name = TriggerBasicKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
         public static bool EnableBasicKill = true;
 
-        [ModOption(name = "Critical Kill", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
+        [ModOption(name = TriggerCriticalKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
         public static bool EnableCriticalKill = true;
 
-        [ModOption(name = "Dismemberment", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
+        [ModOption(name = TriggerDismemberment, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
         public static bool EnableDismemberment = true;
 
-        [ModOption(name = "Decapitation", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
+        [ModOption(name = TriggerDecapitation, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
         public static bool EnableDecapitation = true;
 
-        [ModOption(name = "Last Enemy", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
+        [ModOption(name = TriggerLastEnemy, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
         public static bool EnableLastEnemy = true;
 
-        [ModOption(name = "Last Stand", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
+        [ModOption(name = TriggerLastStand, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
         public static bool EnableLastStand = true;
 
-        [ModOption(name = "Last Stand Threshold", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
+        [ModOption(name = OptionLastStandThreshold, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
         public static float LastStandThreshold = 0.15f;
 
-        [ModOption(name = "Parry", category = "CSM Triggers", categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
+        [ModOption(name = TriggerParry, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
         public static bool EnableParry = true;
 
         #endregion
 
         #region CSM Killcam
 
-        [ModOption(name = "Camera Distance", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 10, defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target")]
+        [ModOption(name = OptionCameraDistance, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 10, defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target")]
         public static float KillcamDistance = 3f;
 
-        [ModOption(name = "Randomize Distance", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 20, defaultValueIndex = 0, tooltip = "Randomize distance per killcam")]
+        [ModOption(name = OptionRandomizeDistance, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 20, defaultValueIndex = 0, tooltip = "Randomize distance per killcam")]
         public static bool KillcamRandomizeDistance = false;
 
-        [ModOption(name = "Camera Height", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 30, defaultValueIndex = 1, valueSourceName = "KillcamHeightProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Height offset")]
+        [ModOption(name = OptionCameraHeight, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 30, defaultValueIndex = 1, valueSourceName = "KillcamHeightProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Height offset")]
         public static float KillcamHeight = 1.5f;
 
-        [ModOption(name = "Randomize Height", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 40, defaultValueIndex = 0, tooltip = "Randomize height per killcam")]
+        [ModOption(name = OptionRandomizeHeight, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 40, defaultValueIndex = 0, tooltip = "Randomize height per killcam")]
         public static bool KillcamRandomizeHeight = false;
 
-        [ModOption(name = "Orbit Speed", category = "CSM Killcam", categoryOrder = CategoryOrderKillcam, order = 50, defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)")]
+        [ModOption(name = OptionOrbitSpeed, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 50, defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)")]
         public static float KillcamOrbitSpeed = 15f;
 
         #endregion
 
         #region Custom: Basic Kill
 
-        [ModOption(name = "Chance", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 10, defaultValueIndex = 2, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = OptionChance, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 10, defaultValueIndex = 2, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float BasicKillChance = 0.25f;
 
-        [ModOption(name = "Time Scale", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 7, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 7, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float BasicKillTimeScale = 0.35f;
 
-        [ModOption(name = "Duration", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 5, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 5, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float BasicKillDuration = 1.0f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 5f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 13, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 13, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float BasicKillSmoothing = 8f;
 
-        [ModOption(name = "Third Person Distribution", category = "Custom: Basic Kill", categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float BasicKillThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Critical Kill
 
-        [ModOption(name = "Chance", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 10, defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = OptionChance, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 10, defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float CriticalKillChance = 0.75f;
 
-        [ModOption(name = "Time Scale", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 5, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 5, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float CriticalKillTimeScale = 0.25f;
 
-        [ModOption(name = "Duration", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 10, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 10, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float CriticalKillDuration = 1.5f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 5f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 13, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 13, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float CriticalKillSmoothing = 8f;
 
-        [ModOption(name = "Third Person Distribution", category = "Custom: Critical Kill", categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float CriticalKillThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Dismemberment
 
-        [ModOption(name = "Chance", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 10, defaultValueIndex = 10, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = OptionChance, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 10, defaultValueIndex = 10, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DismembermentChance = 0.6f;
 
-        [ModOption(name = "Time Scale", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DismembermentTimeScale = 0.3f;
 
-        [ModOption(name = "Duration", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 10, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 10, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DismembermentDuration = 1.5f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 5f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 13, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 13, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float DismembermentSmoothing = 8f;
 
-        [ModOption(name = "Third Person Distribution", category = "Custom: Dismemberment", categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DismembermentThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Decapitation
 
-        [ModOption(name = "Chance", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 10, defaultValueIndex = 14, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = OptionChance, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 10, defaultValueIndex = 14, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DecapitationChance = 0.9f;
 
-        [ModOption(name = "Time Scale", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DecapitationTimeScale = 0.2f;
 
-        [ModOption(name = "Duration", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 14, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 14, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DecapitationDuration = 2.0f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 8, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 8, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 4f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 11, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 11, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float DecapitationSmoothing = 6f;
 
-        [ModOption(name = "Third Person Distribution", category = "Custom: Decapitation", categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DecapitationThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Last Enemy
 
-        [ModOption(name = "Chance", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 10, defaultValueIndex = 15, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = OptionChance, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 10, defaultValueIndex = 15, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float LastEnemyChance = 1.0f;
 
-        [ModOption(name = "Time Scale", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 4, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastEnemyTimeScale = 0.2f;
 
-        [ModOption(name = "Duration", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 22, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 22, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastEnemyDuration = 3.0f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 0, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 0, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastEnemyCooldown = 0f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 8, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 8, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float LastEnemySmoothing = 4f;
 
-        [ModOption(name = "Third Person Distribution", category = "Custom: Last Enemy", categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
+        [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float LastEnemyThirdPersonDistribution = 0f;
 
         #endregion
 
         #region Custom: Last Stand
 
-        [ModOption(name = "Time Scale", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 3, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 3, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastStandTimeScale = 0.15f;
 
-        [ModOption(name = "Duration", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 28, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 28, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastStandDuration = 5.0f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 31, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 31, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 45f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Last Stand", categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 8, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 8, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float LastStandSmoothing = 4f;
 
         #endregion
 
         #region Custom: Parry
 
-        [ModOption(name = "Chance", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 10, defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
+        [ModOption(name = OptionChance, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 10, defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float ParryChance = 0.5f;
 
-        [ModOption(name = "Time Scale", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float ParryTimeScale = 0.3f;
 
-        [ModOption(name = "Duration", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 7, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 7, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float ParryDuration = 1.2f;
 
-        [ModOption(name = "Cooldown", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 13, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 13, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 7f;
 
-        [ModOption(name = "Smoothing", category = "Custom: Parry", categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 15, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
+        [ModOption(name = OptionSmoothing, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 15, valueSourceName = "CustomSmoothingProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition speed")]
         public static float ParrySmoothing = 10f;
 
         #endregion
 
         #region CSM Advanced
 
-        [ModOption(name = "Debug Logging", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
+        [ModOption(name = OptionDebugLogging, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
 
-        [ModOption(name = "Quick Test Trigger", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
-        public static string QuickTestTrigger = "Basic Kill";
+        [ModOption(name = OptionQuickTestTrigger, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
+        public static string QuickTestTrigger = TriggerBasicKill;
 
-        [ModOption(name = "Quick Test Now", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
+        [ModOption(name = OptionQuickTestNow, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
         public static bool QuickTestNow = false;
 
         #endregion
 
         #region Helper Methods
 
+        public enum TriggerField
+        {
+            Chance,
+            TimeScale,
+            Duration,
+            Cooldown,
+            Smoothing,
+            Distribution
+        }
+
+        public struct TriggerCustomValues
+        {
+            public float Chance;
+            public float TimeScale;
+            public float Duration;
+            public float Cooldown;
+            public float Smoothing;
+            public float Distribution;
+        }
+
+        public static bool IsTriggerEnabled(TriggerType triggerType)
+        {
+            switch (triggerType)
+            {
+                case TriggerType.BasicKill: return EnableBasicKill;
+                case TriggerType.Critical: return EnableCriticalKill;
+                case TriggerType.Dismemberment: return EnableDismemberment;
+                case TriggerType.Decapitation: return EnableDecapitation;
+                case TriggerType.Parry: return EnableParry;
+                case TriggerType.LastEnemy: return EnableLastEnemy;
+                case TriggerType.LastStand: return EnableLastStand;
+                default: return false;
+            }
+        }
+
+        public static void SetTriggerEnabled(TriggerType triggerType, bool enabled)
+        {
+            switch (triggerType)
+            {
+                case TriggerType.BasicKill: EnableBasicKill = enabled; break;
+                case TriggerType.Critical: EnableCriticalKill = enabled; break;
+                case TriggerType.Dismemberment: EnableDismemberment = enabled; break;
+                case TriggerType.Decapitation: EnableDecapitation = enabled; break;
+                case TriggerType.Parry: EnableParry = enabled; break;
+                case TriggerType.LastEnemy: EnableLastEnemy = enabled; break;
+                case TriggerType.LastStand: EnableLastStand = enabled; break;
+            }
+        }
+
+        public static TriggerCustomValues GetCustomValues(TriggerType triggerType)
+        {
+            var values = new TriggerCustomValues();
+            switch (triggerType)
+            {
+                case TriggerType.BasicKill:
+                    values.Chance = BasicKillChance;
+                    values.TimeScale = BasicKillTimeScale;
+                    values.Duration = BasicKillDuration;
+                    values.Cooldown = BasicKillCooldown;
+                    values.Smoothing = BasicKillSmoothing;
+                    values.Distribution = BasicKillThirdPersonDistribution;
+                    break;
+                case TriggerType.Critical:
+                    values.Chance = CriticalKillChance;
+                    values.TimeScale = CriticalKillTimeScale;
+                    values.Duration = CriticalKillDuration;
+                    values.Cooldown = CriticalKillCooldown;
+                    values.Smoothing = CriticalKillSmoothing;
+                    values.Distribution = CriticalKillThirdPersonDistribution;
+                    break;
+                case TriggerType.Dismemberment:
+                    values.Chance = DismembermentChance;
+                    values.TimeScale = DismembermentTimeScale;
+                    values.Duration = DismembermentDuration;
+                    values.Cooldown = DismembermentCooldown;
+                    values.Smoothing = DismembermentSmoothing;
+                    values.Distribution = DismembermentThirdPersonDistribution;
+                    break;
+                case TriggerType.Decapitation:
+                    values.Chance = DecapitationChance;
+                    values.TimeScale = DecapitationTimeScale;
+                    values.Duration = DecapitationDuration;
+                    values.Cooldown = DecapitationCooldown;
+                    values.Smoothing = DecapitationSmoothing;
+                    values.Distribution = DecapitationThirdPersonDistribution;
+                    break;
+                case TriggerType.Parry:
+                    values.Chance = ParryChance;
+                    values.TimeScale = ParryTimeScale;
+                    values.Duration = ParryDuration;
+                    values.Cooldown = ParryCooldown;
+                    values.Smoothing = ParrySmoothing;
+                    values.Distribution = 0f;
+                    break;
+                case TriggerType.LastEnemy:
+                    values.Chance = LastEnemyChance;
+                    values.TimeScale = LastEnemyTimeScale;
+                    values.Duration = LastEnemyDuration;
+                    values.Cooldown = LastEnemyCooldown;
+                    values.Smoothing = LastEnemySmoothing;
+                    values.Distribution = LastEnemyThirdPersonDistribution;
+                    break;
+                case TriggerType.LastStand:
+                    values.Chance = 1f;
+                    values.TimeScale = LastStandTimeScale;
+                    values.Duration = LastStandDuration;
+                    values.Cooldown = LastStandCooldown;
+                    values.Smoothing = LastStandSmoothing;
+                    values.Distribution = 0f;
+                    break;
+            }
+            return values;
+        }
+
+        public static void SetTriggerValue(TriggerType triggerType, TriggerField field, float value)
+        {
+            switch (triggerType)
+            {
+                case TriggerType.BasicKill:
+                    SetTriggerValue(ref BasicKillChance, ref BasicKillTimeScale, ref BasicKillDuration, ref BasicKillCooldown,
+                        ref BasicKillSmoothing, ref BasicKillThirdPersonDistribution, field, value);
+                    break;
+                case TriggerType.Critical:
+                    SetTriggerValue(ref CriticalKillChance, ref CriticalKillTimeScale, ref CriticalKillDuration, ref CriticalKillCooldown,
+                        ref CriticalKillSmoothing, ref CriticalKillThirdPersonDistribution, field, value);
+                    break;
+                case TriggerType.Dismemberment:
+                    SetTriggerValue(ref DismembermentChance, ref DismembermentTimeScale, ref DismembermentDuration, ref DismembermentCooldown,
+                        ref DismembermentSmoothing, ref DismembermentThirdPersonDistribution, field, value);
+                    break;
+                case TriggerType.Decapitation:
+                    SetTriggerValue(ref DecapitationChance, ref DecapitationTimeScale, ref DecapitationDuration, ref DecapitationCooldown,
+                        ref DecapitationSmoothing, ref DecapitationThirdPersonDistribution, field, value);
+                    break;
+                case TriggerType.Parry:
+                    {
+                        float unusedDistribution = 0f;
+                        SetTriggerValue(ref ParryChance, ref ParryTimeScale, ref ParryDuration, ref ParryCooldown,
+                            ref ParrySmoothing, ref unusedDistribution, field, value);
+                    }
+                    break;
+                case TriggerType.LastEnemy:
+                    SetTriggerValue(ref LastEnemyChance, ref LastEnemyTimeScale, ref LastEnemyDuration, ref LastEnemyCooldown,
+                        ref LastEnemySmoothing, ref LastEnemyThirdPersonDistribution, field, value);
+                    break;
+                case TriggerType.LastStand:
+                    if (field == TriggerField.Chance || field == TriggerField.Distribution)
+                        break;
+                    {
+                        float unusedChance = 1f;
+                        float unusedDistribution = 0f;
+                        SetTriggerValue(ref unusedChance, ref LastStandTimeScale, ref LastStandDuration, ref LastStandCooldown,
+                            ref LastStandSmoothing, ref unusedDistribution, field, value);
+                    }
+                    break;
+            }
+        }
+
+        private static void SetTriggerValue(ref float chance, ref float timeScale, ref float duration, ref float cooldown,
+            ref float smoothing, ref float distribution, TriggerField field, float value)
+        {
+            switch (field)
+            {
+                case TriggerField.Chance:
+                    chance = value;
+                    break;
+                case TriggerField.TimeScale:
+                    timeScale = value;
+                    break;
+                case TriggerField.Duration:
+                    duration = value;
+                    break;
+                case TriggerField.Cooldown:
+                    cooldown = value;
+                    break;
+                case TriggerField.Smoothing:
+                    smoothing = value;
+                    break;
+                case TriggerField.Distribution:
+                    distribution = value;
+                    break;
+            }
+        }
+
         /// <summary>
         /// Get the current preset enum value.
         /// </summary>
         public static Preset GetCurrentPreset()
         {
-            switch (CurrentPreset)
-            {
-                case "Subtle": return Preset.Subtle;
-                case "Standard": return Preset.Standard;
-                case "Dramatic": return Preset.Dramatic;
-                case "Cinematic": return Preset.Cinematic;
-                case "Epic": return Preset.Epic;
-                case "Balanced": return Preset.Standard;
-                default: return Preset.Standard;
-            }
+            return ParsePreset(CurrentPreset, IntensityPresetMap, Preset.Standard);
         }
 
         /// <summary>
@@ -804,16 +1163,7 @@ namespace CSM.Configuration
         /// </summary>
         public static TriggerProfilePreset GetTriggerProfilePreset()
         {
-            switch (TriggerProfile)
-            {
-                case "All Triggers": return TriggerProfilePreset.All;
-                case "All": return TriggerProfilePreset.All;
-                case "Kills Only": return TriggerProfilePreset.KillsOnly;
-                case "Highlights": return TriggerProfilePreset.Highlights;
-                case "Last Enemy Only": return TriggerProfilePreset.LastEnemyOnly;
-                case "Parry Only": return TriggerProfilePreset.ParryOnly;
-                default: return TriggerProfilePreset.All;
-            }
+            return ParsePreset(TriggerProfile, TriggerProfileMap, TriggerProfilePreset.All);
         }
 
         /// <summary>
@@ -823,13 +1173,13 @@ namespace CSM.Configuration
         {
             switch (QuickTestTrigger)
             {
-                case "Basic Kill": return TriggerType.BasicKill;
-                case "Critical Kill": return TriggerType.Critical;
-                case "Dismemberment": return TriggerType.Dismemberment;
-                case "Decapitation": return TriggerType.Decapitation;
-                case "Parry": return TriggerType.Parry;
-                case "Last Enemy": return TriggerType.LastEnemy;
-                case "Last Stand": return TriggerType.LastStand;
+                case TriggerBasicKill: return TriggerType.BasicKill;
+                case TriggerCriticalKill: return TriggerType.Critical;
+                case TriggerDismemberment: return TriggerType.Dismemberment;
+                case TriggerDecapitation: return TriggerType.Decapitation;
+                case TriggerParry: return TriggerType.Parry;
+                case TriggerLastEnemy: return TriggerType.LastEnemy;
+                case TriggerLastStand: return TriggerType.LastStand;
                 default: return TriggerType.BasicKill;
             }
         }
@@ -839,18 +1189,7 @@ namespace CSM.Configuration
         /// </summary>
         public static ChancePreset GetChancePreset()
         {
-            switch (ChancePresetSetting)
-            {
-                case "Off (Cooldown Only)": return ChancePreset.Off;
-                case "Very Rare": return ChancePreset.VeryRare;
-                case "Rare": return ChancePreset.Rare;
-                case "Standard": return ChancePreset.Standard;
-                case "Frequent": return ChancePreset.Frequent;
-                case "Always": return ChancePreset.Off;
-                case "Chaos": return ChancePreset.Off;
-                case "Balanced": return ChancePreset.Standard;
-                default: return ChancePreset.Off;
-            }
+            return ParsePreset(ChancePresetSetting, ChancePresetMap, ChancePreset.Off);
         }
 
         /// <summary>
@@ -858,20 +1197,7 @@ namespace CSM.Configuration
         /// </summary>
         public static CooldownPreset GetCooldownPreset()
         {
-            switch (CooldownPresetSetting)
-            {
-                case "Off (No Cooldown)": return CooldownPreset.Off;
-                case "Off": return CooldownPreset.Off;
-                case "Short": return CooldownPreset.Short;
-                case "Long": return CooldownPreset.Long;
-                case "Extended": return CooldownPreset.Extended;
-                case "Rare": return CooldownPreset.Long;
-                case "Frequent": return CooldownPreset.Short;
-                case "Chaos": return CooldownPreset.Short;
-                case "Standard": return CooldownPreset.Standard;
-                case "Balanced": return CooldownPreset.Standard;
-                default: return CooldownPreset.Standard;
-            }
+            return ParsePreset(CooldownPresetSetting, CooldownPresetMap, CooldownPreset.Standard);
         }
 
         /// <summary>
@@ -879,16 +1205,7 @@ namespace CSM.Configuration
         /// </summary>
         public static DurationPreset GetDurationPreset()
         {
-            switch (DurationPresetSetting)
-            {
-                case "Very Short": return DurationPreset.VeryShort;
-                case "Short": return DurationPreset.Short;
-                case "Long": return DurationPreset.Long;
-                case "Extended": return DurationPreset.Extended;
-                case "Standard": return DurationPreset.Standard;
-                case "Balanced": return DurationPreset.Standard;
-                default: return DurationPreset.Standard;
-            }
+            return ParsePreset(DurationPresetSetting, DurationPresetMap, DurationPreset.Standard);
         }
 
         /// <summary>
@@ -896,36 +1213,12 @@ namespace CSM.Configuration
         /// </summary>
         public static SmoothnessPreset GetSmoothnessPreset()
         {
-            switch (SmoothnessPresetSetting)
-            {
-                case "Very Snappy": return SmoothnessPreset.VerySnappy;
-                case "Snappy": return SmoothnessPreset.Snappy;
-                case "Smooth": return SmoothnessPreset.Smooth;
-                case "Cinematic": return SmoothnessPreset.Cinematic;
-                case "Ultra Smooth": return SmoothnessPreset.UltraSmooth;
-                case "Standard": return SmoothnessPreset.Standard;
-                case "Balanced": return SmoothnessPreset.Standard;
-                default: return SmoothnessPreset.Standard;
-            }
+            return ParsePreset(SmoothnessPresetSetting, SmoothnessPresetMap, SmoothnessPreset.Standard);
         }
 
         public static DynamicIntensityPreset GetDynamicIntensityPreset()
         {
-            switch (DynamicIntensitySetting)
-            {
-                case "Low Sensitivity": return DynamicIntensityPreset.LowSensitivity;
-                case "Medium Sensitivity": return DynamicIntensityPreset.MediumSensitivity;
-                case "High Sensitivity": return DynamicIntensityPreset.HighSensitivity;
-                case "True":
-                case "true":
-                case "On":
-                    return DynamicIntensityPreset.MediumSensitivity;
-                case "False":
-                case "false":
-                case "Off":
-                    return DynamicIntensityPreset.Off;
-                default: return DynamicIntensityPreset.Off;
-            }
+            return ParsePreset(DynamicIntensitySetting, DynamicIntensityMap, DynamicIntensityPreset.Off);
         }
 
         /// <summary>
@@ -933,26 +1226,7 @@ namespace CSM.Configuration
         /// </summary>
         public static CameraDistributionPreset GetCameraDistributionPreset()
         {
-            switch (CameraDistribution)
-            {
-                case "First Person Only": return CameraDistributionPreset.FirstPersonOnly;
-                case "Mixed (Rare Third Person)":
-                case "Mostly First Person":
-                case "Rare":
-                    return CameraDistributionPreset.MostlyFirstPerson;
-                case "Mixed":
-                case "Standard":
-                case "Balanced":
-                    return CameraDistributionPreset.Mixed;
-                case "Mostly Third Person":
-                case "Frequent":
-                    return CameraDistributionPreset.MostlyThirdPerson;
-                case "Third Person Only":
-                case "Always":
-                    return CameraDistributionPreset.ThirdPersonOnly;
-                default:
-                    return CameraDistributionPreset.FirstPersonOnly;
-            }
+            return ParsePreset(CameraDistribution, CameraDistributionMap, CameraDistributionPreset.FirstPersonOnly);
         }
 
         /// <summary>
