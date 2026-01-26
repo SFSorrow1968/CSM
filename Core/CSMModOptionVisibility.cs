@@ -115,6 +115,7 @@ namespace CSM.Core
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerLastEnemy) },
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerLastStand) }
         };
+        private static readonly string ThrownImpactOptionKey = MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerThrownImpactKill);
 
         private CSMModOptionVisibility() { }
 
@@ -218,6 +219,7 @@ namespace CSM.Core
             local = ApplyTriggerProfile(force);
             changed |= local;
             presetChanged |= local;
+            changed |= ApplyTriggerDependencies();
             changed |= ApplyDiagnostics(force);
             changed |= UpdateCustomTooltips(force, presetChanged);
             if (force || presetChanged)
@@ -412,12 +414,18 @@ namespace CSM.Core
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.Parry, parry);
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastEnemy, lastEnemy);
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastStand, lastStand);
+            if (!basicKill && CSMModOptions.EnableThrownImpactKill)
+            {
+                CSMModOptions.EnableThrownImpactKill = false;
+                SyncToggleOption(ThrownImpactOptionKey, false);
+            }
 
             _lastTriggerProfile = profile;
             if (CSMModOptions.DebugLogging)
             {
                 Debug.Log("[CSM] Trigger profile applied: " + ResolvePresetLabel(CSMModOptions.TriggerProfile, profile) +
                           " | Basic=" + basicKill +
+                          " ThrownImpact=" + CSMModOptions.EnableThrownImpactKill +
                           " Critical=" + critical +
                           " Dismember=" + dismemberment +
                           " Decap=" + decapitation +
@@ -425,6 +433,18 @@ namespace CSM.Core
                           " LastEnemy=" + lastEnemy +
                           " LastStand=" + lastStand);
             }
+            return true;
+        }
+
+        private bool ApplyTriggerDependencies()
+        {
+            if (CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
+                return false;
+
+            CSMModOptions.EnableThrownImpactKill = false;
+            SyncToggleOption(ThrownImpactOptionKey, false);
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Thrown Impact Kill disabled because Basic Kill is off");
             return true;
         }
 
@@ -745,6 +765,7 @@ namespace CSM.Core
                       " | Haptic=" + CSMModOptions.HapticIntensity.ToString("0.##"));
             Debug.Log("[CSM] Menu triggers: " +
                       "Basic=" + CSMModOptions.EnableBasicKill +
+                      " ThrownImpact=" + CSMModOptions.EnableThrownImpactKill +
                       " Critical=" + CSMModOptions.EnableCriticalKill +
                       " Dismember=" + CSMModOptions.EnableDismemberment +
                       " Decap=" + CSMModOptions.EnableDecapitation +

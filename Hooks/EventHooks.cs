@@ -13,6 +13,7 @@ namespace CSM.Hooks
         private bool _subscribed = false;
         private bool _deflectSubscribed = false;
         private bool _parrySubscribed = false;
+        private bool _spawnSubscribed = false;
         private float _lastPlayerHealthRatio = 1f;
         private bool _lastStandTriggered = false;
         
@@ -23,6 +24,11 @@ namespace CSM.Hooks
         private float _lastSliceCleanupTime = 0f;
         private const float SLICE_REARM_SECONDS = 30f;
         private const float SLICE_CLEANUP_INTERVAL = 10f;
+        private readonly Dictionary<int, float> _recentThrownCreatures = new Dictionary<int, float>();
+        private readonly HashSet<Ragdoll> _hookedRagdolls = new HashSet<Ragdoll>();
+        private float _lastThrownCleanupTime = 0f;
+        private const float THROWN_KILL_WINDOW_SECONDS = 0.5f;
+        private const float THROWN_CLEANUP_INTERVAL = 5f;
 
         public static void Subscribe()
         {
@@ -43,6 +49,15 @@ namespace CSM.Hooks
             _instance.SubscribeParryEvent();
         }
 
+        public static void SubscribeThrowTracking()
+        {
+            if (_instance == null)
+            {
+                _instance = new EventHooks();
+            }
+            _instance.SubscribeSpawnEvent();
+        }
+
         public static void Unsubscribe()
         {
             _instance?.UnsubscribeEvents();
@@ -58,6 +73,9 @@ namespace CSM.Hooks
                 _instance._lastWaveResetTime = 0f;
                 _instance._recentSlicedParts.Clear();
                 _instance._lastSliceCleanupTime = 0f;
+                _instance._recentThrownCreatures.Clear();
+                _instance._hookedRagdolls.Clear();
+                _instance._lastThrownCleanupTime = 0f;
             }
         }
 
@@ -76,6 +94,7 @@ namespace CSM.Hooks
             {
                 EventManager.onCreatureKill += new EventManager.CreatureKillEvent(this.OnCreatureKill);
                 EventManager.onCreatureHit += new EventManager.CreatureHitEvent(this.OnCreatureHit);
+                SubscribeSpawnEvent();
                 EventManager.onDeflect += new EventManager.DeflectEvent(this.OnDeflect);
                 EventManager.onCreatureAttackParry += new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
                 _subscribed = true;
@@ -107,6 +126,24 @@ namespace CSM.Hooks
             }
         }
 
+        private void SubscribeSpawnEvent()
+        {
+            if (_spawnSubscribed) return;
+
+            try
+            {
+                EventManager.onCreatureSpawn += new EventManager.CreatureSpawnedEvent(this.OnCreatureSpawn);
+                _spawnSubscribed = true;
+                RegisterExistingCreatures();
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Creature spawn hook subscribed");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[CSM] Failed to subscribe creature spawn hook: " + ex.Message);
+            }
+        }
+
         private void SubscribeParryEvent()
         {
             if (_parrySubscribed) return;
@@ -134,12 +171,131 @@ namespace CSM.Hooks
                 EventManager.onCreatureHit -= new EventManager.CreatureHitEvent(this.OnCreatureHit);
                 EventManager.onDeflect -= new EventManager.DeflectEvent(this.OnDeflect);
                 EventManager.onCreatureAttackParry -= new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
+                if (_spawnSubscribed)
+                {
+                    EventManager.onCreatureSpawn -= new EventManager.CreatureSpawnedEvent(this.OnCreatureSpawn);
+                }
             }
             catch { }
 
             _subscribed = false;
             _deflectSubscribed = false;
             _parrySubscribed = false;
+            _spawnSubscribed = false;
+            UnregisterAllRagdollHooks();
+        }
+
+        private void RegisterExistingCreatures()
+        {
+            try
+            {
+                if (Creature.allActive == null) return;
+                foreach (var creature in Creature.allActive)
+                {
+                    RegisterRagdollHooks(creature);
+                }
+            }
+            catch { }
+        }
+
+        private void OnCreatureSpawn(Creature creature)
+        {
+            if (creature == null) return;
+            RegisterRagdollHooks(creature);
+        }
+
+        private void RegisterRagdollHooks(Creature creature)
+        {
+            if (creature == null || creature.ragdoll == null) return;
+
+            var ragdoll = creature.ragdoll;
+            if (_hookedRagdolls.Contains(ragdoll)) return;
+
+            ragdoll.OnUngrabEvent += OnRagdollUngrab;
+            ragdoll.OnTelekinesisReleaseEvent += OnRagdollTelekinesisRelease;
+            _hookedRagdolls.Add(ragdoll);
+        }
+
+        private void UnregisterAllRagdollHooks()
+        {
+            foreach (var ragdoll in _hookedRagdolls)
+            {
+                if (ragdoll == null) continue;
+                ragdoll.OnUngrabEvent -= OnRagdollUngrab;
+                ragdoll.OnTelekinesisReleaseEvent -= OnRagdollTelekinesisRelease;
+            }
+            _hookedRagdolls.Clear();
+        }
+
+        private void OnRagdollUngrab(RagdollHand ragdollHand, HandleRagdoll handleRagdoll, bool lastHandler)
+        {
+            if (!lastHandler) return;
+
+            bool playerReleased = ragdollHand != null && (ragdollHand.playerHand != null || ragdollHand.creature?.isPlayer == true);
+            if (!playerReleased) return;
+
+            var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
+            MarkCreatureThrown(creature, "Grab");
+        }
+
+        private void OnRagdollTelekinesisRelease(ThunderRoad.Skill.SpellPower.SpellTelekinesis spellTelekinesis, HandleRagdoll handleRagdoll, bool lastHandler)
+        {
+            if (!lastHandler) return;
+
+            bool playerReleased = spellTelekinesis?.spellCaster?.ragdollHand?.playerHand != null ||
+                                  spellTelekinesis?.spellCaster?.ragdollHand?.creature?.isPlayer == true;
+            if (!playerReleased) return;
+
+            var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
+            MarkCreatureThrown(creature, "Telekinesis");
+        }
+
+        private void MarkCreatureThrown(Creature creature, string source)
+        {
+            if (creature == null || creature.isPlayer) return;
+            _recentThrownCreatures[creature.GetInstanceID()] = Time.unscaledTime;
+            CleanupThrownCache(Time.unscaledTime);
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Thrown release recorded (" + source + "): " + creature.name);
+        }
+
+        private bool WasRecentlyThrownByPlayer(Creature creature)
+        {
+            if (creature == null) return false;
+            if (!CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
+                return false;
+
+            int id = creature.GetInstanceID();
+            if (!_recentThrownCreatures.TryGetValue(id, out float releaseTime))
+                return false;
+
+            float now = Time.unscaledTime;
+            if (now - releaseTime > THROWN_KILL_WINDOW_SECONDS)
+                return false;
+
+            _recentThrownCreatures.Remove(id);
+            return true;
+        }
+
+        private void CleanupThrownCache(float now)
+        {
+            if (now - _lastThrownCleanupTime < THROWN_CLEANUP_INTERVAL)
+                return;
+
+            _lastThrownCleanupTime = now;
+            List<int> expired = null;
+            foreach (var kvp in _recentThrownCreatures)
+            {
+                if (now - kvp.Value > THROWN_KILL_WINDOW_SECONDS * 2f)
+                {
+                    if (expired == null) expired = new List<int>();
+                    expired.Add(kvp.Key);
+                }
+            }
+
+            if (expired == null) return;
+            foreach (var key in expired)
+                _recentThrownCreatures.Remove(key);
         }
 
         private void OnCreatureKill(Creature creature, Player player, CollisionInstance collisionInstance, EventTime eventTime)
@@ -160,11 +316,17 @@ namespace CSM.Hooks
                     return;
                 }
 
-                if (!WasKilledByPlayer(collisionInstance))
+                bool killedByPlayer = WasKilledByPlayer(collisionInstance);
+                bool thrownImpactKill = false;
+                if (!killedByPlayer)
                 {
-                    if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Kill skipped - NPC vs NPC");
-                    return;
+                    thrownImpactKill = WasRecentlyThrownByPlayer(creature);
+                    if (!thrownImpactKill)
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] Kill skipped - not player and not thrown impact");
+                        return;
+                    }
                 }
 
                 UpdateEnemyTracking();
@@ -188,6 +350,14 @@ namespace CSM.Hooks
                 }
 
                 float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
+
+                if (thrownImpactKill)
+                {
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Thrown impact kill detected");
+                    CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature);
+                    return;
+                }
 
                 if (collisionInstance != null && collisionInstance.damageStruct.hitRagdollPart != null)
                 {

@@ -38,6 +38,7 @@ namespace CSM.Configuration
         public const string OptionDynamicIntensity = "Dynamic Intensity";
 
         public const string TriggerBasicKill = "Basic Kill";
+        public const string TriggerThrownImpactKill = "Thrown Impact Kill";
         public const string TriggerCriticalKill = "Critical Kill";
         public const string TriggerDismemberment = "Dismemberment";
         public const string TriggerDecapitation = "Decapitation";
@@ -759,6 +760,9 @@ namespace CSM.Configuration
 
         [ModOption(name = TriggerBasicKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
         public static bool EnableBasicKill = true;
+
+        [ModOption(name = TriggerThrownImpactKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 15, defaultValueIndex = 0, tooltip = "Also trigger Basic Kill when a recently thrown enemy dies from the environment")]
+        public static bool EnableThrownImpactKill = false;
 
         [ModOption(name = TriggerCriticalKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
         public static bool EnableCriticalKill = true;
