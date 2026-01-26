@@ -5,10 +5,6 @@ using UnityEngine;
 
 namespace CSM.Configuration
 {
-    /// <summary>
-    /// ModOptions-based configuration for CSM.
-    /// Consolidated menu with Preset system for simplified user experience.
-    /// </summary>
     public static class CSMModOptions
     {
         public const string VERSION = "1.5.0";
@@ -1150,25 +1146,16 @@ namespace CSM.Configuration
             }
         }
 
-        /// <summary>
-        /// Get the current preset enum value.
-        /// </summary>
         public static Preset GetCurrentPreset()
         {
             return ParsePreset(CurrentPreset, IntensityPresetMap, Preset.Standard);
         }
 
-        /// <summary>
-        /// Get trigger profile preset.
-        /// </summary>
         public static TriggerProfilePreset GetTriggerProfilePreset()
         {
             return ParsePreset(TriggerProfile, TriggerProfileMap, TriggerProfilePreset.All);
         }
 
-        /// <summary>
-        /// Get selected quick test trigger.
-        /// </summary>
         public static TriggerType GetQuickTestTrigger()
         {
             switch (QuickTestTrigger)
@@ -1184,33 +1171,21 @@ namespace CSM.Configuration
             }
         }
 
-        /// <summary>
-        /// Get chance preset.
-        /// </summary>
         public static ChancePreset GetChancePreset()
         {
             return ParsePreset(ChancePresetSetting, ChancePresetMap, ChancePreset.Off);
         }
 
-        /// <summary>
-        /// Get cooldown preset.
-        /// </summary>
         public static CooldownPreset GetCooldownPreset()
         {
             return ParsePreset(CooldownPresetSetting, CooldownPresetMap, CooldownPreset.Standard);
         }
 
-        /// <summary>
-        /// Get duration preset.
-        /// </summary>
         public static DurationPreset GetDurationPreset()
         {
             return ParsePreset(DurationPresetSetting, DurationPresetMap, DurationPreset.Standard);
         }
 
-        /// <summary>
-        /// Get smoothness preset.
-        /// </summary>
         public static SmoothnessPreset GetSmoothnessPreset()
         {
             return ParsePreset(SmoothnessPresetSetting, SmoothnessPresetMap, SmoothnessPreset.Standard);
@@ -1221,17 +1196,11 @@ namespace CSM.Configuration
             return ParsePreset(DynamicIntensitySetting, DynamicIntensityMap, DynamicIntensityPreset.Off);
         }
 
-        /// <summary>
-        /// Get camera distribution preset.
-        /// </summary>
         public static CameraDistributionPreset GetCameraDistributionPreset()
         {
             return ParsePreset(CameraDistribution, CameraDistributionMap, CameraDistributionPreset.FirstPersonOnly);
         }
 
-        /// <summary>
-        /// Killcam chance by trigger, scaled by per-trigger distribution.
-        /// </summary>
         public static float GetKillcamChance(TriggerType triggerType)
         {
             if (!IsThirdPersonEligible(triggerType))
@@ -1244,9 +1213,6 @@ namespace CSM.Configuration
             return chance;
         }
 
-        /// <summary>
-        /// Per-trigger third-person distribution multiplier (0 disables).
-        /// </summary>
         public static float GetThirdPersonDistribution(TriggerType triggerType)
         {
             if (!IsThirdPersonEligible(triggerType))
@@ -1262,9 +1228,6 @@ namespace CSM.Configuration
             }
         }
 
-        /// <summary>
-        /// Whether a trigger can use third-person killcam.
-        /// </summary>
         public static bool IsThirdPersonEligible(TriggerType triggerType)
         {
             switch (triggerType)

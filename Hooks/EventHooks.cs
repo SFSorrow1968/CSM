@@ -6,10 +6,6 @@ using UnityEngine;
 
 namespace CSM.Hooks
 {
-    /// <summary>
-    /// Event-based hooks for Nomad (IL2CPP compatible).
-    /// Uses instance methods like working reference mods (KillOnPress, CarnageReborn).
-    /// </summary>
     public class EventHooks
     {
         private static EventHooks _instance;
@@ -19,10 +15,9 @@ namespace CSM.Hooks
         private float _lastPlayerHealthRatio = 1f;
         private bool _lastStandTriggered = false;
         
-        // Track enemies for smarter "Last Enemy" detection
         private int _maxEnemiesSeenThisWave = 0;
         private float _lastWaveResetTime = 0f;
-        private const float WAVE_RESET_TIMEOUT = 10f; // Reset wave tracking after 10s with no enemies
+        private const float WAVE_RESET_TIMEOUT = 10f;
 
         public static void Subscribe()
         {
@@ -144,14 +139,12 @@ namespace CSM.Hooks
         {
             try
             {
-                // Only process on end of kill event
                 if (eventTime == EventTime.OnStart) return;
                 if (creature == null) return;
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] CreatureKill event: " + creature.name);
 
-                // Cancel slow motion if player dies
                 if (creature.isPlayer)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -160,7 +153,6 @@ namespace CSM.Hooks
                     return;
                 }
 
-                // Player-Only filter: skip NPC vs NPC kills
                 if (!WasKilledByPlayer(collisionInstance))
                 {
                     if (CSMModOptions.DebugLogging)
@@ -168,13 +160,10 @@ namespace CSM.Hooks
                     return;
                 }
 
-                // Update enemy tracking for "Last Enemy" detection
                 UpdateEnemyTracking();
 
-                // Get current alive enemies BEFORE processing
                 int aliveEnemies = CountAliveEnemies();
                 
-                // Check if this was the last enemy of a meaningful group
                 bool isLastEnemy = IsSmartLastEnemy(aliveEnemies);
                 
                 if (isLastEnemy)
@@ -185,17 +174,14 @@ namespace CSM.Hooks
                     bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature);
                     if (triggered)
                     {
-                        // Reset wave tracking after successful last enemy trigger
                         _maxEnemiesSeenThisWave = 0;
                         _lastWaveResetTime = Time.unscaledTime;
                         return;
                     }
                 }
 
-                // Get damage dealt for dynamic intensity
                 float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
 
-                // Check for decapitation/critical hit
                 if (collisionInstance != null && collisionInstance.damageStruct.hitRagdollPart != null)
                 {
                     var part = collisionInstance.damageStruct.hitRagdollPart;
@@ -205,7 +191,6 @@ namespace CSM.Hooks
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Hit part: " + partType + " isHeadOrNeck=" + isHeadOrNeck + " isSliced=" + part.isSliced + " damage=" + damageDealt);
 
-                    // Decapitation takes priority over critical
                     if (isHeadOrNeck && part.isSliced)
                     {
                         if (CSMModOptions.DebugLogging)
@@ -214,7 +199,6 @@ namespace CSM.Hooks
                             return;
                     }
 
-                    // Critical kill (head/neck hit without slicing)
                     if (isHeadOrNeck)
                     {
                         if (CSMModOptions.DebugLogging)
@@ -223,7 +207,6 @@ namespace CSM.Hooks
                             return;
                     }
 
-                    // Non-head dismemberment
                     if (part.isSliced)
                     {
                         if (CSMModOptions.DebugLogging)
@@ -233,7 +216,6 @@ namespace CSM.Hooks
                     }
                 }
 
-                // Basic kill - lowest priority
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Basic kill with damage=" + damageDealt);
                 CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature);
@@ -251,14 +233,12 @@ namespace CSM.Hooks
                 if (eventTime == EventTime.OnStart) return;
                 if (creature == null) return;
 
-                // Handle player damage for Last Stand
                 if (creature.isPlayer)
                 {
                     HandlePlayerHit(creature);
                     return;
                 }
 
-                // Check for dismemberment on non-lethal hits
                 if (collisionInstance != null &&
                     collisionInstance.damageStruct.hitRagdollPart != null &&
                     collisionInstance.damageStruct.hitRagdollPart.isSliced)
@@ -292,7 +272,6 @@ namespace CSM.Hooks
                 float currentHealth = GetHealthRatio(player);
                 float threshold = CSMModOptions.LastStandThreshold;
 
-                // Trigger Last Stand when health drops below threshold
                 if (_lastPlayerHealthRatio > threshold && currentHealth <= threshold && currentHealth > 0 && !_lastStandTriggered)
                 {
                     _lastStandTriggered = true;
@@ -300,7 +279,6 @@ namespace CSM.Hooks
                     CSMManager.Instance.TriggerSlow(TriggerType.LastStand);
                 }
 
-                // Reset Last Stand trigger when health goes back above threshold
                 if (currentHealth > threshold)
                 {
                     _lastStandTriggered = false;
@@ -314,22 +292,14 @@ namespace CSM.Hooks
             }
         }
 
-        /// <summary>
-        /// Update tracking of how many enemies we've seen in the current "wave"
-        /// </summary>
         private void UpdateEnemyTracking()
         {
             int currentEnemies = CountAliveEnemies();
             
-            // We're inside a kill event, so add 1 for the enemy that just died
-            // This ensures we count ALL enemies in the wave, including the one being killed
             int totalInWave = currentEnemies + 1;
             
-            // Check if we should reset wave tracking (been at 0 enemies for a while)
             if (currentEnemies == 0 && _maxEnemiesSeenThisWave > 0)
             {
-                // Don't reset immediately - the IsSmartLastEnemy check happens after this
-                // Only reset after the timeout
                 if (Time.unscaledTime - _lastWaveResetTime > WAVE_RESET_TIMEOUT)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -338,7 +308,6 @@ namespace CSM.Hooks
                 }
             }
             
-            // Always track max enemies (including the one just killed)
             if (totalInWave > _maxEnemiesSeenThisWave)
             {
                 _maxEnemiesSeenThisWave = totalInWave;
@@ -346,27 +315,18 @@ namespace CSM.Hooks
                     Debug.Log("[CSM] Wave tracking: max enemies = " + _maxEnemiesSeenThisWave);
             }
             
-            // Reset the timer when there are still enemies alive
             if (currentEnemies > 0)
             {
                 _lastWaveResetTime = Time.unscaledTime;
             }
         }
 
-        /// <summary>
-        /// Smart "Last Enemy" detection - only triggers if there was actually a group of enemies
-        /// </summary>
         private bool IsSmartLastEnemy(int currentAliveEnemies)
         {
-            // Only trigger if:
-            // 1. No enemies are currently alive (counting the one that just died)
-            // 2. We saw at least 2 enemies in this wave (configurable threshold)
             
             if (currentAliveEnemies > 0)
                 return false;
             
-            // Require at least 2 enemies for "Last Enemy" to trigger
-            // This prevents it from firing on every kill in endless 1v1 mode
             int minEnemies = CSMModOptions.LastEnemyMinimumGroup;
             
             bool isLast = _maxEnemiesSeenThisWave >= minEnemies;
@@ -413,24 +373,18 @@ namespace CSM.Hooks
             }
         }
 
-        /// <summary>
-        /// Check if a kill was caused by the player (directly or via held item).
-        /// </summary>
         private bool WasKilledByPlayer(CollisionInstance collision)
         {
             try
             {
                 if (collision == null) return false;
 
-                // Check if the source creature is the player
                 if (collision.sourceColliderGroup?.collisionHandler?.item?.mainHandler?.creature?.isPlayer == true)
                     return true;
 
-                // Check if the source item is held by the player
                 if (collision.sourceColliderGroup?.collisionHandler?.item?.lastHandler?.creature?.isPlayer == true)
                     return true;
 
-                // Check if damage came from player body part
                 if (collision.sourceColliderGroup?.collisionHandler?.ragdollPart?.ragdoll?.creature?.isPlayer == true)
                     return true;
 
@@ -442,15 +396,10 @@ namespace CSM.Hooks
             }
         }
 
-        /// <summary>
-        /// Handle deflect events for parry detection.
-        /// Fires when a weapon successfully deflects/parries an attack.
-        /// </summary>
         private void OnDeflect(Creature source, Item deflectingItem, Creature target)
         {
             try
             {
-                // Only trigger parry for player deflects
                 bool playerDeflected = deflectingItem?.mainHandler?.creature?.isPlayer == true ||
                                        deflectingItem?.lastHandler?.creature?.isPlayer == true;
 

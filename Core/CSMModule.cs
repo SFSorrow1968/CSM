@@ -9,10 +9,6 @@ using UnityEngine;
 
 namespace CSM.Core
 {
-    /// <summary>
-    /// Main ThunderScript entry point for CSM.
-    /// Simplified to match working Nomad mod pattern.
-    /// </summary>
     public class CSMModule : ThunderScript
     {
         public static CSMModule Instance { get; private set; }
@@ -31,17 +27,14 @@ namespace CSM.Core
                 Debug.Log("[CSM] === CSM v" + CSMModOptions.VERSION + " (PCVR) ===");
 #endif
 
-                // Initialize managers
                 CSMManager.Instance.Initialize();
                 CSMKillcam.Instance.Initialize();
                 CSMModOptionVisibility.Instance.Initialize();
 
 #if NOMAD
-                // Nomad: Use EventManager hooks (IL2CPP compatible)
                 Debug.Log("[CSM] Subscribing event hooks (Nomad mode)...");
                 EventHooks.Subscribe();
 #else
-                // PCVR: Use Harmony patches
                 Debug.Log("[CSM] Applying Harmony patches (PCVR mode)...");
                 try
                 {
@@ -54,7 +47,6 @@ namespace CSM.Core
                     EventHooks.Subscribe();
                 }
 
-                // Ensure parry works on PCVR via deflect events
                 EventHooks.SubscribeDeflect();
 #endif
 

@@ -1,9 +1,5 @@
 namespace CSM.Configuration
 {
-    /// <summary>
-    /// Trigger types for slow motion events.
-    /// Integer values represent priority (higher = higher priority).
-    /// </summary>
     public enum TriggerType
     {
         BasicKill = 10,

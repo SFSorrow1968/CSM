@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace CSM.Core
 {
-    /// <summary>
-    /// Core slow motion manager.
-    /// </summary>
     public class CSMManager
     {
         private static CSMManager _instance;
@@ -22,7 +19,6 @@ namespace CSM.Core
         private float _globalCooldownEndTime;
         private readonly Dictionary<TriggerType, float> _triggerCooldownEndTimes = new Dictionary<TriggerType, float>();
 
-        // Smooth transition state
         private bool _isTransitioning;
         private float _targetTimeScale;
         private float _currentTimeScale;
@@ -57,7 +53,6 @@ namespace CSM.Core
         {
             try
             {
-                // Handle smooth transitions
                 if (_isTransitioning)
                 {
                     UpdateTransition();
@@ -87,7 +82,6 @@ namespace CSM.Core
         {
             float speed = _transitioningOut ? _transitionOutSpeed : _transitionInSpeed;
 
-            // If speed is 0 (instant), skip lerping
             if (speed <= 0f)
             {
                 _currentTimeScale = _targetTimeScale;
@@ -110,7 +104,6 @@ namespace CSM.Core
             float delta = _transitioningOut ? Time.deltaTime : Time.unscaledDeltaTime;
             _currentTimeScale = Mathf.Lerp(_currentTimeScale, _targetTimeScale, delta * speed);
 
-            // Check if we've reached the target
             if (Mathf.Abs(_currentTimeScale - _targetTimeScale) < 0.01f)
             {
                 _currentTimeScale = _targetTimeScale;
@@ -121,7 +114,6 @@ namespace CSM.Core
                     Debug.Log("[CSM] Transition complete: " + _currentTimeScale);
             }
 
-            // Apply the interpolated time scale
             ApplyTimeScale(_currentTimeScale);
         }
 
@@ -153,7 +145,6 @@ namespace CSM.Core
         {
             try
             {
-                // Check if mod is enabled
                 if (!CSMModOptions.EnableMod)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -162,7 +153,6 @@ namespace CSM.Core
                     return false;
                 }
 
-                // Get config for this trigger type
                 bool enabled;
                 float chance, timeScale, duration, cooldown, smoothing;
                 GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown, out smoothing);
@@ -181,7 +171,6 @@ namespace CSM.Core
 
                 float now = Time.unscaledTime;
 
-                // Check global cooldown
                 if (now < _globalCooldownEndTime)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -190,7 +179,6 @@ namespace CSM.Core
                     return false;
                 }
 
-                // Check trigger-specific cooldown
                 if (_triggerCooldownEndTimes.TryGetValue(type, out float triggerCooldownEnd) && now < triggerCooldownEnd)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -199,7 +187,6 @@ namespace CSM.Core
                     return false;
                 }
 
-                // If slow motion is already active, only allow higher priority triggers
                 if (_isSlowMotionActive && (int)type <= (int)_activeTriggerType)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -208,7 +195,6 @@ namespace CSM.Core
                     return false;
                 }
 
-                // Roll for chance
                 float roll = UnityEngine.Random.value;
                 if (chance < 1.0f && roll > chance)
                 {
@@ -218,18 +204,14 @@ namespace CSM.Core
                     return false;
                 }
 
-                // Start slow motion
                 Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
                 StartSlowMotion(type, timeScale, duration, cooldown, damageDealt, smoothing);
                 SetLastTriggerDebug(type, "Triggered", isQuickTest);
                 
-                // Trigger haptic feedback
                 TriggerHapticFeedback();
                 
-                // Log trigger name for visibility
                 Debug.Log("[CSM] " + GetTriggerDisplayName(type));
 
-                // Optional killcam (third-person) if enabled by distribution
                 float distribution = CSMModOptions.GetThirdPersonDistribution(type);
                 bool allowThirdPerson = distribution > 0f;
                 if (CSMModOptions.IsThirdPersonEligible(type) && allowThirdPerson)
@@ -249,7 +231,6 @@ namespace CSM.Core
 
         private void GetTriggerConfig(TriggerType type, out bool enabled, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
-            // Check if trigger is enabled in the Triggers menu
             enabled = CSMModOptions.IsTriggerEnabled(type);
             if (!enabled)
             {
@@ -263,13 +244,8 @@ namespace CSM.Core
             GetCustomTriggerConfig(type, out chance, out timeScale, out duration, out cooldown, out smoothing);
         }
 
-        /// <summary>
-        /// Get hardcoded preset values for each trigger type.
-        /// Each trigger has unique values tailored to its cinematic importance.
-        /// </summary>
         public static void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
-            // Default values
             chance = 0.5f;
             timeScale = 0.25f;
             duration = 1.5f;
@@ -279,7 +255,6 @@ namespace CSM.Core
             switch (type)
             {
                 case TriggerType.BasicKill:
-                    // Basic kills are common - keep subtle
                     chance = 0.25f;
                     duration = 1.0f;
                     cooldown = 5f;
@@ -306,7 +281,6 @@ namespace CSM.Core
                     break;
 
                 case TriggerType.Critical:
-                    // Head/throat shots are impactful - more dramatic
                     chance = 0.75f;
                     duration = 1.5f;
                     cooldown = 5f;
@@ -333,7 +307,6 @@ namespace CSM.Core
                     break;
 
                 case TriggerType.Dismemberment:
-                    // Limb severing - moderately dramatic
                     chance = 0.6f;
                     duration = 1.5f;
                     cooldown = 5f;
@@ -360,7 +333,6 @@ namespace CSM.Core
                     break;
 
                 case TriggerType.Decapitation:
-                    // Decapitation is rare and epic - maximum impact
                     chance = 0.9f;
                     duration = 2.0f;
                     cooldown = 4f;
@@ -387,7 +359,6 @@ namespace CSM.Core
                     break;
 
                 case TriggerType.Parry:
-                    // Parries need quick response - shorter duration
                     chance = 0.5f;
                     duration = 1.2f;
                     cooldown = 7f;
@@ -414,7 +385,6 @@ namespace CSM.Core
                     break;
 
                 case TriggerType.LastEnemy:
-                    // Final kill of wave - celebratory, dramatic
                     chance = 1.0f;
                     duration = 3.0f;
                     cooldown = 0f;
@@ -441,8 +411,7 @@ namespace CSM.Core
                     break;
 
                 case TriggerType.LastStand:
-                    // Near-death experience - intense and prolonged
-                    chance = 1.0f; // Always triggers when threshold is met
+                    chance = 1.0f;
                     duration = 5.0f;
                     cooldown = 45f;
                     smoothing = 4f;
@@ -469,9 +438,6 @@ namespace CSM.Core
             }
         }
 
-        /// <summary>
-        /// Get trigger config from Custom ModOption settings.
-        /// </summary>
         private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
         {
             var values = CSMModOptions.GetCustomValues(type);
@@ -498,7 +464,6 @@ namespace CSM.Core
                 _slowMotionEndTime = Time.unscaledTime + duration;
                 _transitionOutStartTime = 0f;
 
-                // Dynamic intensity: scale transition-in speed based on damage dealt
                 float transitionInSpeed = smoothing;
                 var dynamicPreset = CSMModOptions.GetDynamicIntensityPreset();
                 if (damageDealt > 0f && dynamicPreset != CSMModOptions.DynamicIntensityPreset.Off && smoothing > 0f)
@@ -515,16 +480,13 @@ namespace CSM.Core
                         Debug.Log("[CSM] Dynamic intensity: preset=" + dynamicPreset + " damage=" + damageDealt + " multiplier=" + damageMultiplier + " transitionIn=" + transitionInSpeed);
                 }
 
-                // Set smoothing speeds (use half for exit transition)
                 _transitionInSpeed = transitionInSpeed;
                 _transitionOutSpeed = smoothing > 0 ? smoothing / 2f : 0f;
 
-                // Start smooth transition
                 _targetTimeScale = Mathf.Clamp(timeScale, 0.05f, 1f);
                 _isTransitioning = transitionInSpeed > 0f;
                 _transitioningOut = false;
 
-                // If no smoothing, apply time scale immediately
                 if (transitionInSpeed <= 0f)
                 {
                     _currentTimeScale = _targetTimeScale;
@@ -551,7 +513,6 @@ namespace CSM.Core
                 var endedType = _activeTriggerType;
                 _isSlowMotionActive = false;
 
-                // Start smooth transition back to normal
                 _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
                 _isTransitioning = true;
                 _transitioningOut = true;
@@ -606,9 +567,6 @@ namespace CSM.Core
             _instance = null;
         }
 
-        /// <summary>
-        /// Trigger haptic feedback on both controllers when slow motion starts.
-        /// </summary>
         private void TriggerHapticFeedback()
         {
             try
@@ -619,7 +577,6 @@ namespace CSM.Core
                 var player = ThunderRoad.Player.local;
                 if (player == null) return;
 
-                // Haptic pulse on both hands - short burst to signal slow motion activation
                 if (player.handLeft?.controlHand != null)
                 {
                     player.handLeft.controlHand.HapticShort(intensity);
