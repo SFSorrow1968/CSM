@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CSM.Configuration;
 using CSM.Core;
 using ThunderRoad;
@@ -18,6 +19,10 @@ namespace CSM.Hooks
         private int _maxEnemiesSeenThisWave = 0;
         private float _lastWaveResetTime = 0f;
         private const float WAVE_RESET_TIMEOUT = 10f;
+        private readonly Dictionary<int, float> _recentSlicedParts = new Dictionary<int, float>();
+        private float _lastSliceCleanupTime = 0f;
+        private const float SLICE_REARM_SECONDS = 30f;
+        private const float SLICE_CLEANUP_INTERVAL = 10f;
 
         public static void Subscribe()
         {
@@ -51,6 +56,8 @@ namespace CSM.Hooks
                 _instance._lastStandTriggered = false;
                 _instance._maxEnemiesSeenThisWave = 0;
                 _instance._lastWaveResetTime = 0f;
+                _instance._recentSlicedParts.Clear();
+                _instance._lastSliceCleanupTime = 0f;
             }
         }
 
@@ -193,6 +200,12 @@ namespace CSM.Hooks
 
                     if (isHeadOrNeck && part.isSliced)
                     {
+                        if (!IsNewSlice(part))
+                        {
+                            if (CSMModOptions.DebugLogging)
+                                Debug.Log("[CSM] Decapitation ignored (already handled): " + partType);
+                            return;
+                        }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Decapitation detected");
                         if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature))
@@ -209,6 +222,12 @@ namespace CSM.Hooks
 
                     if (part.isSliced)
                     {
+                        if (!IsNewSlice(part))
+                        {
+                            if (CSMModOptions.DebugLogging)
+                                Debug.Log("[CSM] Dismemberment ignored (already handled): " + partType);
+                            return;
+                        }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Dismemberment detected");
                         if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature))
@@ -239,12 +258,22 @@ namespace CSM.Hooks
                     return;
                 }
 
+                if (creature.isKilled)
+                    return;
+
                 if (collisionInstance != null &&
                     collisionInstance.damageStruct.hitRagdollPart != null &&
                     collisionInstance.damageStruct.hitRagdollPart.isSliced)
                 {
                     float damageDealt = collisionInstance.damageStruct.damage;
-                    var partType = collisionInstance.damageStruct.hitRagdollPart.type;
+                    var part = collisionInstance.damageStruct.hitRagdollPart;
+                    var partType = part.type;
+                    if (!IsNewSlice(part))
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] Slice ignored (already handled): " + partType);
+                        return;
+                    }
                     if ((partType & (RagdollPart.Type.Head | RagdollPart.Type.Neck)) != 0)
                     {
                         if (CSMModOptions.DebugLogging)
@@ -263,6 +292,41 @@ namespace CSM.Hooks
             {
                 Debug.LogError("[CSM] OnCreatureHit error: " + ex.Message);
             }
+        }
+
+        private bool IsNewSlice(RagdollPart part)
+        {
+            if (part == null) return false;
+            int id = part.GetInstanceID();
+            float now = Time.unscaledTime;
+
+            if (_recentSlicedParts.TryGetValue(id, out float lastTime) && now - lastTime < SLICE_REARM_SECONDS)
+                return false;
+
+            _recentSlicedParts[id] = now;
+            CleanupSliceCache(now);
+            return true;
+        }
+
+        private void CleanupSliceCache(float now)
+        {
+            if (now - _lastSliceCleanupTime < SLICE_CLEANUP_INTERVAL)
+                return;
+
+            _lastSliceCleanupTime = now;
+            List<int> expired = null;
+            foreach (var kvp in _recentSlicedParts)
+            {
+                if (now - kvp.Value > SLICE_REARM_SECONDS)
+                {
+                    if (expired == null) expired = new List<int>();
+                    expired.Add(kvp.Key);
+                }
+            }
+
+            if (expired == null) return;
+            foreach (var key in expired)
+                _recentSlicedParts.Remove(key);
         }
 
         private void HandlePlayerHit(Creature player)
