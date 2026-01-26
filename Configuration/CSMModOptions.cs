@@ -806,6 +806,7 @@ namespace CSM.Configuration
         {
             switch (TriggerProfile)
             {
+                case "All Triggers": return TriggerProfilePreset.All;
                 case "All": return TriggerProfilePreset.All;
                 case "Kills Only": return TriggerProfilePreset.KillsOnly;
                 case "Highlights": return TriggerProfilePreset.Highlights;
