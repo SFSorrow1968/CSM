@@ -87,7 +87,8 @@ namespace CSM.Core
                 return;
             }
 
-            _currentTimeScale = Mathf.Lerp(_currentTimeScale, _targetTimeScale, Time.unscaledDeltaTime * speed);
+            float delta = _transitioningOut ? Time.deltaTime : Time.unscaledDeltaTime;
+            _currentTimeScale = Mathf.Lerp(_currentTimeScale, _targetTimeScale, delta * speed);
 
             // Check if we've reached the target
             if (Mathf.Abs(_currentTimeScale - _targetTimeScale) < 0.01f)

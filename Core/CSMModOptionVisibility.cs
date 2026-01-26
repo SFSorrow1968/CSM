@@ -21,6 +21,8 @@ namespace CSM.Core
         private string _lastDistributionPreset;
         private string _lastTriggerProfile;
         private bool _lastDebugLogging;
+        private readonly Dictionary<TriggerType, CustomValues> _lastCustomValues =
+            new Dictionary<TriggerType, CustomValues>();
         private readonly Dictionary<string, string> _baseTooltips =
             new Dictionary<string, string>(StringComparer.Ordinal);
 
@@ -101,6 +103,27 @@ namespace CSM.Core
             { TriggerType.LastEnemy, "Last Enemy Third Person Distribution" }
         };
 
+        private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, "Basic Kill" },
+            { TriggerType.Critical, "Critical Kill" },
+            { TriggerType.Dismemberment, "Dismemberment" },
+            { TriggerType.Decapitation, "Decapitation" },
+            { TriggerType.Parry, "Parry" },
+            { TriggerType.LastEnemy, "Last Enemy" },
+            { TriggerType.LastStand, "Last Stand" }
+        };
+
+        private struct CustomValues
+        {
+            public float Chance;
+            public float TimeScale;
+            public float Duration;
+            public float Cooldown;
+            public float Smoothing;
+            public float Distribution;
+        }
+
         private CSMModOptionVisibility() { }
 
         public void Initialize()
@@ -115,6 +138,7 @@ namespace CSM.Core
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
+            _lastCustomValues.Clear();
             _baseTooltips.Clear();
 
             TryInitialize();
@@ -203,6 +227,9 @@ namespace CSM.Core
             presetChanged |= local;
             changed |= ApplyDiagnostics(force);
             changed |= UpdateCustomTooltips(force, presetChanged);
+            if (force || presetChanged)
+                CaptureCustomValues();
+            changed |= ApplyCustomOverrides();
             if (CSMModOptions.DebugLogging && _lastDebugLogging != CSMModOptions.DebugLogging)
             {
                 LogMenuState("Debug Enabled");
@@ -429,6 +456,14 @@ namespace CSM.Core
             CSMModOptions.EnableLastEnemy = lastEnemy;
             CSMModOptions.EnableLastStand = lastStand;
 
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.BasicKill, basicKill);
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.Critical, critical);
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.Dismemberment, dismemberment);
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.Decapitation, decapitation);
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.Parry, parry);
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastEnemy, lastEnemy);
+            SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastStand, lastStand);
+
             _lastTriggerProfile = presetValue;
             if (CSMModOptions.DebugLogging)
             {
@@ -456,6 +491,13 @@ namespace CSM.Core
             if (!map.TryGetValue(type, out string optionName))
                 return false;
             return SyncOptionValue(optionName, value);
+        }
+
+        private bool SyncToggleOption(Dictionary<TriggerType, string> map, TriggerType type, bool value)
+        {
+            if (!map.TryGetValue(type, out string optionName))
+                return false;
+            return SyncToggleOption(optionName, value);
         }
 
         private bool SyncOptionValue(string optionName, float value)
@@ -492,6 +534,29 @@ namespace CSM.Core
             option.RefreshUI();
             if (CSMModOptions.DebugLogging)
                 Debug.Log("[CSM] Menu sync updated: " + optionName + " -> " + value);
+            return true;
+        }
+
+        private bool SyncToggleOption(string optionName, bool value)
+        {
+            if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionName);
+                return false;
+            }
+
+            if (option.parameterValues == null || option.parameterValues.Length == 0)
+                option.LoadModOptionParameters();
+
+            int index = value ? 1 : 0;
+            if (option.currentValueIndex == index)
+                return false;
+
+            option.Apply(index);
+            option.RefreshUI();
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Menu toggle updated: " + optionName + " -> " + (value ? "Enabled" : "Disabled"));
             return true;
         }
 
@@ -634,6 +699,119 @@ namespace CSM.Core
                 case TriggerType.LastStand: return "Last Stand";
                 default: return "Unknown";
             }
+        }
+
+        private void CaptureCustomValues()
+        {
+            foreach (var trigger in TriggerTypes)
+            {
+                _lastCustomValues[trigger] = ReadCustomValues(trigger);
+            }
+        }
+
+        private bool ApplyCustomOverrides()
+        {
+            bool changed = false;
+            foreach (var trigger in TriggerTypes)
+            {
+                CustomValues current = ReadCustomValues(trigger);
+                if (!_lastCustomValues.TryGetValue(trigger, out CustomValues last))
+                {
+                    _lastCustomValues[trigger] = current;
+                    continue;
+                }
+
+                if (!CustomValuesChanged(last, current))
+                    continue;
+
+                _lastCustomValues[trigger] = current;
+                if (!IsTriggerEnabled(trigger))
+                {
+                    SetTriggerEnabled(trigger, true);
+                    changed |= SyncToggleOption(TriggerToggleOptionNames, trigger, true);
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Custom override re-enabled trigger: " + GetTriggerUiName(trigger));
+                }
+            }
+
+            return changed;
+        }
+
+        private static bool CustomValuesChanged(CustomValues a, CustomValues b)
+        {
+            const float epsilon = 0.0001f;
+            if (Mathf.Abs(a.Chance - b.Chance) > epsilon) return true;
+            if (Mathf.Abs(a.TimeScale - b.TimeScale) > epsilon) return true;
+            if (Mathf.Abs(a.Duration - b.Duration) > epsilon) return true;
+            if (Mathf.Abs(a.Cooldown - b.Cooldown) > epsilon) return true;
+            if (Mathf.Abs(a.Smoothing - b.Smoothing) > epsilon) return true;
+            if (Mathf.Abs(a.Distribution - b.Distribution) > epsilon) return true;
+            return false;
+        }
+
+        private static CustomValues ReadCustomValues(TriggerType type)
+        {
+            var values = new CustomValues();
+            switch (type)
+            {
+                case TriggerType.BasicKill:
+                    values.Chance = CSMModOptions.BasicKillChance;
+                    values.TimeScale = CSMModOptions.BasicKillTimeScale;
+                    values.Duration = CSMModOptions.BasicKillDuration;
+                    values.Cooldown = CSMModOptions.BasicKillCooldown;
+                    values.Smoothing = CSMModOptions.BasicKillSmoothing;
+                    values.Distribution = CSMModOptions.BasicKillThirdPersonDistribution;
+                    break;
+                case TriggerType.Critical:
+                    values.Chance = CSMModOptions.CriticalKillChance;
+                    values.TimeScale = CSMModOptions.CriticalKillTimeScale;
+                    values.Duration = CSMModOptions.CriticalKillDuration;
+                    values.Cooldown = CSMModOptions.CriticalKillCooldown;
+                    values.Smoothing = CSMModOptions.CriticalKillSmoothing;
+                    values.Distribution = CSMModOptions.CriticalKillThirdPersonDistribution;
+                    break;
+                case TriggerType.Dismemberment:
+                    values.Chance = CSMModOptions.DismembermentChance;
+                    values.TimeScale = CSMModOptions.DismembermentTimeScale;
+                    values.Duration = CSMModOptions.DismembermentDuration;
+                    values.Cooldown = CSMModOptions.DismembermentCooldown;
+                    values.Smoothing = CSMModOptions.DismembermentSmoothing;
+                    values.Distribution = CSMModOptions.DismembermentThirdPersonDistribution;
+                    break;
+                case TriggerType.Decapitation:
+                    values.Chance = CSMModOptions.DecapitationChance;
+                    values.TimeScale = CSMModOptions.DecapitationTimeScale;
+                    values.Duration = CSMModOptions.DecapitationDuration;
+                    values.Cooldown = CSMModOptions.DecapitationCooldown;
+                    values.Smoothing = CSMModOptions.DecapitationSmoothing;
+                    values.Distribution = CSMModOptions.DecapitationThirdPersonDistribution;
+                    break;
+                case TriggerType.Parry:
+                    values.Chance = CSMModOptions.ParryChance;
+                    values.TimeScale = CSMModOptions.ParryTimeScale;
+                    values.Duration = CSMModOptions.ParryDuration;
+                    values.Cooldown = CSMModOptions.ParryCooldown;
+                    values.Smoothing = CSMModOptions.ParrySmoothing;
+                    values.Distribution = 0f;
+                    break;
+                case TriggerType.LastEnemy:
+                    values.Chance = CSMModOptions.LastEnemyChance;
+                    values.TimeScale = CSMModOptions.LastEnemyTimeScale;
+                    values.Duration = CSMModOptions.LastEnemyDuration;
+                    values.Cooldown = CSMModOptions.LastEnemyCooldown;
+                    values.Smoothing = CSMModOptions.LastEnemySmoothing;
+                    values.Distribution = CSMModOptions.LastEnemyThirdPersonDistribution;
+                    break;
+                case TriggerType.LastStand:
+                    values.Chance = 1f;
+                    values.TimeScale = CSMModOptions.LastStandTimeScale;
+                    values.Duration = CSMModOptions.LastStandDuration;
+                    values.Cooldown = CSMModOptions.LastStandCooldown;
+                    values.Smoothing = CSMModOptions.LastStandSmoothing;
+                    values.Distribution = 0f;
+                    break;
+            }
+            return values;
         }
 
         private bool UpdateCustomTooltips(bool force, bool presetChanged)
@@ -807,6 +985,20 @@ namespace CSM.Core
                 case TriggerType.Dismemberment: CSMModOptions.DismembermentThirdPersonDistribution = value; break;
                 case TriggerType.Decapitation: CSMModOptions.DecapitationThirdPersonDistribution = value; break;
                 case TriggerType.LastEnemy: CSMModOptions.LastEnemyThirdPersonDistribution = value; break;
+            }
+        }
+
+        private static void SetTriggerEnabled(TriggerType type, bool value)
+        {
+            switch (type)
+            {
+                case TriggerType.BasicKill: CSMModOptions.EnableBasicKill = value; break;
+                case TriggerType.Critical: CSMModOptions.EnableCriticalKill = value; break;
+                case TriggerType.Dismemberment: CSMModOptions.EnableDismemberment = value; break;
+                case TriggerType.Decapitation: CSMModOptions.EnableDecapitation = value; break;
+                case TriggerType.Parry: CSMModOptions.EnableParry = value; break;
+                case TriggerType.LastEnemy: CSMModOptions.EnableLastEnemy = value; break;
+                case TriggerType.LastStand: CSMModOptions.EnableLastStand = value; break;
             }
         }
 
