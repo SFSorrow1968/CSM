@@ -267,7 +267,7 @@ namespace CSM.Hooks
                 bool thrownImpactKill = false;
                 if (!killedByPlayer)
                 {
-                    thrownImpactKill = ThrowTracker.WasRecentlyThrown(creature);
+                    thrownImpactKill = ThrowTracker.WasImpactThisFrame(creature);
                     if (!thrownImpactKill)
                     {
                         if (CSMModOptions.DebugLogging)
@@ -377,6 +377,11 @@ namespace CSM.Hooks
 
                 if (creature.isKilled)
                     return;
+
+                if (collisionInstance != null && !WasKilledByPlayer(collisionInstance))
+                {
+                    ThrowTracker.RecordImpact(creature);
+                }
 
                 if (collisionInstance != null &&
                     collisionInstance.damageStruct.hitRagdollPart != null &&

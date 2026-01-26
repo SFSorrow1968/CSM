@@ -7,9 +7,17 @@ namespace CSM.Core
 {
     public static class ThrowTracker
     {
-        private static readonly Dictionary<int, float> RecentThrownCreatures = new Dictionary<int, float>();
+        private class ThrowState
+        {
+            public float ReleaseTime;
+            public int LastImpactFrame = -1;
+            public float LastImpactTime = -1f;
+        }
+
+        private static readonly Dictionary<int, ThrowState> RecentThrownCreatures = new Dictionary<int, ThrowState>();
         private static float _lastCleanupTime = 0f;
         private const float CleanupInterval = 5f;
+        private const float MaxThrowAgeSeconds = 10f;
 
         public static void Reset()
         {
@@ -20,31 +28,49 @@ namespace CSM.Core
         public static void RecordThrow(Creature creature, string source)
         {
             if (creature == null || creature.isPlayer) return;
-            RecentThrownCreatures[creature.GetInstanceID()] = Time.unscaledTime;
+            int id = creature.GetInstanceID();
+            if (!RecentThrownCreatures.TryGetValue(id, out ThrowState state))
+            {
+                state = new ThrowState();
+                RecentThrownCreatures[id] = state;
+            }
+
+            state.ReleaseTime = Time.unscaledTime;
+            state.LastImpactFrame = -1;
+            state.LastImpactTime = -1f;
             Cleanup(Time.unscaledTime);
             if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Thrown release recorded (" + source + ", window " + CSMModOptions.ThrownImpactWindowSeconds.ToString("0.###") + "s): " + creature.name);
+                Debug.Log("[CSM] Thrown release recorded (" + source + "): " + creature.name);
         }
 
-        public static bool WasRecentlyThrown(Creature creature)
+        public static void RecordImpact(Creature creature)
+        {
+            if (creature == null) return;
+            if (!CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
+                return;
+
+            int id = creature.GetInstanceID();
+            if (!RecentThrownCreatures.TryGetValue(id, out ThrowState state))
+                return;
+
+            state.LastImpactFrame = Time.frameCount;
+            state.LastImpactTime = Time.unscaledTime;
+            Cleanup(Time.unscaledTime);
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Thrown impact frame recorded: " + creature.name + " frame=" + state.LastImpactFrame);
+        }
+
+        public static bool WasImpactThisFrame(Creature creature)
         {
             if (creature == null) return false;
             if (!CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
                 return false;
 
             int id = creature.GetInstanceID();
-            if (!RecentThrownCreatures.TryGetValue(id, out float releaseTime))
+            if (!RecentThrownCreatures.TryGetValue(id, out ThrowState state))
                 return false;
 
-            float window = CSMModOptions.ThrownImpactWindowSeconds;
-            if (window <= 0f)
-            {
-                RecentThrownCreatures.Remove(id);
-                return true;
-            }
-
-            float now = Time.unscaledTime;
-            if (now - releaseTime > window)
+            if (state.LastImpactFrame != Time.frameCount)
                 return false;
 
             RecentThrownCreatures.Remove(id);
@@ -53,19 +79,14 @@ namespace CSM.Core
 
         private static void Cleanup(float now)
         {
-            float window = CSMModOptions.ThrownImpactWindowSeconds;
-            if (window <= 0f)
-                return;
-
             if (now - _lastCleanupTime < CleanupInterval)
                 return;
 
             _lastCleanupTime = now;
-            float expireAfter = window * 2f;
             List<int> expired = null;
             foreach (var kvp in RecentThrownCreatures)
             {
-                if (now - kvp.Value > expireAfter)
+                if (now - kvp.Value.ReleaseTime > MaxThrowAgeSeconds)
                 {
                     if (expired == null) expired = new List<int>();
                     expired.Add(kvp.Key);

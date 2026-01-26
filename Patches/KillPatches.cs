@@ -26,7 +26,7 @@ namespace CSM.Patches
                     if (CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, __instance)) return;
                 }
 
-                if (!WasKilledByPlayer(__instance) && ThrowTracker.WasRecentlyThrown(__instance))
+                if (!WasKilledByPlayer(__instance) && ThrowTracker.WasImpactThisFrame(__instance))
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Thrown impact kill detected");
