@@ -719,16 +719,12 @@ namespace CSM.Core
 
         private static void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
         {
+            if (!CSMModOptions.DebugLogging)
+                return;
+
             string summary = GetTriggerUiName(type);
             string finalReason = isQuickTest ? reason + " (Quick Test)" : reason;
-
-            bool changed = !string.Equals(CSMModOptions.LastTriggerSummary, summary, StringComparison.Ordinal) ||
-                           !string.Equals(CSMModOptions.LastTriggerReason, finalReason, StringComparison.Ordinal);
-
-            if (!changed) return;
-
-            CSMModOptions.LastTriggerSummary = summary;
-            CSMModOptions.LastTriggerReason = finalReason;
+            Debug.Log("[CSM] " + summary + " -> " + finalReason);
         }
 
         private static void GetDynamicIntensitySettings(CSMModOptions.DynamicIntensityPreset preset, out float damageForInstant, out float maxSpeedMultiplier, out bool allowInstant)

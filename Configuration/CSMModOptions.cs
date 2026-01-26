@@ -456,59 +456,6 @@ namespace CSM.Configuration
             };
         }
 
-        private static ModOptionString[] SingleValueProvider(string value)
-        {
-            return new ModOptionString[]
-            {
-                new ModOptionString(value, value)
-            };
-        }
-
-        public static ModOptionString[] LastTriggerProvider()
-        {
-            return SingleValueProvider(LastTriggerSummary);
-        }
-
-        public static ModOptionString[] LastTriggerReasonProvider()
-        {
-            return SingleValueProvider(LastTriggerReason);
-        }
-
-        public static ModOptionString[] EffectiveBasicProvider()
-        {
-            return SingleValueProvider(EffectiveBasicKill);
-        }
-
-        public static ModOptionString[] EffectiveCriticalProvider()
-        {
-            return SingleValueProvider(EffectiveCriticalKill);
-        }
-
-        public static ModOptionString[] EffectiveDismembermentProvider()
-        {
-            return SingleValueProvider(EffectiveDismemberment);
-        }
-
-        public static ModOptionString[] EffectiveDecapitationProvider()
-        {
-            return SingleValueProvider(EffectiveDecapitation);
-        }
-
-        public static ModOptionString[] EffectiveParryProvider()
-        {
-            return SingleValueProvider(EffectiveParry);
-        }
-
-        public static ModOptionString[] EffectiveLastEnemyProvider()
-        {
-            return SingleValueProvider(EffectiveLastEnemy);
-        }
-
-        public static ModOptionString[] EffectiveLastStandProvider()
-        {
-            return SingleValueProvider(EffectiveLastStand);
-        }
-
         #endregion
 
         private const int CategoryOrderPreset = 10;
@@ -767,41 +714,11 @@ namespace CSM.Configuration
         [ModOption(name = "Debug Logging", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
 
-        [ModOption(name = "Show Effective Values", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, tooltip = "Show effective per-trigger values after presets and overrides")]
-        public static bool ShowEffectiveValues = false;
-
-        [ModOption(name = "Last Trigger", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, valueSourceName = "LastTriggerProvider", tooltip = "Last trigger attempt")]
-        public static string LastTriggerSummary = "None";
-
-        [ModOption(name = "Last Trigger Reason", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 40, defaultValueIndex = 0, valueSourceName = "LastTriggerReasonProvider", tooltip = "Why the last trigger did or didn't fire")]
-        public static string LastTriggerReason = "None";
-
-        [ModOption(name = "Quick Test Trigger", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 50, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
+        [ModOption(name = "Quick Test Trigger", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
         public static string QuickTestTrigger = "Basic Kill";
 
-        [ModOption(name = "Quick Test Now", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 60, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
+        [ModOption(name = "Quick Test Now", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
         public static bool QuickTestNow = false;
-
-        [ModOption(name = "Effective: Basic Kill", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 70, defaultValueIndex = 0, valueSourceName = "EffectiveBasicProvider", tooltip = "Effective values for Basic Kill")]
-        public static string EffectiveBasicKill = "Off";
-
-        [ModOption(name = "Effective: Critical Kill", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 80, defaultValueIndex = 0, valueSourceName = "EffectiveCriticalProvider", tooltip = "Effective values for Critical Kill")]
-        public static string EffectiveCriticalKill = "Off";
-
-        [ModOption(name = "Effective: Dismemberment", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 90, defaultValueIndex = 0, valueSourceName = "EffectiveDismembermentProvider", tooltip = "Effective values for Dismemberment")]
-        public static string EffectiveDismemberment = "Off";
-
-        [ModOption(name = "Effective: Decapitation", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 100, defaultValueIndex = 0, valueSourceName = "EffectiveDecapitationProvider", tooltip = "Effective values for Decapitation")]
-        public static string EffectiveDecapitation = "Off";
-
-        [ModOption(name = "Effective: Parry", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 110, defaultValueIndex = 0, valueSourceName = "EffectiveParryProvider", tooltip = "Effective values for Parry")]
-        public static string EffectiveParry = "Off";
-
-        [ModOption(name = "Effective: Last Enemy", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 120, defaultValueIndex = 0, valueSourceName = "EffectiveLastEnemyProvider", tooltip = "Effective values for Last Enemy")]
-        public static string EffectiveLastEnemy = "Off";
-
-        [ModOption(name = "Effective: Last Stand", category = "CSM Advanced", categoryOrder = CategoryOrderAdvanced, order = 130, defaultValueIndex = 0, valueSourceName = "EffectiveLastStandProvider", tooltip = "Effective values for Last Stand")]
-        public static string EffectiveLastStand = "Off";
 
         #endregion
 

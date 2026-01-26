@@ -20,9 +20,7 @@ namespace CSM.Core
         private string _lastSmoothnessPreset;
         private string _lastDistributionPreset;
         private string _lastTriggerProfile;
-        private bool _lastShowEffectiveValues;
-        private readonly Dictionary<string, string> _readOnlyCache =
-            new Dictionary<string, string>(StringComparer.Ordinal);
+        private bool _lastDebugLogging;
 
         private readonly Dictionary<string, ModOption> _modOptionsByName =
             new Dictionary<string, ModOption>(StringComparer.Ordinal);
@@ -114,8 +112,7 @@ namespace CSM.Core
             _lastSmoothnessPreset = null;
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
-            _lastShowEffectiveValues = false;
-            _readOnlyCache.Clear();
+            _lastDebugLogging = false;
 
             TryInitialize();
             if (_initialized)
@@ -175,14 +172,36 @@ namespace CSM.Core
         private bool ApplyAllPresets(bool force)
         {
             bool changed = false;
-            changed |= ApplyIntensityPreset(force);
-            changed |= ApplyChancePreset(force);
-            changed |= ApplyCooldownPreset(force);
-            changed |= ApplyDurationPreset(force);
-            changed |= ApplySmoothnessPreset(force);
-            changed |= ApplyDistributionPreset(force);
-            changed |= ApplyTriggerProfile(force);
+            bool presetChanged = false;
+            bool local;
+
+            local = ApplyIntensityPreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplyChancePreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplyCooldownPreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplyDurationPreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplySmoothnessPreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplyDistributionPreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplyTriggerProfile(force);
+            changed |= local;
+            presetChanged |= local;
             changed |= ApplyDiagnostics(force);
+            if ((force || presetChanged || _lastDebugLogging != CSMModOptions.DebugLogging) && CSMModOptions.DebugLogging)
+            {
+                LogEffectiveValues();
+            }
+            _lastDebugLogging = CSMModOptions.DebugLogging;
             return changed;
         }
 
@@ -197,53 +216,6 @@ namespace CSM.Core
                 CSMModOptions.QuickTestNow = false;
                 changed = true;
             }
-
-            changed |= UpdateReadOnlyOption("Last Trigger", CSMModOptions.LastTriggerSummary);
-            changed |= UpdateReadOnlyOption("Last Trigger Reason", CSMModOptions.LastTriggerReason);
-
-            bool show = CSMModOptions.ShowEffectiveValues;
-            if (force || show != _lastShowEffectiveValues)
-            {
-                _lastShowEffectiveValues = show;
-                changed = true;
-            }
-
-            if (!show)
-            {
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveBasicKill, "Off");
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveCriticalKill, "Off");
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveDismemberment, "Off");
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveDecapitation, "Off");
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveParry, "Off");
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastEnemy, "Off");
-                changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastStand, "Off");
-
-                changed |= UpdateReadOnlyOption("Effective: Basic Kill", CSMModOptions.EffectiveBasicKill);
-                changed |= UpdateReadOnlyOption("Effective: Critical Kill", CSMModOptions.EffectiveCriticalKill);
-                changed |= UpdateReadOnlyOption("Effective: Dismemberment", CSMModOptions.EffectiveDismemberment);
-                changed |= UpdateReadOnlyOption("Effective: Decapitation", CSMModOptions.EffectiveDecapitation);
-                changed |= UpdateReadOnlyOption("Effective: Parry", CSMModOptions.EffectiveParry);
-                changed |= UpdateReadOnlyOption("Effective: Last Enemy", CSMModOptions.EffectiveLastEnemy);
-                changed |= UpdateReadOnlyOption("Effective: Last Stand", CSMModOptions.EffectiveLastStand);
-                return changed;
-            }
-
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveBasicKill, BuildEffectiveSummary(TriggerType.BasicKill));
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveCriticalKill, BuildEffectiveSummary(TriggerType.Critical));
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveDismemberment, BuildEffectiveSummary(TriggerType.Dismemberment));
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveDecapitation, BuildEffectiveSummary(TriggerType.Decapitation));
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveParry, BuildEffectiveSummary(TriggerType.Parry));
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastEnemy, BuildEffectiveSummary(TriggerType.LastEnemy));
-            changed |= SetIfDifferent(ref CSMModOptions.EffectiveLastStand, BuildEffectiveSummary(TriggerType.LastStand));
-
-            changed |= UpdateReadOnlyOption("Effective: Basic Kill", CSMModOptions.EffectiveBasicKill);
-            changed |= UpdateReadOnlyOption("Effective: Critical Kill", CSMModOptions.EffectiveCriticalKill);
-            changed |= UpdateReadOnlyOption("Effective: Dismemberment", CSMModOptions.EffectiveDismemberment);
-            changed |= UpdateReadOnlyOption("Effective: Decapitation", CSMModOptions.EffectiveDecapitation);
-            changed |= UpdateReadOnlyOption("Effective: Parry", CSMModOptions.EffectiveParry);
-            changed |= UpdateReadOnlyOption("Effective: Last Enemy", CSMModOptions.EffectiveLastEnemy);
-            changed |= UpdateReadOnlyOption("Effective: Last Stand", CSMModOptions.EffectiveLastStand);
-
             return changed;
         }
 
@@ -506,32 +478,6 @@ namespace CSM.Core
             return -1;
         }
 
-        private bool UpdateReadOnlyOption(string optionName, string value)
-        {
-            if (_readOnlyCache.TryGetValue(optionName, out string cached) &&
-                string.Equals(cached, value, StringComparison.Ordinal))
-                return false;
-
-            _readOnlyCache[optionName] = value;
-
-            if (_modOptionsByName.TryGetValue(optionName, out ModOption option))
-            {
-                option.LoadModOptionParameters();
-                option.Apply(0);
-                option.RefreshUI();
-            }
-
-            return true;
-        }
-
-        private static bool SetIfDifferent(ref string target, string value)
-        {
-            if (string.Equals(target, value, StringComparison.Ordinal))
-                return false;
-            target = value;
-            return true;
-        }
-
         private static string BuildEffectiveSummary(TriggerType type)
         {
             if (!IsTriggerEnabled(type))
@@ -629,6 +575,30 @@ namespace CSM.Core
                    " | CD " + cooldownLabel +
                    " | Smooth " + smoothingLabel +
                    " | TP " + tpLabel;
+        }
+
+        private static string GetTriggerUiName(TriggerType type)
+        {
+            switch (type)
+            {
+                case TriggerType.BasicKill: return "Basic Kill";
+                case TriggerType.Critical: return "Critical Kill";
+                case TriggerType.Dismemberment: return "Dismemberment";
+                case TriggerType.Decapitation: return "Decapitation";
+                case TriggerType.Parry: return "Parry";
+                case TriggerType.LastEnemy: return "Last Enemy";
+                case TriggerType.LastStand: return "Last Stand";
+                default: return "Unknown";
+            }
+        }
+
+        private void LogEffectiveValues()
+        {
+            Debug.Log("[CSM] Effective Values:");
+            foreach (var trigger in TriggerTypes)
+            {
+                Debug.Log("[CSM] " + GetTriggerUiName(trigger) + " -> " + BuildEffectiveSummary(trigger));
+            }
         }
 
         private static void SetChance(TriggerType type, float value)
