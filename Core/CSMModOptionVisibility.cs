@@ -21,6 +21,8 @@ namespace CSM.Core
         private string _lastDistributionPreset;
         private string _lastTriggerProfile;
         private bool _lastDebugLogging;
+        private readonly Dictionary<string, string> _baseTooltips =
+            new Dictionary<string, string>(StringComparer.Ordinal);
 
         private readonly Dictionary<string, ModOption> _modOptionsByName =
             new Dictionary<string, ModOption>(StringComparer.Ordinal);
@@ -113,6 +115,7 @@ namespace CSM.Core
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
+            _baseTooltips.Clear();
 
             TryInitialize();
             if (_initialized)
@@ -166,6 +169,8 @@ namespace CSM.Core
             {
                 if (option == null || string.IsNullOrEmpty(option.name)) continue;
                 _modOptionsByName[option.name] = option;
+                if (!_baseTooltips.ContainsKey(option.name))
+                    _baseTooltips[option.name] = option.tooltip ?? string.Empty;
             }
         }
 
@@ -197,6 +202,7 @@ namespace CSM.Core
             changed |= local;
             presetChanged |= local;
             changed |= ApplyDiagnostics(force);
+            changed |= UpdateCustomTooltips(force, presetChanged);
             if ((force || presetChanged || _lastDebugLogging != CSMModOptions.DebugLogging) && CSMModOptions.DebugLogging)
             {
                 LogEffectiveValues();
@@ -590,6 +596,60 @@ namespace CSM.Core
                 case TriggerType.LastStand: return "Last Stand";
                 default: return "Unknown";
             }
+        }
+
+        private bool UpdateCustomTooltips(bool force, bool presetChanged)
+        {
+            bool debugLogging = CSMModOptions.DebugLogging;
+            if (!force && !presetChanged && debugLogging == _lastDebugLogging)
+                return false;
+
+            bool changed = false;
+            foreach (var trigger in TriggerTypes)
+            {
+                string summary = debugLogging ? BuildEffectiveSummary(trigger) : null;
+                changed |= UpdateTooltip(ChanceOptionNames, trigger, summary);
+                changed |= UpdateTooltip(TimeScaleOptionNames, trigger, summary);
+                changed |= UpdateTooltip(DurationOptionNames, trigger, summary);
+                changed |= UpdateTooltip(CooldownOptionNames, trigger, summary);
+                changed |= UpdateTooltip(SmoothingOptionNames, trigger, summary);
+                changed |= UpdateTooltip(DistributionOptionNames, trigger, summary);
+            }
+
+            return changed;
+        }
+
+        private bool UpdateTooltip(Dictionary<TriggerType, string> map, TriggerType type, string effectiveSummary)
+        {
+            if (!map.TryGetValue(type, out string optionName))
+                return false;
+
+            return UpdateTooltip(optionName, effectiveSummary);
+        }
+
+        private bool UpdateTooltip(string optionName, string effectiveSummary)
+        {
+            if (!_modOptionsByName.TryGetValue(optionName, out ModOption option))
+                return false;
+
+            if (!_baseTooltips.TryGetValue(optionName, out string baseTooltip))
+                baseTooltip = option.tooltip ?? string.Empty;
+
+            string newTooltip = baseTooltip ?? string.Empty;
+            if (!string.IsNullOrEmpty(effectiveSummary))
+            {
+                if (string.IsNullOrEmpty(newTooltip))
+                    newTooltip = "Effective: " + effectiveSummary;
+                else
+                    newTooltip = newTooltip.TrimEnd() + " | Effective: " + effectiveSummary;
+            }
+
+            if (string.Equals(option.tooltip ?? string.Empty, newTooltip, StringComparison.Ordinal))
+                return false;
+
+            option.tooltip = newTooltip;
+            option.RefreshUI();
+            return true;
         }
 
         private void LogEffectiveValues()
