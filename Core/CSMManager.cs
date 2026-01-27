@@ -23,11 +23,11 @@ namespace CSM.Core
         private bool _isTransitioning;
         private float _targetTimeScale;
         private float _currentTimeScale;
-        private bool _transitioningOut;
-        private float _transitionInSpeed = 8f;
-        private float _transitionOutSpeed = 4f;
-        private float _transitionOutStartTime;
-        private const float TransitionOutTimeoutSeconds = 5f;
+        private float _transitionStartTime;
+        private float _transitionDuration;
+        private float _transitionStartScale;
+        private float _smoothOutDuration;
+        private const float TransitionTimeoutSeconds = 5f;
         private const float EndOverrunGraceSeconds = 2f;
 
         public bool IsActive => _isSlowMotionActive;
@@ -82,9 +82,7 @@ namespace CSM.Core
 
         private void UpdateTransition()
         {
-            float speed = _transitioningOut ? _transitionOutSpeed : _transitionInSpeed;
-
-            if (speed <= 0f)
+            if (_transitionDuration <= 0f)
             {
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Transition immediate: target=" + _targetTimeScale.ToString("0.###"));
@@ -94,25 +92,24 @@ namespace CSM.Core
                 return;
             }
 
-            if (_transitioningOut && _transitionOutStartTime > 0f &&
-                Time.unscaledTime - _transitionOutStartTime > TransitionOutTimeoutSeconds)
+            float elapsed = Time.unscaledTime - _transitionStartTime;
+            if (elapsed > TransitionTimeoutSeconds)
             {
                 _currentTimeScale = _targetTimeScale;
                 _isTransitioning = false;
-                _transitioningOut = false;
                 ApplyTimeScale(_currentTimeScale);
-                Debug.LogWarning("[CSM] Transition out timed out. Forcing time scale restore.");
+                Debug.LogWarning("[CSM] Transition timed out. Forcing time scale.");
                 return;
             }
 
-            float delta = Time.unscaledDeltaTime;
-            _currentTimeScale = Mathf.Lerp(_currentTimeScale, _targetTimeScale, delta * speed);
+            float t = Mathf.Clamp01(elapsed / _transitionDuration);
+            float eased = EaseInOut(t);
+            _currentTimeScale = Mathf.Lerp(_transitionStartScale, _targetTimeScale, eased);
 
-            if (Mathf.Abs(_currentTimeScale - _targetTimeScale) < 0.01f)
+            if (t >= 1f)
             {
                 _currentTimeScale = _targetTimeScale;
                 _isTransitioning = false;
-                _transitioningOut = false;
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Transition complete: " + _currentTimeScale);
@@ -121,18 +118,16 @@ namespace CSM.Core
             ApplyTimeScale(_currentTimeScale);
         }
 
+        private static float EaseInOut(float x)
+        {
+            return x * x * (3f - 2f * x);
+        }
+
         private void ApplyTimeScale(float scale)
         {
             float clampedScale = Mathf.Clamp(scale, 0.05f, 1f);
             Time.timeScale = clampedScale;
             Time.fixedDeltaTime = _originalFixedDeltaTime * clampedScale;
-        }
-
-        private static float ApplyGlobalSmoothing(float smoothing)
-        {
-            float global = CSMModOptions.GlobalSmoothing;
-            if (global < 0f) return smoothing;
-            return global;
         }
 
         public bool TriggerSlow(TriggerType type)
@@ -158,24 +153,24 @@ namespace CSM.Core
                 }
 
                 bool enabled;
-                float chance, timeScale, duration, cooldown, smoothing;
-                GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown, out smoothing);
-                smoothing = ApplyGlobalSmoothing(smoothing);
+                float chance, timeScale, duration, cooldown;
+                GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown);
 
                 if (CSMModOptions.DebugLogging)
                 {
                     var raw = CSMModOptions.GetCustomValues(type);
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, raw.Smoothing, type, raw.Distribution));
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, smoothing, type, raw.Distribution));
+                    CSMModOptions.GetSmoothingDurations(type, duration, out float smoothIn, out float smoothOut);
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type, raw.Distribution));
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type, raw.Distribution) +
+                              " | SmoothIn=" + smoothIn.ToString("0.##") + "s | SmoothOut=" + smoothOut.ToString("0.##") + "s");
                     Debug.Log("[CSM] TriggerSlow(" + type + ") presets: " +
                               "Intensity=" + CSMModOptions.CurrentPreset +
                               " | Chance=" + CSMModOptions.ChancePresetSetting +
                               " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
                               " | Duration=" + CSMModOptions.DurationPresetSetting + " (x" + CSMModOptions.GetDurationMultiplier().ToString("0.##") + ")" +
-                              " | Smoothness=" + CSMModOptions.SmoothnessPresetSetting + " (x" + CSMModOptions.GetSmoothnessMultiplier().ToString("0.##") + ")" +
-                              " | GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##") +
-                              " | GlobalSmoothing=" + FormatGlobalSmoothing() +
-                              " | DynamicIntensity=" + CSMModOptions.DynamicIntensitySetting);
+                              " | SmoothIn=" + CSMModOptions.SmoothInPresetSetting +
+                              " | SmoothOut=" + CSMModOptions.SmoothOutPresetSetting +
+                              " | GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##"));
                 }
 
                 if (!enabled)
@@ -222,7 +217,7 @@ namespace CSM.Core
                 }
 
                 Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
-                StartSlowMotion(type, timeScale, duration, cooldown, damageDealt, smoothing);
+                StartSlowMotion(type, timeScale, duration, cooldown, damageDealt);
                 SetLastTriggerDebug(type, "Triggered", isQuickTest);
                 
                 TriggerHapticFeedback();
@@ -246,7 +241,7 @@ namespace CSM.Core
             }
         }
 
-        private void GetTriggerConfig(TriggerType type, out bool enabled, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
+        private void GetTriggerConfig(TriggerType type, out bool enabled, out float chance, out float timeScale, out float duration, out float cooldown)
         {
             enabled = CSMModOptions.IsTriggerEnabled(type);
             if (!enabled)
@@ -255,19 +250,17 @@ namespace CSM.Core
                 timeScale = 0.5f;
                 duration = 1f;
                 cooldown = 0f;
-                smoothing = 8f;
                 return;
             }
-            GetCustomTriggerConfig(type, out chance, out timeScale, out duration, out cooldown, out smoothing);
+            GetCustomTriggerConfig(type, out chance, out timeScale, out duration, out cooldown);
         }
 
-        public static void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
+        public static void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown)
         {
             chance = 0.5f;
             timeScale = 0.25f;
             duration = 1.5f;
             cooldown = 5f;
-            smoothing = 8f;
 
             switch (type)
             {
@@ -275,7 +268,6 @@ namespace CSM.Core
                     chance = 0.25f;
                     duration = 1.0f;
                     cooldown = 5f;
-                    smoothing = 8f;
                     timeScale = 0.35f;
                     switch (preset)
                     {
@@ -301,7 +293,6 @@ namespace CSM.Core
                     chance = 0.75f;
                     duration = 1.5f;
                     cooldown = 5f;
-                    smoothing = 8f;
                     timeScale = 0.25f;
                     switch (preset)
                     {
@@ -327,7 +318,6 @@ namespace CSM.Core
                     chance = 0.6f;
                     duration = 1.5f;
                     cooldown = 5f;
-                    smoothing = 8f;
                     timeScale = 0.3f;
                     switch (preset)
                     {
@@ -353,7 +343,6 @@ namespace CSM.Core
                     chance = 0.9f;
                     duration = 2.0f;
                     cooldown = 4f;
-                    smoothing = 6f;
                     timeScale = 0.2f;
                     switch (preset)
                     {
@@ -379,7 +368,6 @@ namespace CSM.Core
                     chance = 0.5f;
                     duration = 1.2f;
                     cooldown = 7f;
-                    smoothing = 10f;
                     timeScale = 0.3f;
                     switch (preset)
                     {
@@ -405,7 +393,6 @@ namespace CSM.Core
                     chance = 1.0f;
                     duration = 3.0f;
                     cooldown = 0f;
-                    smoothing = 4f;
                     timeScale = 0.2f;
                     switch (preset)
                     {
@@ -431,7 +418,6 @@ namespace CSM.Core
                     chance = 1.0f;
                     duration = 5.0f;
                     cooldown = 45f;
-                    smoothing = 4f;
                     timeScale = 0.15f;
                     switch (preset)
                     {
@@ -455,17 +441,16 @@ namespace CSM.Core
             }
         }
 
-        private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing)
+        private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown)
         {
             var values = CSMModOptions.GetCustomValues(type);
             chance = values.Chance;
             timeScale = values.TimeScale;
             duration = values.Duration;
             cooldown = values.Cooldown;
-            smoothing = values.Smoothing;
         }
 
-        private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt, float smoothing)
+        private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt)
         {
             try
             {
@@ -480,32 +465,17 @@ namespace CSM.Core
                 _activeTriggerType = type;
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
-                _transitionOutStartTime = 0f;
 
-                float transitionInSpeed = smoothing;
-                var dynamicPreset = CSMModOptions.GetDynamicIntensityPreset();
-                if (damageDealt > 0f && dynamicPreset != CSMModOptions.DynamicIntensityPreset.Off && smoothing > 0f)
-                {
-                    GetDynamicIntensitySettings(dynamicPreset, out float damageForInstant, out float maxSpeedMultiplier, out bool allowInstant);
-                    float damageMultiplier = Mathf.Clamp01(damageDealt / damageForInstant);
-                    float speedMultiplier = Mathf.Lerp(1f, maxSpeedMultiplier, damageMultiplier);
-                    transitionInSpeed = smoothing * speedMultiplier;
-
-                    if (allowInstant && damageMultiplier >= 1f)
-                        transitionInSpeed = 0f;
-
-                    if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Dynamic intensity: preset=" + dynamicPreset + " damage=" + damageDealt + " multiplier=" + damageMultiplier + " transitionIn=" + transitionInSpeed);
-                }
-
-                _transitionInSpeed = transitionInSpeed;
-                _transitionOutSpeed = smoothing > 0 ? smoothing / 2f : 0f;
+                CSMModOptions.GetSmoothingDurations(type, duration, out float smoothInDuration, out float smoothOutDuration);
+                _smoothOutDuration = smoothOutDuration;
 
                 _targetTimeScale = Mathf.Clamp(timeScale, 0.05f, 1f);
-                _isTransitioning = transitionInSpeed > 0f;
-                _transitioningOut = false;
+                _transitionStartScale = _currentTimeScale;
+                _transitionStartTime = Time.unscaledTime;
+                _transitionDuration = smoothInDuration;
+                _isTransitioning = smoothInDuration > 0f;
 
-                if (transitionInSpeed <= 0f)
+                if (smoothInDuration <= 0f)
                 {
                     _currentTimeScale = _targetTimeScale;
                     ApplyTimeScale(_currentTimeScale);
@@ -520,8 +490,8 @@ namespace CSM.Core
                     Debug.Log("[CSM] SlowMo config: target=" + _targetTimeScale.ToString("0.###") +
                               " duration=" + duration.ToString("0.###") +
                               " cooldown=" + cooldown.ToString("0.###") +
-                              " transitionIn=" + _transitionInSpeed.ToString("0.###") +
-                              " transitionOut=" + _transitionOutSpeed.ToString("0.###") +
+                              " smoothIn=" + smoothInDuration.ToString("0.###") + "s" +
+                              " smoothOut=" + smoothOutDuration.ToString("0.###") + "s" +
                               " endAt=" + _slowMotionEndTime.ToString("0.###") +
                               " now=" + now.ToString("0.###"));
                 }
@@ -543,17 +513,23 @@ namespace CSM.Core
                 _isSlowMotionActive = false;
 
                 _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
-                _isTransitioning = true;
-                _transitioningOut = true;
-                _transitionOutStartTime = Time.unscaledTime;
+                _transitionStartScale = _currentTimeScale;
+                _transitionStartTime = Time.unscaledTime;
+                _transitionDuration = _smoothOutDuration;
+                _isTransitioning = _smoothOutDuration > 0f;
+
+                if (_smoothOutDuration <= 0f)
+                {
+                    _currentTimeScale = _targetTimeScale;
+                    ApplyTimeScale(_currentTimeScale);
+                }
 
                 if (CSMModOptions.DebugLogging)
                 {
                     float elapsed = Time.unscaledTime - _slowMotionStartTime;
                     float expected = _slowMotionEndTime - _slowMotionStartTime;
                     Debug.Log("[CSM] Transition out: target=" + _targetTimeScale.ToString("0.###") +
-                              " speed=" + _transitionOutSpeed.ToString("0.###") +
-                              " start=" + _transitionOutStartTime.ToString("0.###"));
+                              " duration=" + _smoothOutDuration.ToString("0.###") + "s");
                     Debug.Log("[CSM] SlowMo elapsed: " + elapsed.ToString("0.###") +
                               "s (expected " + expected.ToString("0.###") +
                               "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
@@ -676,13 +652,12 @@ namespace CSM.Core
             }
         }
 
-        private static string FormatValues(float chance, float timeScale, float duration, float cooldown, float smoothing, TriggerType type, float distribution)
+        private static string FormatValues(float chance, float timeScale, float duration, float cooldown, TriggerType type, float distribution)
         {
             string chanceLabel = (chance * 100f).ToString("F0") + "%";
             string scaleLabel = (timeScale * 100f).ToString("F0") + "%";
             string durationLabel = duration.ToString("F1") + "s";
             string cooldownLabel = cooldown.ToString("F1") + "s";
-            string smoothingLabel = smoothing <= 0f ? "Instant" : smoothing.ToString("0.#") + "x";
 
             string tpLabel;
             if (!CSMModOptions.IsThirdPersonEligible(type))
@@ -703,13 +678,7 @@ namespace CSM.Core
                    " | Scale " + scaleLabel +
                    " | Dur " + durationLabel +
                    " | CD " + cooldownLabel +
-                   " | Smooth " + smoothingLabel +
                    " | TP " + tpLabel;
-        }
-
-        private static string FormatGlobalSmoothing()
-        {
-            return CSMModOptions.GlobalSmoothing < 0f ? "Per Trigger" : CSMModOptions.GlobalSmoothing.ToString("0.##");
         }
 
         private static void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
@@ -722,31 +691,5 @@ namespace CSM.Core
             Debug.Log("[CSM] " + summary + " -> " + finalReason);
         }
 
-        private static void GetDynamicIntensitySettings(CSMModOptions.DynamicIntensityPreset preset, out float damageForInstant, out float maxSpeedMultiplier, out bool allowInstant)
-        {
-            switch (preset)
-            {
-                case CSMModOptions.DynamicIntensityPreset.LowSensitivity:
-                    damageForInstant = 250f;
-                    maxSpeedMultiplier = 1.5f;
-                    allowInstant = false;
-                    break;
-                case CSMModOptions.DynamicIntensityPreset.MediumSensitivity:
-                    damageForInstant = 150f;
-                    maxSpeedMultiplier = 2.5f;
-                    allowInstant = false;
-                    break;
-                case CSMModOptions.DynamicIntensityPreset.HighSensitivity:
-                    damageForInstant = 90f;
-                    maxSpeedMultiplier = 4.0f;
-                    allowInstant = true;
-                    break;
-                default:
-                    damageForInstant = 9999f;
-                    maxSpeedMultiplier = 1.0f;
-                    allowInstant = false;
-                    break;
-            }
-        }
     }
 }

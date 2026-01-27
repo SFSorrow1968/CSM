@@ -17,7 +17,8 @@ namespace CSM.Core
         private CSMModOptions.ChancePreset? _lastChancePreset;
         private CSMModOptions.CooldownPreset? _lastCooldownPreset;
         private CSMModOptions.DurationPreset? _lastDurationPreset;
-        private CSMModOptions.SmoothnessPreset? _lastSmoothnessPreset;
+        private CSMModOptions.SmoothnessPreset? _lastSmoothInPreset;
+        private CSMModOptions.SmoothnessPreset? _lastSmoothOutPreset;
         private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         private bool _lastDebugLogging;
@@ -85,16 +86,6 @@ namespace CSM.Core
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionCooldown) }
         };
 
-        private static readonly Dictionary<TriggerType, string> SmoothingOptionNames = new Dictionary<TriggerType, string>
-        {
-            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionSmoothing) },
-            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionSmoothing) },
-            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionSmoothing) },
-            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionSmoothing) },
-            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionSmoothing) },
-            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionSmoothing) },
-            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionSmoothing) }
-        };
 
         private static readonly Dictionary<TriggerType, string> DistributionOptionNames = new Dictionary<TriggerType, string>
         {
@@ -103,6 +94,28 @@ namespace CSM.Core
             { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionThirdPersonDistribution) },
             { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionThirdPersonDistribution) },
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionThirdPersonDistribution) }
+        };
+
+        private static readonly Dictionary<TriggerType, string> SmoothInOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionSmoothIn) },
+            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionSmoothIn) },
+            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionSmoothIn) },
+            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionSmoothIn) },
+            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionSmoothIn) },
+            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionSmoothIn) },
+            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionSmoothIn) }
+        };
+
+        private static readonly Dictionary<TriggerType, string> SmoothOutOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionSmoothOut) },
+            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionSmoothOut) },
+            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionSmoothOut) },
+            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionSmoothOut) },
+            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionSmoothOut) },
+            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionSmoothOut) },
+            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionSmoothOut) }
         };
 
         private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
@@ -127,7 +140,8 @@ namespace CSM.Core
             _lastChancePreset = null;
             _lastCooldownPreset = null;
             _lastDurationPreset = null;
-            _lastSmoothnessPreset = null;
+            _lastSmoothInPreset = null;
+            _lastSmoothOutPreset = null;
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
@@ -210,7 +224,7 @@ namespace CSM.Core
             local = ApplyDurationPreset(force);
             changed |= local;
             presetChanged |= local;
-            local = ApplySmoothnessPreset(force);
+            local = ApplySmoothingPresets(force);
             changed |= local;
             presetChanged |= local;
             local = ApplyDistributionPreset(force);
@@ -255,7 +269,7 @@ namespace CSM.Core
             return changed;
         }
 
-        private delegate float PresetValueSelector(float chance, float timeScale, float duration, float cooldown, float smoothing);
+        private delegate float PresetValueSelector(float chance, float timeScale, float duration, float cooldown);
         private delegate void RefFloatAction(ref float value);
 
         private static string ResolvePresetLabel(string settingValue, object preset)
@@ -273,8 +287,8 @@ namespace CSM.Core
             foreach (var trigger in TriggerTypes)
             {
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale,
-                    out float duration, out float cooldown, out float smoothing);
-                float value = selector(chance, timeScale, duration, cooldown, smoothing);
+                    out float duration, out float cooldown);
+                float value = selector(chance, timeScale, duration, cooldown);
                 applyPreset(ref value);
                 CSMModOptions.SetTriggerValue(trigger, field, value);
                 SyncOptionValue(optionMap, trigger, value);
@@ -293,7 +307,7 @@ namespace CSM.Core
 
             foreach (var trigger in TriggerTypes)
             {
-                CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown, out float smoothing);
+                CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, timeScale);
                 SyncOptionValue(TimeScaleOptionNames, trigger, timeScale);
             }
@@ -307,7 +321,7 @@ namespace CSM.Core
         {
             var preset = CSMModOptions.GetChancePreset();
             return ApplyPresetFromStandard(force, preset, ref _lastChancePreset, "Chance Preset",
-                CSMModOptions.ChancePresetSetting, (chance, timeScale, duration, cooldown, smoothing) => chance,
+                CSMModOptions.ChancePresetSetting, (chance, timeScale, duration, cooldown) => chance,
                 CSMModOptions.ApplyChancePreset, CSMModOptions.TriggerField.Chance, ChanceOptionNames);
         }
 
@@ -315,7 +329,7 @@ namespace CSM.Core
         {
             var preset = CSMModOptions.GetCooldownPreset();
             return ApplyPresetFromStandard(force, preset, ref _lastCooldownPreset, "Cooldown Preset",
-                CSMModOptions.CooldownPresetSetting, (chance, timeScale, duration, cooldown, smoothing) => cooldown,
+                CSMModOptions.CooldownPresetSetting, (chance, timeScale, duration, cooldown) => cooldown,
                 CSMModOptions.ApplyCooldownPreset, CSMModOptions.TriggerField.Cooldown, CooldownOptionNames);
         }
 
@@ -323,16 +337,40 @@ namespace CSM.Core
         {
             var preset = CSMModOptions.GetDurationPreset();
             return ApplyPresetFromStandard(force, preset, ref _lastDurationPreset, "Duration Preset",
-                CSMModOptions.DurationPresetSetting, (chance, timeScale, duration, cooldown, smoothing) => duration,
+                CSMModOptions.DurationPresetSetting, (chance, timeScale, duration, cooldown) => duration,
                 CSMModOptions.ApplyDurationPreset, CSMModOptions.TriggerField.Duration, DurationOptionNames);
         }
 
-        private bool ApplySmoothnessPreset(bool force)
+        private bool ApplySmoothingPresets(bool force)
         {
-            var preset = CSMModOptions.GetSmoothnessPreset();
-            return ApplyPresetFromStandard(force, preset, ref _lastSmoothnessPreset, "Smoothness Preset",
-                CSMModOptions.SmoothnessPresetSetting, (chance, timeScale, duration, cooldown, smoothing) => smoothing,
-                CSMModOptions.ApplySmoothnessPreset, CSMModOptions.TriggerField.Smoothing, SmoothingOptionNames);
+            var inPreset = CSMModOptions.GetSmoothInPreset();
+            var outPreset = CSMModOptions.GetSmoothOutPreset();
+
+            bool inChanged = !_lastSmoothInPreset.HasValue || !_lastSmoothInPreset.Value.Equals(inPreset);
+            bool outChanged = !_lastSmoothOutPreset.HasValue || !_lastSmoothOutPreset.Value.Equals(outPreset);
+
+            if (!force && !inChanged && !outChanged)
+                return false;
+
+            string inValue = CSMModOptions.SmoothInPresetSetting;
+            string outValue = CSMModOptions.SmoothOutPresetSetting;
+
+            foreach (var trigger in TriggerTypes)
+            {
+                CSMModOptions.SetTriggerSmoothPreset(trigger, CSMModOptions.TriggerField.SmoothIn, inValue);
+                CSMModOptions.SetTriggerSmoothPreset(trigger, CSMModOptions.TriggerField.SmoothOut, outValue);
+                SyncStringOption(SmoothInOptionNames, trigger, inValue);
+                SyncStringOption(SmoothOutOptionNames, trigger, outValue);
+            }
+
+            _lastSmoothInPreset = inPreset;
+            _lastSmoothOutPreset = outPreset;
+
+            float inPercent = CSMModOptions.GetSmoothingPercent(inPreset) * 100f;
+            float outPercent = CSMModOptions.GetSmoothingPercent(outPreset) * 100f;
+            LogPresetApply("Smooth-In/Out Presets", inValue + " (" + inPercent.ToString("F0") + "%) / " +
+                           outValue + " (" + outPercent.ToString("F0") + "%)");
+            return true;
         }
 
         private bool ApplyDistributionPreset(bool force)
@@ -534,6 +572,64 @@ namespace CSM.Core
             return true;
         }
 
+        private bool SyncStringOption(Dictionary<TriggerType, string> map, TriggerType type, string value)
+        {
+            if (!map.TryGetValue(type, out string optionKey))
+                return false;
+            return SyncStringOption(optionKey, value);
+        }
+
+        private bool SyncStringOption(string optionKey, string value)
+        {
+            if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionKey);
+                return false;
+            }
+
+            if (option.parameterValues == null || option.parameterValues.Length == 0)
+                option.LoadModOptionParameters();
+
+            if (option.parameterValues == null || option.parameterValues.Length == 0)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync missing parameters: " + DescribeOption(option));
+                return false;
+            }
+
+            int index = FindParameterIndexByName(option.parameterValues, value);
+            if (index < 0)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Menu sync no parameter match: " + DescribeOption(option) + " value=" + value);
+                return false;
+            }
+
+            if (option.currentValueIndex == index)
+                return false;
+
+            option.Apply(index);
+            option.RefreshUI();
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Menu sync updated: " + DescribeOption(option) + " -> " + value);
+            return true;
+        }
+
+        private static int FindParameterIndexByName(ModOptionParameter[] parameters, string value)
+        {
+            if (parameters == null || string.IsNullOrEmpty(value)) return -1;
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var paramValue = parameters[i]?.value;
+                if (paramValue is string sValue && sValue.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return i;
+            }
+
+            return -1;
+        }
+
         private static int FindParameterIndex(ModOptionParameter[] parameters, float value)
         {
             if (parameters == null) return -1;
@@ -567,27 +663,34 @@ namespace CSM.Core
                 return "Disabled";
 
             var values = CSMModOptions.GetCustomValues(type);
-            float smoothing = values.Smoothing;
-
-            if (CSMModOptions.GlobalSmoothing >= 0f)
-                smoothing = CSMModOptions.GlobalSmoothing;
-
-            return BuildSummary(type, values, smoothing);
+            return BuildSummary(type, values);
         }
 
         private static string BuildRawSummary(TriggerType type)
         {
             var values = CSMModOptions.GetCustomValues(type);
-            return BuildSummary(type, values, values.Smoothing);
+            return BuildSummary(type, values);
         }
 
-        private static string BuildSummary(TriggerType type, CSMModOptions.TriggerCustomValues values, float smoothing)
+        private static string BuildSummary(TriggerType type, CSMModOptions.TriggerCustomValues values)
         {
             string chanceLabel = (values.Chance * 100f).ToString("F0") + "%";
             string scaleLabel = (values.TimeScale * 100f).ToString("F0") + "%";
             string durationLabel = values.Duration.ToString("F1") + "s";
             string cooldownLabel = values.Cooldown.ToString("F1") + "s";
-            string smoothingLabel = smoothing <= 0f ? "Instant" : smoothing.ToString("0.#") + "x";
+
+            float inPercent = CSMModOptions.GetSmoothingPercent(values.SmoothIn);
+            float outPercent = CSMModOptions.GetSmoothingPercent(values.SmoothOut);
+            float totalPercent = inPercent + outPercent;
+            if (totalPercent > 1f)
+            {
+                float scale = 1f / totalPercent;
+                inPercent *= scale;
+                outPercent *= scale;
+            }
+            float smoothIn = values.Duration * inPercent;
+            float smoothOut = values.Duration * outPercent;
+            string smoothLabel = smoothIn.ToString("0.##") + "s/" + smoothOut.ToString("0.##") + "s";
 
             string tpLabel;
             if (!CSMModOptions.IsThirdPersonEligible(type))
@@ -609,7 +712,7 @@ namespace CSM.Core
                    " | Scale " + scaleLabel +
                    " | Dur " + durationLabel +
                    " | CD " + cooldownLabel +
-                   " | Smooth " + smoothingLabel +
+                   " | Smooth " + smoothLabel +
                    " | TP " + tpLabel;
         }
 
@@ -653,7 +756,7 @@ namespace CSM.Core
 
                 _lastCustomValues[trigger] = current;
                 if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] Custom override changed: " + GetTriggerUiName(trigger) + " " + BuildSummary(trigger, last, last.Smoothing) + " -> " + BuildSummary(trigger, current, current.Smoothing));
+                    Debug.Log("[CSM] Custom override changed: " + GetTriggerUiName(trigger) + " " + BuildSummary(trigger, last) + " -> " + BuildSummary(trigger, current));
                 if (!CSMModOptions.IsTriggerEnabled(trigger))
                 {
                     CSMModOptions.SetTriggerEnabled(trigger, true);
@@ -673,7 +776,8 @@ namespace CSM.Core
             if (Mathf.Abs(a.TimeScale - b.TimeScale) > epsilon) return true;
             if (Mathf.Abs(a.Duration - b.Duration) > epsilon) return true;
             if (Mathf.Abs(a.Cooldown - b.Cooldown) > epsilon) return true;
-            if (Mathf.Abs(a.Smoothing - b.Smoothing) > epsilon) return true;
+            if (a.SmoothIn != b.SmoothIn) return true;
+            if (a.SmoothOut != b.SmoothOut) return true;
             if (Mathf.Abs(a.Distribution - b.Distribution) > epsilon) return true;
             return false;
         }
@@ -697,7 +801,6 @@ namespace CSM.Core
                 changed |= UpdateTooltip(TimeScaleOptionNames, trigger, summary);
                 changed |= UpdateTooltip(DurationOptionNames, trigger, summary);
                 changed |= UpdateTooltip(CooldownOptionNames, trigger, summary);
-                changed |= UpdateTooltip(SmoothingOptionNames, trigger, summary);
                 changed |= UpdateTooltip(DistributionOptionNames, trigger, summary);
             }
 
@@ -754,14 +857,12 @@ namespace CSM.Core
                       " | Chance=" + CSMModOptions.ChancePresetSetting +
                       " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
                       " | Duration=" + CSMModOptions.DurationPresetSetting + " (x" + CSMModOptions.GetDurationMultiplier().ToString("0.##") + ")" +
-                      " | Smoothness=" + CSMModOptions.SmoothnessPresetSetting + " (x" + CSMModOptions.GetSmoothnessMultiplier().ToString("0.##") + ")" +
+                      " | SmoothIn=" + CSMModOptions.SmoothInPresetSetting +
+                      " | SmoothOut=" + CSMModOptions.SmoothOutPresetSetting +
                       " | ThirdPerson=" + CSMModOptions.CameraDistribution +
                       " | TriggerProfile=" + CSMModOptions.TriggerProfile);
-            string globalSmoothing = CSMModOptions.GlobalSmoothing < 0f ? "Per Trigger" : CSMModOptions.GlobalSmoothing.ToString("0.##");
             Debug.Log("[CSM] Menu overrides: " +
                       "GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##") +
-                      " | GlobalSmoothing=" + globalSmoothing +
-                      " | DynamicIntensity=" + CSMModOptions.DynamicIntensitySetting +
                       " | Haptic=" + CSMModOptions.HapticIntensity.ToString("0.##"));
             Debug.Log("[CSM] Menu triggers: " +
                       "Basic=" + CSMModOptions.EnableBasicKill +

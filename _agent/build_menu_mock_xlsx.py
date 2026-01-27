@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-ROOT = Path(r"C:\Users\dkatz\Documents\Projects\CSM")
+ROOT = Path(r"D:\Documents\Projects\repos\CSM")
 CSM_OPTIONS = ROOT / "Configuration" / "CSMModOptions.cs"
 OUTPUT = ROOT / "MENU_MOCK.xlsx"
 
