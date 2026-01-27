@@ -22,6 +22,7 @@ namespace CSM.Core
         private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         private bool _lastDebugLogging;
+        private bool _lastResetStats;
         private readonly Dictionary<TriggerType, CSMModOptions.TriggerCustomValues> _lastCustomValues =
             new Dictionary<TriggerType, CSMModOptions.TriggerCustomValues>();
         private readonly Dictionary<string, string> _baseTooltips =
@@ -145,6 +146,7 @@ namespace CSM.Core
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
+            _lastResetStats = false;
             _lastCustomValues.Clear();
             _baseTooltips.Clear();
 
@@ -235,6 +237,7 @@ namespace CSM.Core
             presetChanged |= local;
             changed |= ApplyTriggerDependencies();
             changed |= ApplyDiagnostics(force);
+            changed |= ApplyStatisticsReset();
             changed |= UpdateCustomTooltips(force, presetChanged);
             if (force || presetChanged)
                 CaptureCustomValues();
@@ -267,6 +270,21 @@ namespace CSM.Core
                 changed = true;
             }
             return changed;
+        }
+
+        private bool ApplyStatisticsReset()
+        {
+            if (!CSMModOptions.ResetStatsToggle || _lastResetStats)
+            {
+                _lastResetStats = CSMModOptions.ResetStatsToggle;
+                return false;
+            }
+
+            CSMModOptions.ResetStatistics();
+            CSMModOptions.ResetStatsToggle = false;
+            _lastResetStats = false;
+            Debug.Log("[CSM] Statistics reset");
+            return true;
         }
 
         private delegate float PresetValueSelector(float chance, float timeScale, float duration, float cooldown);

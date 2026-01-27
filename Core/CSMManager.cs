@@ -120,12 +120,24 @@ namespace CSM.Core
 
         private static float EaseInOut(float x)
         {
-            return x * x * (3f - 2f * x);
+            var curve = CSMModOptions.GetEasingCurve();
+            switch (curve)
+            {
+                case CSMModOptions.EasingCurve.Linear:
+                    return x;
+                case CSMModOptions.EasingCurve.EaseIn:
+                    return x * x;
+                case CSMModOptions.EasingCurve.EaseOut:
+                    return 1f - (1f - x) * (1f - x);
+                default: // Smoothstep
+                    return x * x * (3f - 2f * x);
+            }
         }
 
         private void ApplyTimeScale(float scale)
         {
-            float clampedScale = Mathf.Clamp(scale, 0.05f, 1f);
+            float minScale = CSMModOptions.MinTimeScale > 0f ? CSMModOptions.MinTimeScale : 0.05f;
+            float clampedScale = Mathf.Clamp(scale, minScale, 1f);
             Time.timeScale = clampedScale;
             Time.fixedDeltaTime = _originalFixedDeltaTime * clampedScale;
         }
@@ -219,6 +231,9 @@ namespace CSM.Core
                 Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
                 StartSlowMotion(type, timeScale, duration, cooldown, damageDealt);
                 SetLastTriggerDebug(type, "Triggered", isQuickTest);
+
+                CSMModOptions.IncrementTriggerCount(type);
+                CSMModOptions.AddSlowMoTime(duration);
                 
                 TriggerHapticFeedback();
                 
@@ -466,10 +481,20 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                CSMModOptions.GetSmoothingDurations(type, duration, out float smoothInDuration, out float smoothOutDuration);
+                float smoothInDuration, smoothOutDuration;
+                if (CSMModOptions.IsTriggerInstant(type))
+                {
+                    smoothInDuration = 0f;
+                    smoothOutDuration = 0f;
+                }
+                else
+                {
+                    CSMModOptions.GetSmoothingDurations(type, duration, out smoothInDuration, out smoothOutDuration);
+                }
                 _smoothOutDuration = smoothOutDuration;
 
-                _targetTimeScale = Mathf.Clamp(timeScale, 0.05f, 1f);
+                float minScale = CSMModOptions.MinTimeScale > 0f ? CSMModOptions.MinTimeScale : 0.05f;
+                _targetTimeScale = Mathf.Clamp(timeScale, minScale, 1f);
                 _transitionStartScale = _currentTimeScale;
                 _transitionStartTime = Time.unscaledTime;
                 _transitionDuration = smoothInDuration;
