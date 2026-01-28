@@ -282,7 +282,7 @@ namespace CSM.Core
                 case TriggerType.BasicKill:
                     chance = 0.25f;
                     duration = 2.5f;
-                    cooldown = 5f;
+                    cooldown = 10f;
                     timeScale = 0.28f;
                     switch (preset)
                     {
@@ -307,7 +307,7 @@ namespace CSM.Core
                 case TriggerType.Critical:
                     chance = 0.75f;
                     duration = 3.0f;
-                    cooldown = 5f;
+                    cooldown = 10f;
                     timeScale = 0.25f;
                     switch (preset)
                     {
@@ -332,7 +332,7 @@ namespace CSM.Core
                 case TriggerType.Dismemberment:
                     chance = 0.6f;
                     duration = 2.0f;
-                    cooldown = 5f;
+                    cooldown = 10f;
                     timeScale = 0.30f;
                     switch (preset)
                     {
@@ -357,7 +357,7 @@ namespace CSM.Core
                 case TriggerType.Decapitation:
                     chance = 0.9f;
                     duration = 3.25f;
-                    cooldown = 4f;
+                    cooldown = 10f;
                     timeScale = 0.23f;
                     switch (preset)
                     {
@@ -382,7 +382,7 @@ namespace CSM.Core
                 case TriggerType.Parry:
                     chance = 0.5f;
                     duration = 1.5f;
-                    cooldown = 7f;
+                    cooldown = 5f;
                     timeScale = 0.34f;
                     switch (preset)
                     {
@@ -407,7 +407,7 @@ namespace CSM.Core
                 case TriggerType.LastEnemy:
                     chance = 1.0f;
                     duration = 2.75f;
-                    cooldown = 0f;
+                    cooldown = 20f;
                     timeScale = 0.26f;
                     switch (preset)
                     {
@@ -432,7 +432,7 @@ namespace CSM.Core
                 case TriggerType.LastStand:
                     chance = 1.0f;
                     duration = 3.5f;
-                    cooldown = 45f;
+                    cooldown = 60f;
                     timeScale = 0.21f;
                     switch (preset)
                     {
