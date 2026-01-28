@@ -1473,13 +1473,13 @@ namespace CSM.Configuration
                     cooldown = 0f;
                     return;
                 case CooldownPreset.Short:
-                    cooldownMultiplier = 0.6f;
+                    cooldownMultiplier = 0.5f;
                     break;
                 case CooldownPreset.Long:
-                    cooldownMultiplier = 1.8f;
+                    cooldownMultiplier = 1.5f;
                     break;
                 case CooldownPreset.Extended:
-                    cooldownMultiplier = 2.8f;
+                    cooldownMultiplier = 2.0f;
                     break;
                 default:
                     cooldownMultiplier = 1.0f;
