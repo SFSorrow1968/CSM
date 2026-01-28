@@ -275,6 +275,163 @@ while menu_rows and not menu_rows[-1]:
     menu_rows.pop()
     menu_row_types.pop()
 
+# Preset Reference sheet
+preset_rows: list[list[str]] = []
+preset_row_types: list[str] = []
+
+preset_rows.append(["Preset Reference"])
+preset_row_types.append("title")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+# Intensity Preset (per-trigger time scale values)
+preset_rows.append(["INTENSITY PRESET - Time Scale Values"])
+preset_row_types.append("section")
+preset_rows.append(["Trigger", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"])
+preset_row_types.append("header")
+intensity_data = [
+    ["Parry", "46%", "34%", "29%", "24%", "19%"],
+    ["Dismemberment", "42%", "30%", "25%", "20%", "15%"],
+    ["Basic Kill", "40%", "28%", "23%", "18%", "13%"],
+    ["Last Enemy", "38%", "26%", "21%", "16%", "11%"],
+    ["Critical", "37%", "25%", "20%", "15%", "10%"],
+    ["Decapitation", "35%", "23%", "18%", "13%", "8%"],
+    ["Last Stand", "33%", "21%", "16%", "11%", "8%"],
+]
+for row in intensity_data:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+# Duration Preset
+preset_rows.append(["DURATION PRESET - Multipliers"])
+preset_row_types.append("section")
+preset_rows.append(["Preset", "Multiplier"])
+preset_row_types.append("header")
+duration_multipliers = [
+    ["Very Short", "0.5x"],
+    ["Short", "0.7x"],
+    ["Standard", "1.0x"],
+    ["Long", "1.3x"],
+    ["Extended", "1.5x"],
+]
+for row in duration_multipliers:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+preset_rows.append(["DURATION PRESET - Base Values (Standard)"])
+preset_row_types.append("section")
+preset_rows.append(["Trigger", "Base Duration"])
+preset_row_types.append("header")
+duration_base = [
+    ["Parry", "1.5s"],
+    ["Dismemberment", "2.0s"],
+    ["Basic Kill", "2.5s"],
+    ["Last Enemy", "2.75s"],
+    ["Critical", "3.0s"],
+    ["Decapitation", "3.25s"],
+    ["Last Stand", "3.5s"],
+]
+for row in duration_base:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+# Cooldown Preset
+preset_rows.append(["COOLDOWN PRESET - Multipliers"])
+preset_row_types.append("section")
+preset_rows.append(["Preset", "Multiplier"])
+preset_row_types.append("header")
+cooldown_multipliers = [
+    ["Off", "0x (disabled)"],
+    ["Short", "0.6x"],
+    ["Standard", "1.0x"],
+    ["Long", "2.0x"],
+    ["Extended", "3.0x"],
+]
+for row in cooldown_multipliers:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+preset_rows.append(["COOLDOWN PRESET - Base Values (Standard)"])
+preset_row_types.append("section")
+preset_rows.append(["Trigger", "Base Cooldown"])
+preset_row_types.append("header")
+cooldown_base = [
+    ["Parry", "5s"],
+    ["Basic Kill", "10s"],
+    ["Dismemberment", "10s"],
+    ["Critical", "10s"],
+    ["Decapitation", "10s"],
+    ["Last Enemy", "20s"],
+    ["Last Stand", "60s"],
+]
+for row in cooldown_base:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+# Chance Preset
+preset_rows.append(["CHANCE PRESET - Multipliers"])
+preset_row_types.append("section")
+preset_rows.append(["Preset", "Multiplier"])
+preset_row_types.append("header")
+chance_multipliers = [
+    ["Off", "100% (always triggers)"],
+    ["Very Rare", "0.5x"],
+    ["Rare", "0.6x"],
+    ["Standard", "1.0x"],
+    ["Frequent", "1.4x"],
+]
+for row in chance_multipliers:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+preset_rows.append(["CHANCE PRESET - Base Values (Standard)"])
+preset_row_types.append("section")
+preset_rows.append(["Trigger", "Base Chance"])
+preset_row_types.append("header")
+chance_base = [
+    ["Basic Kill", "25%"],
+    ["Parry", "50%"],
+    ["Dismemberment", "60%"],
+    ["Critical", "75%"],
+    ["Decapitation", "90%"],
+    ["Last Enemy", "100%"],
+    ["Last Stand", "100%"],
+]
+for row in chance_base:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+preset_rows.append([])
+preset_row_types.append("blank")
+
+# Fade Presets
+preset_rows.append(["FADE PRESETS - Smoothing Percentages"])
+preset_row_types.append("section")
+preset_rows.append(["Preset", "Smoothing %", "Description"])
+preset_row_types.append("header")
+fade_presets = [
+    ["Instant", "0%", "No transition, immediate"],
+    ["Default", "10%", "Natural B&S feel"],
+    ["Quick Fade", "15%", "Quick transition"],
+    ["Medium Fade", "20%", "Moderate transition"],
+    ["Long Fade", "30%", "Slow transition"],
+    ["Very Long Fade", "40%", "Very gradual transition"],
+]
+for row in fade_presets:
+    preset_rows.append(row)
+    preset_row_types.append("data")
+
 # Providers sheet
 providers_rows: list[list[str]] = []
 providers_row_types: list[str] = []
@@ -426,6 +583,7 @@ styles_xml = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 sheets = [
     ("Menu Mock", menu_rows, menu_row_types),
+    ("Preset Reference", preset_rows, preset_row_types),
     ("Providers", providers_rows, providers_row_types),
 ]
 
