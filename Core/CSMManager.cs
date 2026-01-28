@@ -281,7 +281,7 @@ namespace CSM.Core
             {
                 case TriggerType.BasicKill:
                     chance = 0.25f;
-                    duration = 1.0f;
+                    duration = 2.5f;
                     cooldown = 5f;
                     timeScale = 0.35f;
                     switch (preset)
@@ -306,7 +306,7 @@ namespace CSM.Core
 
                 case TriggerType.Critical:
                     chance = 0.75f;
-                    duration = 1.5f;
+                    duration = 3.0f;
                     cooldown = 5f;
                     timeScale = 0.25f;
                     switch (preset)
@@ -331,7 +331,7 @@ namespace CSM.Core
 
                 case TriggerType.Dismemberment:
                     chance = 0.6f;
-                    duration = 1.5f;
+                    duration = 2.0f;
                     cooldown = 5f;
                     timeScale = 0.3f;
                     switch (preset)
@@ -356,7 +356,7 @@ namespace CSM.Core
 
                 case TriggerType.Decapitation:
                     chance = 0.9f;
-                    duration = 2.0f;
+                    duration = 3.25f;
                     cooldown = 4f;
                     timeScale = 0.2f;
                     switch (preset)
@@ -381,7 +381,7 @@ namespace CSM.Core
 
                 case TriggerType.Parry:
                     chance = 0.5f;
-                    duration = 1.2f;
+                    duration = 1.5f;
                     cooldown = 7f;
                     timeScale = 0.3f;
                     switch (preset)
@@ -406,7 +406,7 @@ namespace CSM.Core
 
                 case TriggerType.LastEnemy:
                     chance = 1.0f;
-                    duration = 3.0f;
+                    duration = 2.75f;
                     cooldown = 0f;
                     timeScale = 0.2f;
                     switch (preset)
@@ -431,7 +431,7 @@ namespace CSM.Core
 
                 case TriggerType.LastStand:
                     chance = 1.0f;
-                    duration = 5.0f;
+                    duration = 3.5f;
                     cooldown = 45f;
                     timeScale = 0.15f;
                     switch (preset)
