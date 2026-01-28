@@ -30,10 +30,10 @@ namespace CSM.Configuration
         public const string OptionChancePreset = "Chance Preset";
         public const string OptionCooldownPreset = "Cooldown Preset";
         public const string OptionDurationPreset = "Duration Preset";
-        public const string OptionSmoothInPreset = "Smooth-In Preset";
-        public const string OptionSmoothOutPreset = "Smooth-Out Preset";
-        public const string OptionSmoothIn = "Smooth-In";
-        public const string OptionSmoothOut = "Smooth-Out";
+        public const string OptionSmoothInPreset = "Fade In";
+        public const string OptionSmoothOutPreset = "Fade Out";
+        public const string OptionSmoothIn = "Fade In";
+        public const string OptionSmoothOut = "Fade Out";
         public const string OptionTriggerProfile = "Trigger Profile";
         public const string OptionGlobalCooldown = "Global Cooldown";
         // Deprecated: Global Smoothing removed in new duration-based system
@@ -69,7 +69,6 @@ namespace CSM.Configuration
 
         public const string OptionEasingCurve = "Easing Curve";
         public const string OptionMinTimeScale = "Min Time Scale";
-        public const string OptionInstantTransition = "Instant Transition";
         public const string OptionResetStats = "Reset Statistics";
 
         public const string CategoryStatistics = "CSM Statistics";
@@ -127,11 +126,12 @@ namespace CSM.Configuration
 
         public enum SmoothnessPreset
         {
-            VerySnappy = 0,
-            Snappy = 1,
-            Smooth = 2,
-            Cinematic = 3,
-            UltraSmooth = 4
+            Instant = 0,
+            Default = 1,
+            QuickFade = 2,
+            MediumFade = 3,
+            LongFade = 4,
+            VeryLongFade = 5
         }
 
         public enum EasingCurve
@@ -259,11 +259,12 @@ namespace CSM.Configuration
 
         private static readonly PresetOption<SmoothnessPreset>[] SmoothnessPresetOptions =
         {
-            new PresetOption<SmoothnessPreset>("Very Snappy (10%)", "Very Snappy", SmoothnessPreset.VerySnappy),
-            new PresetOption<SmoothnessPreset>("Snappy (15%)", "Snappy", SmoothnessPreset.Snappy),
-            new PresetOption<SmoothnessPreset>("Smooth (20%)", "Smooth", SmoothnessPreset.Smooth),
-            new PresetOption<SmoothnessPreset>("Cinematic (30%)", "Cinematic", SmoothnessPreset.Cinematic),
-            new PresetOption<SmoothnessPreset>("Ultra Smooth (40%)", "Ultra Smooth", SmoothnessPreset.UltraSmooth)
+            new PresetOption<SmoothnessPreset>("Instant", "Instant", SmoothnessPreset.Instant),
+            new PresetOption<SmoothnessPreset>("Default", "Default", SmoothnessPreset.Default),
+            new PresetOption<SmoothnessPreset>("Quick Fade", "Quick Fade", SmoothnessPreset.QuickFade),
+            new PresetOption<SmoothnessPreset>("Medium Fade", "Medium Fade", SmoothnessPreset.MediumFade),
+            new PresetOption<SmoothnessPreset>("Long Fade", "Long Fade", SmoothnessPreset.LongFade),
+            new PresetOption<SmoothnessPreset>("Very Long Fade", "Very Long Fade", SmoothnessPreset.VeryLongFade)
         };
 
         private static readonly PresetOption<DynamicIntensityPreset>[] DynamicIntensityOptions =
@@ -314,12 +315,7 @@ namespace CSM.Configuration
                 { "Balanced", DurationPreset.Standard }
             });
 
-        private static readonly Dictionary<string, SmoothnessPreset> SmoothnessPresetMap = BuildPresetMap(SmoothnessPresetOptions,
-            new Dictionary<string, SmoothnessPreset>
-            {
-                { "Standard", SmoothnessPreset.Smooth },
-                { "Balanced", SmoothnessPreset.Smooth }
-            });
+        private static readonly Dictionary<string, SmoothnessPreset> SmoothnessPresetMap = BuildPresetMap(SmoothnessPresetOptions);
 
         private static readonly Dictionary<string, DynamicIntensityPreset> DynamicIntensityMap = BuildPresetMap(DynamicIntensityOptions,
             new Dictionary<string, DynamicIntensityPreset>
@@ -774,11 +770,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Standard";
 
-        [ModOption(name = OptionSmoothInPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration. Higher = smoother transition in.")]
-        public static string SmoothInPresetSetting = "Smooth";
+        [ModOption(name = OptionSmoothInPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion. Instant = immediate. Default = natural feel.")]
+        public static string SmoothInPresetSetting = "Default";
 
-        [ModOption(name = OptionSmoothOutPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 65, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration. Higher = smoother transition out.")]
-        public static string SmoothOutPresetSetting = "Smooth";
+        [ModOption(name = OptionSmoothOutPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 65, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion. Instant = immediate. Default = natural feel.")]
+        public static string SmoothOutPresetSetting = "Default";
 
         [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 70, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
@@ -871,14 +867,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 5f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string BasicKillSmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string BasicKillSmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 55, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string BasicKillSmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 58, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool BasicKillInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 55, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string BasicKillSmoothOut = "Default";
 
         [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float BasicKillThirdPersonDistribution = 0f;
@@ -899,14 +892,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 5f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string CriticalKillSmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string CriticalKillSmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 55, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string CriticalKillSmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 58, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool CriticalKillInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 55, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string CriticalKillSmoothOut = "Default";
 
         [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float CriticalKillThirdPersonDistribution = 0f;
@@ -927,14 +917,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 5f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string DismembermentSmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string DismembermentSmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 55, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string DismembermentSmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 58, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool DismembermentInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 55, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string DismembermentSmoothOut = "Default";
 
         [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DismembermentThirdPersonDistribution = 0f;
@@ -955,14 +942,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 8, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 4f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string DecapitationSmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string DecapitationSmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 55, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string DecapitationSmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 58, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool DecapitationInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 55, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string DecapitationSmoothOut = "Default";
 
         [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DecapitationThirdPersonDistribution = 0f;
@@ -983,14 +967,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 0, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastEnemyCooldown = 0f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string LastEnemySmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string LastEnemySmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 55, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string LastEnemySmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 58, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool LastEnemyInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 55, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string LastEnemySmoothOut = "Default";
 
         [ModOption(name = OptionThirdPersonDistribution, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float LastEnemyThirdPersonDistribution = 0f;
@@ -1008,14 +989,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 31, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 45f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string LastStandSmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string LastStandSmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 45, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string LastStandSmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 48, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool LastStandInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 45, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string LastStandSmoothOut = "Default";
 
         #endregion
 
@@ -1033,14 +1011,11 @@ namespace CSM.Configuration
         [ModOption(name = OptionCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 13, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 7f;
 
-        [ModOption(name = OptionSmoothIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-in window as % of duration")]
-        public static string ParrySmoothIn = "Smooth";
+        [ModOption(name = OptionSmoothIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
+        public static string ParrySmoothIn = "Default";
 
-        [ModOption(name = OptionSmoothOut, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 55, defaultValueIndex = 2, valueSourceName = "SmoothnessPresetProvider", tooltip = "Smooth-out window as % of duration")]
-        public static string ParrySmoothOut = "Smooth";
-
-        [ModOption(name = OptionInstantTransition, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 58, defaultValueIndex = 0, tooltip = "Skip smooth-in/out transitions for instant time scale change")]
-        public static bool ParryInstant = false;
+        [ModOption(name = OptionSmoothOut, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 55, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition out of slow motion")]
+        public static string ParrySmoothOut = "Default";
 
         #endregion
 
@@ -1121,17 +1096,8 @@ namespace CSM.Configuration
 
         public static bool IsTriggerInstant(TriggerType triggerType)
         {
-            switch (triggerType)
-            {
-                case TriggerType.BasicKill: return BasicKillInstant;
-                case TriggerType.Critical: return CriticalKillInstant;
-                case TriggerType.Dismemberment: return DismembermentInstant;
-                case TriggerType.Decapitation: return DecapitationInstant;
-                case TriggerType.LastEnemy: return LastEnemyInstant;
-                case TriggerType.LastStand: return LastStandInstant;
-                case TriggerType.Parry: return ParryInstant;
-                default: return false;
-            }
+            var values = GetCustomValues(triggerType);
+            return values.SmoothIn == SmoothnessPreset.Instant && values.SmoothOut == SmoothnessPreset.Instant;
         }
 
         public static EasingCurve GetEasingCurve()
@@ -1155,8 +1121,8 @@ namespace CSM.Configuration
                     values.TimeScale = BasicKillTimeScale;
                     values.Duration = BasicKillDuration;
                     values.Cooldown = BasicKillCooldown;
-                    values.SmoothIn = ParsePreset(BasicKillSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(BasicKillSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(BasicKillSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(BasicKillSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = BasicKillThirdPersonDistribution;
                     break;
                 case TriggerType.Critical:
@@ -1164,8 +1130,8 @@ namespace CSM.Configuration
                     values.TimeScale = CriticalKillTimeScale;
                     values.Duration = CriticalKillDuration;
                     values.Cooldown = CriticalKillCooldown;
-                    values.SmoothIn = ParsePreset(CriticalKillSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(CriticalKillSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(CriticalKillSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(CriticalKillSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = CriticalKillThirdPersonDistribution;
                     break;
                 case TriggerType.Dismemberment:
@@ -1173,8 +1139,8 @@ namespace CSM.Configuration
                     values.TimeScale = DismembermentTimeScale;
                     values.Duration = DismembermentDuration;
                     values.Cooldown = DismembermentCooldown;
-                    values.SmoothIn = ParsePreset(DismembermentSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(DismembermentSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(DismembermentSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(DismembermentSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = DismembermentThirdPersonDistribution;
                     break;
                 case TriggerType.Decapitation:
@@ -1182,8 +1148,8 @@ namespace CSM.Configuration
                     values.TimeScale = DecapitationTimeScale;
                     values.Duration = DecapitationDuration;
                     values.Cooldown = DecapitationCooldown;
-                    values.SmoothIn = ParsePreset(DecapitationSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(DecapitationSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(DecapitationSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(DecapitationSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = DecapitationThirdPersonDistribution;
                     break;
                 case TriggerType.Parry:
@@ -1191,8 +1157,8 @@ namespace CSM.Configuration
                     values.TimeScale = ParryTimeScale;
                     values.Duration = ParryDuration;
                     values.Cooldown = ParryCooldown;
-                    values.SmoothIn = ParsePreset(ParrySmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(ParrySmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(ParrySmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(ParrySmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = 0f;
                     break;
                 case TriggerType.LastEnemy:
@@ -1200,8 +1166,8 @@ namespace CSM.Configuration
                     values.TimeScale = LastEnemyTimeScale;
                     values.Duration = LastEnemyDuration;
                     values.Cooldown = LastEnemyCooldown;
-                    values.SmoothIn = ParsePreset(LastEnemySmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(LastEnemySmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(LastEnemySmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(LastEnemySmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = LastEnemyThirdPersonDistribution;
                     break;
                 case TriggerType.LastStand:
@@ -1209,8 +1175,8 @@ namespace CSM.Configuration
                     values.TimeScale = LastStandTimeScale;
                     values.Duration = LastStandDuration;
                     values.Cooldown = LastStandCooldown;
-                    values.SmoothIn = ParsePreset(LastStandSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Smooth);
-                    values.SmoothOut = ParsePreset(LastStandSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+                    values.SmoothIn = ParsePreset(LastStandSmoothIn, SmoothnessPresetMap, SmoothnessPreset.Default);
+                    values.SmoothOut = ParsePreset(LastStandSmoothOut, SmoothnessPresetMap, SmoothnessPreset.Default);
                     values.Distribution = 0f;
                     break;
             }
@@ -1361,24 +1327,25 @@ namespace CSM.Configuration
 
         public static SmoothnessPreset GetSmoothInPreset()
         {
-            return ParsePreset(SmoothInPresetSetting, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+            return ParsePreset(SmoothInPresetSetting, SmoothnessPresetMap, SmoothnessPreset.Default);
         }
 
         public static SmoothnessPreset GetSmoothOutPreset()
         {
-            return ParsePreset(SmoothOutPresetSetting, SmoothnessPresetMap, SmoothnessPreset.Smooth);
+            return ParsePreset(SmoothOutPresetSetting, SmoothnessPresetMap, SmoothnessPreset.Default);
         }
 
         public static float GetSmoothingPercent(SmoothnessPreset preset)
         {
             switch (preset)
             {
-                case SmoothnessPreset.VerySnappy: return 0.10f;
-                case SmoothnessPreset.Snappy: return 0.15f;
-                case SmoothnessPreset.Smooth: return 0.20f;
-                case SmoothnessPreset.Cinematic: return 0.30f;
-                case SmoothnessPreset.UltraSmooth: return 0.40f;
-                default: return 0.20f;
+                case SmoothnessPreset.Instant: return 0f;
+                case SmoothnessPreset.Default: return 0.10f;
+                case SmoothnessPreset.QuickFade: return 0.15f;
+                case SmoothnessPreset.MediumFade: return 0.20f;
+                case SmoothnessPreset.LongFade: return 0.30f;
+                case SmoothnessPreset.VeryLongFade: return 0.40f;
+                default: return 0.10f;
             }
         }
 
