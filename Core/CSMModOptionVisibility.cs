@@ -363,7 +363,10 @@ namespace CSM.Core
         private bool ApplyCooldownPreset(bool force)
         {
             var preset = CSMModOptions.GetCooldownPreset();
-            if (!force && _lastCooldownPreset.HasValue && _lastCooldownPreset.Value.Equals(preset))
+            
+            // When Cooldown is Off, always force apply 0 values to ensure consistency
+            bool isOff = preset == CSMModOptions.CooldownPreset.Off;
+            if (!force && !isOff && _lastCooldownPreset.HasValue && _lastCooldownPreset.Value.Equals(preset))
                 return false;
 
             if (CSMModOptions.DebugLogging)
