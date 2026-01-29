@@ -320,14 +320,15 @@ namespace CSM.Core
         private bool ApplyChancePreset(bool force)
         {
             var preset = CSMModOptions.GetChancePreset();
-            
-            // When Chance is Off, always force apply 100% values to ensure consistency
-            // (other presets might have changed values, so we need to enforce 100%)
+            bool presetChanged = !_lastChancePreset.HasValue || !_lastChancePreset.Value.Equals(preset);
+
+            // When Chance is Off, always apply 100% values to ensure consistency
+            // (but only log when the preset actually changed)
             bool isOff = preset == CSMModOptions.ChancePreset.Off;
-            if (!force && !isOff && _lastChancePreset.HasValue && _lastChancePreset.Value.Equals(preset))
+            if (!force && !isOff && !presetChanged)
                 return false;
 
-            if (CSMModOptions.DebugLogging)
+            if (CSMModOptions.DebugLogging && presetChanged)
                 Debug.Log("[CSM] Applying Chance Preset: " + ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
 
             foreach (var trigger in TriggerTypes)
@@ -336,27 +337,32 @@ namespace CSM.Core
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Chance, value);
                 SyncOptionValue(ChanceOptionNames, trigger, value);
 
-                if (CSMModOptions.DebugLogging)
+                if (CSMModOptions.DebugLogging && presetChanged)
                     Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Chance = " + (value * 100f).ToString("F0") + "%");
             }
 
             _lastChancePreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply("Chance Preset", ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
-            return true;
+            if (presetChanged)
+            {
+                _presetAppliedTime = Time.unscaledTime;
+                StoreExpectedPresetValues();
+                LogPresetApply("Chance Preset", ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
+            }
+            return presetChanged;
         }
 
         private bool ApplyCooldownPreset(bool force)
         {
             var preset = CSMModOptions.GetCooldownPreset();
-            
-            // When Cooldown is Off, always force apply 0 values to ensure consistency
+            bool presetChanged = !_lastCooldownPreset.HasValue || !_lastCooldownPreset.Value.Equals(preset);
+
+            // When Cooldown is Off, always apply 0 values to ensure consistency
+            // (but only log when the preset actually changed)
             bool isOff = preset == CSMModOptions.CooldownPreset.Off;
-            if (!force && !isOff && _lastCooldownPreset.HasValue && _lastCooldownPreset.Value.Equals(preset))
+            if (!force && !isOff && !presetChanged)
                 return false;
 
-            if (CSMModOptions.DebugLogging)
+            if (CSMModOptions.DebugLogging && presetChanged)
                 Debug.Log("[CSM] Applying Cooldown Preset: " + ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
 
             foreach (var trigger in TriggerTypes)
@@ -365,15 +371,18 @@ namespace CSM.Core
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Cooldown, value);
                 SyncOptionValue(CooldownOptionNames, trigger, value);
 
-                if (CSMModOptions.DebugLogging)
+                if (CSMModOptions.DebugLogging && presetChanged)
                     Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Cooldown = " + value.ToString("0.##") + "s");
             }
 
             _lastCooldownPreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply("Cooldown Preset", ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
-            return true;
+            if (presetChanged)
+            {
+                _presetAppliedTime = Time.unscaledTime;
+                StoreExpectedPresetValues();
+                LogPresetApply("Cooldown Preset", ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
+            }
+            return presetChanged;
         }
 
         private bool ApplyDurationPreset(bool force)

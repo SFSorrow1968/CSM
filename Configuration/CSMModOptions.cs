@@ -16,13 +16,13 @@ namespace CSM.Configuration
         public const string CategoryTriggers = "CSM Triggers";
         public const string CategoryKillcam = "CSM Killcam";
         public const string CategoryAdvanced = "CSM Advanced";
-        public const string CategoryCustomBasic = "Custom: Basic Kill";
-        public const string CategoryCustomCritical = "Custom: Critical Kill";
-        public const string CategoryCustomDismemberment = "Custom: Dismemberment";
-        public const string CategoryCustomDecapitation = "Custom: Decapitation";
-        public const string CategoryCustomLastEnemy = "Custom: Last Enemy";
-        public const string CategoryCustomLastStand = "Custom: Last Stand";
-        public const string CategoryCustomParry = "Custom: Parry";
+        public const string CategoryCustomBasic = "Basic Kill";
+        public const string CategoryCustomCritical = "Critical Kill";
+        public const string CategoryCustomDismemberment = "Dismemberment";
+        public const string CategoryCustomDecapitation = "Decapitation";
+        public const string CategoryCustomLastEnemy = "Last Enemy";
+        public const string CategoryCustomLastStand = "Last Stand";
+        public const string CategoryCustomParry = "Parry";
 
         public const string OptionEnableMod = "Enable Mod";
         public const string OptionThirdPersonDistribution = "Third Person Distribution";
