@@ -34,6 +34,13 @@ namespace CSM.Patches
                     return;
                 }
 
+                if (!WasKilledByPlayer(__instance))
+                {
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Kill skipped - not killed by player");
+                    return;
+                }
+
                 if (WasCriticalKill(__instance))
                 {
                     if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, 0f, __instance)) return;
