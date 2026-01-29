@@ -26,7 +26,7 @@ namespace CSM.Core
         private float _transitionStartTime;
         private float _transitionDuration;
         private float _transitionStartScale;
-        private float _smoothOutDuration;
+        private float _DelayOutDuration;
         private const float TransitionTimeoutSeconds = 5f;
         private const float EndOverrunGraceSeconds = 2f;
 
@@ -171,17 +171,17 @@ namespace CSM.Core
                 if (CSMModOptions.DebugLogging)
                 {
                     var raw = CSMModOptions.GetCustomValues(type);
-                    CSMModOptions.GetSmoothingDurations(type, duration, out float smoothIn, out float smoothOut);
+                    CSMModOptions.GetDelayIngDurations(type, duration, out float DelayIn, out float DelayOut);
                     Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type, raw.Distribution));
                     Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type, raw.Distribution) +
-                              " | SmoothIn=" + smoothIn.ToString("0.##") + "s | SmoothOut=" + smoothOut.ToString("0.##") + "s");
+                              " | DelayIn=" + DelayIn.ToString("0.##") + "s | DelayOut=" + DelayOut.ToString("0.##") + "s");
                     Debug.Log("[CSM] TriggerSlow(" + type + ") presets: " +
                               "Intensity=" + CSMModOptions.CurrentPreset +
                               " | Chance=" + CSMModOptions.ChancePresetSetting +
                               " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
                               " | Duration=" + CSMModOptions.DurationPresetSetting +
-                              " | SmoothIn=" + CSMModOptions.SmoothInPresetSetting +
-                              " | SmoothOut=" + CSMModOptions.SmoothOutPresetSetting +
+                              " | DelayIn=" + CSMModOptions.DelayInPresetSetting +
+                              " | DelayOut=" + CSMModOptions.DelayOutPresetSetting +
                               " | GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##"));
                 }
 
@@ -413,26 +413,26 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                float smoothInDuration, smoothOutDuration;
+                float DelayInDuration, DelayOutDuration;
                 if (CSMModOptions.IsTriggerInstant(type))
                 {
-                    smoothInDuration = 0f;
-                    smoothOutDuration = 0f;
+                    DelayInDuration = 0f;
+                    DelayOutDuration = 0f;
                 }
                 else
                 {
-                    CSMModOptions.GetSmoothingDurations(type, duration, out smoothInDuration, out smoothOutDuration);
+                    CSMModOptions.GetDelayIngDurations(type, duration, out DelayInDuration, out DelayOutDuration);
                 }
-                _smoothOutDuration = smoothOutDuration;
+                _DelayOutDuration = DelayOutDuration;
 
                 float minScale = CSMModOptions.MinTimeScale > 0f ? CSMModOptions.MinTimeScale : 0.05f;
                 _targetTimeScale = Mathf.Clamp(timeScale, minScale, 1f);
                 _transitionStartScale = _currentTimeScale;
                 _transitionStartTime = Time.unscaledTime;
-                _transitionDuration = smoothInDuration;
-                _isTransitioning = smoothInDuration > 0f;
+                _transitionDuration = DelayInDuration;
+                _isTransitioning = DelayInDuration > 0f;
 
-                if (smoothInDuration <= 0f)
+                if (DelayInDuration <= 0f)
                 {
                     _currentTimeScale = _targetTimeScale;
                     ApplyTimeScale(_currentTimeScale);
@@ -447,8 +447,8 @@ namespace CSM.Core
                     Debug.Log("[CSM] SlowMo config: target=" + _targetTimeScale.ToString("0.###") +
                               " duration=" + duration.ToString("0.###") +
                               " cooldown=" + cooldown.ToString("0.###") +
-                              " smoothIn=" + smoothInDuration.ToString("0.###") + "s" +
-                              " smoothOut=" + smoothOutDuration.ToString("0.###") + "s" +
+                              " DelayIn=" + DelayInDuration.ToString("0.###") + "s" +
+                              " DelayOut=" + DelayOutDuration.ToString("0.###") + "s" +
                               " endAt=" + _slowMotionEndTime.ToString("0.###") +
                               " now=" + now.ToString("0.###"));
                 }
@@ -472,10 +472,10 @@ namespace CSM.Core
                 _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
                 _transitionStartScale = _currentTimeScale;
                 _transitionStartTime = Time.unscaledTime;
-                _transitionDuration = _smoothOutDuration;
-                _isTransitioning = _smoothOutDuration > 0f;
+                _transitionDuration = _DelayOutDuration;
+                _isTransitioning = _DelayOutDuration > 0f;
 
-                if (_smoothOutDuration <= 0f)
+                if (_DelayOutDuration <= 0f)
                 {
                     _currentTimeScale = _targetTimeScale;
                     ApplyTimeScale(_currentTimeScale);
@@ -486,7 +486,7 @@ namespace CSM.Core
                     float elapsed = Time.unscaledTime - _slowMotionStartTime;
                     float expected = _slowMotionEndTime - _slowMotionStartTime;
                     Debug.Log("[CSM] Transition out: target=" + _targetTimeScale.ToString("0.###") +
-                              " duration=" + _smoothOutDuration.ToString("0.###") + "s");
+                              " duration=" + _DelayOutDuration.ToString("0.###") + "s");
                     Debug.Log("[CSM] SlowMo elapsed: " + elapsed.ToString("0.###") +
                               "s (expected " + expected.ToString("0.###") +
                               "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
