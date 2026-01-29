@@ -10,6 +10,9 @@ OUTPUT = ROOT / "MENU_MOCK.xlsx"
 
 text = CSM_OPTIONS.read_text(encoding="utf-8")
 
+NS_MAIN = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+NS_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+
 
 def extract_method_block(source: str, signature_regex: str) -> str:
     m = re.search(signature_regex, source)
@@ -167,6 +170,7 @@ def parse_modoptions(source: str) -> list[dict[str, str]]:
 providers = parse_provider_values(text)
 options = parse_modoptions(text)
 
+
 def parse_int(value: str) -> int | None:
     value = value.strip()
     if not value:
@@ -216,7 +220,7 @@ def control_type(option: dict[str, str]) -> str:
         interaction = option.get("interactionType", "")
         if "2" in interaction:
             return "Slider"
-        return "Arrow"
+        return "Dropdown"
     return "Input"
 
 
@@ -241,218 +245,148 @@ def provider_values_display(name: str) -> str:
     return " | ".join(values)
 
 
-# Build sheet rows
-menu_rows: list[list[str]] = []
-menu_row_types: list[str] = []
-menu_rows.append(["CSM Menu Mock"])
-menu_row_types.append("title")
-menu_rows.append([])
-menu_row_types.append("blank")
-menu_rows.append(["Category", "Option", "Control", "Default", "Values", "Source", "Tooltip"])
-menu_row_types.append("header")
+# Color scheme - RGB hex colors
+COLORS = {
+    "title_bg": "FF2F5496",        # Dark blue
+    "title_fg": "FFFFFFFF",        # White
+    "section_bg": "FF4472C4",      # Medium blue
+    "section_fg": "FFFFFFFF",      # White
+    "header_bg": "FFD6DCE5",       # Light gray-blue
+    "header_fg": "FF000000",       # Black
+    "data_bg": "FFFFFFFF",         # White
+    "data_alt_bg": "FFF2F2F2",     # Light gray alternating
+    "toggle_bg": "FFE2EFDA",       # Light green
+    "slider_bg": "FFFFF2CC",       # Light yellow
+    "dropdown_bg": "FFFCE4D6",     # Light orange
+    "preset_bg": "FFE2E2F4",       # Light purple for preset categories
+    "custom_bg": "FFDCE6F1",       # Light blue for custom trigger categories
+    "killcam_bg": "FFEBE5D9",      # Light tan for killcam
+    "triggers_bg": "FFD9EAD3",     # Light green for triggers
+    "advanced_bg": "FFF4CCCC",     # Light red for advanced
+    "intensity_bg": "FFDAE3F3",    # Blue tint for intensity
+    "duration_bg": "FFD9EAD3",     # Green tint for duration
+    "cooldown_bg": "FFFCE4D6",     # Orange tint for cooldown
+    "chance_bg": "FFE4DFEC",       # Purple tint for chance
+    "fade_bg": "FFF2F2F2",         # Gray for fade
+    "multiplier_bg": "FFFFF2CC",   # Yellow for multiplier row
+}
 
-for category in sorted(category_order, key=category_sort_key):
-    menu_rows.append([category])
-    menu_row_types.append("section")
-    for option in sorted(by_category[category], key=option_sort_key):
-        src = option["valueSourceName"]
-        menu_rows.append(
-            [
-                category,
-                option["name"],
-                control_type(option),
-                default_display(option),
-                provider_values_display(src),
-                src,
-                option["tooltip"],
-            ]
-        )
-        menu_row_types.append("data")
-    menu_rows.append([])
-    menu_row_types.append("blank")
+# Category to color mapping
+CATEGORY_COLORS = {
+    "Preset Selection": "preset_bg",
+    "Optional Overrides": "preset_bg",
+    "CSM Triggers": "triggers_bg",
+    "CSM Killcam": "killcam_bg",
+    "CSM Advanced": "advanced_bg",
+    "CSM Statistics": "advanced_bg",
+    "Custom: Basic Kill": "custom_bg",
+    "Custom: Critical Kill": "custom_bg",
+    "Custom: Dismemberment": "custom_bg",
+    "Custom: Decapitation": "custom_bg",
+    "Custom: Last Enemy": "custom_bg",
+    "Custom: Last Stand": "custom_bg",
+    "Custom: Parry": "custom_bg",
+}
 
-while menu_rows and not menu_rows[-1]:
-    menu_rows.pop()
-    menu_row_types.pop()
 
-# Preset Reference sheet
-preset_rows: list[list[str]] = []
-preset_row_types: list[str] = []
+# Build styles XML with all our colors
+def build_styles_xml():
+    # Build fills
+    fills = [
+        ("none", None),
+        ("gray125", None),
+    ]
+    fill_map = {}
+    for color_name, color_val in COLORS.items():
+        fill_idx = len(fills)
+        fills.append(("solid", color_val))
+        fill_map[color_name] = fill_idx
 
-preset_rows.append(["Preset Reference"])
-preset_row_types.append("title")
-preset_rows.append([])
-preset_row_types.append("blank")
+    fills_xml = '<fills count="{}">\n'.format(len(fills))
+    for pattern, color in fills:
+        if pattern == "none":
+            fills_xml += '    <fill><patternFill patternType="none"/></fill>\n'
+        elif pattern == "gray125":
+            fills_xml += '    <fill><patternFill patternType="gray125"/></fill>\n'
+        else:
+            fills_xml += f'    <fill><patternFill patternType="solid"><fgColor rgb="{color}"/><bgColor indexed="64"/></patternFill></fill>\n'
+    fills_xml += '  </fills>'
 
-# Intensity Preset (per-trigger time scale values)
-preset_rows.append(["INTENSITY PRESET - Time Scale Values"])
-preset_row_types.append("section")
-preset_rows.append(["Trigger", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"])
-preset_row_types.append("header")
-intensity_data = [
-    ["Parry", "46%", "34%", "29%", "24%", "19%"],
-    ["Dismemberment", "42%", "30%", "25%", "20%", "15%"],
-    ["Basic Kill", "40%", "28%", "23%", "18%", "13%"],
-    ["Last Enemy", "38%", "26%", "21%", "16%", "11%"],
-    ["Critical", "37%", "25%", "20%", "15%", "10%"],
-    ["Decapitation", "35%", "23%", "18%", "13%", "8%"],
-    ["Last Stand", "33%", "21%", "16%", "11%", "8%"],
-]
-for row in intensity_data:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    # Fonts
+    fonts_xml = '''<fonts count="4">
+    <font><sz val="11"/><color theme="1"/><name val="Calibri"/><family val="2"/></font>
+    <font><b/><sz val="14"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font>
+    <font><b/><sz val="12"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font>
+    <font><b/><sz val="11"/><color theme="1"/><name val="Calibri"/><family val="2"/></font>
+  </fonts>'''
 
-# Duration Preset
-preset_rows.append(["DURATION PRESET - Multipliers"])
-preset_row_types.append("section")
-preset_rows.append(["Preset", "Multiplier"])
-preset_row_types.append("header")
-duration_multipliers = [
-    ["Very Short", "0.5x"],
-    ["Short", "0.7x"],
-    ["Standard", "1.0x"],
-    ["Long", "1.3x"],
-    ["Extended", "1.5x"],
-]
-for row in duration_multipliers:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    # Build cellXfs - each style combination
+    # Style indices:
+    # 0 = default
+    # 1 = title (font 1, title_bg)
+    # 2 = section (font 2, section_bg)
+    # 3 = header (font 3, header_bg)
+    # 4+ = data styles with different backgrounds
 
-preset_rows.append(["DURATION PRESET - Base Values (Standard)"])
-preset_row_types.append("section")
-preset_rows.append(["Trigger", "Base Duration"])
-preset_row_types.append("header")
-duration_base = [
-    ["Parry", "1.5s"],
-    ["Dismemberment", "2.0s"],
-    ["Basic Kill", "2.5s"],
-    ["Last Enemy", "2.75s"],
-    ["Critical", "3.0s"],
-    ["Decapitation", "3.25s"],
-    ["Last Stand", "3.5s"],
-]
-for row in duration_base:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    style_map = {
+        "default": 0,
+        "title": 1,
+        "section": 2,
+        "header": 3,
+    }
 
-# Cooldown Preset
-preset_rows.append(["COOLDOWN PRESET - Multipliers"])
-preset_row_types.append("section")
-preset_rows.append(["Preset", "Multiplier"])
-preset_row_types.append("header")
-cooldown_multipliers = [
-    ["Off", "0x (disabled)"],
-    ["Short", "0.6x"],
-    ["Standard", "1.0x"],
-    ["Long", "2.0x"],
-    ["Extended", "3.0x"],
-]
-for row in cooldown_multipliers:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    xf_entries = [
+        (0, 0),  # 0: default
+        (1, fill_map["title_bg"]),  # 1: title
+        (2, fill_map["section_bg"]),  # 2: section
+        (3, fill_map["header_bg"]),  # 3: header
+    ]
 
-preset_rows.append(["COOLDOWN PRESET - Base Values (Standard)"])
-preset_row_types.append("section")
-preset_rows.append(["Trigger", "Base Cooldown"])
-preset_row_types.append("header")
-cooldown_base = [
-    ["Parry", "5s"],
-    ["Basic Kill", "10s"],
-    ["Dismemberment", "10s"],
-    ["Critical", "10s"],
-    ["Decapitation", "10s"],
-    ["Last Enemy", "20s"],
-    ["Last Stand", "60s"],
-]
-for row in cooldown_base:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    # Add data styles for each background color
+    for color_name in ["data_bg", "data_alt_bg", "toggle_bg", "slider_bg", "dropdown_bg",
+                       "preset_bg", "custom_bg", "killcam_bg", "triggers_bg", "advanced_bg",
+                       "intensity_bg", "duration_bg", "cooldown_bg", "chance_bg", "fade_bg",
+                       "multiplier_bg"]:
+        style_idx = len(xf_entries)
+        xf_entries.append((0, fill_map[color_name]))
+        style_map[color_name] = style_idx
 
-# Chance Preset
-preset_rows.append(["CHANCE PRESET - Multipliers"])
-preset_row_types.append("section")
-preset_rows.append(["Preset", "Multiplier"])
-preset_row_types.append("header")
-chance_multipliers = [
-    ["Off", "100% (always triggers)"],
-    ["Very Rare", "0.5x"],
-    ["Rare", "0.6x"],
-    ["Standard", "1.0x"],
-    ["Frequent", "1.4x"],
-]
-for row in chance_multipliers:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    xfs_xml = f'<cellXfs count="{len(xf_entries)}">\n'
+    for font_id, fill_id in xf_entries:
+        if font_id == 0 and fill_id == 0:
+            xfs_xml += '    <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>\n'
+        else:
+            xfs_xml += f'    <xf numFmtId="0" fontId="{font_id}" fillId="{fill_id}" borderId="0" xfId="0" applyFont="1" applyFill="1"/>\n'
+    xfs_xml += '  </cellXfs>'
 
-preset_rows.append(["CHANCE PRESET - Base Values (Standard)"])
-preset_row_types.append("section")
-preset_rows.append(["Trigger", "Base Chance"])
-preset_row_types.append("header")
-chance_base = [
-    ["Basic Kill", "25%"],
-    ["Parry", "50%"],
-    ["Dismemberment", "60%"],
-    ["Critical", "75%"],
-    ["Decapitation", "90%"],
-    ["Last Enemy", "100%"],
-    ["Last Stand", "100%"],
-]
-for row in chance_base:
-    preset_rows.append(row)
-    preset_row_types.append("data")
-preset_rows.append([])
-preset_row_types.append("blank")
+    styles_xml = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="{NS_MAIN}">
+  {fonts_xml}
+  {fills_xml}
+  <borders count="1">
+    <border><left/><right/><top/><bottom/><diagonal/></border>
+  </borders>
+  <cellStyleXfs count="1">
+    <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>
+  </cellStyleXfs>
+  {xfs_xml}
+  <cellStyles count="1">
+    <cellStyle name="Normal" xfId="0" builtinId="0"/>
+  </cellStyles>
+</styleSheet>
+'''
+    return styles_xml.encode("utf-8"), style_map
 
-# Fade Presets
-preset_rows.append(["FADE PRESETS - Smoothing Percentages"])
-preset_row_types.append("section")
-preset_rows.append(["Preset", "Smoothing %", "Description"])
-preset_row_types.append("header")
-fade_presets = [
-    ["Instant", "0%", "No transition, immediate"],
-    ["Default", "10%", "Natural B&S feel"],
-    ["Quick Fade", "15%", "Quick transition"],
-    ["Medium Fade", "20%", "Moderate transition"],
-    ["Long Fade", "30%", "Slow transition"],
-    ["Very Long Fade", "40%", "Very gradual transition"],
-]
-for row in fade_presets:
-    preset_rows.append(row)
-    preset_row_types.append("data")
 
-# Providers sheet
-providers_rows: list[list[str]] = []
-providers_row_types: list[str] = []
-providers_rows.append(["Value Providers"])
-providers_row_types.append("title")
-providers_rows.append([])
-providers_row_types.append("blank")
-providers_rows.append(["Provider", "Values"])
-providers_row_types.append("header")
-for name in sorted(providers.keys()):
-    providers_rows.append([name, provider_values_display(name)])
-    providers_row_types.append("data")
+styles_xml, STYLE_MAP = build_styles_xml()
 
-# Minimal styling
-STYLE_DEFAULT = 0
-STYLE_TITLE = 1
-STYLE_SECTION = 2
-STYLE_HEADER = 4
 
-NS_MAIN = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-NS_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+def col_letter(idx: int) -> str:
+    letters = []
+    while idx:
+        idx, rem = divmod(idx - 1, 26)
+        letters.append(chr(65 + rem))
+    return "".join(reversed(letters))
 
 
 def is_number(value) -> bool:
@@ -465,7 +399,7 @@ def is_number(value) -> bool:
     text = value.strip()
     if not text:
         return False
-    if any(ch in text for ch in ("%", "x")):
+    if any(ch in text for ch in ("%", "x", "s", "m")):
         return False
     try:
         float(text)
@@ -474,18 +408,16 @@ def is_number(value) -> bool:
         return False
 
 
-def col_letter(idx: int) -> str:
-    letters = []
-    while idx:
-        idx, rem = divmod(idx - 1, 26)
-        letters.append(chr(65 + rem))
-    return "".join(reversed(letters))
-
-
-def compute_col_widths(rows: list[list[str]]) -> list[float]:
+def compute_col_widths(rows: list[list]) -> list[float]:
     widths: list[int] = []
     for row in rows:
-        for idx, value in enumerate(row):
+        if not isinstance(row, (list, tuple)):
+            continue
+        for idx, cell in enumerate(row):
+            if isinstance(cell, tuple):
+                value = cell[0]
+            else:
+                value = cell
             text = "" if value is None else str(value)
             if idx >= len(widths):
                 widths.append(len(text))
@@ -493,14 +425,22 @@ def compute_col_widths(rows: list[list[str]]) -> list[float]:
                 widths[idx] = max(widths[idx], len(text))
     result: list[float] = []
     for length in widths:
-        width = max(8, min(60, length + 2))
+        width = max(10, min(60, length + 3))
         result.append(float(width))
     return result
 
 
-def build_sheet_xml(rows: list[list[str]], row_types: list[str]):
+def build_sheet_xml(rows: list, col_widths: list[float] = None):
+    """Build sheet XML. Rows can contain:
+    - list of values (uses row-level style)
+    - list of (value, style_name) tuples for per-cell styling
+    - ("row_style", style_name) as first element to set row default
+    """
     root = ET.Element(f"{{{NS_MAIN}}}worksheet")
-    col_widths = compute_col_widths(rows)
+
+    if col_widths is None:
+        col_widths = compute_col_widths(rows)
+
     if col_widths:
         cols = ET.SubElement(root, f"{{{NS_MAIN}}}cols")
         for idx, width in enumerate(col_widths, start=1):
@@ -509,25 +449,41 @@ def build_sheet_xml(rows: list[list[str]], row_types: list[str]):
                 f"{{{NS_MAIN}}}col",
                 {"min": str(idx), "max": str(idx), "width": f"{width:.2f}", "customWidth": "1"},
             )
+
     sheet_data = ET.SubElement(root, f"{{{NS_MAIN}}}sheetData")
-    max_cols = max((len(r) for r in rows), default=0)
+    max_cols = max((len(r) for r in rows if isinstance(r, (list, tuple))), default=0)
+
     for r_idx, row in enumerate(rows, start=1):
-        row_type = row_types[r_idx - 1] if r_idx - 1 < len(row_types) else "data"
-        if len(row) < max_cols:
-            row = row + [""] * (max_cols - len(row))
+        if not isinstance(row, (list, tuple)):
+            continue
+
         row_el = ET.SubElement(sheet_data, f"{{{NS_MAIN}}}row", {"r": str(r_idx)})
-        if row_type == "title":
-            style_idx = STYLE_TITLE
-        elif row_type == "section":
-            style_idx = STYLE_SECTION
-        elif row_type == "header":
-            style_idx = STYLE_HEADER
-        else:
-            style_idx = STYLE_DEFAULT
-        for c_idx, value in enumerate(row, start=1):
+
+        # Check for row-level style marker
+        row_style = "default"
+        start_idx = 0
+        if row and isinstance(row[0], tuple) and row[0][0] == "row_style":
+            row_style = row[0][1]
+            start_idx = 1
+
+        cells = list(row[start_idx:])
+        while len(cells) < max_cols - start_idx:
+            cells.append("")
+
+        for c_idx, cell in enumerate(cells, start=1):
             cell_ref = f"{col_letter(c_idx)}{r_idx}"
-            if value is None:
-                value = ""
+
+            # Determine value and style
+            if isinstance(cell, tuple):
+                value, cell_style = cell
+            else:
+                value, cell_style = cell, row_style
+
+            style_idx = STYLE_MAP.get(cell_style, STYLE_MAP["default"])
+
+            if value is None or value == "":
+                continue
+
             if is_number(value):
                 c_el = ET.SubElement(row_el, f"{{{NS_MAIN}}}c", {"r": cell_ref, "s": str(style_idx)})
                 v_el = ET.SubElement(c_el, f"{{{NS_MAIN}}}v")
@@ -539,52 +495,191 @@ def build_sheet_xml(rows: list[list[str]], row_types: list[str]):
                 is_el = ET.SubElement(c_el, f"{{{NS_MAIN}}}is")
                 t_el = ET.SubElement(is_el, f"{{{NS_MAIN}}}t")
                 t_el.text = str(value)
+
     return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 
+# ============ BUILD MENU MOCK SHEET ============
+menu_rows = []
+
+# Title
+menu_rows.append([("row_style", "title"), "CSM Menu Mock - v1.5.0", "", "", "", "", "", ""])
+
+# Blank row
+menu_rows.append([])
+
+# Header row
+menu_rows.append([("row_style", "header"), "Category", "Option", "Control", "Default", "Values", "Tooltip"])
+
+# Process categories
+for category in sorted(category_order, key=category_sort_key):
+    # Section header
+    menu_rows.append([("row_style", "section"), category or "Global", "", "", "", "", ""])
+
+    # Get category color
+    cat_color = CATEGORY_COLORS.get(category, "data_bg")
+
+    for opt_idx, option in enumerate(sorted(by_category[category], key=option_sort_key)):
+        ctrl = control_type(option)
+        default = default_display(option)
+        src = option["valueSourceName"]
+        values = provider_values_display(src)
+        tooltip = option["tooltip"]
+
+        # Determine cell color based on control type
+        if ctrl == "Toggle":
+            ctrl_color = "toggle_bg"
+        elif ctrl == "Slider":
+            ctrl_color = "slider_bg"
+        elif ctrl == "Dropdown":
+            ctrl_color = "dropdown_bg"
+        else:
+            ctrl_color = "data_bg"
+
+        menu_rows.append([
+            ("row_style", cat_color),
+            (category, cat_color),
+            (option["name"], cat_color),
+            (ctrl, ctrl_color),
+            (default, cat_color),
+            (values, cat_color),
+            (tooltip, cat_color),
+        ])
+
+    # Blank row after category
+    menu_rows.append([])
+
+# Remove trailing blank rows
+while menu_rows and (not menu_rows[-1] or menu_rows[-1] == []):
+    menu_rows.pop()
+
+
+# ============ BUILD PRESET REFERENCE SHEET ============
+preset_rows = []
+
+# Title
+preset_rows.append([("row_style", "title"), "Preset Reference", "", "", "", "", "", ""])
+preset_rows.append([])
+
+# ---- INTENSITY PRESET ----
+preset_rows.append([("row_style", "section"), "INTENSITY PRESET - Time Scale", "", "", "", "", "", ""])
+preset_rows.append([("row_style", "multiplier_bg"), "Multiplier:", "", "1.5x", "1.0x", "0.8x", "0.5x", "0.3x"])
+preset_rows.append([("row_style", "header"), "Trigger", "Base", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"])
+
+intensity_data = [
+    ("Parry", 0.34, 0.51, 0.34, 0.27, 0.17, 0.10),
+    ("Dismemberment", 0.30, 0.45, 0.30, 0.24, 0.15, 0.09),
+    ("Basic Kill", 0.28, 0.42, 0.28, 0.22, 0.14, 0.08),
+    ("Last Enemy", 0.26, 0.39, 0.26, 0.21, 0.13, 0.08),
+    ("Critical", 0.25, 0.38, 0.25, 0.20, 0.13, 0.08),
+    ("Decapitation", 0.23, 0.35, 0.23, 0.18, 0.12, 0.07),
+    ("Last Stand", 0.30, 0.45, 0.30, 0.24, 0.15, 0.09),
+]
+for row in intensity_data:
+    preset_rows.append([("row_style", "intensity_bg")] + list(row))
+
+preset_rows.append([])
+
+# ---- DURATION PRESET ----
+preset_rows.append([("row_style", "section"), "DURATION PRESET - Seconds", "", "", "", "", "", ""])
+preset_rows.append([("row_style", "multiplier_bg"), "Multiplier:", "", "0.35x", "0.7x", "1.0x", "1.35x", "1.7x"])
+preset_rows.append([("row_style", "header"), "Trigger", "Base", "Very Short", "Short", "Standard", "Long", "Extended"])
+
+duration_data = [
+    ("Parry", 1.5, 0.53, 1.05, 1.5, 2.03, 2.55),
+    ("Dismemberment", 2.0, 0.70, 1.40, 2.0, 2.70, 3.40),
+    ("Basic Kill", 2.5, 0.88, 1.75, 2.5, 3.38, 4.25),
+    ("Last Enemy", 2.75, 0.96, 1.93, 2.75, 3.71, 4.68),
+    ("Critical", 3.0, 1.05, 2.10, 3.0, 4.05, 5.10),
+    ("Decapitation", 3.25, 1.14, 2.28, 3.25, 4.39, 5.53),
+    ("Last Stand", 4.0, 1.40, 2.80, 4.0, 5.40, 6.80),
+]
+for row in duration_data:
+    preset_rows.append([("row_style", "duration_bg")] + list(row))
+
+preset_rows.append([])
+
+# ---- COOLDOWN PRESET ----
+preset_rows.append([("row_style", "section"), "COOLDOWN PRESET - Seconds", "", "", "", "", "", ""])
+preset_rows.append([("row_style", "multiplier_bg"), "Multiplier:", "", "0x", "0.6x", "1.0x", "2.0x", "3.0x"])
+preset_rows.append([("row_style", "header"), "Trigger", "Base", "Off", "Short", "Standard", "Long", "Extended"])
+
+cooldown_data = [
+    ("Parry", 5, 0, 3, 5, 10, 15),
+    ("Basic Kill", 10, 0, 6, 10, 20, 30),
+    ("Dismemberment", 10, 0, 6, 10, 20, 30),
+    ("Critical", 10, 0, 6, 10, 20, 30),
+    ("Decapitation", 10, 0, 6, 10, 20, 30),
+    ("Last Enemy", 30, 0, 18, 30, 60, 90),
+    ("Last Stand", 90, 0, 54, 90, 180, 270),
+]
+for row in cooldown_data:
+    preset_rows.append([("row_style", "cooldown_bg")] + list(row))
+
+preset_rows.append([])
+
+# ---- CHANCE PRESET ----
+preset_rows.append([("row_style", "section"), "CHANCE PRESET - Percentage (Off = 100%)", "", "", "", "", "", ""])
+preset_rows.append([("row_style", "multiplier_bg"), "Multiplier:", "", "100%", "0.5x", "0.6x", "1.0x", "1.4x"])
+preset_rows.append([("row_style", "header"), "Trigger", "Base", "Off", "Very Rare", "Rare", "Standard", "Frequent"])
+
+chance_data = [
+    ("Basic Kill", "25%", "100%", "13%", "15%", "25%", "35%"),
+    ("Parry", "50%", "100%", "25%", "30%", "50%", "70%"),
+    ("Dismemberment", "30%", "100%", "15%", "18%", "30%", "42%"),
+    ("Critical", "75%", "100%", "38%", "45%", "75%", "100%"),
+    ("Decapitation", "90%", "100%", "45%", "54%", "90%", "100%"),
+    ("Last Enemy", "100%", "100%", "50%", "60%", "100%", "100%"),
+    ("Last Stand", "100%", "100%", "50%", "60%", "100%", "100%"),
+]
+for row in chance_data:
+    preset_rows.append([("row_style", "chance_bg")] + list(row))
+
+preset_rows.append([])
+
+# ---- FADE PRESETS ----
+preset_rows.append([("row_style", "section"), "FADE PRESETS - Smoothing Percentage", "", "", "", "", "", ""])
+preset_rows.append([("row_style", "header"), "Preset", "Smoothing %", "Description", "", "", "", ""])
+
+fade_data = [
+    ("Instant", "0%", "No transition, immediate"),
+    ("Default", "10%", "Natural B&S feel"),
+    ("Quick Fade", "15%", "Quick transition"),
+    ("Medium Fade", "20%", "Moderate transition"),
+    ("Long Fade", "30%", "Slow transition"),
+    ("Very Long Fade", "40%", "Very gradual transition"),
+]
+for row in fade_data:
+    preset_rows.append([("row_style", "fade_bg")] + list(row) + ["", "", "", ""])
+
+
+# ============ BUILD PROVIDERS SHEET ============
+providers_rows = []
+providers_rows.append([("row_style", "title"), "Value Providers", "", ""])
+providers_rows.append([])
+providers_rows.append([("row_style", "header"), "Provider", "Value Count", "Values"])
+
+for name in sorted(providers.keys()):
+    values = providers.get(name, [])
+    providers_rows.append([
+        ("row_style", "data_bg"),
+        name,
+        len(values),
+        provider_values_display(name)
+    ])
+
+
+# ============ BUILD XLSX ============
 def sanitize(name: str) -> str:
     invalid = set(r'[]:*?/\\')
     cleaned = "".join(ch for ch in name if ch not in invalid)
     return cleaned[:31] if len(cleaned) > 31 else cleaned
 
 
-# Minimal styles borrowed from preset guide script
-styles_xml = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<styleSheet xmlns="{NS_MAIN}">
-  <fonts count="3">
-    <font><sz val="11"/><color theme="1"/><name val="Calibri"/><family val="2"/></font>
-    <font><b/><sz val="14"/><color theme="1"/><name val="Calibri"/><family val="2"/></font>
-    <font><b/><sz val="11"/><color theme="1"/><name val="Calibri"/><family val="2"/></font>
-  </fonts>
-  <fills count="3">
-    <fill><patternFill patternType="none"/></fill>
-    <fill><patternFill patternType="gray125"/></fill>
-    <fill><patternFill patternType="solid"><fgColor rgb="FFD9E2F3"/><bgColor indexed="64"/></patternFill></fill>
-  </fills>
-  <borders count="1">
-    <border><left/><right/><top/><bottom/><diagonal/></border>
-  </borders>
-  <cellStyleXfs count="1">
-    <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>
-  </cellStyleXfs>
-  <cellXfs count="5">
-    <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
-    <xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/>
-    <xf numFmtId="0" fontId="2" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>
-    <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
-    <xf numFmtId="0" fontId="2" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>
-  </cellXfs>
-  <cellStyles count="1">
-    <cellStyle name="Normal" xfId="0" builtinId="0"/>
-  </cellStyles>
-</styleSheet>
-""".encode("utf-8")
-
-
 sheets = [
-    ("Menu Mock", menu_rows, menu_row_types),
-    ("Preset Reference", preset_rows, preset_row_types),
-    ("Providers", providers_rows, providers_row_types),
+    ("Menu Mock", menu_rows),
+    ("Preset Reference", preset_rows),
+    ("Providers", providers_rows),
 ]
 
 # workbook.xml
@@ -593,7 +688,7 @@ sheets_el = ET.SubElement(workbook, f"{{{NS_MAIN}}}sheets")
 
 sheet_names = []
 name_counts = {}
-for name, _, _ in sheets:
+for name, _ in sheets:
     base = sanitize(name)
     count = name_counts.get(base, 0) + 1
     name_counts[base] = count
@@ -647,7 +742,7 @@ root_rels_xml = ET.tostring(root_rels, encoding="utf-8", xml_declaration=True)
 
 # [Content_Types].xml
 sheet_overrides = "\n".join(
-    f"  <Override PartName=\"/xl/worksheets/sheet{i}.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>"
+    f'  <Override PartName="/xl/worksheets/sheet{i}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
     for i in range(1, len(sheets) + 1)
 )
 content_types = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -662,8 +757,8 @@ content_types = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 # Build sheets
 sheet_xmls = []
-for _, rows, row_types in sheets:
-    sheet_xmls.append(build_sheet_xml(rows, row_types))
+for _, rows in sheets:
+    sheet_xmls.append(build_sheet_xml(rows))
 
 with zipfile.ZipFile(OUTPUT, "w", compression=zipfile.ZIP_DEFLATED) as zf:
     zf.writestr("[Content_Types].xml", content_types)
@@ -675,3 +770,10 @@ with zipfile.ZipFile(OUTPUT, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         zf.writestr(f"xl/worksheets/sheet{idx}.xml", xml_bytes)
 
 print(f"Wrote {OUTPUT}")
+print("Color scheme:")
+print("  - Title: Dark blue with white text")
+print("  - Section headers: Medium blue with white text")
+print("  - Column headers: Light gray-blue")
+print("  - Categories: Color-coded by type (presets=purple, triggers=green, killcam=tan, custom=blue, advanced=red)")
+print("  - Controls: Color-coded (Toggle=green, Slider=yellow, Dropdown=orange)")
+print("  - Preset tables: Color-coded (Intensity=blue, Duration=green, Cooldown=orange, Chance=purple, Fade=gray)")
