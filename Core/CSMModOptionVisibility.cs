@@ -18,7 +18,6 @@ namespace CSM.Core
         private CSMModOptions.CooldownPreset? _lastCooldownPreset;
         private CSMModOptions.DurationPreset? _lastDurationPreset;
         private CSMModOptions.DelayPreset? _lastDelayInPreset;
-        private CSMModOptions.DelayPreset? _lastDelayOutPreset;
         private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         private bool _lastDebugLogging;
@@ -112,17 +111,6 @@ namespace CSM.Core
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandDelayIn) }
         };
 
-        private static readonly Dictionary<TriggerType, string> DelayOutOptionNames = new Dictionary<TriggerType, string>
-        {
-            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicDelayOut) },
-            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionCriticalDelayOut) },
-            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionDismemberDelayOut) },
-            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionDecapDelayOut) },
-            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionParryDelayOut) },
-            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyDelayOut) },
-            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandDelayOut) }
-        };
-
         private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
         {
             { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerBasicKill) },
@@ -146,7 +134,6 @@ namespace CSM.Core
             _lastCooldownPreset = null;
             _lastDurationPreset = null;
             _lastDelayInPreset = null;
-            _lastDelayOutPreset = null;
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
@@ -230,7 +217,7 @@ namespace CSM.Core
             local = ApplyDurationPreset(force);
             changed |= local;
             presetChanged |= local;
-            local = ApplyDelayIngPresets(force);
+            local = ApplyDelayPreset(force);
             changed |= local;
             presetChanged |= local;
             local = ApplyDistributionPreset(force);
@@ -415,37 +402,29 @@ namespace CSM.Core
             return true;
         }
 
-        private bool ApplyDelayIngPresets(bool force)
+        private bool ApplyDelayPreset(bool force)
         {
-            var inPreset = CSMModOptions.GetDelayInPreset();
-            var outPreset = CSMModOptions.GetDelayOutPreset();
+            var preset = CSMModOptions.GetDelayInPreset();
 
-            bool inChanged = !_lastDelayInPreset.HasValue || !_lastDelayInPreset.Value.Equals(inPreset);
-            bool outChanged = !_lastDelayOutPreset.HasValue || !_lastDelayOutPreset.Value.Equals(outPreset);
+            bool changed = !_lastDelayInPreset.HasValue || !_lastDelayInPreset.Value.Equals(preset);
 
-            if (!force && !inChanged && !outChanged)
+            if (!force && !changed)
                 return false;
 
-            string inValue = CSMModOptions.DelayInPresetSetting;
-            string outValue = CSMModOptions.DelayOutPresetSetting;
+            string value = CSMModOptions.DelayInPresetSetting;
 
             foreach (var trigger in TriggerTypes)
             {
-                CSMModOptions.SetTriggerSmoothPreset(trigger, CSMModOptions.TriggerField.DelayIn, inValue);
-                CSMModOptions.SetTriggerSmoothPreset(trigger, CSMModOptions.TriggerField.DelayOut, outValue);
-                SyncStringOption(DelayInOptionNames, trigger, inValue);
-                SyncStringOption(DelayOutOptionNames, trigger, outValue);
+                CSMModOptions.SetTriggerDelayPreset(trigger, value);
+                SyncStringOption(DelayInOptionNames, trigger, value);
             }
 
-            _lastDelayInPreset = inPreset;
-            _lastDelayOutPreset = outPreset;
+            _lastDelayInPreset = preset;
             _presetAppliedTime = Time.unscaledTime;
             StoreExpectedPresetValues();
 
-            float inPercent = CSMModOptions.GetDelayPercent(inPreset) * 100f;
-            float outPercent = CSMModOptions.GetDelayPercent(outPreset) * 100f;
-            LogPresetApply("Delay In/Out Presets", inValue + " (" + inPercent.ToString("F0") + "%) / " +
-                           outValue + " (" + outPercent.ToString("F0") + "%)");
+            float delayTime = CSMModOptions.GetDelayTime(preset);
+            LogPresetApply("Delay Preset", value + " (" + delayTime.ToString("F2") + "s)");
             return true;
         }
 
@@ -751,18 +730,8 @@ namespace CSM.Core
             string durationLabel = values.Duration.ToString("F1") + "s";
             string cooldownLabel = values.Cooldown.ToString("F1") + "s";
 
-            float inPercent = CSMModOptions.GetDelayPercent(values.DelayIn);
-            float outPercent = CSMModOptions.GetDelayPercent(values.DelayOut);
-            float totalPercent = inPercent + outPercent;
-            if (totalPercent > 1f)
-            {
-                float scale = 1f / totalPercent;
-                inPercent *= scale;
-                outPercent *= scale;
-            }
-            float DelayIn = values.Duration * inPercent;
-            float DelayOut = values.Duration * outPercent;
-            string smoothLabel = DelayIn.ToString("0.##") + "s/" + DelayOut.ToString("0.##") + "s";
+            float delayTime = CSMModOptions.GetDelayTime(values.DelayIn);
+            string smoothLabel = delayTime.ToString("0.##") + "s";
 
             string tpLabel;
             if (!CSMModOptions.IsThirdPersonEligible(type))
@@ -922,7 +891,6 @@ namespace CSM.Core
             if (Mathf.Abs(a.Duration - b.Duration) > epsilon) return true;
             if (Mathf.Abs(a.Cooldown - b.Cooldown) > epsilon) return true;
             if (a.DelayIn != b.DelayIn) return true;
-            if (a.DelayOut != b.DelayOut) return true;
             if (Mathf.Abs(a.Distribution - b.Distribution) > epsilon) return true;
             return false;
         }
@@ -1002,8 +970,7 @@ namespace CSM.Core
                       " | Chance=" + CSMModOptions.ChancePresetSetting +
                       " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
                       " | Duration=" + CSMModOptions.DurationPresetSetting +
-                      " | DelayIn=" + CSMModOptions.DelayInPresetSetting +
-                      " | DelayOut=" + CSMModOptions.DelayOutPresetSetting +
+                      " | Delay=" + CSMModOptions.DelayInPresetSetting +
                       " | ThirdPerson=" + CSMModOptions.CameraDistribution +
                       " | TriggerProfile=" + CSMModOptions.TriggerProfile);
             Debug.Log("[CSM] Menu overrides: " +
