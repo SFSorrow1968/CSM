@@ -490,7 +490,8 @@ namespace CSM.Configuration
         public static ModOptionFloat[] CustomTimeScaleProvider()
         {
             var list = new System.Collections.Generic.List<ModOptionFloat>();
-            for (int i = 5; i <= 50; i++)
+            // 0.01 increments from 0.05 to 0.55 to cover all intensity preset values
+            for (int i = 5; i <= 55; i++)
             {
                 float val = i / 100f;
                 list.Add(new ModOptionFloat($"{val:0.00}x", val));
@@ -501,10 +502,10 @@ namespace CSM.Configuration
         public static ModOptionFloat[] CustomDurationProvider()
         {
             var list = new System.Collections.Generic.List<ModOptionFloat>();
-            // 0.25s increments from 0.5s to 10s
-            for (int i = 2; i <= 40; i++)
+            // 0.01s increments from 0.5s to 7s to cover all duration preset values
+            for (int i = 50; i <= 700; i++)
             {
-                float val = i * 0.25f;
+                float val = i / 100f;
                 list.Add(new ModOptionFloat($"{val:0.##}s", val));
             }
             return list.ToArray();
@@ -519,8 +520,8 @@ namespace CSM.Configuration
             {
                 list.Add(new ModOptionFloat($"{i}s", (float)i));
             }
-            // 5s increments from 35s to 60s
-            for (int i = 35; i <= 60; i += 5)
+            // 3s increments from 33s to 60s (covers 54s from cooldown presets)
+            for (int i = 33; i <= 60; i += 3)
             {
                 list.Add(new ModOptionFloat($"{i}s", (float)i));
             }
@@ -529,8 +530,8 @@ namespace CSM.Configuration
             {
                 list.Add(new ModOptionFloat($"{i}s", (float)i));
             }
-            // 30s increments from 150s to 180s
-            for (int i = 150; i <= 180; i += 30)
+            // 30s increments from 150s to 270s (covers extended Last Stand cooldown)
+            for (int i = 150; i <= 270; i += 30)
             {
                 list.Add(new ModOptionFloat($"{i}s", (float)i));
             }
@@ -791,13 +792,13 @@ namespace CSM.Configuration
         [ModOption(name = OptionChance, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 10, defaultValueIndex = 2, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float BasicKillChance = 0.25f;
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 9, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 23, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float BasicKillTimeScale = 0.28f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 19, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 200, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float BasicKillDuration = 2.5f;
 
-        [ModOption(name = OptionCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 18, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 10f;
 
         [ModOption(name = OptionSmoothIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
@@ -816,13 +817,13 @@ namespace CSM.Configuration
         [ModOption(name = OptionChance, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 10, defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float CriticalKillChance = 0.75f;
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 7, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 20, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float CriticalKillTimeScale = 0.25f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 23, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 250, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float CriticalKillDuration = 3.0f;
 
-        [ModOption(name = OptionCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 18, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 10f;
 
         [ModOption(name = OptionSmoothIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
@@ -841,13 +842,13 @@ namespace CSM.Configuration
         [ModOption(name = OptionChance, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 10, defaultValueIndex = 4, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DismembermentChance = 0.3f;
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 10, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 25, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DismembermentTimeScale = 0.3f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 14, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 150, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DismembermentDuration = 2.0f;
 
-        [ModOption(name = OptionCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 18, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 10f;
 
         [ModOption(name = OptionSmoothIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
@@ -866,13 +867,13 @@ namespace CSM.Configuration
         [ModOption(name = OptionChance, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 10, defaultValueIndex = 14, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DecapitationChance = 0.9f;
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 6, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 18, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DecapitationTimeScale = 0.23f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 24, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 275, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DecapitationDuration = 3.25f;
 
-        [ModOption(name = OptionCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 18, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 10f;
 
         [ModOption(name = OptionSmoothIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
@@ -891,10 +892,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionChance, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 10, defaultValueIndex = 15, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float LastEnemyChance = 1.0f;
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 8, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 21, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastEnemyTimeScale = 0.26f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 21, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 225, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastEnemyDuration = 2.75f;
 
         [ModOption(name = OptionCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 30, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
@@ -913,13 +914,13 @@ namespace CSM.Configuration
 
         #region Custom: Last Stand
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 11, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 25, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastStandTimeScale = 0.30f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 29, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 350, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastStandDuration = 4.0f;
 
-        [ModOption(name = OptionCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 36, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 43, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 90f;
 
         [ModOption(name = OptionSmoothIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
@@ -935,13 +936,13 @@ namespace CSM.Configuration
         [ModOption(name = OptionChance, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 10, defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float ParryChance = 0.5f;
 
-        [ModOption(name = OptionTimeScale, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 11, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
+        [ModOption(name = OptionTimeScale, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 29, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float ParryTimeScale = 0.34f;
 
-        [ModOption(name = OptionDuration, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 10, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
+        [ModOption(name = OptionDuration, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 100, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float ParryDuration = 1.5f;
 
-        [ModOption(name = OptionCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 11, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
+        [ModOption(name = OptionCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 5f;
 
         [ModOption(name = OptionSmoothIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 1, valueSourceName = "SmoothnessPresetProvider", tooltip = "Transition into slow motion")]
