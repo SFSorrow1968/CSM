@@ -1416,8 +1416,8 @@ namespace CSM.Configuration
         }
 
         /// <summary>
-        /// Get direct chance value for a trigger based on the current ChancePreset.
-        /// Values are pre-computed (no runtime multipliers).
+        /// Get chance value for a trigger based on the current ChancePreset.
+        /// All values are final (from XLSX), no runtime calculations.
         /// </summary>
         public static float GetPresetChanceValue(TriggerType trigger)
         {
@@ -1427,36 +1427,64 @@ namespace CSM.Configuration
             if (preset == ChancePreset.Off)
                 return 1.0f;
             
-            // Base chance values per trigger (Standard preset)
-            float baseChance;
+            // Final values per trigger/preset (from XLSX)
             switch (trigger)
             {
-                case TriggerType.BasicKill: baseChance = 0.25f; break;
-                case TriggerType.Critical: baseChance = 0.75f; break;
-                case TriggerType.Dismemberment: baseChance = 0.30f; break;
-                case TriggerType.Decapitation: baseChance = 0.90f; break;
-                case TriggerType.Parry: baseChance = 0.50f; break;
-                case TriggerType.LastEnemy: baseChance = 1.0f; break;
-                case TriggerType.LastStand: baseChance = 1.0f; break;
-                default: baseChance = 0.5f; break;
+                case TriggerType.BasicKill:
+                    switch (preset)
+                    {
+                        case ChancePreset.VeryRare: return 0.12f;
+                        case ChancePreset.Rare: return 0.15f;
+                        case ChancePreset.Standard: return 0.25f;
+                        case ChancePreset.Frequent: return 0.35f;
+                    }
+                    break;
+                case TriggerType.Critical:
+                    switch (preset)
+                    {
+                        case ChancePreset.VeryRare: return 0.38f;
+                        case ChancePreset.Rare: return 0.45f;
+                        case ChancePreset.Standard: return 0.75f;
+                        case ChancePreset.Frequent: return 1.0f;
+                    }
+                    break;
+                case TriggerType.Dismemberment:
+                    switch (preset)
+                    {
+                        case ChancePreset.VeryRare: return 0.15f;
+                        case ChancePreset.Rare: return 0.18f;
+                        case ChancePreset.Standard: return 0.30f;
+                        case ChancePreset.Frequent: return 0.42f;
+                    }
+                    break;
+                case TriggerType.Decapitation:
+                    switch (preset)
+                    {
+                        case ChancePreset.VeryRare: return 0.45f;
+                        case ChancePreset.Rare: return 0.54f;
+                        case ChancePreset.Standard: return 0.90f;
+                        case ChancePreset.Frequent: return 1.0f;
+                    }
+                    break;
+                case TriggerType.Parry:
+                    switch (preset)
+                    {
+                        case ChancePreset.VeryRare: return 0.25f;
+                        case ChancePreset.Rare: return 0.30f;
+                        case ChancePreset.Standard: return 0.50f;
+                        case ChancePreset.Frequent: return 0.70f;
+                    }
+                    break;
+                case TriggerType.LastEnemy:
+                case TriggerType.LastStand:
+                    return 1.0f; // Always 100% for these
             }
-            
-            // Apply preset multiplier to get direct value
-            float multiplier;
-            switch (preset)
-            {
-                case ChancePreset.VeryRare: multiplier = 0.5f; break;
-                case ChancePreset.Rare: multiplier = 0.6f; break;
-                case ChancePreset.Frequent: multiplier = 1.4f; break;
-                default: multiplier = 1.0f; break; // Standard
-            }
-            
-            return Mathf.Clamp01(baseChance * multiplier);
+            return 0.5f;
         }
 
         /// <summary>
-        /// Get direct cooldown value for a trigger based on the current CooldownPreset.
-        /// Values are pre-computed (no runtime multipliers).
+        /// Get cooldown value for a trigger based on the current CooldownPreset.
+        /// All values are final (from XLSX), no runtime calculations.
         /// </summary>
         public static float GetPresetCooldownValue(TriggerType trigger)
         {
@@ -1466,59 +1494,135 @@ namespace CSM.Configuration
             if (preset == CooldownPreset.Off)
                 return 0f;
             
-            // Base cooldown values per trigger (Standard preset)
-            float baseCooldown;
+            // Final values per trigger/preset (from XLSX)
             switch (trigger)
             {
-                case TriggerType.BasicKill: baseCooldown = 10f; break;
-                case TriggerType.Critical: baseCooldown = 10f; break;
-                case TriggerType.Dismemberment: baseCooldown = 10f; break;
-                case TriggerType.Decapitation: baseCooldown = 10f; break;
-                case TriggerType.Parry: baseCooldown = 5f; break;
-                case TriggerType.LastEnemy: baseCooldown = 30f; break;
-                case TriggerType.LastStand: baseCooldown = 90f; break;
-                default: baseCooldown = 10f; break;
+                case TriggerType.BasicKill:
+                case TriggerType.Critical:
+                case TriggerType.Dismemberment:
+                case TriggerType.Decapitation:
+                    switch (preset)
+                    {
+                        case CooldownPreset.Short: return 6f;
+                        case CooldownPreset.Standard: return 10f;
+                        case CooldownPreset.Long: return 20f;
+                        case CooldownPreset.Extended: return 30f;
+                    }
+                    break;
+                case TriggerType.Parry:
+                    switch (preset)
+                    {
+                        case CooldownPreset.Short: return 3f;
+                        case CooldownPreset.Standard: return 5f;
+                        case CooldownPreset.Long: return 10f;
+                        case CooldownPreset.Extended: return 15f;
+                    }
+                    break;
+                case TriggerType.LastEnemy:
+                    switch (preset)
+                    {
+                        case CooldownPreset.Short: return 18f;
+                        case CooldownPreset.Standard: return 30f;
+                        case CooldownPreset.Long: return 60f;
+                        case CooldownPreset.Extended: return 90f;
+                    }
+                    break;
+                case TriggerType.LastStand:
+                    switch (preset)
+                    {
+                        case CooldownPreset.Short: return 54f;
+                        case CooldownPreset.Standard: return 90f;
+                        case CooldownPreset.Long: return 180f;
+                        case CooldownPreset.Extended: return 270f;
+                    }
+                    break;
             }
-            
-            // Apply preset multiplier to get direct value
-            float multiplier;
-            switch (preset)
-            {
-                case CooldownPreset.Short: multiplier = 0.6f; break;
-                case CooldownPreset.Long: multiplier = 2.0f; break;
-                case CooldownPreset.Extended: multiplier = 3.0f; break;
-                default: multiplier = 1.0f; break; // Standard
-            }
-            
-            return Mathf.Max(0f, baseCooldown * multiplier);
+            return 10f;
         }
 
         /// <summary>
-        /// Get direct duration value for a trigger based on the current DurationPreset.
-        /// Values are pre-computed (no runtime multipliers).
+        /// Get duration value for a trigger based on the current DurationPreset.
+        /// All values are final (from XLSX), no runtime calculations.
         /// </summary>
         public static float GetPresetDurationValue(TriggerType trigger)
         {
             var preset = GetDurationPreset();
             
-            // Base duration values per trigger (Standard preset)
-            float baseDuration;
+            // Final values per trigger/preset (from XLSX)
             switch (trigger)
             {
-                case TriggerType.BasicKill: baseDuration = 2.5f; break;
-                case TriggerType.Critical: baseDuration = 3.0f; break;
-                case TriggerType.Dismemberment: baseDuration = 2.0f; break;
-                case TriggerType.Decapitation: baseDuration = 3.25f; break;
-                case TriggerType.Parry: baseDuration = 1.5f; break;
-                case TriggerType.LastEnemy: baseDuration = 2.75f; break;
-                case TriggerType.LastStand: baseDuration = 4.0f; break;
-                default: baseDuration = 2.0f; break;
+                case TriggerType.BasicKill:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 0.9f;
+                        case DurationPreset.Short: return 1.75f;
+                        case DurationPreset.Standard: return 2.5f;
+                        case DurationPreset.Long: return 3.4f;
+                        case DurationPreset.Extended: return 4.25f;
+                    }
+                    break;
+                case TriggerType.Critical:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 1.05f;
+                        case DurationPreset.Short: return 2.1f;
+                        case DurationPreset.Standard: return 3.0f;
+                        case DurationPreset.Long: return 4.05f;
+                        case DurationPreset.Extended: return 5.1f;
+                    }
+                    break;
+                case TriggerType.Dismemberment:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 0.7f;
+                        case DurationPreset.Short: return 1.4f;
+                        case DurationPreset.Standard: return 2.0f;
+                        case DurationPreset.Long: return 2.7f;
+                        case DurationPreset.Extended: return 3.4f;
+                    }
+                    break;
+                case TriggerType.Decapitation:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 1.1f;
+                        case DurationPreset.Short: return 2.3f;
+                        case DurationPreset.Standard: return 3.25f;
+                        case DurationPreset.Long: return 4.4f;
+                        case DurationPreset.Extended: return 5.5f;
+                    }
+                    break;
+                case TriggerType.Parry:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 0.5f;
+                        case DurationPreset.Short: return 1.05f;
+                        case DurationPreset.Standard: return 1.5f;
+                        case DurationPreset.Long: return 2.0f;
+                        case DurationPreset.Extended: return 2.55f;
+                    }
+                    break;
+                case TriggerType.LastEnemy:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 0.95f;
+                        case DurationPreset.Short: return 1.9f;
+                        case DurationPreset.Standard: return 2.75f;
+                        case DurationPreset.Long: return 3.7f;
+                        case DurationPreset.Extended: return 4.7f;
+                    }
+                    break;
+                case TriggerType.LastStand:
+                    switch (preset)
+                    {
+                        case DurationPreset.VeryShort: return 1.4f;
+                        case DurationPreset.Short: return 2.8f;
+                        case DurationPreset.Standard: return 4.0f;
+                        case DurationPreset.Long: return 5.4f;
+                        case DurationPreset.Extended: return 6.8f;
+                    }
+                    break;
             }
-            
-            // Apply preset multiplier to get direct value
-            float multiplier = GetDurationMultiplier();
-            
-            return Mathf.Max(0.05f, baseDuration * multiplier);
+            return 2.0f;
         }
 
         public static void ApplyChancePreset(ref float chance)
