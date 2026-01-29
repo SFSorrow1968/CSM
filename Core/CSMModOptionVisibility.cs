@@ -333,7 +333,11 @@ namespace CSM.Core
         private bool ApplyChancePreset(bool force)
         {
             var preset = CSMModOptions.GetChancePreset();
-            if (!force && _lastChancePreset.HasValue && _lastChancePreset.Value.Equals(preset))
+            
+            // When Chance is Off, always force apply 100% values to ensure consistency
+            // (other presets might have changed values, so we need to enforce 100%)
+            bool isOff = preset == CSMModOptions.ChancePreset.Off;
+            if (!force && !isOff && _lastChancePreset.HasValue && _lastChancePreset.Value.Equals(preset))
                 return false;
 
             if (CSMModOptions.DebugLogging)
