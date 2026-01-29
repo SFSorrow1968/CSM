@@ -86,25 +86,40 @@ row_types = []
 formulas = {}
 
 # ============ INTENSITY PRESET ============
-rows.append(["INTENSITY PRESET - Time Scale (per-trigger values, not multipliers)"])
+rows.append(["INTENSITY PRESET - Time Scale"])
 row_types.append("section")
 rows.append([])
 row_types.append("blank")
-rows.append(["Trigger", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"])
+
+# Multiplier row (values directly above preset names)
+rows.append(["", "", 1.35, 1.0, 0.85, 0.70, 0.55])
+row_types.append("data")
+intensity_mult_row = len(rows)
+
+# Header row with preset names
+rows.append(["Trigger", "Base", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"])
 row_types.append("header")
 
-intensity_values = [
-    ("Parry", [0.46, 0.34, 0.29, 0.24, 0.19]),
-    ("Dismemberment", [0.42, 0.30, 0.25, 0.20, 0.15]),
-    ("Basic Kill", [0.40, 0.28, 0.23, 0.18, 0.13]),
-    ("Last Enemy", [0.38, 0.26, 0.21, 0.16, 0.11]),
-    ("Critical", [0.37, 0.25, 0.20, 0.15, 0.10]),
-    ("Decapitation", [0.35, 0.23, 0.18, 0.13, 0.08]),
-    ("Last Stand", [0.33, 0.21, 0.16, 0.11, 0.08]),
+# Intensity base values (Standard preset values)
+intensity_bases = [
+    ("Parry", 0.34),
+    ("Dismemberment", 0.30),
+    ("Basic Kill", 0.28),
+    ("Last Enemy", 0.26),
+    ("Critical", 0.25),
+    ("Decapitation", 0.23),
+    ("Last Stand", 0.21),
 ]
-for trigger, values in intensity_values:
-    rows.append([trigger] + values)
+
+for trigger, base in intensity_bases:
+    current_row = len(rows) + 1
+    rows.append([trigger, base, "", "", "", "", ""])
     row_types.append("data")
+    # Add formulas for columns C-G (multiply base by multiplier)
+    for col_offset in range(5):
+        col_idx = col_offset + 3  # C=3, D=4, E=5, F=6, G=7
+        mult_col = col_letter(col_idx)
+        formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${intensity_mult_row}"
 
 rows.append([])
 row_types.append("blank")
@@ -112,28 +127,19 @@ rows.append([])
 row_types.append("blank")
 
 # ============ DURATION PRESET ============
-duration_start_row = len(rows) + 1
-
-rows.append(["DURATION PRESET - Edit multipliers in row below"])
+rows.append(["DURATION PRESET"])
 row_types.append("section")
 rows.append([])
 row_types.append("blank")
 
-# Multiplier row (editable)
-rows.append(["Multiplier:", "Very Short", "Short", "Standard", "Long", "Extended"])
-row_types.append("header")
-mult_row = len(rows) + 1
-rows.append(["", 0.5, 0.7, 1.0, 1.3, 1.5])  # Editable multipliers
+# Multiplier row (values directly above preset names)
+rows.append(["", "", 0.5, 0.7, 1.0, 1.3, 1.5])
 row_types.append("data")
 duration_mult_row = len(rows)
 
-rows.append([])
-row_types.append("blank")
-
-# Header with Base column
+# Header row with preset names
 rows.append(["Trigger", "Base", "Very Short", "Short", "Standard", "Long", "Extended"])
 row_types.append("header")
-header_row = len(rows)
 
 # Duration base values
 duration_bases = [
@@ -150,11 +156,9 @@ for trigger, base in duration_bases:
     current_row = len(rows) + 1
     rows.append([trigger, base, "", "", "", "", ""])
     row_types.append("data")
-    # Add formulas for columns C-G (multiply base by multiplier)
     for col_offset in range(5):
-        col_idx = col_offset + 3  # C=3, D=4, E=5, F=6, G=7
+        col_idx = col_offset + 3
         mult_col = col_letter(col_idx)
-        # Formula: =B{row}*{mult_col}${mult_row}
         formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${duration_mult_row}"
 
 rows.append([])
@@ -163,20 +167,17 @@ rows.append([])
 row_types.append("blank")
 
 # ============ COOLDOWN PRESET ============
-rows.append(["COOLDOWN PRESET - Edit multipliers in row below"])
+rows.append(["COOLDOWN PRESET"])
 row_types.append("section")
 rows.append([])
 row_types.append("blank")
 
-rows.append(["Multiplier:", "Off", "Short", "Standard", "Long", "Extended"])
-row_types.append("header")
-rows.append(["", 0, 0.6, 1.0, 2.0, 3.0])  # Editable multipliers
+# Multiplier row (values directly above preset names)
+rows.append(["", "", 0, 0.6, 1.0, 2.0, 3.0])
 row_types.append("data")
 cooldown_mult_row = len(rows)
 
-rows.append([])
-row_types.append("blank")
-
+# Header row with preset names
 rows.append(["Trigger", "Base", "Off", "Short", "Standard", "Long", "Extended"])
 row_types.append("header")
 
@@ -205,20 +206,17 @@ rows.append([])
 row_types.append("blank")
 
 # ============ CHANCE PRESET ============
-rows.append(["CHANCE PRESET - Edit multipliers in row below (Off = always 100%)"])
+rows.append(["CHANCE PRESET (Off = always 100%)"])
 row_types.append("section")
 rows.append([])
 row_types.append("blank")
 
-rows.append(["Multiplier:", "Off", "Very Rare", "Rare", "Standard", "Frequent"])
-row_types.append("header")
-rows.append(["", 1.0, 0.5, 0.6, 1.0, 1.4])  # Off=1.0 means 100%
+# Multiplier row (values directly above preset names)
+rows.append(["", "", 1.0, 0.5, 0.6, 1.0, 1.4])  # Off=1.0 means 100%
 row_types.append("data")
 chance_mult_row = len(rows)
 
-rows.append([])
-row_types.append("blank")
-
+# Header row with preset names
 rows.append(["Trigger", "Base", "Off", "Very Rare", "Rare", "Standard", "Frequent"])
 row_types.append("header")
 
