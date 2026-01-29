@@ -478,139 +478,63 @@ namespace CSM.Configuration
 
         public static ModOptionFloat[] CustomChanceProvider()
         {
-            return new ModOptionFloat[]
+            var list = new System.Collections.Generic.List<ModOptionFloat>();
+            // 5% increments from 5% to 100%
+            for (int i = 5; i <= 100; i += 5)
             {
-                new ModOptionFloat("12.5%", 0.125f),
-                new ModOptionFloat("15%", 0.15f),
-                new ModOptionFloat("25%", 0.25f),
-                new ModOptionFloat("30%", 0.3f),
-                new ModOptionFloat("35%", 0.35f),
-                new ModOptionFloat("36%", 0.36f),
-                new ModOptionFloat("37.5%", 0.375f),
-                new ModOptionFloat("45%", 0.45f),
-                new ModOptionFloat("50%", 0.5f),
-                new ModOptionFloat("54%", 0.54f),
-                new ModOptionFloat("60%", 0.6f),
-                new ModOptionFloat("70%", 0.7f),
-                new ModOptionFloat("75%", 0.75f),
-                new ModOptionFloat("84%", 0.84f),
-                new ModOptionFloat("90%", 0.9f),
-                new ModOptionFloat("100%", 1.0f)
-            };
+                list.Add(new ModOptionFloat($"{i}%", i / 100f));
+            }
+            return list.ToArray();
         }
 
         public static ModOptionFloat[] CustomTimeScaleProvider()
         {
-            return new ModOptionFloat[]
+            var list = new System.Collections.Generic.List<ModOptionFloat>();
+            for (int i = 5; i <= 50; i++)
             {
-                new ModOptionFloat("0.08x", 0.08f),
-                new ModOptionFloat("0.10x", 0.1f),
-                new ModOptionFloat("0.12x", 0.12f),
-                new ModOptionFloat("0.15x", 0.15f),
-                new ModOptionFloat("0.20x", 0.2f),
-                new ModOptionFloat("0.21x", 0.21f),
-                new ModOptionFloat("0.23x", 0.23f),
-                new ModOptionFloat("0.25x", 0.25f),
-                new ModOptionFloat("0.26x", 0.26f),
-                new ModOptionFloat("0.28x", 0.28f),
-                new ModOptionFloat("0.30x", 0.3f),
-                new ModOptionFloat("0.34x", 0.34f),
-                new ModOptionFloat("0.35x", 0.35f),
-                new ModOptionFloat("0.40x", 0.4f),
-                new ModOptionFloat("0.45x", 0.45f),
-                new ModOptionFloat("0.50x", 0.5f)
-            };
+                float val = i / 100f;
+                list.Add(new ModOptionFloat($"{val:0.00}x", val));
+            }
+            return list.ToArray();
         }
 
         public static ModOptionFloat[] CustomDurationProvider()
         {
-            return new ModOptionFloat[]
+            var list = new System.Collections.Generic.List<ModOptionFloat>();
+            // 0.25s increments from 0.5s to 10s
+            for (int i = 2; i <= 40; i++)
             {
-                new ModOptionFloat("0.5s", 0.5f),
-                new ModOptionFloat("0.6s", 0.6f),
-                new ModOptionFloat("0.72s", 0.72f),
-                new ModOptionFloat("0.75s", 0.75f),
-                new ModOptionFloat("0.90s", 0.9f),
-                new ModOptionFloat("1.0s", 1.0f),
-                new ModOptionFloat("1.125s", 1.125f),
-                new ModOptionFloat("1.2s", 1.2f),
-                new ModOptionFloat("1.25s", 1.25f),
-                new ModOptionFloat("1.4s", 1.4f),
-                new ModOptionFloat("1.5s", 1.5f),
-                new ModOptionFloat("1.68s", 1.68f),
-                new ModOptionFloat("1.8s", 1.8f),
-                new ModOptionFloat("1.875s", 1.875f),
-                new ModOptionFloat("2.0s", 2.0f),
-                new ModOptionFloat("2.1s", 2.1f),
-                new ModOptionFloat("2.16s", 2.16f),
-                new ModOptionFloat("2.25s", 2.25f),
-                new ModOptionFloat("2.4s", 2.4f),
-                new ModOptionFloat("2.5s", 2.5f),
-                new ModOptionFloat("2.7s", 2.7f),
-                new ModOptionFloat("2.75s", 2.75f),
-                new ModOptionFloat("2.8s", 2.8f),
-                new ModOptionFloat("3.0s", 3.0f),
-                new ModOptionFloat("3.25s", 3.25f),
-                new ModOptionFloat("3.5s", 3.5f),
-                new ModOptionFloat("3.6s", 3.6f),
-                new ModOptionFloat("3.75s", 3.75f),
-                new ModOptionFloat("4.0s", 4.0f),
-                new ModOptionFloat("4.2s", 4.2f),
-                new ModOptionFloat("4.5s", 4.5f),
-                new ModOptionFloat("5.0s", 5.0f),
-                new ModOptionFloat("5.4s", 5.4f),
-                new ModOptionFloat("6.0s", 6.0f),
-                new ModOptionFloat("6.25s", 6.25f),
-                new ModOptionFloat("7.0s", 7.0f),
-                new ModOptionFloat("7.5s", 7.5f),
-                new ModOptionFloat("9.0s", 9.0f),
-                new ModOptionFloat("10.0s", 10.0f),
-            };
+                float val = i * 0.25f;
+                list.Add(new ModOptionFloat($"{val:0.##}s", val));
+            }
+            return list.ToArray();
         }
 
         public static ModOptionFloat[] CustomCooldownProvider()
         {
-            return new ModOptionFloat[]
+            var list = new System.Collections.Generic.List<ModOptionFloat>();
+            list.Add(new ModOptionFloat("0s", 0f));
+            // 1s increments from 1s to 30s
+            for (int i = 1; i <= 30; i++)
             {
-                new ModOptionFloat("0s", 0f),
-                new ModOptionFloat("1.6s", 1.6f),
-                new ModOptionFloat("2.0s", 2f),
-                new ModOptionFloat("2.4s", 2.4f),
-                new ModOptionFloat("2.5s", 2.5f),
-                new ModOptionFloat("2.8s", 2.8f),
-                new ModOptionFloat("3.0s", 3.0f),
-                new ModOptionFloat("3.5s", 3.5f),
-                new ModOptionFloat("4.0s", 4f),
-                new ModOptionFloat("4.2s", 4.2f),
-                new ModOptionFloat("4.9s", 4.9f),
-                new ModOptionFloat("5.0s", 5f),
-                new ModOptionFloat("6.0s", 6f),
-                new ModOptionFloat("7.0s", 7f),
-                new ModOptionFloat("7.2s", 7.2f),
-                new ModOptionFloat("7.5s", 7.5f),
-                new ModOptionFloat("8.0s", 8f),
-                new ModOptionFloat("9.0s", 9f),
-                new ModOptionFloat("10.0s", 10f),
-                new ModOptionFloat("10.5s", 10.5f),
-                new ModOptionFloat("11.2s", 11.2f),
-                new ModOptionFloat("12.6s", 12.6f),
-                new ModOptionFloat("14.0s", 14f),
-                new ModOptionFloat("17.5s", 17.5f),
-                new ModOptionFloat("18.0s", 18f),
-                new ModOptionFloat("20.0s", 20f),
-                new ModOptionFloat("22.5s", 22.5f),
-                new ModOptionFloat("24.5s", 24.5f),
-                new ModOptionFloat("27.0s", 27.0f),
-                new ModOptionFloat("28.0s", 28f),
-                new ModOptionFloat("31.5s", 31.5f),
-                new ModOptionFloat("45.0s", 45f),
-                new ModOptionFloat("60.0s", 60f),
-                new ModOptionFloat("67.5s", 67.5f),
-                new ModOptionFloat("81.0s", 81.0f),
-                new ModOptionFloat("90.0s", 90f),
-                new ModOptionFloat("126.0s", 126.0f),
-                new ModOptionFloat("157.5s", 157.5f)
-            };
+                list.Add(new ModOptionFloat($"{i}s", (float)i));
+            }
+            // 5s increments from 35s to 60s
+            for (int i = 35; i <= 60; i += 5)
+            {
+                list.Add(new ModOptionFloat($"{i}s", (float)i));
+            }
+            // 10s increments from 70s to 120s
+            for (int i = 70; i <= 120; i += 10)
+            {
+                list.Add(new ModOptionFloat($"{i}s", (float)i));
+            }
+            // 30s increments from 150s to 180s
+            for (int i = 150; i <= 180; i += 30)
+            {
+                list.Add(new ModOptionFloat($"{i}s", (float)i));
+            }
+            return list.ToArray();
         }
 
         public static ModOptionFloat[] CustomSmoothingProvider()
