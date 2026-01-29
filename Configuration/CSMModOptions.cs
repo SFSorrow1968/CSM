@@ -12,7 +12,6 @@ namespace CSM.Configuration
         #region Labels and Categories
 
         public const string CategoryPresetSelection = "Preset Selection";
-        public const string CategoryOptionalOverrides = "Optional Overrides";
         public const string CategoryTriggers = "CSM Triggers";
         public const string CategoryKillcam = "CSM Killcam";
         public const string CategoryAdvanced = "CSM Advanced";
@@ -33,8 +32,6 @@ namespace CSM.Configuration
         public const string OptionDelayInPreset = "Delay In";
         public const string OptionDelayIn = "Delay In";
         public const string OptionTriggerProfile = "Trigger Profile";
-        public const string OptionGlobalCooldown = "Global Cooldown";
-        public const string OptionHapticFeedback = "Haptic Feedback";
 
         public const string TriggerBasicKill = "Basic Kill";
         public const string TriggerThrownImpactKill = "Thrown Impact Kill";
@@ -112,7 +109,6 @@ namespace CSM.Configuration
         public const string OptionQuickTestNow = "Quick Test Now";
 
         public const string OptionEasingCurve = "Easing Curve";
-        public const string OptionMinTimeScale = "Min Time Scale";
         public const string OptionResetStats = "Reset Statistics";
 
         public const string CategoryStatistics = "CSM Statistics";
@@ -413,18 +409,6 @@ namespace CSM.Configuration
             };
         }
 
-        public static ModOptionFloat[] MinTimeScaleProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("Off (0%)", 0f),
-                new ModOptionFloat("5%", 0.05f),
-                new ModOptionFloat("8%", 0.08f),
-                new ModOptionFloat("10%", 0.1f),
-                new ModOptionFloat("15%", 0.15f),
-                new ModOptionFloat("20%", 0.2f)
-            };
-        }
 
         public static ModOptionString[] CameraDistributionProvider()
         {
@@ -598,16 +582,6 @@ namespace CSM.Configuration
             };
         }
 
-        public static ModOptionFloat[] HapticIntensityProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("Off", 0f),
-                new ModOptionFloat("Light", 0.3f),
-                new ModOptionFloat("Medium", 0.6f),
-                new ModOptionFloat("Strong", 1.0f)
-            };
-        }
 
 
         public static ModOptionFloat[] KillcamDistanceProvider()
@@ -645,7 +619,6 @@ namespace CSM.Configuration
         #endregion
 
         private const int CategoryOrderPreset = 10;
-        private const int CategoryOrderOptional = 20;
         private const int CategoryOrderTriggers = 30;
         private const int CategoryOrderKillcam = 40;
         private const int CategoryOrderCustomBasic = 50;
@@ -684,21 +657,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 70, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
-        #region Optional Overrides
-
-        [ModOption(name = OptionGlobalCooldown, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 10, defaultValueIndex = 0, valueSourceName = "CooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Minimum time between any slow motion triggers")]
-        public static float GlobalCooldown = 0f;
-
-        [ModOption(name = OptionHapticFeedback, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 20, defaultValueIndex = 0, valueSourceName = "HapticIntensityProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Controller vibration when slow motion triggers")]
-        public static float HapticIntensity = 0f;
-
-        [ModOption(name = OptionEasingCurve, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 30, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape. Smoothstep = smooth both ends, Linear = constant speed, EaseIn = slow start, EaseOut = slow end.")]
+        [ModOption(name = OptionEasingCurve, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 80, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape. Smoothstep = smooth both ends, Linear = constant speed, EaseIn = slow start, EaseOut = slow end.")]
         public static string EasingCurveSetting = "Smoothstep";
-
-        [ModOption(name = OptionMinTimeScale, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 40, defaultValueIndex = 0, valueSourceName = "MinTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Floor for time scale to prevent extreme slow-mo stutter. 0% = no limit.")]
-        public static float MinTimeScale = 0f;
-
-        #endregion
 
         public static int LastEnemyMinimumGroup = 1;
 

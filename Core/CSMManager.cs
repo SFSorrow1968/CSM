@@ -135,8 +135,7 @@ namespace CSM.Core
 
         private void ApplyTimeScale(float scale)
         {
-            float minScale = CSMModOptions.MinTimeScale > 0f ? CSMModOptions.MinTimeScale : 0.05f;
-            float clampedScale = Mathf.Clamp(scale, minScale, 1f);
+            float clampedScale = Mathf.Clamp(scale, 0.05f, 1f);
             Time.timeScale = clampedScale;
             Time.fixedDeltaTime = _originalFixedDeltaTime * clampedScale;
         }
@@ -179,8 +178,7 @@ namespace CSM.Core
                               " | Chance=" + CSMModOptions.ChancePresetSetting +
                               " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
                               " | Duration=" + CSMModOptions.DurationPresetSetting +
-                              " | Delay=" + CSMModOptions.DelayInPresetSetting +
-                              " | GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##"));
+                              " | Delay=" + CSMModOptions.DelayInPresetSetting);
                 }
 
                 if (!enabled)
@@ -232,9 +230,7 @@ namespace CSM.Core
 
                 CSMModOptions.IncrementTriggerCount(type);
                 CSMModOptions.AddSlowMoTime(duration);
-                
-                TriggerHapticFeedback();
-                
+
                 Debug.Log("[CSM] " + GetTriggerDisplayName(type));
 
                 float distribution = CSMModOptions.GetThirdPersonDistribution(type);
@@ -411,23 +407,17 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                float delayDuration = CSMModOptions.IsTriggerInstant(type) ? 0f : CSMModOptions.GetDelayDuration(type);
+                // Easing uses 15% of duration (min 0.1s) - cuts into duration time
+                float easingDuration = Mathf.Max(duration * 0.15f, 0.1f);
 
-                float minScale = CSMModOptions.MinTimeScale > 0f ? CSMModOptions.MinTimeScale : 0.05f;
-                _targetTimeScale = Mathf.Clamp(timeScale, minScale, 1f);
+                _targetTimeScale = Mathf.Clamp(timeScale, 0.05f, 1f);
                 _transitionStartScale = _currentTimeScale;
                 _transitionStartTime = Time.unscaledTime;
-                _transitionDuration = delayDuration;
-                _isTransitioning = delayDuration > 0f;
-
-                if (delayDuration <= 0f)
-                {
-                    _currentTimeScale = _targetTimeScale;
-                    ApplyTimeScale(_currentTimeScale);
-                }
+                _transitionDuration = easingDuration;
+                _isTransitioning = true;
 
                 float now = Time.unscaledTime;
-                _globalCooldownEndTime = now + duration + CSMModOptions.GlobalCooldown;
+                _globalCooldownEndTime = now + duration;
                 _triggerCooldownEndTimes[type] = now + duration + cooldown;
 
                 if (CSMModOptions.DebugLogging)
@@ -435,7 +425,7 @@ namespace CSM.Core
                     Debug.Log("[CSM] SlowMo config: target=" + _targetTimeScale.ToString("0.###") +
                               " duration=" + duration.ToString("0.###") +
                               " cooldown=" + cooldown.ToString("0.###") +
-                              " Delay=" + delayDuration.ToString("0.###") + "s" +
+                              " easing=" + easingDuration.ToString("0.###") + "s" +
                               " endAt=" + _slowMotionEndTime.ToString("0.###") +
                               " now=" + now.ToString("0.###"));
                 }
@@ -526,36 +516,6 @@ namespace CSM.Core
         {
             CancelSlowMotion();
             _instance = null;
-        }
-
-        private void TriggerHapticFeedback()
-        {
-            try
-            {
-                float intensity = CSMModOptions.HapticIntensity;
-                if (intensity <= 0f) return;
-
-                var player = ThunderRoad.Player.local;
-                if (player == null) return;
-
-                if (player.handLeft?.controlHand != null)
-                {
-                    player.handLeft.controlHand.HapticShort(intensity);
-                }
-
-                if (player.handRight?.controlHand != null)
-                {
-                    player.handRight.controlHand.HapticShort(intensity);
-                }
-
-                if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] Haptic feedback triggered at intensity " + intensity);
-            }
-            catch (Exception ex)
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Haptic feedback failed: " + ex.Message);
-            }
         }
 
         private static string GetTriggerDisplayName(TriggerType type)

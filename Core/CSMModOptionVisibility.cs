@@ -980,9 +980,6 @@ namespace CSM.Core
                       " | Delay=" + CSMModOptions.DelayInPresetSetting +
                       " | ThirdPerson=" + CSMModOptions.CameraDistribution +
                       " | TriggerProfile=" + CSMModOptions.TriggerProfile);
-            Debug.Log("[CSM] Menu overrides: " +
-                      "GlobalCooldown=" + CSMModOptions.GlobalCooldown.ToString("0.##") +
-                      " | Haptic=" + CSMModOptions.HapticIntensity.ToString("0.##"));
             Debug.Log("[CSM] Menu triggers: " +
                       "Basic=" + CSMModOptions.EnableBasicKill +
                       " ThrownImpact=" + CSMModOptions.EnableThrownImpactKill +
