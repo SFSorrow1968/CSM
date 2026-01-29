@@ -34,9 +34,7 @@ namespace CSM.Configuration
         public const string OptionDelayIn = "Delay In";
         public const string OptionTriggerProfile = "Trigger Profile";
         public const string OptionGlobalCooldown = "Global Cooldown";
-        // Deprecated: Global DelayIng removed in new duration-based system
         public const string OptionHapticFeedback = "Haptic Feedback";
-        public const string OptionDynamicIntensity = "Dynamic Intensity";
 
         public const string TriggerBasicKill = "Basic Kill";
         public const string TriggerThrownImpactKill = "Thrown Impact Kill";
@@ -188,14 +186,6 @@ namespace CSM.Configuration
             EaseOut = 3
         }
 
-        public enum DynamicIntensityPreset
-        {
-            Off = 0,
-            LowSensitivity = 1,
-            MediumSensitivity = 2,
-            HighSensitivity = 3
-        }
-
         public enum CameraDistributionPreset
         {
             FirstPersonOnly = 0,
@@ -313,14 +303,6 @@ namespace CSM.Configuration
             new PresetOption<DelayPreset>("Very Long", "Very Long", DelayPreset.VeryLong)
         };
 
-        private static readonly PresetOption<DynamicIntensityPreset>[] DynamicIntensityOptions =
-        {
-            new PresetOption<DynamicIntensityPreset>("Off", "Off", DynamicIntensityPreset.Off),
-            new PresetOption<DynamicIntensityPreset>("Low Sensitivity", "Low Sensitivity", DynamicIntensityPreset.LowSensitivity),
-            new PresetOption<DynamicIntensityPreset>("Medium Sensitivity", "Medium Sensitivity", DynamicIntensityPreset.MediumSensitivity),
-            new PresetOption<DynamicIntensityPreset>("High Sensitivity", "High Sensitivity", DynamicIntensityPreset.HighSensitivity)
-        };
-
         private static readonly PresetOption<CameraDistributionPreset>[] CameraDistributionOptions =
         {
             new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", CameraDistributionPreset.FirstPersonOnly),
@@ -362,16 +344,6 @@ namespace CSM.Configuration
             });
 
         private static readonly Dictionary<string, DelayPreset> DelayPresetMap = BuildPresetMap(DelayPresetOptions);
-
-        private static readonly Dictionary<string, DynamicIntensityPreset> DynamicIntensityMap = BuildPresetMap(DynamicIntensityOptions,
-            new Dictionary<string, DynamicIntensityPreset>
-            {
-                { "True", DynamicIntensityPreset.MediumSensitivity },
-                { "true", DynamicIntensityPreset.MediumSensitivity },
-                { "On", DynamicIntensityPreset.MediumSensitivity },
-                { "False", DynamicIntensityPreset.Off },
-                { "false", DynamicIntensityPreset.Off }
-            });
 
         private static readonly Dictionary<string, CameraDistributionPreset> CameraDistributionMap = BuildPresetMap(CameraDistributionOptions,
             new Dictionary<string, CameraDistributionPreset>
@@ -452,11 +424,6 @@ namespace CSM.Configuration
                 new ModOptionFloat("15%", 0.15f),
                 new ModOptionFloat("20%", 0.2f)
             };
-        }
-
-        public static ModOptionString[] DynamicIntensityPresetProvider()
-        {
-            return BuildStringOptions(DynamicIntensityOptions);
         }
 
         public static ModOptionString[] CameraDistributionProvider()
@@ -584,33 +551,16 @@ namespace CSM.Configuration
             return list.ToArray();
         }
 
-        public static ModOptionFloat[] CustomDelayIngProvider()
+        public static ModOptionFloat[] CustomDelayProvider()
         {
-            return new ModOptionFloat[]
+            var list = new System.Collections.Generic.List<ModOptionFloat>();
+            // 0.01s increments from 0s to 1s
+            for (int i = 0; i <= 100; i++)
             {
-                new ModOptionFloat("1.6x", 1.6f),
-                new ModOptionFloat("1.8x", 1.8f),
-                new ModOptionFloat("2x", 2f),
-                new ModOptionFloat("2.4x", 2.4f),
-                new ModOptionFloat("2.7x", 2.7f),
-                new ModOptionFloat("3x", 3f),
-                new ModOptionFloat("3.2x", 3.2f),
-                new ModOptionFloat("3.6x", 3.6f),
-                new ModOptionFloat("4x", 4f),
-                new ModOptionFloat("4.5x", 4.5f),
-                new ModOptionFloat("5x", 5f),
-                new ModOptionFloat("6x", 6f),
-                new ModOptionFloat("7.5x", 7.5f),
-                new ModOptionFloat("8x", 8f),
-                new ModOptionFloat("9x", 9f),
-                new ModOptionFloat("10x", 10f),
-                new ModOptionFloat("12x", 12f),
-                new ModOptionFloat("12.5x", 12.5f),
-                new ModOptionFloat("15x", 15f),
-                new ModOptionFloat("16x", 16f),
-                new ModOptionFloat("20x", 20f),
-                new ModOptionFloat("25x", 25f)
-            };
+                float val = i / 100f;
+                list.Add(new ModOptionFloat($"{val:0.00}s", val));
+            }
+            return list.ToArray();
         }
 
         public static ModOptionFloat[] CustomThirdPersonDistributionProvider()
@@ -659,28 +609,6 @@ namespace CSM.Configuration
             };
         }
 
-        public static ModOptionFloat[] DelayIngSpeedProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("Instant", 0f),
-                new ModOptionFloat("Fast", 12f),
-                new ModOptionFloat("Medium", 8f),
-                new ModOptionFloat("Slow", 4f)
-            };
-        }
-
-        public static ModOptionFloat[] GlobalDelayIngProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("Per Trigger", -1f),
-                new ModOptionFloat("Instant", 0f),
-                new ModOptionFloat("Fast", 12f),
-                new ModOptionFloat("Medium", 8f),
-                new ModOptionFloat("Slow", 4f)
-            };
-        }
 
         public static ModOptionFloat[] KillcamDistanceProvider()
         {
@@ -770,10 +698,6 @@ namespace CSM.Configuration
         [ModOption(name = OptionMinTimeScale, category = CategoryOptionalOverrides, categoryOrder = CategoryOrderOptional, order = 40, defaultValueIndex = 0, valueSourceName = "MinTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Floor for time scale to prevent extreme slow-mo stutter. 0% = no limit.")]
         public static float MinTimeScale = 0f;
 
-        // Deprecated: GlobalDelayIng and DynamicIntensity are no longer used in the new duration-based DelayIng system
-        public static float GlobalDelayIng = -1f;
-        public static string DynamicIntensitySetting = "Off";
-
         #endregion
 
         public static int LastEnemyMinimumGroup = 1;
@@ -844,8 +768,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionBasicCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 10f;
 
-        [ModOption(name = OptionBasicDelayIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string BasicKillDelayIn = "Default";
+        [ModOption(name = OptionBasicDelayIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float BasicKillDelay = 0.10f;
 
         [ModOption(name = OptionBasicThirdPerson, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float BasicKillThirdPersonDistribution = 0f;
@@ -866,8 +790,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionCriticalCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 10f;
 
-        [ModOption(name = OptionCriticalDelayIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string CriticalKillDelayIn = "Default";
+        [ModOption(name = OptionCriticalDelayIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float CriticalKillDelay = 0.10f;
 
         [ModOption(name = OptionCriticalThirdPerson, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float CriticalKillThirdPersonDistribution = 0f;
@@ -888,8 +812,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionDismemberCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 10f;
 
-        [ModOption(name = OptionDismemberDelayIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string DismembermentDelayIn = "Default";
+        [ModOption(name = OptionDismemberDelayIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float DismembermentDelay = 0.10f;
 
         [ModOption(name = OptionDismemberThirdPerson, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DismembermentThirdPersonDistribution = 0f;
@@ -910,8 +834,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionDecapCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 10f;
 
-        [ModOption(name = OptionDecapDelayIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string DecapitationDelayIn = "Default";
+        [ModOption(name = OptionDecapDelayIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float DecapitationDelay = 0.10f;
 
         [ModOption(name = OptionDecapThirdPerson, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DecapitationThirdPersonDistribution = 0f;
@@ -932,8 +856,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastEnemyCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 30, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastEnemyCooldown = 30f;
 
-        [ModOption(name = OptionLastEnemyDelayIn, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string LastEnemyDelayIn = "Default";
+        [ModOption(name = OptionLastEnemyDelayIn, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float LastEnemyDelay = 0.10f;
 
         [ModOption(name = OptionLastEnemyThirdPerson, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float LastEnemyThirdPersonDistribution = 0f;
@@ -951,8 +875,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastStandCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 43, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 90f;
 
-        [ModOption(name = OptionLastStandDelayIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string LastStandDelayIn = "Default";
+        [ModOption(name = OptionLastStandDelayIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float LastStandDelay = 0.10f;
 
         #endregion
 
@@ -970,8 +894,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionParryCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 5f;
 
-        [ModOption(name = OptionParryDelayIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 1, valueSourceName = "DelayPresetProvider", tooltip = "Transition into slow motion")]
-        public static string ParryDelayIn = "Default";
+        [ModOption(name = OptionParryDelayIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        public static float ParryDelay = 0.10f;
 
         #endregion
 
@@ -1005,7 +929,7 @@ namespace CSM.Configuration
             TimeScale,
             Duration,
             Cooldown,
-            DelayIn,
+            Delay,
             Distribution
         }
 
@@ -1015,7 +939,7 @@ namespace CSM.Configuration
             public float TimeScale;
             public float Duration;
             public float Cooldown;
-            public DelayPreset DelayIn;
+            public float Delay;
             public float Distribution;
         }
 
@@ -1051,7 +975,7 @@ namespace CSM.Configuration
         public static bool IsTriggerInstant(TriggerType triggerType)
         {
             var values = GetCustomValues(triggerType);
-            return values.DelayIn == DelayPreset.Instant;
+            return values.Delay <= 0f;
         }
 
         public static EasingCurve GetEasingCurve()
@@ -1075,7 +999,7 @@ namespace CSM.Configuration
                     values.TimeScale = BasicKillTimeScale;
                     values.Duration = BasicKillDuration;
                     values.Cooldown = BasicKillCooldown;
-                    values.DelayIn = ParsePreset(BasicKillDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = BasicKillDelay;
                     values.Distribution = BasicKillThirdPersonDistribution;
                     break;
                 case TriggerType.Critical:
@@ -1083,7 +1007,7 @@ namespace CSM.Configuration
                     values.TimeScale = CriticalKillTimeScale;
                     values.Duration = CriticalKillDuration;
                     values.Cooldown = CriticalKillCooldown;
-                    values.DelayIn = ParsePreset(CriticalKillDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = CriticalKillDelay;
                     values.Distribution = CriticalKillThirdPersonDistribution;
                     break;
                 case TriggerType.Dismemberment:
@@ -1091,7 +1015,7 @@ namespace CSM.Configuration
                     values.TimeScale = DismembermentTimeScale;
                     values.Duration = DismembermentDuration;
                     values.Cooldown = DismembermentCooldown;
-                    values.DelayIn = ParsePreset(DismembermentDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = DismembermentDelay;
                     values.Distribution = DismembermentThirdPersonDistribution;
                     break;
                 case TriggerType.Decapitation:
@@ -1099,7 +1023,7 @@ namespace CSM.Configuration
                     values.TimeScale = DecapitationTimeScale;
                     values.Duration = DecapitationDuration;
                     values.Cooldown = DecapitationCooldown;
-                    values.DelayIn = ParsePreset(DecapitationDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = DecapitationDelay;
                     values.Distribution = DecapitationThirdPersonDistribution;
                     break;
                 case TriggerType.Parry:
@@ -1107,7 +1031,7 @@ namespace CSM.Configuration
                     values.TimeScale = ParryTimeScale;
                     values.Duration = ParryDuration;
                     values.Cooldown = ParryCooldown;
-                    values.DelayIn = ParsePreset(ParryDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = ParryDelay;
                     values.Distribution = 0f;
                     break;
                 case TriggerType.LastEnemy:
@@ -1115,7 +1039,7 @@ namespace CSM.Configuration
                     values.TimeScale = LastEnemyTimeScale;
                     values.Duration = LastEnemyDuration;
                     values.Cooldown = LastEnemyCooldown;
-                    values.DelayIn = ParsePreset(LastEnemyDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = LastEnemyDelay;
                     values.Distribution = LastEnemyThirdPersonDistribution;
                     break;
                 case TriggerType.LastStand:
@@ -1123,7 +1047,7 @@ namespace CSM.Configuration
                     values.TimeScale = LastStandTimeScale;
                     values.Duration = LastStandDuration;
                     values.Cooldown = LastStandCooldown;
-                    values.DelayIn = ParsePreset(LastStandDelayIn, DelayPresetMap, DelayPreset.Default);
+                    values.Delay = LastStandDelay;
                     values.Distribution = 0f;
                     break;
             }
@@ -1174,30 +1098,30 @@ namespace CSM.Configuration
             }
         }
 
-        public static void SetTriggerDelayPreset(TriggerType triggerType, string value)
+        public static void SetTriggerDelay(TriggerType triggerType, float value)
         {
             switch (triggerType)
             {
                 case TriggerType.BasicKill:
-                    BasicKillDelayIn = value;
+                    BasicKillDelay = value;
                     break;
                 case TriggerType.Critical:
-                    CriticalKillDelayIn = value;
+                    CriticalKillDelay = value;
                     break;
                 case TriggerType.Dismemberment:
-                    DismembermentDelayIn = value;
+                    DismembermentDelay = value;
                     break;
                 case TriggerType.Decapitation:
-                    DecapitationDelayIn = value;
+                    DecapitationDelay = value;
                     break;
                 case TriggerType.Parry:
-                    ParryDelayIn = value;
+                    ParryDelay = value;
                     break;
                 case TriggerType.LastEnemy:
-                    LastEnemyDelayIn = value;
+                    LastEnemyDelay = value;
                     break;
                 case TriggerType.LastStand:
-                    LastStandDelayIn = value;
+                    LastStandDelay = value;
                     break;
             }
         }
@@ -1285,11 +1209,6 @@ namespace CSM.Configuration
                 case DelayPreset.VeryLong: return 0.60f;
                 default: return 0.10f;
             }
-        }
-
-        public static DynamicIntensityPreset GetDynamicIntensityPreset()
-        {
-            return ParsePreset(DynamicIntensitySetting, DynamicIntensityMap, DynamicIntensityPreset.Off);
         }
 
         public static CameraDistributionPreset GetCameraDistributionPreset()
@@ -1575,12 +1494,12 @@ namespace CSM.Configuration
         }
 
         /// <summary>
-        /// Returns the delay duration in seconds for a given trigger type. This is additive time, not a percentage.
+        /// Returns the delay duration in seconds for a given trigger type. This is additive time.
         /// </summary>
         public static float GetDelayDuration(TriggerType triggerType)
         {
             var values = GetCustomValues(triggerType);
-            return GetDelayTime(values.DelayIn);
+            return values.Delay;
         }
 
         #endregion

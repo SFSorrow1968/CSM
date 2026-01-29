@@ -411,20 +411,19 @@ namespace CSM.Core
             if (!force && !changed)
                 return false;
 
-            string value = CSMModOptions.DelayInPresetSetting;
+            float delayValue = CSMModOptions.GetDelayTime(preset);
 
             foreach (var trigger in TriggerTypes)
             {
-                CSMModOptions.SetTriggerDelayPreset(trigger, value);
-                SyncStringOption(DelayInOptionNames, trigger, value);
+                CSMModOptions.SetTriggerDelay(trigger, delayValue);
+                SyncOptionValue(DelayInOptionNames, trigger, delayValue);
             }
 
             _lastDelayInPreset = preset;
             _presetAppliedTime = Time.unscaledTime;
             StoreExpectedPresetValues();
 
-            float delayTime = CSMModOptions.GetDelayTime(preset);
-            LogPresetApply("Delay Preset", value + " (" + delayTime.ToString("F2") + "s)");
+            LogPresetApply("Delay Preset", CSMModOptions.DelayInPresetSetting + " (" + delayValue.ToString("F2") + "s)");
             return true;
         }
 
@@ -730,8 +729,7 @@ namespace CSM.Core
             string durationLabel = values.Duration.ToString("F1") + "s";
             string cooldownLabel = values.Cooldown.ToString("F1") + "s";
 
-            float delayTime = CSMModOptions.GetDelayTime(values.DelayIn);
-            string smoothLabel = delayTime.ToString("0.##") + "s";
+            string smoothLabel = values.Delay.ToString("0.##") + "s";
 
             string tpLabel;
             if (!CSMModOptions.IsThirdPersonEligible(type))
@@ -890,7 +888,7 @@ namespace CSM.Core
             if (Mathf.Abs(a.TimeScale - b.TimeScale) > epsilon) return true;
             if (Mathf.Abs(a.Duration - b.Duration) > epsilon) return true;
             if (Mathf.Abs(a.Cooldown - b.Cooldown) > epsilon) return true;
-            if (a.DelayIn != b.DelayIn) return true;
+            if (Mathf.Abs(a.Delay - b.Delay) > epsilon) return true;
             if (Mathf.Abs(a.Distribution - b.Distribution) > epsilon) return true;
             return false;
         }
