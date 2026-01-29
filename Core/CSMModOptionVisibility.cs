@@ -302,14 +302,30 @@ namespace CSM.Core
             if (!force && lastPreset.HasValue && EqualityComparer<TPreset>.Default.Equals(lastPreset.Value, currentPreset))
                 return false;
 
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Applying " + label + ": " + ResolvePresetLabel(settingValue, currentPreset));
+
             foreach (var trigger in TriggerTypes)
             {
                 CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale,
                     out float duration, out float cooldown);
-                float value = selector(chance, timeScale, duration, cooldown);
+                float baseValue = selector(chance, timeScale, duration, cooldown);
+                float value = baseValue;
                 applyPreset(ref value);
                 CSMModOptions.SetTriggerValue(trigger, field, value);
                 SyncOptionValue(optionMap, trigger, value);
+
+                if (CSMModOptions.DebugLogging)
+                {
+                    string unit = field == CSMModOptions.TriggerField.Chance ? "%" : (field == CSMModOptions.TriggerField.Duration || field == CSMModOptions.TriggerField.Cooldown ? "s" : "");
+                    string displayValue = field == CSMModOptions.TriggerField.Chance
+                        ? (value * 100f).ToString("F0") + unit
+                        : value.ToString("0.##") + unit;
+                    string displayBase = field == CSMModOptions.TriggerField.Chance
+                        ? (baseValue * 100f).ToString("F0") + unit
+                        : baseValue.ToString("0.##") + unit;
+                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " " + field + " = " + displayValue + " (base: " + displayBase + ")");
+                }
             }
 
             lastPreset = currentPreset;
@@ -323,11 +339,17 @@ namespace CSM.Core
             if (!force && _lastIntensityPreset.HasValue && _lastIntensityPreset.Value.Equals(preset))
                 return false;
 
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Applying Intensity Preset: " + ResolvePresetLabel(CSMModOptions.CurrentPreset, preset));
+
             foreach (var trigger in TriggerTypes)
             {
                 CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, timeScale);
                 SyncOptionValue(TimeScaleOptionNames, trigger, timeScale);
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " TimeScale = " + timeScale.ToString("0.00") + " (" + (timeScale * 100f).ToString("F0") + "%)");
             }
 
             _lastIntensityPreset = preset;
