@@ -37,7 +37,7 @@
 
   <!-- Nomad configuration: IL2CPP compatible, no Harmony -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Nomad|AnyCPU'">
-    <OutputPath>bin\Nomad\CSM\</OutputPath>
+    <OutputPath>bin\Release\Nomad\CSM\</OutputPath>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
