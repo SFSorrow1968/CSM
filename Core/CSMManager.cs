@@ -397,6 +397,8 @@ namespace CSM.Core
             
             // Apply preset overrides
             CSMModOptions.ApplyChancePreset(ref chance);
+            CSMModOptions.ApplyCooldownPreset(ref cooldown);
+            CSMModOptions.ApplyDurationPreset(ref duration);
         }
 
         private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt)
