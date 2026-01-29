@@ -6,153 +6,16 @@ import xml.etree.ElementTree as ET
 ROOT = Path(r"D:\Documents\Projects\repos\CSM")
 OUTPUT = ROOT / "Presets.xlsx"
 
-# Intensity Preset - per-trigger time scale values
-intensity_data = [
-    ["INTENSITY PRESET - Time Scale Values"],
-    [],
-    ["Trigger", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"],
-    ["Parry", "46%", "34%", "29%", "24%", "19%"],
-    ["Dismemberment", "42%", "30%", "25%", "20%", "15%"],
-    ["Basic Kill", "40%", "28%", "23%", "18%", "13%"],
-    ["Last Enemy", "38%", "26%", "21%", "16%", "11%"],
-    ["Critical", "37%", "25%", "20%", "15%", "10%"],
-    ["Decapitation", "35%", "23%", "18%", "13%", "8%"],
-    ["Last Stand", "33%", "21%", "16%", "11%", "8%"],
-]
-
-# Duration base values and multipliers
-duration_multipliers = {"Very Short": 0.5, "Short": 0.7, "Standard": 1.0, "Long": 1.3, "Extended": 1.5}
-duration_base = {
-    "Parry": 1.5,
-    "Dismemberment": 2.0,
-    "Basic Kill": 2.5,
-    "Last Enemy": 2.75,
-    "Critical": 3.0,
-    "Decapitation": 3.25,
-    "Last Stand": 3.5,
-}
-
-duration_data = [
-    ["DURATION PRESET - Complete Values"],
-    [],
-    ["Multipliers: Very Short 0.5x, Short 0.7x, Standard 1.0x, Long 1.3x, Extended 1.5x"],
-    [],
-    ["Trigger", "Base", "Very Short", "Short", "Standard", "Long", "Extended"],
-]
-for trigger, base in duration_base.items():
-    row = [trigger, f"{base}s"]
-    for preset, mult in duration_multipliers.items():
-        val = base * mult
-        row.append(f"{val:.2f}s")
-    duration_data.append(row)
-
-# Cooldown base values and multipliers
-cooldown_multipliers = {"Off": 0, "Short": 0.6, "Standard": 1.0, "Long": 2.0, "Extended": 3.0}
-cooldown_base = {
-    "Parry": 5,
-    "Basic Kill": 10,
-    "Dismemberment": 10,
-    "Critical": 10,
-    "Decapitation": 10,
-    "Last Enemy": 20,
-    "Last Stand": 60,
-}
-
-cooldown_data = [
-    ["COOLDOWN PRESET - Complete Values"],
-    [],
-    ["Multipliers: Off 0x, Short 0.6x, Standard 1.0x, Long 2.0x, Extended 3.0x"],
-    [],
-    ["Trigger", "Base", "Off", "Short", "Standard", "Long", "Extended"],
-]
-for trigger, base in cooldown_base.items():
-    row = [trigger, f"{base}s"]
-    for preset, mult in cooldown_multipliers.items():
-        val = base * mult
-        row.append(f"{val:.0f}s")
-    cooldown_data.append(row)
-
-# Chance base values and multipliers
-chance_multipliers = {"Off": None, "Very Rare": 0.5, "Rare": 0.6, "Standard": 1.0, "Frequent": 1.4}
-chance_base = {
-    "Basic Kill": 0.25,
-    "Parry": 0.50,
-    "Dismemberment": 0.60,
-    "Critical": 0.75,
-    "Decapitation": 0.90,
-    "Last Enemy": 1.00,
-    "Last Stand": 1.00,
-}
-
-chance_data = [
-    ["CHANCE PRESET - Complete Values"],
-    [],
-    ["Multipliers: Off = 100%, Very Rare 0.5x, Rare 0.6x, Standard 1.0x, Frequent 1.4x"],
-    [],
-    ["Trigger", "Base", "Off", "Very Rare", "Rare", "Standard", "Frequent"],
-]
-for trigger, base in chance_base.items():
-    row = [trigger, f"{base*100:.0f}%"]
-    for preset, mult in chance_multipliers.items():
-        if mult is None:
-            row.append("100%")
-        else:
-            val = min(base * mult, 1.0)
-            row.append(f"{val*100:.1f}%")
-    chance_data.append(row)
-
-# Fade presets
-fade_data = [
-    ["FADE PRESETS - Smoothing Percentages"],
-    [],
-    ["Preset", "Smoothing %", "Description"],
-    ["Instant", "0%", "No transition, immediate"],
-    ["Default", "10%", "Natural B&S feel"],
-    ["Quick Fade", "15%", "Quick transition"],
-    ["Medium Fade", "20%", "Moderate transition"],
-    ["Long Fade", "30%", "Slow transition"],
-    ["Very Long Fade", "40%", "Very gradual transition"],
-]
-
-# Build all sheets
-all_rows = []
-all_rows.extend(intensity_data)
-all_rows.append([])
-all_rows.append([])
-all_rows.extend(duration_data)
-all_rows.append([])
-all_rows.append([])
-all_rows.extend(cooldown_data)
-all_rows.append([])
-all_rows.append([])
-all_rows.extend(chance_data)
-all_rows.append([])
-all_rows.append([])
-all_rows.extend(fade_data)
-
-# Row types for styling
-row_types = []
-for row in all_rows:
-    if not row:
-        row_types.append("blank")
-    elif len(row) == 1 and row[0].startswith(("INTENSITY", "DURATION", "COOLDOWN", "CHANCE", "FADE", "Multipliers")):
-        row_types.append("section")
-    elif row[0] == "Trigger" or row[0] == "Preset":
-        row_types.append("header")
-    else:
-        row_types.append("data")
-
-# Excel generation (minimal xlsx)
 NS_MAIN = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 NS_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 STYLE_DEFAULT = 0
-STYLE_TITLE = 1
 STYLE_SECTION = 2
 STYLE_HEADER = 4
 
 
 def col_letter(idx: int) -> str:
+    """Convert 1-based column index to Excel letter (1=A, 27=AA)"""
     letters = []
     while idx:
         idx, rem = divmod(idx - 1, 26)
@@ -160,26 +23,16 @@ def col_letter(idx: int) -> str:
     return "".join(reversed(letters))
 
 
-def compute_col_widths(rows):
-    widths = []
-    for row in rows:
-        for idx, value in enumerate(row):
-            text = "" if value is None else str(value)
-            if idx >= len(widths):
-                widths.append(len(text))
-            else:
-                widths[idx] = max(widths[idx], len(text))
-    return [max(10, min(20, w + 2)) for w in widths]
-
-
-def build_sheet_xml(rows, row_types):
+def build_sheet_xml(rows, row_types, formulas):
+    """Build Excel sheet XML with support for formulas"""
     root = ET.Element(f"{{{NS_MAIN}}}worksheet")
-    col_widths = compute_col_widths(rows)
-    if col_widths:
-        cols = ET.SubElement(root, f"{{{NS_MAIN}}}cols")
-        for idx, width in enumerate(col_widths, start=1):
-            ET.SubElement(cols, f"{{{NS_MAIN}}}col",
-                {"min": str(idx), "max": str(idx), "width": f"{width:.2f}", "customWidth": "1"})
+
+    # Column widths
+    cols = ET.SubElement(root, f"{{{NS_MAIN}}}cols")
+    col_widths = [15, 8, 10, 10, 10, 10, 10, 10]
+    for idx, width in enumerate(col_widths, start=1):
+        ET.SubElement(cols, f"{{{NS_MAIN}}}col",
+            {"min": str(idx), "max": str(idx), "width": str(width), "customWidth": "1"})
 
     sheet_data = ET.SubElement(root, f"{{{NS_MAIN}}}sheetData")
     max_cols = max((len(r) for r in rows if r), default=0)
@@ -202,17 +55,222 @@ def build_sheet_xml(rows, row_types):
 
         for c_idx, value in enumerate(row, start=1):
             cell_ref = f"{col_letter(c_idx)}{r_idx}"
-            if value is None:
-                value = ""
-            c_el = ET.SubElement(row_el, f"{{{NS_MAIN}}}c",
-                {"r": cell_ref, "t": "inlineStr", "s": str(style_idx)})
-            is_el = ET.SubElement(c_el, f"{{{NS_MAIN}}}is")
-            t_el = ET.SubElement(is_el, f"{{{NS_MAIN}}}t")
-            t_el.text = str(value)
+
+            # Check if this cell has a formula
+            formula_key = (r_idx, c_idx)
+            if formula_key in formulas:
+                c_el = ET.SubElement(row_el, f"{{{NS_MAIN}}}c",
+                    {"r": cell_ref, "s": str(style_idx)})
+                f_el = ET.SubElement(c_el, f"{{{NS_MAIN}}}f")
+                f_el.text = formulas[formula_key]
+            elif value is None or value == "":
+                continue
+            elif isinstance(value, (int, float)):
+                c_el = ET.SubElement(row_el, f"{{{NS_MAIN}}}c",
+                    {"r": cell_ref, "s": str(style_idx)})
+                v_el = ET.SubElement(c_el, f"{{{NS_MAIN}}}v")
+                v_el.text = str(value)
+            else:
+                c_el = ET.SubElement(row_el, f"{{{NS_MAIN}}}c",
+                    {"r": cell_ref, "t": "inlineStr", "s": str(style_idx)})
+                is_el = ET.SubElement(c_el, f"{{{NS_MAIN}}}is")
+                t_el = ET.SubElement(is_el, f"{{{NS_MAIN}}}t")
+                t_el.text = str(value)
 
     return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 
+# Build the sheet data
+rows = []
+row_types = []
+formulas = {}
+
+# ============ INTENSITY PRESET ============
+rows.append(["INTENSITY PRESET - Time Scale (per-trigger values, not multipliers)"])
+row_types.append("section")
+rows.append([])
+row_types.append("blank")
+rows.append(["Trigger", "Subtle", "Standard", "Dramatic", "Cinematic", "Epic"])
+row_types.append("header")
+
+intensity_values = [
+    ("Parry", [0.46, 0.34, 0.29, 0.24, 0.19]),
+    ("Dismemberment", [0.42, 0.30, 0.25, 0.20, 0.15]),
+    ("Basic Kill", [0.40, 0.28, 0.23, 0.18, 0.13]),
+    ("Last Enemy", [0.38, 0.26, 0.21, 0.16, 0.11]),
+    ("Critical", [0.37, 0.25, 0.20, 0.15, 0.10]),
+    ("Decapitation", [0.35, 0.23, 0.18, 0.13, 0.08]),
+    ("Last Stand", [0.33, 0.21, 0.16, 0.11, 0.08]),
+]
+for trigger, values in intensity_values:
+    rows.append([trigger] + values)
+    row_types.append("data")
+
+rows.append([])
+row_types.append("blank")
+rows.append([])
+row_types.append("blank")
+
+# ============ DURATION PRESET ============
+duration_start_row = len(rows) + 1
+
+rows.append(["DURATION PRESET - Edit multipliers in row below"])
+row_types.append("section")
+rows.append([])
+row_types.append("blank")
+
+# Multiplier row (editable)
+rows.append(["Multiplier:", "Very Short", "Short", "Standard", "Long", "Extended"])
+row_types.append("header")
+mult_row = len(rows) + 1
+rows.append(["", 0.5, 0.7, 1.0, 1.3, 1.5])  # Editable multipliers
+row_types.append("data")
+duration_mult_row = len(rows)
+
+rows.append([])
+row_types.append("blank")
+
+# Header with Base column
+rows.append(["Trigger", "Base", "Very Short", "Short", "Standard", "Long", "Extended"])
+row_types.append("header")
+header_row = len(rows)
+
+# Duration base values
+duration_bases = [
+    ("Parry", 1.5),
+    ("Dismemberment", 2.0),
+    ("Basic Kill", 2.5),
+    ("Last Enemy", 2.75),
+    ("Critical", 3.0),
+    ("Decapitation", 3.25),
+    ("Last Stand", 3.5),
+]
+
+for trigger, base in duration_bases:
+    current_row = len(rows) + 1
+    rows.append([trigger, base, "", "", "", "", ""])
+    row_types.append("data")
+    # Add formulas for columns C-G (multiply base by multiplier)
+    for col_offset in range(5):
+        col_idx = col_offset + 3  # C=3, D=4, E=5, F=6, G=7
+        mult_col = col_letter(col_idx)
+        # Formula: =B{row}*{mult_col}${mult_row}
+        formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${duration_mult_row}"
+
+rows.append([])
+row_types.append("blank")
+rows.append([])
+row_types.append("blank")
+
+# ============ COOLDOWN PRESET ============
+rows.append(["COOLDOWN PRESET - Edit multipliers in row below"])
+row_types.append("section")
+rows.append([])
+row_types.append("blank")
+
+rows.append(["Multiplier:", "Off", "Short", "Standard", "Long", "Extended"])
+row_types.append("header")
+rows.append(["", 0, 0.6, 1.0, 2.0, 3.0])  # Editable multipliers
+row_types.append("data")
+cooldown_mult_row = len(rows)
+
+rows.append([])
+row_types.append("blank")
+
+rows.append(["Trigger", "Base", "Off", "Short", "Standard", "Long", "Extended"])
+row_types.append("header")
+
+cooldown_bases = [
+    ("Parry", 5),
+    ("Basic Kill", 10),
+    ("Dismemberment", 10),
+    ("Critical", 10),
+    ("Decapitation", 10),
+    ("Last Enemy", 20),
+    ("Last Stand", 60),
+]
+
+for trigger, base in cooldown_bases:
+    current_row = len(rows) + 1
+    rows.append([trigger, base, "", "", "", "", ""])
+    row_types.append("data")
+    for col_offset in range(5):
+        col_idx = col_offset + 3
+        mult_col = col_letter(col_idx)
+        formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${cooldown_mult_row}"
+
+rows.append([])
+row_types.append("blank")
+rows.append([])
+row_types.append("blank")
+
+# ============ CHANCE PRESET ============
+rows.append(["CHANCE PRESET - Edit multipliers in row below (Off = always 100%)"])
+row_types.append("section")
+rows.append([])
+row_types.append("blank")
+
+rows.append(["Multiplier:", "Off", "Very Rare", "Rare", "Standard", "Frequent"])
+row_types.append("header")
+rows.append(["", 1.0, 0.5, 0.6, 1.0, 1.4])  # Off=1.0 means 100%
+row_types.append("data")
+chance_mult_row = len(rows)
+
+rows.append([])
+row_types.append("blank")
+
+rows.append(["Trigger", "Base", "Off", "Very Rare", "Rare", "Standard", "Frequent"])
+row_types.append("header")
+
+chance_bases = [
+    ("Basic Kill", 0.25),
+    ("Parry", 0.50),
+    ("Dismemberment", 0.60),
+    ("Critical", 0.75),
+    ("Decapitation", 0.90),
+    ("Last Enemy", 1.00),
+    ("Last Stand", 1.00),
+]
+
+for trigger, base in chance_bases:
+    current_row = len(rows) + 1
+    rows.append([trigger, base, "", "", "", "", ""])
+    row_types.append("data")
+    # Off column (C) is special - always 1.0 (100%)
+    formulas[(current_row, 3)] = f"1"  # Off = 100%
+    # Other columns use formula with MIN to cap at 1.0
+    for col_offset in range(1, 5):
+        col_idx = col_offset + 3  # D=4, E=5, F=6, G=7
+        mult_col = col_letter(col_idx)
+        formulas[(current_row, col_idx)] = f"MIN(B{current_row}*{mult_col}${chance_mult_row},1)"
+
+rows.append([])
+row_types.append("blank")
+rows.append([])
+row_types.append("blank")
+
+# ============ FADE PRESETS ============
+rows.append(["FADE PRESETS - Smoothing Percentages"])
+row_types.append("section")
+rows.append([])
+row_types.append("blank")
+rows.append(["Preset", "Smoothing %", "Description"])
+row_types.append("header")
+
+fade_data = [
+    ["Instant", 0.00, "No transition, immediate"],
+    ["Default", 0.10, "Natural B&S feel"],
+    ["Quick Fade", 0.15, "Quick transition"],
+    ["Medium Fade", 0.20, "Moderate transition"],
+    ["Long Fade", 0.30, "Slow transition"],
+    ["Very Long Fade", 0.40, "Very gradual transition"],
+]
+for row in fade_data:
+    rows.append(row)
+    row_types.append("data")
+
+
+# ============ BUILD XLSX ============
 styles_xml = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <styleSheet xmlns="{NS_MAIN}">
   <fonts count="3">
@@ -244,13 +302,11 @@ styles_xml = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 </styleSheet>
 """.encode("utf-8")
 
-# Build workbook
 workbook = ET.Element(f"{{{NS_MAIN}}}workbook", {f"{{{NS_REL}}}r": NS_REL})
 sheets_el = ET.SubElement(workbook, f"{{{NS_MAIN}}}sheets")
 ET.SubElement(sheets_el, f"{{{NS_MAIN}}}sheet", {"name": "Presets", "sheetId": "1", f"{{{NS_REL}}}id": "rId1"})
 workbook_xml = ET.tostring(workbook, encoding="utf-8", xml_declaration=True)
 
-# Workbook rels
 rels_root = ET.Element("Relationships", xmlns="http://schemas.openxmlformats.org/package/2006/relationships")
 ET.SubElement(rels_root, "Relationship", {
     "Id": "rId1",
@@ -264,7 +320,6 @@ ET.SubElement(rels_root, "Relationship", {
 })
 workbook_rels_xml = ET.tostring(rels_root, encoding="utf-8", xml_declaration=True)
 
-# Root rels
 root_rels = ET.Element("Relationships", xmlns="http://schemas.openxmlformats.org/package/2006/relationships")
 ET.SubElement(root_rels, "Relationship", {
     "Id": "rId1",
@@ -273,7 +328,6 @@ ET.SubElement(root_rels, "Relationship", {
 })
 root_rels_xml = ET.tostring(root_rels, encoding="utf-8", xml_declaration=True)
 
-# Content types
 content_types = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
@@ -284,10 +338,8 @@ content_types = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 </Types>
 """.encode("utf-8")
 
-# Build sheet
-sheet_xml = build_sheet_xml(all_rows, row_types)
+sheet_xml = build_sheet_xml(rows, row_types, formulas)
 
-# Write xlsx
 with zipfile.ZipFile(OUTPUT, "w", compression=zipfile.ZIP_DEFLATED) as zf:
     zf.writestr("[Content_Types].xml", content_types)
     zf.writestr("_rels/.rels", root_rels_xml)
@@ -297,3 +349,4 @@ with zipfile.ZipFile(OUTPUT, "w", compression=zipfile.ZIP_DEFLATED) as zf:
     zf.writestr("xl/worksheets/sheet1.xml", sheet_xml)
 
 print(f"Wrote {OUTPUT}")
+print("Edit the multiplier rows to see automatic calculations!")
