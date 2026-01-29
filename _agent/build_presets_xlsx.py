@@ -119,7 +119,7 @@ for trigger, base in intensity_bases:
     for col_offset in range(5):
         col_idx = col_offset + 3  # C=3, D=4, E=5, F=6, G=7
         mult_col = col_letter(col_idx)
-        formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${intensity_mult_row}"
+        formulas[(current_row, col_idx)] = f"ROUND(B{current_row}*{mult_col}${intensity_mult_row},2)"
 
 rows.append([])
 row_types.append("blank")
@@ -159,7 +159,7 @@ for trigger, base in duration_bases:
     for col_offset in range(5):
         col_idx = col_offset + 3
         mult_col = col_letter(col_idx)
-        formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${duration_mult_row}"
+        formulas[(current_row, col_idx)] = f"ROUND(B{current_row}*{mult_col}${duration_mult_row},2)"
 
 rows.append([])
 row_types.append("blank")
@@ -198,7 +198,7 @@ for trigger, base in cooldown_bases:
     for col_offset in range(5):
         col_idx = col_offset + 3
         mult_col = col_letter(col_idx)
-        formulas[(current_row, col_idx)] = f"B{current_row}*{mult_col}${cooldown_mult_row}"
+        formulas[(current_row, col_idx)] = f"ROUND(B{current_row}*{mult_col}${cooldown_mult_row},2)"
 
 rows.append([])
 row_types.append("blank")
@@ -240,7 +240,7 @@ for trigger, base in chance_bases:
     for col_offset in range(1, 5):
         col_idx = col_offset + 3  # D=4, E=5, F=6, G=7
         mult_col = col_letter(col_idx)
-        formulas[(current_row, col_idx)] = f"MIN(B{current_row}*{mult_col}${chance_mult_row},1)"
+        formulas[(current_row, col_idx)] = f"ROUND(MIN(B{current_row}*{mult_col}${chance_mult_row},1),2)"
 
 rows.append([])
 row_types.append("blank")
