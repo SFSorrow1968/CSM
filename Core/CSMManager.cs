@@ -389,16 +389,12 @@ namespace CSM.Core
 
         private void GetCustomTriggerConfig(TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown)
         {
+            // Values are now set directly by preset apply methods, no runtime multiplication needed
             var values = CSMModOptions.GetCustomValues(type);
             chance = values.Chance;
             timeScale = values.TimeScale;
             duration = values.Duration;
             cooldown = values.Cooldown;
-            
-            // Apply preset overrides
-            CSMModOptions.ApplyChancePreset(ref chance);
-            CSMModOptions.ApplyCooldownPreset(ref cooldown);
-            CSMModOptions.ApplyDurationPreset(ref duration);
         }
 
         private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt)

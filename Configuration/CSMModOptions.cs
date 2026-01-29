@@ -1415,6 +1415,112 @@ namespace CSM.Configuration
             }
         }
 
+        /// <summary>
+        /// Get direct chance value for a trigger based on the current ChancePreset.
+        /// Values are pre-computed (no runtime multipliers).
+        /// </summary>
+        public static float GetPresetChanceValue(TriggerType trigger)
+        {
+            var preset = GetChancePreset();
+            
+            // Off = 100% for all triggers
+            if (preset == ChancePreset.Off)
+                return 1.0f;
+            
+            // Base chance values per trigger (Standard preset)
+            float baseChance;
+            switch (trigger)
+            {
+                case TriggerType.BasicKill: baseChance = 0.25f; break;
+                case TriggerType.Critical: baseChance = 0.75f; break;
+                case TriggerType.Dismemberment: baseChance = 0.30f; break;
+                case TriggerType.Decapitation: baseChance = 0.90f; break;
+                case TriggerType.Parry: baseChance = 0.50f; break;
+                case TriggerType.LastEnemy: baseChance = 1.0f; break;
+                case TriggerType.LastStand: baseChance = 1.0f; break;
+                default: baseChance = 0.5f; break;
+            }
+            
+            // Apply preset multiplier to get direct value
+            float multiplier;
+            switch (preset)
+            {
+                case ChancePreset.VeryRare: multiplier = 0.5f; break;
+                case ChancePreset.Rare: multiplier = 0.6f; break;
+                case ChancePreset.Frequent: multiplier = 1.4f; break;
+                default: multiplier = 1.0f; break; // Standard
+            }
+            
+            return Mathf.Clamp01(baseChance * multiplier);
+        }
+
+        /// <summary>
+        /// Get direct cooldown value for a trigger based on the current CooldownPreset.
+        /// Values are pre-computed (no runtime multipliers).
+        /// </summary>
+        public static float GetPresetCooldownValue(TriggerType trigger)
+        {
+            var preset = GetCooldownPreset();
+            
+            // Off = 0 for all triggers
+            if (preset == CooldownPreset.Off)
+                return 0f;
+            
+            // Base cooldown values per trigger (Standard preset)
+            float baseCooldown;
+            switch (trigger)
+            {
+                case TriggerType.BasicKill: baseCooldown = 10f; break;
+                case TriggerType.Critical: baseCooldown = 10f; break;
+                case TriggerType.Dismemberment: baseCooldown = 10f; break;
+                case TriggerType.Decapitation: baseCooldown = 10f; break;
+                case TriggerType.Parry: baseCooldown = 5f; break;
+                case TriggerType.LastEnemy: baseCooldown = 30f; break;
+                case TriggerType.LastStand: baseCooldown = 90f; break;
+                default: baseCooldown = 10f; break;
+            }
+            
+            // Apply preset multiplier to get direct value
+            float multiplier;
+            switch (preset)
+            {
+                case CooldownPreset.Short: multiplier = 0.6f; break;
+                case CooldownPreset.Long: multiplier = 2.0f; break;
+                case CooldownPreset.Extended: multiplier = 3.0f; break;
+                default: multiplier = 1.0f; break; // Standard
+            }
+            
+            return Mathf.Max(0f, baseCooldown * multiplier);
+        }
+
+        /// <summary>
+        /// Get direct duration value for a trigger based on the current DurationPreset.
+        /// Values are pre-computed (no runtime multipliers).
+        /// </summary>
+        public static float GetPresetDurationValue(TriggerType trigger)
+        {
+            var preset = GetDurationPreset();
+            
+            // Base duration values per trigger (Standard preset)
+            float baseDuration;
+            switch (trigger)
+            {
+                case TriggerType.BasicKill: baseDuration = 2.5f; break;
+                case TriggerType.Critical: baseDuration = 3.0f; break;
+                case TriggerType.Dismemberment: baseDuration = 2.0f; break;
+                case TriggerType.Decapitation: baseDuration = 3.25f; break;
+                case TriggerType.Parry: baseDuration = 1.5f; break;
+                case TriggerType.LastEnemy: baseDuration = 2.75f; break;
+                case TriggerType.LastStand: baseDuration = 4.0f; break;
+                default: baseDuration = 2.0f; break;
+            }
+            
+            // Apply preset multiplier to get direct value
+            float multiplier = GetDurationMultiplier();
+            
+            return Mathf.Max(0.05f, baseDuration * multiplier);
+        }
+
         public static void ApplyChancePreset(ref float chance)
         {
             var preset = GetChancePreset();

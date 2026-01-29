@@ -291,52 +291,9 @@ namespace CSM.Core
             return true;
         }
 
-        private delegate float PresetValueSelector(float chance, float timeScale, float duration, float cooldown);
-        private delegate void RefFloatAction(ref float value);
-
         private static string ResolvePresetLabel(string settingValue, object preset)
         {
             return string.IsNullOrWhiteSpace(settingValue) ? preset.ToString() : settingValue;
-        }
-
-        private bool ApplyPresetFromStandard<TPreset>(bool force, TPreset currentPreset, ref TPreset? lastPreset, string label,
-            string settingValue, PresetValueSelector selector, RefFloatAction applyPreset, CSMModOptions.TriggerField field,
-            Dictionary<TriggerType, string> optionMap) where TPreset : struct
-        {
-            if (!force && lastPreset.HasValue && EqualityComparer<TPreset>.Default.Equals(lastPreset.Value, currentPreset))
-                return false;
-
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Applying " + label + ": " + ResolvePresetLabel(settingValue, currentPreset));
-
-            foreach (var trigger in TriggerTypes)
-            {
-                CSMManager.GetPresetValues(CSMModOptions.Preset.Standard, trigger, out float chance, out float timeScale,
-                    out float duration, out float cooldown);
-                float baseValue = selector(chance, timeScale, duration, cooldown);
-                float value = baseValue;
-                applyPreset(ref value);
-                CSMModOptions.SetTriggerValue(trigger, field, value);
-                SyncOptionValue(optionMap, trigger, value);
-
-                if (CSMModOptions.DebugLogging)
-                {
-                    string unit = field == CSMModOptions.TriggerField.Chance ? "%" : (field == CSMModOptions.TriggerField.Duration || field == CSMModOptions.TriggerField.Cooldown ? "s" : "");
-                    string displayValue = field == CSMModOptions.TriggerField.Chance
-                        ? (value * 100f).ToString("F0") + unit
-                        : value.ToString("0.##") + unit;
-                    string displayBase = field == CSMModOptions.TriggerField.Chance
-                        ? (baseValue * 100f).ToString("F0") + unit
-                        : baseValue.ToString("0.##") + unit;
-                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " " + field + " = " + displayValue + " (base: " + displayBase + ")");
-                }
-            }
-
-            lastPreset = currentPreset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply(label, ResolvePresetLabel(settingValue, currentPreset));
-            return true;
         }
 
         private bool ApplyIntensityPreset(bool force)
@@ -376,25 +333,79 @@ namespace CSM.Core
         private bool ApplyChancePreset(bool force)
         {
             var preset = CSMModOptions.GetChancePreset();
-            return ApplyPresetFromStandard(force, preset, ref _lastChancePreset, "Chance Preset",
-                CSMModOptions.ChancePresetSetting, (chance, timeScale, duration, cooldown) => chance,
-                CSMModOptions.ApplyChancePreset, CSMModOptions.TriggerField.Chance, ChanceOptionNames);
+            if (!force && _lastChancePreset.HasValue && _lastChancePreset.Value.Equals(preset))
+                return false;
+
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Applying Chance Preset: " + ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
+
+            foreach (var trigger in TriggerTypes)
+            {
+                float value = CSMModOptions.GetPresetChanceValue(trigger);
+                CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Chance, value);
+                SyncOptionValue(ChanceOptionNames, trigger, value);
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Chance = " + (value * 100f).ToString("F0") + "%");
+            }
+
+            _lastChancePreset = preset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
+            LogPresetApply("Chance Preset", ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
+            return true;
         }
 
         private bool ApplyCooldownPreset(bool force)
         {
             var preset = CSMModOptions.GetCooldownPreset();
-            return ApplyPresetFromStandard(force, preset, ref _lastCooldownPreset, "Cooldown Preset",
-                CSMModOptions.CooldownPresetSetting, (chance, timeScale, duration, cooldown) => cooldown,
-                CSMModOptions.ApplyCooldownPreset, CSMModOptions.TriggerField.Cooldown, CooldownOptionNames);
+            if (!force && _lastCooldownPreset.HasValue && _lastCooldownPreset.Value.Equals(preset))
+                return false;
+
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Applying Cooldown Preset: " + ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
+
+            foreach (var trigger in TriggerTypes)
+            {
+                float value = CSMModOptions.GetPresetCooldownValue(trigger);
+                CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Cooldown, value);
+                SyncOptionValue(CooldownOptionNames, trigger, value);
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Cooldown = " + value.ToString("0.##") + "s");
+            }
+
+            _lastCooldownPreset = preset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
+            LogPresetApply("Cooldown Preset", ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
+            return true;
         }
 
         private bool ApplyDurationPreset(bool force)
         {
             var preset = CSMModOptions.GetDurationPreset();
-            return ApplyPresetFromStandard(force, preset, ref _lastDurationPreset, "Duration Preset",
-                CSMModOptions.DurationPresetSetting, (chance, timeScale, duration, cooldown) => duration,
-                CSMModOptions.ApplyDurationPreset, CSMModOptions.TriggerField.Duration, DurationOptionNames);
+            if (!force && _lastDurationPreset.HasValue && _lastDurationPreset.Value.Equals(preset))
+                return false;
+
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Applying Duration Preset: " + ResolvePresetLabel(CSMModOptions.DurationPresetSetting, preset));
+
+            foreach (var trigger in TriggerTypes)
+            {
+                float value = CSMModOptions.GetPresetDurationValue(trigger);
+                CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Duration, value);
+                SyncOptionValue(DurationOptionNames, trigger, value);
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Duration = " + value.ToString("0.##") + "s");
+            }
+
+            _lastDurationPreset = preset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
+            LogPresetApply("Duration Preset", ResolvePresetLabel(CSMModOptions.DurationPresetSetting, preset));
+            return true;
         }
 
         private bool ApplySmoothingPresets(bool force)
