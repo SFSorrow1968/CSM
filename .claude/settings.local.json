@@ -29,7 +29,8 @@
       "Bash(unzip:*)",
       "Bash(python3:*)",
       "Bash(powershell.exe:*)",
-      "Bash(xargs -I {} sh -c 'strings {} 2>/dev/null | grep -q \"\"class Player\"\" && echo {}')"
+      "Bash(xargs -I {} sh -c 'strings {} 2>/dev/null | grep -q \"\"class Player\"\" && echo {}')",
+      "Bash(python:*)"
     ]
   }
 }

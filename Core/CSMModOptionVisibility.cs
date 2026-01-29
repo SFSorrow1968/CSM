@@ -25,6 +25,10 @@ namespace CSM.Core
         private bool _lastResetStats;
         private readonly Dictionary<TriggerType, CSMModOptions.TriggerCustomValues> _lastCustomValues =
             new Dictionary<TriggerType, CSMModOptions.TriggerCustomValues>();
+        private readonly Dictionary<TriggerType, float> _expectedTimeScales =
+            new Dictionary<TriggerType, float>();
+        private float _presetAppliedTime;
+        private const float PresetLockDuration = 10f; // Seconds to protect preset values from UI corruption
         private readonly Dictionary<string, string> _baseTooltips =
             new Dictionary<string, string>(StringComparer.Ordinal);
 
@@ -347,12 +351,14 @@ namespace CSM.Core
                 CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, timeScale);
                 SyncOptionValue(TimeScaleOptionNames, trigger, timeScale);
+                _expectedTimeScales[trigger] = timeScale;
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " TimeScale = " + timeScale.ToString("0.00") + " (" + (timeScale * 100f).ToString("F0") + "%)");
             }
 
             _lastIntensityPreset = preset;
+            _presetAppliedTime = Time.unscaledTime;
             LogPresetApply("Intensity Preset", ResolvePresetLabel(CSMModOptions.CurrentPreset, preset));
             return true;
         }
@@ -793,6 +799,30 @@ namespace CSM.Core
 
                 if (!CustomValuesChanged(last, current))
                     continue;
+
+                // Check if TimeScale was corrupted by UI (doesn't match expected preset value)
+                // Only revert within the lock window after preset was applied
+                float timeSincePreset = Time.unscaledTime - _presetAppliedTime;
+                if (timeSincePreset < PresetLockDuration && _expectedTimeScales.TryGetValue(trigger, out float expectedTimeScale))
+                {
+                    float currentTimeScale = current.TimeScale;
+                    if (Mathf.Abs(currentTimeScale - expectedTimeScale) > 0.0001f &&
+                        Mathf.Abs(last.TimeScale - expectedTimeScale) < 0.0001f)
+                    {
+                        // TimeScale was changed from expected value - likely UI corruption, revert it
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] TimeScale corruption detected for " + GetTriggerUiName(trigger) +
+                                      ": expected " + expectedTimeScale.ToString("0.00") +
+                                      ", got " + currentTimeScale.ToString("0.00") + " - reverting (within " + PresetLockDuration + "s window)");
+                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, expectedTimeScale);
+                        SyncOptionValue(TimeScaleOptionNames, trigger, expectedTimeScale);
+                        // Update last values to reflect the reverted state
+                        current.TimeScale = expectedTimeScale;
+                        _lastCustomValues[trigger] = current;
+                        changed = true;
+                        continue;
+                    }
+                }
 
                 _lastCustomValues[trigger] = current;
                 if (CSMModOptions.DebugLogging)
