@@ -92,7 +92,7 @@ rows.append([])
 row_types.append("blank")
 
 # Multiplier row (values directly above preset names)
-rows.append(["", "", 1.35, 1.0, 0.85, 0.70, 0.55])
+rows.append(["", "", 1.5, 1.0, 0.8, 0.5, 0.3])
 row_types.append("data")
 intensity_mult_row = len(rows)
 
@@ -108,7 +108,7 @@ intensity_bases = [
     ("Last Enemy", 0.26),
     ("Critical", 0.25),
     ("Decapitation", 0.23),
-    ("Last Stand", 0.21),
+    ("Last Stand", 0.30),
 ]
 
 for trigger, base in intensity_bases:
@@ -133,7 +133,7 @@ rows.append([])
 row_types.append("blank")
 
 # Multiplier row (values directly above preset names)
-rows.append(["", "", 0.5, 0.7, 1.0, 1.3, 1.5])
+rows.append(["", "", 0.35, 0.7, 1.0, 1.35, 1.7])
 row_types.append("data")
 duration_mult_row = len(rows)
 
@@ -149,7 +149,7 @@ duration_bases = [
     ("Last Enemy", 2.75),
     ("Critical", 3.0),
     ("Decapitation", 3.25),
-    ("Last Stand", 3.5),
+    ("Last Stand", 4.0),
 ]
 
 for trigger, base in duration_bases:
@@ -187,8 +187,8 @@ cooldown_bases = [
     ("Dismemberment", 10),
     ("Critical", 10),
     ("Decapitation", 10),
-    ("Last Enemy", 20),
-    ("Last Stand", 60),
+    ("Last Enemy", 30),
+    ("Last Stand", 90),
 ]
 
 for trigger, base in cooldown_bases:
@@ -223,7 +223,7 @@ row_types.append("header")
 chance_bases = [
     ("Basic Kill", 0.25),
     ("Parry", 0.50),
-    ("Dismemberment", 0.60),
+    ("Dismemberment", 0.30),
     ("Critical", 0.75),
     ("Decapitation", 0.90),
     ("Last Enemy", 1.00),

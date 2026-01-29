@@ -272,6 +272,7 @@ namespace CSM.Core
 
         public static void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown)
         {
+            // Intensity multipliers: Subtle=1.5, Standard=1.0, Dramatic=0.8, Cinematic=0.5, Epic=0.3
             chance = 0.5f;
             timeScale = 0.25f;
             duration = 1.5f;
@@ -286,21 +287,11 @@ namespace CSM.Core
                     timeScale = 0.28f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.40f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.28f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.23f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.18f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.13f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.42f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.28f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.22f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.14f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.08f; break;
                     }
                     break;
 
@@ -311,46 +302,26 @@ namespace CSM.Core
                     timeScale = 0.25f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.37f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.25f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.20f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.15f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.10f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.38f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.25f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.20f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.13f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.08f; break;
                     }
                     break;
 
                 case TriggerType.Dismemberment:
-                    chance = 0.6f;
+                    chance = 0.30f;
                     duration = 2.0f;
                     cooldown = 10f;
                     timeScale = 0.30f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.42f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.30f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.25f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.20f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.15f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.45f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.30f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.24f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.15f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.09f; break;
                     }
                     break;
 
@@ -361,21 +332,11 @@ namespace CSM.Core
                     timeScale = 0.23f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.35f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.23f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.18f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.13f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.08f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.35f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.23f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.18f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.12f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.07f; break;
                     }
                     break;
 
@@ -386,71 +347,41 @@ namespace CSM.Core
                     timeScale = 0.34f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.46f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.34f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.29f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.24f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.19f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.51f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.34f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.27f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.17f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.10f; break;
                     }
                     break;
 
                 case TriggerType.LastEnemy:
                     chance = 1.0f;
                     duration = 2.75f;
-                    cooldown = 20f;
+                    cooldown = 30f;
                     timeScale = 0.26f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.38f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.26f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.21f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.16f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.11f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.39f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.26f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.21f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.13f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.08f; break;
                     }
                     break;
 
                 case TriggerType.LastStand:
                     chance = 1.0f;
-                    duration = 3.5f;
-                    cooldown = 60f;
-                    timeScale = 0.21f;
+                    duration = 4.0f;
+                    cooldown = 90f;
+                    timeScale = 0.30f;
                     switch (preset)
                     {
-                        case CSMModOptions.Preset.Subtle:
-                            timeScale = 0.33f;
-                            break;
-                        case CSMModOptions.Preset.Standard:
-                            timeScale = 0.21f;
-                            break;
-                        case CSMModOptions.Preset.Dramatic:
-                            timeScale = 0.16f;
-                            break;
-                        case CSMModOptions.Preset.Cinematic:
-                            timeScale = 0.11f;
-                            break;
-                        case CSMModOptions.Preset.Epic:
-                            timeScale = 0.08f;
-                            break;
+                        case CSMModOptions.Preset.Subtle: timeScale = 0.45f; break;
+                        case CSMModOptions.Preset.Standard: timeScale = 0.30f; break;
+                        case CSMModOptions.Preset.Dramatic: timeScale = 0.24f; break;
+                        case CSMModOptions.Preset.Cinematic: timeScale = 0.15f; break;
+                        case CSMModOptions.Preset.Epic: timeScale = 0.09f; break;
                     }
                     break;
             }
