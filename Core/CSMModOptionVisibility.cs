@@ -737,12 +737,6 @@ namespace CSM.Core
             return BuildSummary(type, values);
         }
 
-        private static string BuildRawSummary(TriggerType type)
-        {
-            var values = CSMModOptions.GetCustomValues(type);
-            return BuildSummary(type, values);
-        }
-
         private static string BuildSummary(TriggerType type, CSMModOptions.TriggerCustomValues values)
         {
             string chanceLabel = (values.Chance * 100f).ToString("F0") + "%";
@@ -1021,10 +1015,10 @@ namespace CSM.Core
 
         private void LogEffectiveValues()
         {
-            Debug.Log("[CSM] Effective Values:");
+            Debug.Log("[CSM] Trigger Values:");
             foreach (var trigger in TriggerTypes)
             {
-                Debug.Log("[CSM] " + GetTriggerUiName(trigger) + " raw -> " + BuildRawSummary(trigger) + " | effective -> " + BuildEffectiveSummary(trigger));
+                Debug.Log("[CSM] " + GetTriggerUiName(trigger) + " -> " + BuildEffectiveSummary(trigger));
             }
         }
 
