@@ -1000,7 +1000,7 @@ namespace CSM.Core
                       "Intensity=" + CSMModOptions.CurrentPreset +
                       " | Chance=" + CSMModOptions.ChancePresetSetting +
                       " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
-                      " | Duration=" + CSMModOptions.DurationPresetSetting + " (x" + CSMModOptions.GetDurationMultiplier().ToString("0.##") + ")" +
+                      " | Duration=" + CSMModOptions.DurationPresetSetting +
                       " | SmoothIn=" + CSMModOptions.SmoothInPresetSetting +
                       " | SmoothOut=" + CSMModOptions.SmoothOutPresetSetting +
                       " | ThirdPerson=" + CSMModOptions.CameraDistribution +
