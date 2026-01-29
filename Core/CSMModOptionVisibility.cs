@@ -25,10 +25,10 @@ namespace CSM.Core
         private bool _lastResetStats;
         private readonly Dictionary<TriggerType, CSMModOptions.TriggerCustomValues> _lastCustomValues =
             new Dictionary<TriggerType, CSMModOptions.TriggerCustomValues>();
-        private readonly Dictionary<TriggerType, float> _expectedTimeScales =
-            new Dictionary<TriggerType, float>();
+        private readonly Dictionary<TriggerType, CSMModOptions.TriggerCustomValues> _expectedPresetValues =
+            new Dictionary<TriggerType, CSMModOptions.TriggerCustomValues>();
         private float _presetAppliedTime;
-        private const float PresetLockDuration = 10f; // Seconds to protect preset values from UI corruption
+        private const float PresetLockDuration = 30f; // Seconds to protect preset values from UI corruption
         private readonly Dictionary<string, string> _baseTooltips =
             new Dictionary<string, string>(StringComparer.Ordinal);
 
@@ -333,6 +333,8 @@ namespace CSM.Core
             }
 
             lastPreset = currentPreset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
             LogPresetApply(label, ResolvePresetLabel(settingValue, currentPreset));
             return true;
         }
@@ -351,7 +353,6 @@ namespace CSM.Core
                 CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, timeScale);
                 SyncOptionValue(TimeScaleOptionNames, trigger, timeScale);
-                _expectedTimeScales[trigger] = timeScale;
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " TimeScale = " + timeScale.ToString("0.00") + " (" + (timeScale * 100f).ToString("F0") + "%)");
@@ -359,8 +360,17 @@ namespace CSM.Core
 
             _lastIntensityPreset = preset;
             _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
             LogPresetApply("Intensity Preset", ResolvePresetLabel(CSMModOptions.CurrentPreset, preset));
             return true;
+        }
+
+        private void StoreExpectedPresetValues()
+        {
+            foreach (var trigger in TriggerTypes)
+            {
+                _expectedPresetValues[trigger] = CSMModOptions.GetCustomValues(trigger);
+            }
         }
 
         private bool ApplyChancePreset(bool force)
@@ -411,6 +421,8 @@ namespace CSM.Core
 
             _lastSmoothInPreset = inPreset;
             _lastSmoothOutPreset = outPreset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
 
             float inPercent = CSMModOptions.GetSmoothingPercent(inPreset) * 100f;
             float outPercent = CSMModOptions.GetSmoothingPercent(outPreset) * 100f;
@@ -435,6 +447,8 @@ namespace CSM.Core
             }
 
             _lastDistributionPreset = preset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
             LogPresetApply("Third Person Distribution", ResolvePresetLabel(CSMModOptions.CameraDistribution, preset));
             return true;
         }
@@ -788,6 +802,9 @@ namespace CSM.Core
         private bool ApplyCustomOverrides()
         {
             bool changed = false;
+            float timeSincePreset = Time.unscaledTime - _presetAppliedTime;
+            bool withinLockWindow = timeSincePreset < PresetLockDuration;
+
             foreach (var trigger in TriggerTypes)
             {
                 CSMModOptions.TriggerCustomValues current = ReadCustomValues(trigger);
@@ -800,24 +817,70 @@ namespace CSM.Core
                 if (!CustomValuesChanged(last, current))
                     continue;
 
-                // Check if TimeScale was corrupted by UI (doesn't match expected preset value)
+                // Check if values were corrupted by UI (don't match expected preset values)
                 // Only revert within the lock window after preset was applied
-                float timeSincePreset = Time.unscaledTime - _presetAppliedTime;
-                if (timeSincePreset < PresetLockDuration && _expectedTimeScales.TryGetValue(trigger, out float expectedTimeScale))
+                if (withinLockWindow && _expectedPresetValues.TryGetValue(trigger, out CSMModOptions.TriggerCustomValues expected))
                 {
-                    float currentTimeScale = current.TimeScale;
-                    if (Mathf.Abs(currentTimeScale - expectedTimeScale) > 0.0001f &&
-                        Mathf.Abs(last.TimeScale - expectedTimeScale) < 0.0001f)
+                    bool reverted = false;
+
+                    // Check and revert TimeScale
+                    if (Mathf.Abs(current.TimeScale - expected.TimeScale) > 0.0001f &&
+                        Mathf.Abs(last.TimeScale - expected.TimeScale) < 0.0001f)
                     {
-                        // TimeScale was changed from expected value - likely UI corruption, revert it
                         if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] TimeScale corruption detected for " + GetTriggerUiName(trigger) +
-                                      ": expected " + expectedTimeScale.ToString("0.00") +
-                                      ", got " + currentTimeScale.ToString("0.00") + " - reverting (within " + PresetLockDuration + "s window)");
-                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, expectedTimeScale);
-                        SyncOptionValue(TimeScaleOptionNames, trigger, expectedTimeScale);
-                        // Update last values to reflect the reverted state
-                        current.TimeScale = expectedTimeScale;
+                            Debug.Log("[CSM] TimeScale corruption: " + GetTriggerUiName(trigger) +
+                                      " expected " + expected.TimeScale.ToString("0.00") +
+                                      ", got " + current.TimeScale.ToString("0.00") + " - reverting");
+                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, expected.TimeScale);
+                        SyncOptionValue(TimeScaleOptionNames, trigger, expected.TimeScale);
+                        current.TimeScale = expected.TimeScale;
+                        reverted = true;
+                    }
+
+                    // Check and revert Chance
+                    if (Mathf.Abs(current.Chance - expected.Chance) > 0.0001f &&
+                        Mathf.Abs(last.Chance - expected.Chance) < 0.0001f)
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] Chance corruption: " + GetTriggerUiName(trigger) +
+                                      " expected " + (expected.Chance * 100f).ToString("F0") + "%" +
+                                      ", got " + (current.Chance * 100f).ToString("F0") + "% - reverting");
+                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Chance, expected.Chance);
+                        SyncOptionValue(ChanceOptionNames, trigger, expected.Chance);
+                        current.Chance = expected.Chance;
+                        reverted = true;
+                    }
+
+                    // Check and revert Duration
+                    if (Mathf.Abs(current.Duration - expected.Duration) > 0.0001f &&
+                        Mathf.Abs(last.Duration - expected.Duration) < 0.0001f)
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] Duration corruption: " + GetTriggerUiName(trigger) +
+                                      " expected " + expected.Duration.ToString("0.##") + "s" +
+                                      ", got " + current.Duration.ToString("0.##") + "s - reverting");
+                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Duration, expected.Duration);
+                        SyncOptionValue(DurationOptionNames, trigger, expected.Duration);
+                        current.Duration = expected.Duration;
+                        reverted = true;
+                    }
+
+                    // Check and revert Cooldown
+                    if (Mathf.Abs(current.Cooldown - expected.Cooldown) > 0.0001f &&
+                        Mathf.Abs(last.Cooldown - expected.Cooldown) < 0.0001f)
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] Cooldown corruption: " + GetTriggerUiName(trigger) +
+                                      " expected " + expected.Cooldown.ToString("0.##") + "s" +
+                                      ", got " + current.Cooldown.ToString("0.##") + "s - reverting");
+                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Cooldown, expected.Cooldown);
+                        SyncOptionValue(CooldownOptionNames, trigger, expected.Cooldown);
+                        current.Cooldown = expected.Cooldown;
+                        reverted = true;
+                    }
+
+                    if (reverted)
+                    {
                         _lastCustomValues[trigger] = current;
                         changed = true;
                         continue;
