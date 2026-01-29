@@ -394,6 +394,9 @@ namespace CSM.Core
             timeScale = values.TimeScale;
             duration = values.Duration;
             cooldown = values.Cooldown;
+            
+            // Apply preset overrides
+            CSMModOptions.ApplyChancePreset(ref chance);
         }
 
         private void StartSlowMotion(TriggerType type, float timeScale, float duration, float cooldown, float damageDealt)
