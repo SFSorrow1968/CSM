@@ -120,7 +120,7 @@ namespace CSM.Configuration
         public enum Preset
         {
             Subtle = 0,
-            Standard = 1,
+            Default = 1,
             Dramatic = 2,
             Cinematic = 3,
             Epic = 4
@@ -140,7 +140,7 @@ namespace CSM.Configuration
             Off = 0,
             VeryRare = 1,
             Rare = 2,
-            Standard = 3,
+            Default = 3,
             Frequent = 4
         }
 
@@ -148,7 +148,7 @@ namespace CSM.Configuration
         {
             Off = 0,
             Short = 1,
-            Standard = 2,
+            Default = 2,
             Long = 3,
             Extended = 4
         }
@@ -157,7 +157,7 @@ namespace CSM.Configuration
         {
             VeryShort = 0,
             Short = 1,
-            Standard = 2,
+            Default = 2,
             Long = 3,
             Extended = 4
         }
@@ -244,7 +244,7 @@ namespace CSM.Configuration
         private static readonly PresetOption<Preset>[] IntensityPresetOptions =
         {
             new PresetOption<Preset>("Subtle", "Subtle", Preset.Subtle),
-            new PresetOption<Preset>("Standard", "Standard", Preset.Standard),
+            new PresetOption<Preset>("Default", "Default", Preset.Default),
             new PresetOption<Preset>("Dramatic", "Dramatic", Preset.Dramatic),
             new PresetOption<Preset>("Cinematic", "Cinematic", Preset.Cinematic),
             new PresetOption<Preset>("Epic", "Epic", Preset.Epic)
@@ -264,7 +264,7 @@ namespace CSM.Configuration
             new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", ChancePreset.Off),
             new PresetOption<ChancePreset>("Very Rare", "Very Rare", ChancePreset.VeryRare),
             new PresetOption<ChancePreset>("Rare", "Rare", ChancePreset.Rare),
-            new PresetOption<ChancePreset>("Standard", "Standard", ChancePreset.Standard),
+            new PresetOption<ChancePreset>("Default", "Default", ChancePreset.Default),
             new PresetOption<ChancePreset>("Frequent", "Frequent", ChancePreset.Frequent)
         };
 
@@ -272,7 +272,7 @@ namespace CSM.Configuration
         {
             new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", CooldownPreset.Off),
             new PresetOption<CooldownPreset>("Short", "Short", CooldownPreset.Short),
-            new PresetOption<CooldownPreset>("Standard", "Standard", CooldownPreset.Standard),
+            new PresetOption<CooldownPreset>("Default", "Default", CooldownPreset.Default),
             new PresetOption<CooldownPreset>("Long", "Long", CooldownPreset.Long),
             new PresetOption<CooldownPreset>("Extended", "Extended", CooldownPreset.Extended)
         };
@@ -281,7 +281,7 @@ namespace CSM.Configuration
         {
             new PresetOption<DurationPreset>("Very Short", "Very Short", DurationPreset.VeryShort),
             new PresetOption<DurationPreset>("Short", "Short", DurationPreset.Short),
-            new PresetOption<DurationPreset>("Standard", "Standard", DurationPreset.Standard),
+            new PresetOption<DurationPreset>("Default", "Default", DurationPreset.Default),
             new PresetOption<DurationPreset>("Long", "Long", DurationPreset.Long),
             new PresetOption<DurationPreset>("Extended", "Extended", DurationPreset.Extended)
         };
@@ -305,7 +305,7 @@ namespace CSM.Configuration
         private static readonly Dictionary<string, Preset> IntensityPresetMap = BuildPresetMap(IntensityPresetOptions,
             new Dictionary<string, Preset>
             {
-                { "Balanced", Preset.Standard }
+                { "Balanced", Preset.Default }
             });
 
         private static readonly Dictionary<string, TriggerProfilePreset> TriggerProfileMap = BuildPresetMap(TriggerProfileOptions);
@@ -315,7 +315,7 @@ namespace CSM.Configuration
             {
                 { "Always", ChancePreset.Off },
                 { "Chaos", ChancePreset.Off },
-                { "Balanced", ChancePreset.Standard }
+                { "Balanced", ChancePreset.Default }
             });
 
         private static readonly Dictionary<string, CooldownPreset> CooldownPresetMap = BuildPresetMap(CooldownPresetOptions,
@@ -324,13 +324,13 @@ namespace CSM.Configuration
                 { "Rare", CooldownPreset.Long },
                 { "Frequent", CooldownPreset.Short },
                 { "Chaos", CooldownPreset.Short },
-                { "Balanced", CooldownPreset.Standard }
+                { "Balanced", CooldownPreset.Default }
             });
 
         private static readonly Dictionary<string, DurationPreset> DurationPresetMap = BuildPresetMap(DurationPresetOptions,
             new Dictionary<string, DurationPreset>
             {
-                { "Balanced", DurationPreset.Standard }
+                { "Balanced", DurationPreset.Default }
             });
 
         private static readonly Dictionary<string, TransitionPreset> TransitionPresetMap = BuildPresetMap(TransitionPresetOptions,
@@ -344,7 +344,7 @@ namespace CSM.Configuration
             {
                 { "Mostly First Person", CameraDistributionPreset.MostlyFirstPerson },
                 { "Rare", CameraDistributionPreset.MostlyFirstPerson },
-                { "Standard", CameraDistributionPreset.Mixed },
+                { "Default", CameraDistributionPreset.Mixed },
                 { "Balanced", CameraDistributionPreset.Mixed },
                 { "Frequent", CameraDistributionPreset.MostlyThirdPerson },
                 { "Always", CameraDistributionPreset.ThirdPersonOnly }
@@ -623,17 +623,17 @@ namespace CSM.Configuration
         [ModOption(name = OptionThirdPersonDistribution, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
         public static string CameraDistribution = "First Person Only";
 
-        [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Standard = default, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
-        public static string CurrentPreset = "Standard";
+        [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
+        public static string CurrentPreset = "Default";
 
         [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
         [ModOption(name = OptionCooldownPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
-        public static string CooldownPresetSetting = "Standard";
+        public static string CooldownPresetSetting = "Default";
 
         [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
-        public static string DurationPresetSetting = "Standard";
+        public static string DurationPresetSetting = "Default";
 
         [ModOption(name = OptionTransitionPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 55, defaultValueIndex = 1, valueSourceName = "TransitionPresetProvider", tooltip = "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate.")]
         public static string TransitionPresetSetting = "Smoothstep";
@@ -1057,7 +1057,7 @@ namespace CSM.Configuration
 
         public static Preset GetCurrentPreset()
         {
-            return ParsePreset(CurrentPreset, IntensityPresetMap, Preset.Standard);
+            return ParsePreset(CurrentPreset, IntensityPresetMap, Preset.Default);
         }
 
         public static TriggerProfilePreset GetTriggerProfilePreset()
@@ -1087,12 +1087,12 @@ namespace CSM.Configuration
 
         public static CooldownPreset GetCooldownPreset()
         {
-            return ParsePreset(CooldownPresetSetting, CooldownPresetMap, CooldownPreset.Standard);
+            return ParsePreset(CooldownPresetSetting, CooldownPresetMap, CooldownPreset.Default);
         }
 
         public static DurationPreset GetDurationPreset()
         {
-            return ParsePreset(DurationPresetSetting, DurationPresetMap, DurationPreset.Standard);
+            return ParsePreset(DurationPresetSetting, DurationPresetMap, DurationPreset.Default);
         }
 
         public static TransitionPreset GetTransitionPreset()
@@ -1217,7 +1217,7 @@ namespace CSM.Configuration
                     {
                         case ChancePreset.VeryRare: return 0.12f;
                         case ChancePreset.Rare: return 0.15f;
-                        case ChancePreset.Standard: return 0.25f;
+                        case ChancePreset.Default: return 0.25f;
                         case ChancePreset.Frequent: return 0.35f;
                     }
                     break;
@@ -1226,7 +1226,7 @@ namespace CSM.Configuration
                     {
                         case ChancePreset.VeryRare: return 0.38f;
                         case ChancePreset.Rare: return 0.45f;
-                        case ChancePreset.Standard: return 0.75f;
+                        case ChancePreset.Default: return 0.75f;
                         case ChancePreset.Frequent: return 1.0f;
                     }
                     break;
@@ -1235,7 +1235,7 @@ namespace CSM.Configuration
                     {
                         case ChancePreset.VeryRare: return 0.15f;
                         case ChancePreset.Rare: return 0.18f;
-                        case ChancePreset.Standard: return 0.30f;
+                        case ChancePreset.Default: return 0.30f;
                         case ChancePreset.Frequent: return 0.42f;
                     }
                     break;
@@ -1244,7 +1244,7 @@ namespace CSM.Configuration
                     {
                         case ChancePreset.VeryRare: return 0.45f;
                         case ChancePreset.Rare: return 0.54f;
-                        case ChancePreset.Standard: return 0.90f;
+                        case ChancePreset.Default: return 0.90f;
                         case ChancePreset.Frequent: return 1.0f;
                     }
                     break;
@@ -1253,7 +1253,7 @@ namespace CSM.Configuration
                     {
                         case ChancePreset.VeryRare: return 0.25f;
                         case ChancePreset.Rare: return 0.30f;
-                        case ChancePreset.Standard: return 0.50f;
+                        case ChancePreset.Default: return 0.50f;
                         case ChancePreset.Frequent: return 0.70f;
                     }
                     break;
@@ -1286,7 +1286,7 @@ namespace CSM.Configuration
                     switch (preset)
                     {
                         case CooldownPreset.Short: return 6f;
-                        case CooldownPreset.Standard: return 10f;
+                        case CooldownPreset.Default: return 10f;
                         case CooldownPreset.Long: return 20f;
                         case CooldownPreset.Extended: return 30f;
                     }
@@ -1295,7 +1295,7 @@ namespace CSM.Configuration
                     switch (preset)
                     {
                         case CooldownPreset.Short: return 3f;
-                        case CooldownPreset.Standard: return 5f;
+                        case CooldownPreset.Default: return 5f;
                         case CooldownPreset.Long: return 10f;
                         case CooldownPreset.Extended: return 15f;
                     }
@@ -1304,7 +1304,7 @@ namespace CSM.Configuration
                     switch (preset)
                     {
                         case CooldownPreset.Short: return 18f;
-                        case CooldownPreset.Standard: return 30f;
+                        case CooldownPreset.Default: return 30f;
                         case CooldownPreset.Long: return 60f;
                         case CooldownPreset.Extended: return 90f;
                     }
@@ -1313,7 +1313,7 @@ namespace CSM.Configuration
                     switch (preset)
                     {
                         case CooldownPreset.Short: return 54f;
-                        case CooldownPreset.Standard: return 90f;
+                        case CooldownPreset.Default: return 90f;
                         case CooldownPreset.Long: return 180f;
                         case CooldownPreset.Extended: return 270f;
                     }
@@ -1338,7 +1338,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 0.9f;
                         case DurationPreset.Short: return 1.75f;
-                        case DurationPreset.Standard: return 2.5f;
+                        case DurationPreset.Default: return 2.5f;
                         case DurationPreset.Long: return 3.4f;
                         case DurationPreset.Extended: return 4.25f;
                     }
@@ -1348,7 +1348,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 1.05f;
                         case DurationPreset.Short: return 2.1f;
-                        case DurationPreset.Standard: return 3.0f;
+                        case DurationPreset.Default: return 3.0f;
                         case DurationPreset.Long: return 4.05f;
                         case DurationPreset.Extended: return 5.1f;
                     }
@@ -1358,7 +1358,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 0.7f;
                         case DurationPreset.Short: return 1.4f;
-                        case DurationPreset.Standard: return 2.0f;
+                        case DurationPreset.Default: return 2.0f;
                         case DurationPreset.Long: return 2.7f;
                         case DurationPreset.Extended: return 3.4f;
                     }
@@ -1368,7 +1368,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 1.1f;
                         case DurationPreset.Short: return 2.3f;
-                        case DurationPreset.Standard: return 3.25f;
+                        case DurationPreset.Default: return 3.25f;
                         case DurationPreset.Long: return 4.4f;
                         case DurationPreset.Extended: return 5.5f;
                     }
@@ -1378,7 +1378,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 0.5f;
                         case DurationPreset.Short: return 1.05f;
-                        case DurationPreset.Standard: return 1.5f;
+                        case DurationPreset.Default: return 1.5f;
                         case DurationPreset.Long: return 2.0f;
                         case DurationPreset.Extended: return 2.55f;
                     }
@@ -1388,7 +1388,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 0.95f;
                         case DurationPreset.Short: return 1.9f;
-                        case DurationPreset.Standard: return 2.75f;
+                        case DurationPreset.Default: return 2.75f;
                         case DurationPreset.Long: return 3.7f;
                         case DurationPreset.Extended: return 4.7f;
                     }
@@ -1398,7 +1398,7 @@ namespace CSM.Configuration
                     {
                         case DurationPreset.VeryShort: return 1.4f;
                         case DurationPreset.Short: return 2.8f;
-                        case DurationPreset.Standard: return 4.0f;
+                        case DurationPreset.Default: return 4.0f;
                         case DurationPreset.Long: return 5.4f;
                         case DurationPreset.Extended: return 6.8f;
                     }

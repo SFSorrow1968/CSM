@@ -268,7 +268,7 @@ namespace CSM.Core
 
         public static void GetPresetValues(CSMModOptions.Preset preset, TriggerType type, out float chance, out float timeScale, out float duration, out float cooldown)
         {
-            // Intensity multipliers: Subtle=1.5, Standard=1.0, Dramatic=0.8, Cinematic=0.5, Epic=0.3
+            // Intensity multipliers: Subtle=1.5, Default=1.0, Dramatic=0.8, Cinematic=0.5, Epic=0.3
             chance = 0.5f;
             timeScale = 0.25f;
             duration = 1.5f;
@@ -284,7 +284,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.42f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.28f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.28f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.22f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.14f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.08f; break;
@@ -299,7 +299,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.38f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.25f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.25f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.20f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.13f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.08f; break;
@@ -314,7 +314,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.45f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.30f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.30f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.24f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.15f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.09f; break;
@@ -329,7 +329,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.35f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.23f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.23f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.18f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.12f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.07f; break;
@@ -344,7 +344,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.51f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.34f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.34f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.27f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.17f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.10f; break;
@@ -359,7 +359,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.39f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.26f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.26f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.21f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.13f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.08f; break;
@@ -374,7 +374,7 @@ namespace CSM.Core
                     switch (preset)
                     {
                         case CSMModOptions.Preset.Subtle: timeScale = 0.45f; break;
-                        case CSMModOptions.Preset.Standard: timeScale = 0.30f; break;
+                        case CSMModOptions.Preset.Default: timeScale = 0.30f; break;
                         case CSMModOptions.Preset.Dramatic: timeScale = 0.24f; break;
                         case CSMModOptions.Preset.Cinematic: timeScale = 0.15f; break;
                         case CSMModOptions.Preset.Epic: timeScale = 0.09f; break;
