@@ -117,9 +117,9 @@ namespace CSM.Core
             ApplyTimeScale(_currentTimeScale);
         }
 
-        private static float EaseInOut(float x)
+        private float EaseInOut(float x)
         {
-            var curve = CSMModOptions.GetEasingCurve();
+            var curve = CSMModOptions.GetEasingCurve(_activeTriggerType);
             switch (curve)
             {
                 case CSMModOptions.EasingCurve.Linear:

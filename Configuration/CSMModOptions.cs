@@ -63,6 +63,7 @@ namespace CSM.Configuration
         public const string OptionBasicDuration = "Basic Duration";
         public const string OptionBasicCooldown = "Basic Cooldown";
         public const string OptionBasicDelayIn = "Basic Delay In";
+        public const string OptionBasicEasing = "Basic Easing";
         public const string OptionBasicThirdPerson = "Basic Third Person";
 
         public const string OptionCriticalChance = "Critical Chance";
@@ -70,6 +71,7 @@ namespace CSM.Configuration
         public const string OptionCriticalDuration = "Critical Duration";
         public const string OptionCriticalCooldown = "Critical Cooldown";
         public const string OptionCriticalDelayIn = "Critical Delay In";
+        public const string OptionCriticalEasing = "Critical Easing";
         public const string OptionCriticalThirdPerson = "Critical Third Person";
 
         public const string OptionDismemberChance = "Dismember Chance";
@@ -77,6 +79,7 @@ namespace CSM.Configuration
         public const string OptionDismemberDuration = "Dismember Duration";
         public const string OptionDismemberCooldown = "Dismember Cooldown";
         public const string OptionDismemberDelayIn = "Dismember Delay In";
+        public const string OptionDismemberEasing = "Dismember Easing";
         public const string OptionDismemberThirdPerson = "Dismember Third Person";
 
         public const string OptionDecapChance = "Decap Chance";
@@ -84,6 +87,7 @@ namespace CSM.Configuration
         public const string OptionDecapDuration = "Decap Duration";
         public const string OptionDecapCooldown = "Decap Cooldown";
         public const string OptionDecapDelayIn = "Decap Delay In";
+        public const string OptionDecapEasing = "Decap Easing";
         public const string OptionDecapThirdPerson = "Decap Third Person";
 
         public const string OptionLastEnemyChance = "LastEnemy Chance";
@@ -91,18 +95,21 @@ namespace CSM.Configuration
         public const string OptionLastEnemyDuration = "LastEnemy Duration";
         public const string OptionLastEnemyCooldown = "LastEnemy Cooldown";
         public const string OptionLastEnemyDelayIn = "LastEnemy Delay In";
+        public const string OptionLastEnemyEasing = "LastEnemy Easing";
         public const string OptionLastEnemyThirdPerson = "LastEnemy Third Person";
 
         public const string OptionLastStandTimeScale = "LastStand Time Scale";
         public const string OptionLastStandDuration = "LastStand Duration";
         public const string OptionLastStandCooldown = "LastStand Cooldown";
         public const string OptionLastStandDelayIn = "LastStand Delay In";
+        public const string OptionLastStandEasing = "LastStand Easing";
 
         public const string OptionParryChance = "Parry Chance";
         public const string OptionParryTimeScale = "Parry Time Scale";
         public const string OptionParryDuration = "Parry Duration";
         public const string OptionParryCooldown = "Parry Cooldown";
         public const string OptionParryDelayIn = "Parry Delay In";
+        public const string OptionParryEasing = "Parry Easing";
 
         public const string OptionDebugLogging = "Debug Logging";
         public const string OptionQuickTestTrigger = "Quick Test Trigger";
@@ -657,9 +664,6 @@ namespace CSM.Configuration
         [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 70, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
-        [ModOption(name = OptionEasingCurve, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 80, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape. Smoothstep = smooth both ends, Linear = constant speed, EaseIn = slow start, EaseOut = slow end.")]
-        public static string EasingCurveSetting = "Smoothstep";
-
         public static int LastEnemyMinimumGroup = 1;
 
         #endregion
@@ -731,6 +735,9 @@ namespace CSM.Configuration
         [ModOption(name = OptionBasicDelayIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float BasicKillDelay = 0.10f;
 
+        [ModOption(name = OptionBasicEasing, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 55, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string BasicKillEasing = "Smoothstep";
+
         [ModOption(name = OptionBasicThirdPerson, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float BasicKillThirdPersonDistribution = 0f;
 
@@ -752,6 +759,9 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionCriticalDelayIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float CriticalKillDelay = 0.10f;
+
+        [ModOption(name = OptionCriticalEasing, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 55, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string CriticalKillEasing = "Smoothstep";
 
         [ModOption(name = OptionCriticalThirdPerson, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float CriticalKillThirdPersonDistribution = 0f;
@@ -775,6 +785,9 @@ namespace CSM.Configuration
         [ModOption(name = OptionDismemberDelayIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float DismembermentDelay = 0.10f;
 
+        [ModOption(name = OptionDismemberEasing, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 55, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string DismembermentEasing = "Smoothstep";
+
         [ModOption(name = OptionDismemberThirdPerson, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DismembermentThirdPersonDistribution = 0f;
 
@@ -796,6 +809,9 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionDecapDelayIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float DecapitationDelay = 0.10f;
+
+        [ModOption(name = OptionDecapEasing, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 55, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string DecapitationEasing = "Smoothstep";
 
         [ModOption(name = OptionDecapThirdPerson, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float DecapitationThirdPersonDistribution = 0f;
@@ -819,6 +835,9 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastEnemyDelayIn, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float LastEnemyDelay = 0.10f;
 
+        [ModOption(name = OptionLastEnemyEasing, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 55, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string LastEnemyEasing = "Smoothstep";
+
         [ModOption(name = OptionLastEnemyThirdPerson, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
         public static float LastEnemyThirdPersonDistribution = 0f;
 
@@ -838,6 +857,9 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastStandDelayIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float LastStandDelay = 0.10f;
 
+        [ModOption(name = OptionLastStandEasing, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 45, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string LastStandEasing = "Smoothstep";
+
         #endregion
 
         #region Custom: Parry
@@ -856,6 +878,9 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionParryDelayIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
         public static float ParryDelay = 0.10f;
+
+        [ModOption(name = OptionParryEasing, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 55, defaultValueIndex = 0, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        public static string ParryEasing = "Smoothstep";
 
         #endregion
 
@@ -900,6 +925,7 @@ namespace CSM.Configuration
             public float Duration;
             public float Cooldown;
             public float Delay;
+            public string Easing;
             public float Distribution;
         }
 
@@ -938,9 +964,10 @@ namespace CSM.Configuration
             return values.Delay <= 0f;
         }
 
-        public static EasingCurve GetEasingCurve()
+        public static EasingCurve GetEasingCurve(TriggerType triggerType)
         {
-            switch (EasingCurveSetting)
+            string easingSetting = GetCustomValues(triggerType).Easing ?? "Smoothstep";
+            switch (easingSetting)
             {
                 case "Linear": return EasingCurve.Linear;
                 case "EaseIn": return EasingCurve.EaseIn;
@@ -960,6 +987,7 @@ namespace CSM.Configuration
                     values.Duration = BasicKillDuration;
                     values.Cooldown = BasicKillCooldown;
                     values.Delay = BasicKillDelay;
+                    values.Easing = BasicKillEasing;
                     values.Distribution = BasicKillThirdPersonDistribution;
                     break;
                 case TriggerType.Critical:
@@ -968,6 +996,7 @@ namespace CSM.Configuration
                     values.Duration = CriticalKillDuration;
                     values.Cooldown = CriticalKillCooldown;
                     values.Delay = CriticalKillDelay;
+                    values.Easing = CriticalKillEasing;
                     values.Distribution = CriticalKillThirdPersonDistribution;
                     break;
                 case TriggerType.Dismemberment:
@@ -976,6 +1005,7 @@ namespace CSM.Configuration
                     values.Duration = DismembermentDuration;
                     values.Cooldown = DismembermentCooldown;
                     values.Delay = DismembermentDelay;
+                    values.Easing = DismembermentEasing;
                     values.Distribution = DismembermentThirdPersonDistribution;
                     break;
                 case TriggerType.Decapitation:
@@ -984,6 +1014,7 @@ namespace CSM.Configuration
                     values.Duration = DecapitationDuration;
                     values.Cooldown = DecapitationCooldown;
                     values.Delay = DecapitationDelay;
+                    values.Easing = DecapitationEasing;
                     values.Distribution = DecapitationThirdPersonDistribution;
                     break;
                 case TriggerType.Parry:
@@ -992,6 +1023,7 @@ namespace CSM.Configuration
                     values.Duration = ParryDuration;
                     values.Cooldown = ParryCooldown;
                     values.Delay = ParryDelay;
+                    values.Easing = ParryEasing;
                     values.Distribution = 0f;
                     break;
                 case TriggerType.LastEnemy:
@@ -1000,6 +1032,7 @@ namespace CSM.Configuration
                     values.Duration = LastEnemyDuration;
                     values.Cooldown = LastEnemyCooldown;
                     values.Delay = LastEnemyDelay;
+                    values.Easing = LastEnemyEasing;
                     values.Distribution = LastEnemyThirdPersonDistribution;
                     break;
                 case TriggerType.LastStand:
@@ -1008,6 +1041,7 @@ namespace CSM.Configuration
                     values.Duration = LastStandDuration;
                     values.Cooldown = LastStandCooldown;
                     values.Delay = LastStandDelay;
+                    values.Easing = LastStandEasing;
                     values.Distribution = 0f;
                     break;
             }
