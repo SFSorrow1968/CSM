@@ -135,7 +135,7 @@ namespace CSM.Core
 
         private void ApplyTimeScale(float scale)
         {
-            float clampedScale = Mathf.Clamp(scale, 0.05f, 1f);
+            float clampedScale = Mathf.Clamp(scale, 0.005f, 1f);
             Time.timeScale = clampedScale;
             Time.fixedDeltaTime = _originalFixedDeltaTime * clampedScale;
         }
@@ -410,7 +410,7 @@ namespace CSM.Core
                 // Easing uses 15% of duration (min 0.1s) - cuts into duration time
                 float easingDuration = Mathf.Max(duration * 0.15f, 0.1f);
 
-                _targetTimeScale = Mathf.Clamp(timeScale, 0.05f, 1f);
+                _targetTimeScale = Mathf.Clamp(timeScale, 0.005f, 1f);
                 _transitionStartScale = _currentTimeScale;
                 _transitionStartTime = Time.unscaledTime;
                 _transitionDuration = easingDuration;
