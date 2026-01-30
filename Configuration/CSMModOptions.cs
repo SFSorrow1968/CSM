@@ -29,6 +29,7 @@ namespace CSM.Configuration
         public const string OptionChancePreset = "Chance Preset";
         public const string OptionCooldownPreset = "Cooldown Preset";
         public const string OptionDurationPreset = "Duration Preset";
+        public const string OptionTransitionPreset = "Transition Preset";
         public const string OptionTriggerProfile = "Trigger Profile";
 
         public const string TriggerBasicKill = "Basic Kill";
@@ -161,16 +162,21 @@ namespace CSM.Configuration
             Extended = 4
         }
 
-        // Hardcoded ramp time for transitions (0.25s)
-        public const float TransitionRampTime = 0.25f;
+        public enum TransitionPreset
+        {
+            Off = 0,
+            Smoothstep = 1,
+            Linear = 2
+        }
+
+        // Transition ramp time as percentage of duration (20%)
+        public const float TransitionRampPercent = 0.20f;
 
         public enum EasingCurve
         {
             Off = 0,
-            Smoothstep = 2,
-            Linear = 3,
-            EaseIn = 4,
-            EaseOut = 5
+            Smoothstep = 1,
+            Linear = 2
         }
 
         public enum CameraDistributionPreset
@@ -280,6 +286,13 @@ namespace CSM.Configuration
             new PresetOption<DurationPreset>("Extended", "Extended", DurationPreset.Extended)
         };
 
+        private static readonly PresetOption<TransitionPreset>[] TransitionPresetOptions =
+        {
+            new PresetOption<TransitionPreset>("Off (Instant)", "Off", TransitionPreset.Off),
+            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", TransitionPreset.Smoothstep),
+            new PresetOption<TransitionPreset>("Linear", "Linear", TransitionPreset.Linear)
+        };
+
         private static readonly PresetOption<CameraDistributionPreset>[] CameraDistributionOptions =
         {
             new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", CameraDistributionPreset.FirstPersonOnly),
@@ -318,6 +331,12 @@ namespace CSM.Configuration
             new Dictionary<string, DurationPreset>
             {
                 { "Balanced", DurationPreset.Standard }
+            });
+
+        private static readonly Dictionary<string, TransitionPreset> TransitionPresetMap = BuildPresetMap(TransitionPresetOptions,
+            new Dictionary<string, TransitionPreset>
+            {
+                { "Balanced", TransitionPreset.Smoothstep }
             });
 
         private static readonly Dictionary<string, CameraDistributionPreset> CameraDistributionMap = BuildPresetMap(CameraDistributionOptions,
@@ -372,15 +391,18 @@ namespace CSM.Configuration
             return BuildStringOptions(DurationPresetOptions);
         }
 
+        public static ModOptionString[] TransitionPresetProvider()
+        {
+            return BuildStringOptions(TransitionPresetOptions);
+        }
+
         public static ModOptionString[] EasingCurveProvider()
         {
             return new ModOptionString[]
             {
                 new ModOptionString("Off", "Off"),
                 new ModOptionString("Smoothstep", "Smoothstep"),
-                new ModOptionString("Linear", "Linear"),
-                new ModOptionString("Ease In", "EaseIn"),
-                new ModOptionString("Ease Out", "EaseOut")
+                new ModOptionString("Linear", "Linear")
             };
         }
 
@@ -612,6 +634,9 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Standard";
+
+        [ModOption(name = OptionTransitionPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 55, defaultValueIndex = 1, valueSourceName = "TransitionPresetProvider", tooltip = "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate.")]
+        public static string TransitionPresetSetting = "Smoothstep";
 
         [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
@@ -894,8 +919,6 @@ namespace CSM.Configuration
             {
                 case "Smoothstep": return EasingCurve.Smoothstep;
                 case "Linear": return EasingCurve.Linear;
-                case "EaseIn": return EasingCurve.EaseIn;
-                case "EaseOut": return EasingCurve.EaseOut;
                 default: return EasingCurve.Off;
             }
         }
@@ -1070,6 +1093,36 @@ namespace CSM.Configuration
         public static DurationPreset GetDurationPreset()
         {
             return ParsePreset(DurationPresetSetting, DurationPresetMap, DurationPreset.Standard);
+        }
+
+        public static TransitionPreset GetTransitionPreset()
+        {
+            return ParsePreset(TransitionPresetSetting, TransitionPresetMap, TransitionPreset.Smoothstep);
+        }
+
+        public static string GetTransitionPresetValue()
+        {
+            var preset = GetTransitionPreset();
+            switch (preset)
+            {
+                case TransitionPreset.Off: return "Off";
+                case TransitionPreset.Linear: return "Linear";
+                default: return "Smoothstep";
+            }
+        }
+
+        public static void SetTriggerEasing(TriggerType triggerType, string value)
+        {
+            switch (triggerType)
+            {
+                case TriggerType.BasicKill: BasicKillEasing = value; break;
+                case TriggerType.Critical: CriticalKillEasing = value; break;
+                case TriggerType.Dismemberment: DismembermentEasing = value; break;
+                case TriggerType.Decapitation: DecapitationEasing = value; break;
+                case TriggerType.Parry: ParryEasing = value; break;
+                case TriggerType.LastEnemy: LastEnemyEasing = value; break;
+                case TriggerType.LastStand: LastStandEasing = value; break;
+            }
         }
 
         public static CameraDistributionPreset GetCameraDistributionPreset()

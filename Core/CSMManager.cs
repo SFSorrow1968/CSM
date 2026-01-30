@@ -129,10 +129,6 @@ namespace CSM.Core
                     return 1f; // Instant - jump to target immediately
                 case CSMModOptions.EasingCurve.Linear:
                     return x;
-                case CSMModOptions.EasingCurve.EaseIn:
-                    return x * x;
-                case CSMModOptions.EasingCurve.EaseOut:
-                    return 1f - (1f - x) * (1f - x);
                 default: // Smoothstep
                     return x * x * (3f - 2f * x);
             }
@@ -413,10 +409,10 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                // Easing uses hardcoded ramp time (0.25s) for transition duration
+                // Easing uses percentage of duration for transition (20%)
                 // If easing curve is Off, no transition (instant)
                 var curve = CSMModOptions.GetEasingCurve(type);
-                float easingDuration = (curve != CSMModOptions.EasingCurve.Off) ? CSMModOptions.TransitionRampTime : 0f;
+                float easingDuration = (curve != CSMModOptions.EasingCurve.Off) ? (duration * CSMModOptions.TransitionRampPercent) : 0f;
                 _easingOutDuration = easingDuration;
                 _isEasingOut = false;
 

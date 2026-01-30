@@ -17,6 +17,7 @@ namespace CSM.Core
         private CSMModOptions.ChancePreset? _lastChancePreset;
         private CSMModOptions.CooldownPreset? _lastCooldownPreset;
         private CSMModOptions.DurationPreset? _lastDurationPreset;
+        private CSMModOptions.TransitionPreset? _lastTransitionPreset;
         private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         private bool _lastDebugLogging;
@@ -103,6 +104,17 @@ namespace CSM.Core
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyThirdPerson) }
         };
 
+        private static readonly Dictionary<TriggerType, string> TransitionOptionNames = new Dictionary<TriggerType, string>
+        {
+            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicTransition) },
+            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionCriticalTransition) },
+            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionDismemberTransition) },
+            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionDecapTransition) },
+            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionParryTransition) },
+            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyTransition) },
+            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandTransition) }
+        };
+
         private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
         {
             { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerBasicKill) },
@@ -125,6 +137,7 @@ namespace CSM.Core
             _lastChancePreset = null;
             _lastCooldownPreset = null;
             _lastDurationPreset = null;
+            _lastTransitionPreset = null;
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
@@ -212,6 +225,9 @@ namespace CSM.Core
             changed |= local;
             presetChanged |= local;
             local = ApplyDurationPreset(force);
+            changed |= local;
+            presetChanged |= local;
+            local = ApplyTransitionPreset(force);
             changed |= local;
             presetChanged |= local;
             local = ApplyDistributionPreset(force);
@@ -402,6 +418,33 @@ namespace CSM.Core
             _presetAppliedTime = Time.unscaledTime;
             StoreExpectedPresetValues();
             LogPresetApply("Duration Preset", ResolvePresetLabel(CSMModOptions.DurationPresetSetting, preset));
+            return true;
+        }
+
+        private bool ApplyTransitionPreset(bool force)
+        {
+            var preset = CSMModOptions.GetTransitionPreset();
+            if (!force && _lastTransitionPreset.HasValue && _lastTransitionPreset.Value.Equals(preset))
+                return false;
+
+            string transitionValue = CSMModOptions.GetTransitionPresetValue();
+
+            if (CSMModOptions.DebugLogging)
+                Debug.Log("[CSM] Applying Transition Preset: " + ResolvePresetLabel(CSMModOptions.TransitionPresetSetting, preset));
+
+            foreach (var trigger in TriggerTypes)
+            {
+                CSMModOptions.SetTriggerEasing(trigger, transitionValue);
+                SyncStringOption(TransitionOptionNames, trigger, transitionValue);
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Transition = " + transitionValue);
+            }
+
+            _lastTransitionPreset = preset;
+            _presetAppliedTime = Time.unscaledTime;
+            StoreExpectedPresetValues();
+            LogPresetApply("Transition Preset", ResolvePresetLabel(CSMModOptions.TransitionPresetSetting, preset));
             return true;
         }
 
