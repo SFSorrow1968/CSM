@@ -427,6 +427,8 @@ namespace CSM.Core
                 {
                     _currentTimeScale = _targetTimeScale;
                     ApplyTimeScale(_currentTimeScale);
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Instant transition applied: " + _currentTimeScale.ToString("0.###"));
                 }
 
                 float now = Time.unscaledTime;
