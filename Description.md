@@ -4,6 +4,8 @@
 Conditional Slow Motion adds cinematic slow motion for key combat moments with presets, trigger profiles, third-person distribution, and per-trigger customization, plus killcam positioning and debug tools.
 
 ## Detailed Description (<=50,000 chars)
+⚠️ **Trigger Warning:** This mod is 100% vibe coded. ⚠️
+
 Conditional Slow Motion (CSM) brings controlled, cinematic slow motion to Blade & Sorcery. It triggers on meaningful combat moments and provides a clear, layered configuration model: presets set the baseline, trigger toggles control eligibility, and per-trigger custom values override everything else.
 
 Key features:
