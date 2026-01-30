@@ -219,19 +219,23 @@ namespace CSM.Core
                 if (chance < 1.0f && roll > chance)
                 {
                     if (CSMModOptions.DebugLogging)
+                    {
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Chance roll failed (" + (roll*100).ToString("F0") + "% vs " + (chance*100).ToString("F0") + "%)");
-                    SetLastTriggerDebug(type, "Blocked: Chance failed (" + (roll * 100f).ToString("F0") + "% > " + (chance * 100f).ToString("F0") + "%)", isQuickTest);
+                        SetLastTriggerDebug(type, "Blocked: Chance failed (" + (roll * 100f).ToString("F0") + "% > " + (chance * 100f).ToString("F0") + "%)", isQuickTest);
+                    }
                     return false;
                 }
 
-                Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
                 StartSlowMotion(type, timeScale, duration, cooldown, damageDealt);
                 SetLastTriggerDebug(type, "Triggered", isQuickTest);
 
                 CSMModOptions.IncrementTriggerCount(type);
                 CSMModOptions.AddSlowMoTime(duration);
 
-                Debug.Log("[CSM] " + GetTriggerDisplayName(type));
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] " + GetTriggerDisplayName(type));
 
                 float distribution = CSMModOptions.GetThirdPersonDistribution(type);
                 bool allowThirdPerson = distribution > 0f;

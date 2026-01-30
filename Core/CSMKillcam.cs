@@ -20,6 +20,7 @@ namespace CSM.Core
         private const float KillcamHeightMin = 1f;
         private const float KillcamHeightMax = 2f;
         private const float RandomizeRangePercent = 0.2f;
+        private const float CacheRefreshInterval = 5f;
 
         public static CSMKillcam Instance { get; } = new CSMKillcam();
 
@@ -43,6 +44,11 @@ namespace CSM.Core
         private float _distance;
         private float _height;
 
+        // Cached references to avoid FindObjectOfType calls
+        private ThirdPersonView _cachedThirdPersonView;
+        private Camera _cachedFallbackCamera;
+        private float _lastCacheRefreshTime;
+
         private CSMKillcam() { }
 
         public void Initialize()
@@ -63,7 +69,11 @@ namespace CSM.Core
             _orbitOffset = 0f;
             _distance = 0f;
             _height = 0f;
+            _cachedThirdPersonView = null;
+            _cachedFallbackCamera = null;
+            _lastCacheRefreshTime = 0f;
         }
+
 
         public void Shutdown()
         {
@@ -243,8 +253,17 @@ namespace CSM.Core
             return UnityEngine.Random.Range(low, high);
         }
 
-        private static Camera FindBestNonHmdCamera()
+        private Camera FindBestNonHmdCamera()
         {
+            // Use cached result if available and recent
+            float now = Time.unscaledTime;
+            if (_cachedFallbackCamera != null && now - _lastCacheRefreshTime < CacheRefreshInterval)
+            {
+                // Validate cached camera is still valid
+                if (_cachedFallbackCamera.gameObject != null)
+                    return _cachedFallbackCamera;
+            }
+
             Camera[] cameras = UnityEngine.Object.FindObjectsOfType<Camera>(true);
             Camera best = null;
             int bestScore = int.MinValue;
@@ -277,17 +296,28 @@ namespace CSM.Core
                 }
             }
 
-            return bestScore <= -50 ? null : best;
+            _cachedFallbackCamera = bestScore <= -50 ? null : best;
+            _lastCacheRefreshTime = now;
+            return _cachedFallbackCamera;
         }
 
         private bool TryUseThirdPersonCamera(out Camera cam)
         {
             cam = null;
 
+            // Try static reference first (fastest)
             var view = ThirdPersonView.local;
+            
+            // Fallback to cached reference with periodic refresh
             if (view == null)
             {
-                view = UnityEngine.Object.FindObjectOfType<ThirdPersonView>(true);
+                float now = Time.unscaledTime;
+                if (_cachedThirdPersonView == null || now - _lastCacheRefreshTime > CacheRefreshInterval)
+                {
+                    _cachedThirdPersonView = UnityEngine.Object.FindObjectOfType<ThirdPersonView>(true);
+                    _lastCacheRefreshTime = now;
+                }
+                view = _cachedThirdPersonView;
             }
 
             if (view == null) return false;
@@ -316,6 +346,7 @@ namespace CSM.Core
 
             return true;
         }
+
 
         private void RestoreThirdPersonView()
         {

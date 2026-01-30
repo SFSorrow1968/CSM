@@ -34,6 +34,10 @@ namespace CSM.Core
         private readonly Dictionary<string, ModOption> _modOptionsByKey =
             new Dictionary<string, ModOption>(StringComparer.Ordinal);
 
+        // Throttle mechanism: only run full check periodically when idle
+        private float _lastFullCheckTime;
+        private const float IdleCheckInterval = 0.5f; // Check every 0.5s when menu not actively used
+
         private const string OptionKeySeparator = "||";
 
         private static readonly TriggerType[] TriggerTypes =
@@ -165,6 +169,12 @@ namespace CSM.Core
                     ModManager.RefreshModOptionsUI();
                 return;
             }
+
+            // Throttle: only run full check at intervals when idle
+            float now = Time.unscaledTime;
+            if (now - _lastFullCheckTime < IdleCheckInterval)
+                return;
+            _lastFullCheckTime = now;
 
             if (ApplyAllPresets(false))
                 ModManager.RefreshModOptionsUI();
@@ -432,7 +442,8 @@ namespace CSM.Core
             _presetAppliedTime = Time.unscaledTime;
             StoreExpectedPresetValues();
 
-            LogPresetApply("Delay Preset", CSMModOptions.DelayInPresetSetting + " (" + delayValue.ToString("F2") + "s)");
+            if (CSMModOptions.DebugLogging)
+                LogPresetApply("Delay Preset", CSMModOptions.DelayInPresetSetting + " (" + delayValue.ToString("F2") + "s)");
             return true;
         }
 
