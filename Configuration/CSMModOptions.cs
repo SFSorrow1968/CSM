@@ -62,54 +62,54 @@ namespace CSM.Configuration
         public const string OptionBasicTimeScale = "Basic Time Scale";
         public const string OptionBasicDuration = "Basic Duration";
         public const string OptionBasicCooldown = "Basic Cooldown";
-        public const string OptionBasicDelayIn = "Basic Delay In";
-        public const string OptionBasicEasing = "Basic Easing";
+        public const string OptionBasicRampTime = "Basic Ramp Time";
+        public const string OptionBasicTransition = "Basic Transition";
         public const string OptionBasicThirdPerson = "Basic Third Person";
 
         public const string OptionCriticalChance = "Critical Chance";
         public const string OptionCriticalTimeScale = "Critical Time Scale";
         public const string OptionCriticalDuration = "Critical Duration";
         public const string OptionCriticalCooldown = "Critical Cooldown";
-        public const string OptionCriticalDelayIn = "Critical Delay In";
-        public const string OptionCriticalEasing = "Critical Easing";
+        public const string OptionCriticalRampTime = "Critical Ramp Time";
+        public const string OptionCriticalTransition = "Critical Transition";
         public const string OptionCriticalThirdPerson = "Critical Third Person";
 
         public const string OptionDismemberChance = "Dismember Chance";
         public const string OptionDismemberTimeScale = "Dismember Time Scale";
         public const string OptionDismemberDuration = "Dismember Duration";
         public const string OptionDismemberCooldown = "Dismember Cooldown";
-        public const string OptionDismemberDelayIn = "Dismember Delay In";
-        public const string OptionDismemberEasing = "Dismember Easing";
+        public const string OptionDismemberRampTime = "Dismember Ramp Time";
+        public const string OptionDismemberTransition = "Dismember Transition";
         public const string OptionDismemberThirdPerson = "Dismember Third Person";
 
         public const string OptionDecapChance = "Decap Chance";
         public const string OptionDecapTimeScale = "Decap Time Scale";
         public const string OptionDecapDuration = "Decap Duration";
         public const string OptionDecapCooldown = "Decap Cooldown";
-        public const string OptionDecapDelayIn = "Decap Delay In";
-        public const string OptionDecapEasing = "Decap Easing";
+        public const string OptionDecapRampTime = "Decap Ramp Time";
+        public const string OptionDecapTransition = "Decap Transition";
         public const string OptionDecapThirdPerson = "Decap Third Person";
 
         public const string OptionLastEnemyChance = "LastEnemy Chance";
         public const string OptionLastEnemyTimeScale = "LastEnemy Time Scale";
         public const string OptionLastEnemyDuration = "LastEnemy Duration";
         public const string OptionLastEnemyCooldown = "LastEnemy Cooldown";
-        public const string OptionLastEnemyDelayIn = "LastEnemy Delay In";
-        public const string OptionLastEnemyEasing = "LastEnemy Easing";
+        public const string OptionLastEnemyRampTime = "LastEnemy Ramp Time";
+        public const string OptionLastEnemyTransition = "LastEnemy Transition";
         public const string OptionLastEnemyThirdPerson = "LastEnemy Third Person";
 
         public const string OptionLastStandTimeScale = "LastStand Time Scale";
         public const string OptionLastStandDuration = "LastStand Duration";
         public const string OptionLastStandCooldown = "LastStand Cooldown";
-        public const string OptionLastStandDelayIn = "LastStand Delay In";
-        public const string OptionLastStandEasing = "LastStand Easing";
+        public const string OptionLastStandRampTime = "LastStand Ramp Time";
+        public const string OptionLastStandTransition = "LastStand Transition";
 
         public const string OptionParryChance = "Parry Chance";
         public const string OptionParryTimeScale = "Parry Time Scale";
         public const string OptionParryDuration = "Parry Duration";
         public const string OptionParryCooldown = "Parry Cooldown";
-        public const string OptionParryDelayIn = "Parry Delay In";
-        public const string OptionParryEasing = "Parry Easing";
+        public const string OptionParryRampTime = "Parry Ramp Time";
+        public const string OptionParryTransition = "Parry Transition";
 
         public const string OptionDebugLogging = "Debug Logging";
         public const string OptionQuickTestTrigger = "Quick Test Trigger";
@@ -733,10 +733,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionBasicCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 10f;
 
-        [ModOption(name = OptionBasicDelayIn, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionBasicRampTime, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float BasicKillDelay = 0.10f;
 
-        [ModOption(name = OptionBasicEasing, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionBasicTransition, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string BasicKillEasing = "Smoothstep";
 
         [ModOption(name = OptionBasicThirdPerson, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
@@ -758,10 +758,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionCriticalCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 10f;
 
-        [ModOption(name = OptionCriticalDelayIn, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionCriticalRampTime, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float CriticalKillDelay = 0.10f;
 
-        [ModOption(name = OptionCriticalEasing, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionCriticalTransition, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string CriticalKillEasing = "Smoothstep";
 
         [ModOption(name = OptionCriticalThirdPerson, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
@@ -783,10 +783,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionDismemberCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 10f;
 
-        [ModOption(name = OptionDismemberDelayIn, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionDismemberRampTime, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float DismembermentDelay = 0.10f;
 
-        [ModOption(name = OptionDismemberEasing, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionDismemberTransition, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string DismembermentEasing = "Smoothstep";
 
         [ModOption(name = OptionDismemberThirdPerson, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
@@ -808,10 +808,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionDecapCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 10f;
 
-        [ModOption(name = OptionDecapDelayIn, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionDecapRampTime, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float DecapitationDelay = 0.10f;
 
-        [ModOption(name = OptionDecapEasing, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionDecapTransition, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string DecapitationEasing = "Smoothstep";
 
         [ModOption(name = OptionDecapThirdPerson, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
@@ -833,10 +833,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastEnemyCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 30, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastEnemyCooldown = 30f;
 
-        [ModOption(name = OptionLastEnemyDelayIn, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionLastEnemyRampTime, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float LastEnemyDelay = 0.10f;
 
-        [ModOption(name = OptionLastEnemyEasing, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionLastEnemyTransition, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string LastEnemyEasing = "Smoothstep";
 
         [ModOption(name = OptionLastEnemyThirdPerson, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)")]
@@ -855,10 +855,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastStandCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 43, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 90f;
 
-        [ModOption(name = OptionLastStandDelayIn, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionLastStandRampTime, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float LastStandDelay = 0.10f;
 
-        [ModOption(name = OptionLastStandEasing, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 45, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionLastStandTransition, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 45, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string LastStandEasing = "Smoothstep";
 
         #endregion
@@ -877,10 +877,10 @@ namespace CSM.Configuration
         [ModOption(name = OptionParryCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 5f;
 
-        [ModOption(name = OptionParryDelayIn, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Transition into slow motion")]
+        [ModOption(name = OptionParryRampTime, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 10, valueSourceName = "CustomDelayProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration of transition ramp (seconds)")]
         public static float ParryDelay = 0.10f;
 
-        [ModOption(name = OptionParryEasing, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve shape")]
+        [ModOption(name = OptionParryTransition, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 55, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Curve shape for ramping into slow-mo (Off = instant)")]
         public static string ParryEasing = "Smoothstep";
 
         #endregion

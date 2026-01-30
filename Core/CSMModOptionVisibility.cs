@@ -104,15 +104,15 @@ namespace CSM.Core
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyThirdPerson) }
         };
 
-        private static readonly Dictionary<TriggerType, string> DelayInOptionNames = new Dictionary<TriggerType, string>
+        private static readonly Dictionary<TriggerType, string> RampTimeOptionNames = new Dictionary<TriggerType, string>
         {
-            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicDelayIn) },
-            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionCriticalDelayIn) },
-            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionDismemberDelayIn) },
-            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionDecapDelayIn) },
-            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionParryDelayIn) },
-            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyDelayIn) },
-            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandDelayIn) }
+            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicRampTime) },
+            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionCriticalRampTime) },
+            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionDismemberRampTime) },
+            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionDecapRampTime) },
+            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionParryRampTime) },
+            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyRampTime) },
+            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandRampTime) }
         };
 
         private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
@@ -435,7 +435,7 @@ namespace CSM.Core
             foreach (var trigger in TriggerTypes)
             {
                 CSMModOptions.SetTriggerDelay(trigger, delayValue);
-                SyncOptionValue(DelayInOptionNames, trigger, delayValue);
+                SyncOptionValue(RampTimeOptionNames, trigger, delayValue);
             }
 
             _lastDelayInPreset = preset;
