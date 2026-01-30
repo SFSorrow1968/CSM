@@ -422,6 +422,13 @@ namespace CSM.Core
                 _transitionDuration = easingDuration;
                 _isTransitioning = easingDuration > 0f;
 
+                // If no transition (instant), apply time scale immediately
+                if (!_isTransitioning)
+                {
+                    _currentTimeScale = _targetTimeScale;
+                    ApplyTimeScale(_currentTimeScale);
+                }
+
                 float now = Time.unscaledTime;
                 _globalCooldownEndTime = now + duration;
                 _triggerCooldownEndTimes[type] = now + duration + cooldown;
