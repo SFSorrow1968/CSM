@@ -28,6 +28,8 @@ namespace CSM.Core
         private float _transitionStartScale;
         private const float TransitionTimeoutSeconds = 5f;
         private const float EndOverrunGraceSeconds = 2f;
+        private bool _isEasingOut;
+        private float _easingOutDuration;
 
         public bool IsActive => _isSlowMotionActive;
 
@@ -109,6 +111,7 @@ namespace CSM.Core
             {
                 _currentTimeScale = _targetTimeScale;
                 _isTransitioning = false;
+                _isEasingOut = false;
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Transition complete: " + _currentTimeScale);
@@ -122,6 +125,8 @@ namespace CSM.Core
             var curve = CSMModOptions.GetEasingCurve(_activeTriggerType);
             switch (curve)
             {
+                case CSMModOptions.EasingCurve.Off:
+                    return 1f; // Instant - jump to target immediately
                 case CSMModOptions.EasingCurve.Linear:
                     return x;
                 case CSMModOptions.EasingCurve.EaseIn:
@@ -411,8 +416,11 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                // Easing uses 15% of duration (min 0.1s) - cuts into duration time
-                float easingDuration = Mathf.Max(duration * 0.15f, 0.1f);
+                // Easing uses configurable percentage of duration (default 25%, min 0.1s if not 0%)
+                float easingPercent = CSMModOptions.EasingPercent;
+                float easingDuration = easingPercent > 0f ? Mathf.Max(duration * easingPercent, 0.1f) : 0f;
+                _easingOutDuration = easingDuration;
+                _isEasingOut = false;
 
                 _targetTimeScale = Mathf.Clamp(timeScale, 0.005f, 1f);
                 _transitionStartScale = _currentTimeScale;
@@ -448,13 +456,35 @@ namespace CSM.Core
             try
             {
                 var endedType = _activeTriggerType;
+                
+                // Check if we should ease out or snap back
+                var curve = CSMModOptions.GetEasingCurve(_activeTriggerType);
+                bool shouldEaseOut = curve != CSMModOptions.EasingCurve.Off && _easingOutDuration > 0f;
+                
                 _isSlowMotionActive = false;
-
-                // Snap back to original time scale immediately (no transition out)
-                _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
-                _currentTimeScale = _targetTimeScale;
-                _isTransitioning = false;
-                ApplyTimeScale(_currentTimeScale);
+                
+                if (shouldEaseOut && !_isEasingOut)
+                {
+                    // Start easing out transition
+                    _isEasingOut = true;
+                    _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
+                    _transitionStartScale = _currentTimeScale;
+                    _transitionStartTime = Time.unscaledTime;
+                    _transitionDuration = _easingOutDuration;
+                    _isTransitioning = true;
+                    
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Starting easing out transition: " + _easingOutDuration.ToString("0.###") + "s");
+                }
+                else
+                {
+                    // Snap back immediately
+                    _targetTimeScale = _originalTimeScale > 0 ? _originalTimeScale : 1f;
+                    _currentTimeScale = _targetTimeScale;
+                    _isTransitioning = false;
+                    _isEasingOut = false;
+                    ApplyTimeScale(_currentTimeScale);
+                }
 
                 if (CSMModOptions.DebugLogging)
                 {
@@ -465,7 +495,8 @@ namespace CSM.Core
                               "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
                 }
 
-                Debug.Log("[CSM] SlowMo END: " + endedType);
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] SlowMo END: " + endedType);
             }
             catch (Exception ex)
             {
