@@ -416,9 +416,11 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                // Easing uses configurable percentage of duration (default 25%, min 0.1s if not 0%)
-                float easingPercent = CSMModOptions.EasingPercent;
-                float easingDuration = easingPercent > 0f ? Mathf.Max(duration * easingPercent, 0.1f) : 0f;
+                // Easing uses per-trigger Delay value (in seconds) for transition duration
+                // If easing curve is Off, no transition (instant)
+                var curve = CSMModOptions.GetEasingCurve(type);
+                float triggerDelay = CSMModOptions.GetCustomValues(type).Delay;
+                float easingDuration = (curve != CSMModOptions.EasingCurve.Off && triggerDelay > 0f) ? triggerDelay : 0f;
                 _easingOutDuration = easingDuration;
                 _isEasingOut = false;
 
@@ -426,7 +428,7 @@ namespace CSM.Core
                 _transitionStartScale = _currentTimeScale;
                 _transitionStartTime = Time.unscaledTime;
                 _transitionDuration = easingDuration;
-                _isTransitioning = true;
+                _isTransitioning = easingDuration > 0f;
 
                 float now = Time.unscaledTime;
                 _globalCooldownEndTime = now + duration;
@@ -437,7 +439,7 @@ namespace CSM.Core
                     Debug.Log("[CSM] SlowMo config: target=" + _targetTimeScale.ToString("0.###") +
                               " duration=" + duration.ToString("0.###") +
                               " cooldown=" + cooldown.ToString("0.###") +
-                              " easing=" + easingDuration.ToString("0.###") + "s" +
+                              " easing=" + easingDuration.ToString("0.###") + "s (" + curve + ")" +
                               " endAt=" + _slowMotionEndTime.ToString("0.###") +
                               " now=" + now.ToString("0.###"));
                 }
