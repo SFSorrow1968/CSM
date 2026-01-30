@@ -7,7 +7,7 @@ namespace CSM.Configuration
 {
     public static class CSMModOptions
     {
-        public const string VERSION = "1.5.0";
+        public const string VERSION = "2.0.0";
 
         #region Labels and Categories
 
