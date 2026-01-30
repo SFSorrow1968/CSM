@@ -174,16 +174,13 @@ namespace CSM.Core
                 if (CSMModOptions.DebugLogging)
                 {
                     var raw = CSMModOptions.GetCustomValues(type);
-                    float delayDuration = CSMModOptions.GetDelayDuration(type);
                     Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type, raw.Distribution));
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type, raw.Distribution) +
-                              " | Delay=" + delayDuration.ToString("0.##") + "s");
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type, raw.Distribution));
                     Debug.Log("[CSM] TriggerSlow(" + type + ") presets: " +
                               "Intensity=" + CSMModOptions.CurrentPreset +
                               " | Chance=" + CSMModOptions.ChancePresetSetting +
                               " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
-                              " | Duration=" + CSMModOptions.DurationPresetSetting +
-                              " | Delay=" + CSMModOptions.DelayInPresetSetting);
+                              " | Duration=" + CSMModOptions.DurationPresetSetting);
                 }
 
                 if (!enabled)
@@ -416,11 +413,10 @@ namespace CSM.Core
                 _slowMotionStartTime = Time.unscaledTime;
                 _slowMotionEndTime = _slowMotionStartTime + duration;
 
-                // Easing uses per-trigger Delay value (in seconds) for transition duration
+                // Easing uses hardcoded ramp time (0.25s) for transition duration
                 // If easing curve is Off, no transition (instant)
                 var curve = CSMModOptions.GetEasingCurve(type);
-                float triggerDelay = CSMModOptions.GetCustomValues(type).Delay;
-                float easingDuration = (curve != CSMModOptions.EasingCurve.Off && triggerDelay > 0f) ? triggerDelay : 0f;
+                float easingDuration = (curve != CSMModOptions.EasingCurve.Off) ? CSMModOptions.TransitionRampTime : 0f;
                 _easingOutDuration = easingDuration;
                 _isEasingOut = false;
 

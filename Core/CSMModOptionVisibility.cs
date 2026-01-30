@@ -17,7 +17,6 @@ namespace CSM.Core
         private CSMModOptions.ChancePreset? _lastChancePreset;
         private CSMModOptions.CooldownPreset? _lastCooldownPreset;
         private CSMModOptions.DurationPreset? _lastDurationPreset;
-        private CSMModOptions.DelayPreset? _lastDelayInPreset;
         private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         private bool _lastDebugLogging;
@@ -104,17 +103,6 @@ namespace CSM.Core
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyThirdPerson) }
         };
 
-        private static readonly Dictionary<TriggerType, string> RampTimeOptionNames = new Dictionary<TriggerType, string>
-        {
-            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicRampTime) },
-            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionCriticalRampTime) },
-            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionDismemberRampTime) },
-            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionDecapRampTime) },
-            { TriggerType.Parry, MakeKey(CSMModOptions.CategoryCustomParry, CSMModOptions.OptionParryRampTime) },
-            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyRampTime) },
-            { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandRampTime) }
-        };
-
         private static readonly Dictionary<TriggerType, string> TriggerToggleOptionNames = new Dictionary<TriggerType, string>
         {
             { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerBasicKill) },
@@ -137,7 +125,6 @@ namespace CSM.Core
             _lastChancePreset = null;
             _lastCooldownPreset = null;
             _lastDurationPreset = null;
-            _lastDelayInPreset = null;
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
@@ -225,9 +212,6 @@ namespace CSM.Core
             changed |= local;
             presetChanged |= local;
             local = ApplyDurationPreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyDelayPreset(force);
             changed |= local;
             presetChanged |= local;
             local = ApplyDistributionPreset(force);
@@ -418,32 +402,6 @@ namespace CSM.Core
             _presetAppliedTime = Time.unscaledTime;
             StoreExpectedPresetValues();
             LogPresetApply("Duration Preset", ResolvePresetLabel(CSMModOptions.DurationPresetSetting, preset));
-            return true;
-        }
-
-        private bool ApplyDelayPreset(bool force)
-        {
-            var preset = CSMModOptions.GetDelayInPreset();
-
-            bool changed = !_lastDelayInPreset.HasValue || !_lastDelayInPreset.Value.Equals(preset);
-
-            if (!force && !changed)
-                return false;
-
-            float delayValue = CSMModOptions.GetDelayTime(preset);
-
-            foreach (var trigger in TriggerTypes)
-            {
-                CSMModOptions.SetTriggerDelay(trigger, delayValue);
-                SyncOptionValue(RampTimeOptionNames, trigger, delayValue);
-            }
-
-            _lastDelayInPreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-
-            if (CSMModOptions.DebugLogging)
-                LogPresetApply("Delay Preset", CSMModOptions.DelayInPresetSetting + " (" + delayValue.ToString("F2") + "s)");
             return true;
         }
 
@@ -749,8 +707,6 @@ namespace CSM.Core
             string durationLabel = values.Duration.ToString("F1") + "s";
             string cooldownLabel = values.Cooldown.ToString("F1") + "s";
 
-            string smoothLabel = values.Delay.ToString("0.##") + "s";
-
             string tpLabel;
             if (!CSMModOptions.IsThirdPersonEligible(type))
             {
@@ -771,7 +727,6 @@ namespace CSM.Core
                    " | Scale " + scaleLabel +
                    " | Dur " + durationLabel +
                    " | CD " + cooldownLabel +
-                   " | Delay " + smoothLabel +
                    " | TP " + tpLabel;
         }
 
@@ -908,7 +863,6 @@ namespace CSM.Core
             if (Mathf.Abs(a.TimeScale - b.TimeScale) > epsilon) return true;
             if (Mathf.Abs(a.Duration - b.Duration) > epsilon) return true;
             if (Mathf.Abs(a.Cooldown - b.Cooldown) > epsilon) return true;
-            if (Mathf.Abs(a.Delay - b.Delay) > epsilon) return true;
             if (Mathf.Abs(a.Distribution - b.Distribution) > epsilon) return true;
             return false;
         }
@@ -988,7 +942,6 @@ namespace CSM.Core
                       " | Chance=" + CSMModOptions.ChancePresetSetting +
                       " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
                       " | Duration=" + CSMModOptions.DurationPresetSetting +
-                      " | Delay=" + CSMModOptions.DelayInPresetSetting +
                       " | ThirdPerson=" + CSMModOptions.CameraDistribution +
                       " | TriggerProfile=" + CSMModOptions.TriggerProfile);
             Debug.Log("[CSM] Menu triggers: " +
