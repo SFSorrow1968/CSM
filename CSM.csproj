@@ -18,8 +18,8 @@
     <Compile Include="**\*.cs" Exclude="BasSDK\**;7dtd Reference\**;References\**;obj\**;bin\**;builds\**" />
   </ItemGroup>
 
-  <!-- Exclude Harmony patches from Nomad build -->
-  <ItemGroup Condition="'$(Configuration)'=='Nomad'">
+  <!-- Exclude Harmony patches from all builds (using EventManager events instead) -->
+  <ItemGroup>
     <Compile Remove="Patches\**\*.cs" />
   </ItemGroup>
 
@@ -68,10 +68,7 @@
     </Reference>
   </ItemGroup>
 
-  <!-- Harmony only for PCVR builds -->
-  <ItemGroup Condition="'$(Configuration)'!='Nomad'">
-    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
-  </ItemGroup>
+  <!-- Harmony removed - using EventManager events for all builds -->
 
   <!-- Newtonsoft.Json removed - using ModOptions for all configuration -->
 

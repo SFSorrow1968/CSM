@@ -1,9 +1,6 @@
 using System;
 using CSM.Configuration;
 using CSM.Hooks;
-#if !NOMAD
-using CSM.Patches;
-#endif
 using ThunderRoad;
 using UnityEngine;
 
@@ -33,23 +30,10 @@ namespace CSM.Core
 
 #if NOMAD
                 Debug.Log("[CSM] Subscribing event hooks (Nomad mode)...");
-                EventHooks.Subscribe();
 #else
-                Debug.Log("[CSM] Applying Harmony patches (PCVR mode)...");
-                try
-                {
-                    CSMPatches.ApplyPatches();
-                    Debug.Log("[CSM] Harmony patches applied");
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError("[CSM] Harmony patches failed: " + ex.Message);
-                    EventHooks.Subscribe();
-                }
-
-                EventHooks.SubscribeDeflect();
-                EventHooks.SubscribeThrowTracking();
+                Debug.Log("[CSM] Subscribing event hooks (PCVR mode)...");
 #endif
+                EventHooks.Subscribe();
 
                 Debug.Log("[CSM] ScriptEnable complete - CSM is active!");
             }
@@ -84,13 +68,8 @@ namespace CSM.Core
                 CSMKillcam.Instance?.Shutdown();
                 CSMModOptionVisibility.Instance?.Shutdown();
 
-#if NOMAD
                 EventHooks.Unsubscribe();
                 EventHooks.ResetState();
-#else
-                try { CSMPatches.RemovePatches(); } catch { }
-                try { EventHooks.Unsubscribe(); EventHooks.ResetState(); } catch { }
-#endif
 
                 Debug.Log("[CSM] CSM deactivated");
             }

@@ -30,7 +30,12 @@
       "Bash(python3:*)",
       "Bash(powershell.exe:*)",
       "Bash(xargs -I {} sh -c 'strings {} 2>/dev/null | grep -q \"\"class Player\"\" && echo {}')",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(if not exist \"builds\\\\CSM-PCVR\\\\CSM\" mkdir \"builds\\\\CSM-PCVR\\\\CSM\")",
+      "Bash(if not exist \"builds\\\\CSM-Nomad\\\\CSM\" mkdir \"builds\\\\CSM-Nomad\\\\CSM\")",
+      "Bash(dir:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(where:*)"
     ]
   }
 }
