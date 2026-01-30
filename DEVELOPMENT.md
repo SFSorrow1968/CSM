@@ -39,3 +39,6 @@
 - Use `Time.unscaledTime` / `Time.unscaledDeltaTime` for timers during slow motion.
 - Avoid Newtonsoft.Json and file I/O on Nomad.
 - Always unsubscribe before re-subscribing to events to prevent duplicates.
+
+## Known Limitations (Game Engine)
+- **Slider drag doesn't commit values**: ThunderRoad's ModOption slider UI only commits values when arrow buttons are clicked. Dragging the slider moves it visually but does not fire the value change callback until an arrow is pressed. This is a game engine limitation affecting all mods using `InteractionType.Slider` - not fixable from mod code.
