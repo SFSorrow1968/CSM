@@ -117,9 +117,8 @@ namespace CSM.Configuration
         public const string OptionPierceMultiplier = "Pierce Multiplier";
         public const string OptionSlashMultiplier = "Slash Multiplier";
         public const string OptionBluntMultiplier = "Blunt Multiplier";
-        public const string OptionEnergyMultiplier = "Energy Multiplier";
-        public const string OptionFireMultiplier = "Fire Multiplier";
-        public const string OptionLightningMultiplier = "Lightning Multiplier";
+        public const string OptionElementalMultiplier = "Elemental Multiplier";
+        public const string OptionEnvironmentalMultiplier = "Environmental Multiplier";
         public const string OptionIntensityScalingEnabled = "Intensity Scaling";
         public const string OptionIntensityScalingMax = "Max Intensity Multiplier";
 
@@ -707,29 +706,21 @@ namespace CSM.Configuration
             tooltip = "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type.")]
         public static float BluntMultiplier = 1.0f;
 
-        [ModOption(name = OptionEnergyMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionElementalMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 35,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for energy damage. 0x disables slow-mo for this type.")]
-        public static float EnergyMultiplier = 1.0f;
+            tooltip = "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills.")]
+        public static float ElementalMultiplier = 1.0f;
 
-        [ModOption(name = OptionFireMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionEnvironmentalMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 36,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for fire damage. 0x disables slow-mo for this type.")]
-        public static float FireMultiplier = 1.0f;
-
-        [ModOption(name = OptionLightningMultiplier, category = CategoryDamageMultipliers,
-            categoryOrder = CategoryOrderDamageMultipliers, order = 37,
-            defaultValueIndex = 10,
-            valueSourceName = nameof(DamageMultiplierProvider),
-            interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for lightning damage. 0x disables slow-mo for this type.")]
-        public static float LightningMultiplier = 1.0f;
+            tooltip = "Multiplier for environmental kills (telekinesis throws, gravity push, falls). 0x disables slow-mo for environmental kills.")]
+        public static float EnvironmentalMultiplier = 1.0f;
 
         [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 40,
@@ -1234,10 +1225,11 @@ namespace CSM.Configuration
                 case DamageType.Pierce: return PierceMultiplier;
                 case DamageType.Slash: return SlashMultiplier;
                 case DamageType.Blunt: return BluntMultiplier;
-                case DamageType.Energy: return EnergyMultiplier;
-                case DamageType.Fire: return FireMultiplier;
-                case DamageType.Lightning: return LightningMultiplier;
-                default: return 1.0f; // Unknown, UnBlockable
+                case DamageType.Energy:
+                case DamageType.Fire:
+                case DamageType.Lightning: return ElementalMultiplier;
+                case DamageType.Unknown: return EnvironmentalMultiplier;
+                default: return 1.0f; // UnBlockable
             }
         }
 
