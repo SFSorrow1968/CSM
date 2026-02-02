@@ -25,6 +25,18 @@ namespace CSM.Hooks
         private const float SLICE_REARM_SECONDS = 30f;
         private const float SLICE_CLEANUP_INTERVAL = 10f;
         private readonly HashSet<Ragdoll> _hookedRagdolls = new HashSet<Ragdoll>();
+        
+        // Track creatures the player has recently damaged with elemental attacks
+        // This allows attributing status effect kills (fire DOT, lightning) to the player
+        private readonly Dictionary<int, PlayerElementalHit> _playerElementalHits = new Dictionary<int, PlayerElementalHit>();
+        private const float ELEMENTAL_ATTRIBUTION_WINDOW = 15f; // Seconds after last elemental hit to attribute kill
+
+        private class PlayerElementalHit
+        {
+            public float Timestamp;
+            public DamageType DamageType;
+            public float TotalDamage;
+        }
 
         public static void Subscribe()
         {
@@ -70,6 +82,7 @@ namespace CSM.Hooks
                 _instance._recentSlicedParts.Clear();
                 _instance._lastSliceCleanupTime = 0f;
                 _instance._hookedRagdolls.Clear();
+                _instance._playerElementalHits.Clear();
                 ThrowTracker.Reset();
             }
         }
@@ -263,7 +276,10 @@ namespace CSM.Hooks
                     return;
                 }
 
-                bool killedByPlayer = WasKilledByPlayer(collisionInstance);
+                // Check for player attribution including recent elemental damage
+                DamageType elementalDamageType;
+                float elementalDamage;
+                bool killedByPlayer = WasKilledByPlayer(collisionInstance, creature, out elementalDamageType, out elementalDamage);
                 bool thrownImpactKill = false;
                 if (!killedByPlayer)
                 {
@@ -283,14 +299,27 @@ namespace CSM.Hooks
                 bool isLastEnemy = IsSmartLastEnemy(aliveEnemies);
 
                 // Extract damage type and intensity from collision
+                // Use tracked elemental damage type if the kill was attributed via recent elemental hit
                 DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
                 float impactIntensity = GetImpactIntensity(collisionInstance);
+                
+                // Override with tracked elemental damage type for status effect kills
+                if (elementalDamageType != DamageType.Unknown && damageType == DamageType.Unknown)
+                {
+                    damageType = elementalDamageType;
+                    // Use elemental damage for intensity if collision intensity is missing
+                    if (impactIntensity < 0.1f && elementalDamage > 0f)
+                    {
+                        impactIntensity = Mathf.Clamp01(elementalDamage / 50f);
+                    }
+                }
 
                 if (CSMModOptions.DebugLogging)
                 {
                     bool isStatus = collisionInstance?.damageStruct.isStatus ?? false;
                     Debug.Log("[CSM] Kill damage: type=" + damageType + " intensity=" + impactIntensity.ToString("F2") + 
-                              " isStatus=" + isStatus + " byPlayer=" + killedByPlayer);
+                              " isStatus=" + isStatus + " byPlayer=" + killedByPlayer + 
+                              (elementalDamageType != DamageType.Unknown ? " (elemental attribution: " + elementalDamageType + ")" : ""));
                 }
                 
                 if (isLastEnemy)
@@ -389,9 +418,26 @@ namespace CSM.Hooks
                 if (creature.isKilled)
                     return;
 
-                if (collisionInstance != null && !WasKilledByPlayer(collisionInstance))
+                // Track elemental damage from player for status effect kill attribution
+                if (collisionInstance != null)
                 {
-                    ThrowTracker.RecordImpact(creature);
+                    bool directPlayerHit = WasKilledByPlayer(collisionInstance);
+                    
+                    if (!directPlayerHit)
+                    {
+                        ThrowTracker.RecordImpact(creature);
+                    }
+                    
+                    // Track elemental hits from player for status damage attribution
+                    var damageType = collisionInstance.damageStruct.damageType;
+                    bool isElemental = damageType == DamageType.Energy || 
+                                       damageType == DamageType.Fire || 
+                                       damageType == DamageType.Lightning;
+                    
+                    if (isElemental && directPlayerHit)
+                    {
+                        TrackPlayerElementalHit(creature, damageType, collisionInstance.damageStruct.damage);
+                    }
                 }
 
                 if (collisionInstance != null &&
@@ -605,9 +651,27 @@ namespace CSM.Hooks
 
         private bool WasKilledByPlayer(CollisionInstance collision)
         {
+            return WasKilledByPlayer(collision, null, out _, out _);
+        }
+
+        private bool WasKilledByPlayer(CollisionInstance collision, Creature creature, out DamageType elementalDamageType, out float elementalDamage)
+        {
+            elementalDamageType = DamageType.Unknown;
+            elementalDamage = 0f;
+            
             try
             {
-                if (collision == null) return false;
+                if (collision == null)
+                {
+                    // No collision but check if player recently hit this creature with elemental damage
+                    if (creature != null && TryGetRecentPlayerElementalHit(creature, out elementalDamageType, out elementalDamage))
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] Status kill attributed to player - recent elemental hit: " + elementalDamageType);
+                        return true;
+                    }
+                    return false;
+                }
 
                 // Use ThunderRoad's built-in method which checks:
                 // - Items held by player
@@ -630,11 +694,88 @@ namespace CSM.Hooks
                 if (collision.casterHand?.mana?.creature?.isPlayer == true)
                     return true;
 
+                // Check if player recently hit this creature with elemental damage
+                // This handles status effect kills (fire DOT, lightning electrocution) from other mods like BDOT
+                if (creature != null && TryGetRecentPlayerElementalHit(creature, out elementalDamageType, out elementalDamage))
+                {
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Status kill attributed to player - recent elemental hit: " + elementalDamageType);
+                    return true;
+                }
+
                 return false;
             }
             catch
             {
                 return false;
+            }
+        }
+
+        private void TrackPlayerElementalHit(Creature creature, DamageType damageType, float damage)
+        {
+            if (creature == null) return;
+            int id = creature.GetInstanceID();
+            
+            if (_playerElementalHits.TryGetValue(id, out var existing))
+            {
+                existing.Timestamp = Time.unscaledTime;
+                existing.DamageType = damageType;
+                existing.TotalDamage += damage;
+            }
+            else
+            {
+                _playerElementalHits[id] = new PlayerElementalHit
+                {
+                    Timestamp = Time.unscaledTime,
+                    DamageType = damageType,
+                    TotalDamage = damage
+                };
+            }
+            
+            // Cleanup old entries periodically
+            CleanupElementalHitCache();
+        }
+
+        private bool TryGetRecentPlayerElementalHit(Creature creature, out DamageType damageType, out float totalDamage)
+        {
+            damageType = DamageType.Unknown;
+            totalDamage = 0f;
+            
+            if (creature == null) return false;
+            int id = creature.GetInstanceID();
+            
+            if (_playerElementalHits.TryGetValue(id, out var hit))
+            {
+                if (Time.unscaledTime - hit.Timestamp <= ELEMENTAL_ATTRIBUTION_WINDOW)
+                {
+                    damageType = hit.DamageType;
+                    totalDamage = hit.TotalDamage;
+                    _playerElementalHits.Remove(id); // Consume the attribution
+                    return true;
+                }
+                _playerElementalHits.Remove(id); // Expired
+            }
+            return false;
+        }
+
+        private void CleanupElementalHitCache()
+        {
+            float now = Time.unscaledTime;
+            List<int> expired = null;
+            
+            foreach (var kvp in _playerElementalHits)
+            {
+                if (now - kvp.Value.Timestamp > ELEMENTAL_ATTRIBUTION_WINDOW)
+                {
+                    if (expired == null) expired = new List<int>();
+                    expired.Add(kvp.Key);
+                }
+            }
+            
+            if (expired != null)
+            {
+                foreach (var key in expired)
+                    _playerElementalHits.Remove(key);
             }
         }
 
