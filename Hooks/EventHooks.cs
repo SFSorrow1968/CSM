@@ -439,9 +439,31 @@ namespace CSM.Hooks
         private float GetImpactIntensity(CollisionInstance collisionInstance)
         {
             if (collisionInstance == null) return 0f;
-            // Normalize impact velocity magnitude to 0-1 range
-            // Typical combat velocity range: 2-15 m/s
+
+            // First check if the CollisionInstance already has computed intensity
+            if (collisionInstance.intensity > 0f)
+            {
+                return Mathf.Clamp01(collisionInstance.intensity);
+            }
+
+            // For elemental/status damage (fire, lightning), impactVelocity is typically zero
+            // Use damage amount as a proxy for intensity
             float velocity = collisionInstance.impactVelocity.magnitude;
+            if (velocity < 0.1f)
+            {
+                // Status/elemental damage - use damage amount for intensity
+                // Typical damage range: 0-100+, normalize to 0-1
+                float damage = collisionInstance.damageStruct.damage;
+                if (damage > 0f)
+                {
+                    // Scale damage: 10 damage = 0.2 intensity, 50 damage = 1.0 intensity
+                    return Mathf.Clamp01(damage / 50f);
+                }
+                return 0f;
+            }
+
+            // Standard impact velocity-based intensity
+            // Typical combat velocity range: 2-15 m/s
             return Mathf.Clamp01((velocity - 2f) / 13f);
         }
 
