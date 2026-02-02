@@ -281,13 +281,17 @@ namespace CSM.Hooks
                 int aliveEnemies = CountAliveEnemies();
                 
                 bool isLastEnemy = IsSmartLastEnemy(aliveEnemies);
+
+                // Extract damage type and intensity from collision
+                DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
+                float impactIntensity = GetImpactIntensity(collisionInstance);
                 
                 if (isLastEnemy)
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Last enemy of wave killed (wave had " + _maxEnemiesSeenThisWave + " enemies)");
 
-                    bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature);
+                    bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature, damageType, impactIntensity, false);
                     if (triggered)
                     {
                         _maxEnemiesSeenThisWave = 0;
@@ -302,7 +306,7 @@ namespace CSM.Hooks
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Thrown impact kill detected");
-                    CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature);
+                    CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false);
                     return;
                 }
 
@@ -325,7 +329,7 @@ namespace CSM.Hooks
                         }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Decapitation detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature, damageType, impactIntensity, false))
                             return;
                     }
 
@@ -333,7 +337,7 @@ namespace CSM.Hooks
                     {
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Critical kill detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, damageDealt, creature))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, damageDealt, creature, damageType, impactIntensity, false))
                             return;
                     }
 
@@ -347,14 +351,14 @@ namespace CSM.Hooks
                         }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Dismemberment detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature, damageType, impactIntensity, false))
                             return;
                     }
                 }
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Basic kill with damage=" + damageDealt);
-                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature);
+                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false);
             }
             catch (Exception ex)
             {
@@ -390,6 +394,8 @@ namespace CSM.Hooks
                     float damageDealt = collisionInstance.damageStruct.damage;
                     var part = collisionInstance.damageStruct.hitRagdollPart;
                     var partType = part.type;
+                    DamageType damageType = collisionInstance.damageStruct.damageType;
+                    float impactIntensity = GetImpactIntensity(collisionInstance);
                     if (!IsNewSlice(part))
                     {
                         if (CSMModOptions.DebugLogging)
@@ -400,13 +406,13 @@ namespace CSM.Hooks
                     {
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Non-lethal decapitation detected, damage=" + damageDealt);
-                        CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature);
+                        CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature, damageType, impactIntensity, false);
                     }
                     else
                     {
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Non-lethal dismemberment detected, damage=" + damageDealt);
-                        CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature);
+                        CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature, damageType, impactIntensity, false);
                     }
                 }
             }
@@ -428,6 +434,15 @@ namespace CSM.Hooks
             _recentSlicedParts[id] = now;
             CleanupSliceCache(now);
             return true;
+        }
+
+        private float GetImpactIntensity(CollisionInstance collisionInstance)
+        {
+            if (collisionInstance == null) return 0f;
+            // Normalize impact velocity magnitude to 0-1 range
+            // Typical combat velocity range: 2-15 m/s
+            float velocity = collisionInstance.impactVelocity.magnitude;
+            return Mathf.Clamp01((velocity - 2f) / 13f);
         }
 
         private void CleanupSliceCache(float now)

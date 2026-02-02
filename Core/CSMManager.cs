@@ -143,15 +143,20 @@ namespace CSM.Core
 
         public bool TriggerSlow(TriggerType type)
         {
-            return TriggerSlow(type, 0f, null);
+            return TriggerSlow(type, 0f, null, DamageType.Unknown, 0f, false);
         }
 
         public bool TriggerSlow(TriggerType type, float damageDealt)
         {
-            return TriggerSlow(type, damageDealt, null);
+            return TriggerSlow(type, damageDealt, null, DamageType.Unknown, 0f, false);
         }
 
-        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, bool isQuickTest = false)
+        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature)
+        {
+            return TriggerSlow(type, damageDealt, targetCreature, DamageType.Unknown, 0f, false);
+        }
+
+        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, DamageType damageType, float intensity, bool isQuickTest = false)
         {
             try
             {
@@ -166,6 +171,24 @@ namespace CSM.Core
                 bool enabled;
                 float chance, timeScale, duration, cooldown;
                 GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown);
+
+                // Apply damage type and intensity multipliers
+                float damageTypeMultiplier = CSMModOptions.GetDamageTypeMultiplier(damageType);
+                float intensityMultiplier = CSMModOptions.GetIntensityMultiplier(intensity);
+                float combinedMultiplier = damageTypeMultiplier * intensityMultiplier;
+
+                // Multiplier > 1 = more intense slow-mo = lower timeScale
+                if (combinedMultiplier != 1.0f)
+                {
+                    float originalTimeScale = timeScale;
+                    timeScale = timeScale / combinedMultiplier;
+                    timeScale = Mathf.Clamp(timeScale, 0.01f, 1f);
+
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Multipliers: damageType=" + damageType + " (" + damageTypeMultiplier.ToString("F1") + "x), " +
+                                  "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x), " +
+                                  "combined=" + combinedMultiplier.ToString("F2") + "x, timeScale " + originalTimeScale.ToString("F3") + " -> " + timeScale.ToString("F3"));
+                }
 
                 if (CSMModOptions.DebugLogging)
                 {

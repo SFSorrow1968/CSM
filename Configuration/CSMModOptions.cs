@@ -113,6 +113,13 @@ namespace CSM.Configuration
         public const string OptionStatTotalSlowMoTime = "Total Slow-Mo Time";
         public const string OptionStatTriggerCounts = "Trigger Counts";
 
+        public const string CategoryDamageMultipliers = "Damage Multipliers";
+        public const string OptionPierceMultiplier = "Pierce Multiplier";
+        public const string OptionSlashMultiplier = "Slash Multiplier";
+        public const string OptionBluntMultiplier = "Blunt Multiplier";
+        public const string OptionIntensityScalingEnabled = "Intensity Scaling";
+        public const string OptionIntensityScalingMax = "Max Intensity Multiplier";
+
         #endregion
 
         #region Enums
@@ -600,9 +607,34 @@ namespace CSM.Configuration
             };
         }
 
+        public static ModOptionFloat[] DamageMultiplierProvider()
+        {
+            var list = new List<ModOptionFloat>();
+            // 0.5x to 2.0x in 0.1 increments (16 values, index 5 = 1.0x)
+            for (int i = 5; i <= 20; i++)
+            {
+                float val = i / 10f;
+                list.Add(new ModOptionFloat($"{val:0.0}x", val));
+            }
+            return list.ToArray();
+        }
+
+        public static ModOptionFloat[] IntensityMaxProvider()
+        {
+            var list = new List<ModOptionFloat>();
+            // 1.0x to 2.0x in 0.1 increments (11 values, index 5 = 1.5x)
+            for (int i = 10; i <= 20; i++)
+            {
+                float val = i / 10f;
+                list.Add(new ModOptionFloat($"{val:0.0}x", val));
+            }
+            return list.ToArray();
+        }
+
         #endregion
 
         private const int CategoryOrderPreset = 10;
+        private const int CategoryOrderDamageMultipliers = 25;
         private const int CategoryOrderTriggers = 30;
         private const int CategoryOrderKillcam = 40;
         private const int CategoryOrderCustomBasic = 50;
@@ -642,6 +674,48 @@ namespace CSM.Configuration
         public static string TriggerProfile = "All";
 
         public static int LastEnemyMinimumGroup = 1;
+
+        #endregion
+
+        #region Damage Multipliers
+
+        [ModOption(name = OptionPierceMultiplier, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 10,
+            defaultValueIndex = 5,
+            valueSourceName = nameof(DamageMultiplierProvider),
+            interactionType = (ModOption.InteractionType)2,
+            tooltip = "Multiplier for piercing damage (stabs). Higher = more intense slow-mo.")]
+        public static float PierceMultiplier = 1.0f;
+
+        [ModOption(name = OptionSlashMultiplier, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 20,
+            defaultValueIndex = 5,
+            valueSourceName = nameof(DamageMultiplierProvider),
+            interactionType = (ModOption.InteractionType)2,
+            tooltip = "Multiplier for slashing damage (cuts). Higher = more intense slow-mo.")]
+        public static float SlashMultiplier = 1.0f;
+
+        [ModOption(name = OptionBluntMultiplier, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 30,
+            defaultValueIndex = 5,
+            valueSourceName = nameof(DamageMultiplierProvider),
+            interactionType = (ModOption.InteractionType)2,
+            tooltip = "Multiplier for blunt damage (impacts). Higher = more intense slow-mo.")]
+        public static float BluntMultiplier = 1.0f;
+
+        [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 40,
+            defaultValueIndex = 0,
+            tooltip = "Scale slow-mo intensity based on impact force. Off by default.")]
+        public static bool IntensityScalingEnabled = false;
+
+        [ModOption(name = OptionIntensityScalingMax, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 50,
+            defaultValueIndex = 5,
+            valueSourceName = nameof(IntensityMaxProvider),
+            interactionType = (ModOption.InteractionType)2,
+            tooltip = "Maximum multiplier at full intensity (min is always 1.0x).")]
+        public static float IntensityScalingMax = 1.5f;
 
         #endregion
 
@@ -1123,6 +1197,24 @@ namespace CSM.Configuration
                 case TriggerType.LastEnemy: LastEnemyEasing = value; break;
                 case TriggerType.LastStand: LastStandEasing = value; break;
             }
+        }
+
+        public static float GetDamageTypeMultiplier(DamageType damageType)
+        {
+            switch (damageType)
+            {
+                case DamageType.Pierce: return PierceMultiplier;
+                case DamageType.Slash: return SlashMultiplier;
+                case DamageType.Blunt: return BluntMultiplier;
+                default: return 1.0f; // Unknown, Energy, Fire, Lightning, UnBlockable
+            }
+        }
+
+        public static float GetIntensityMultiplier(float intensity)
+        {
+            if (!IntensityScalingEnabled) return 1.0f;
+            // Lerp from 1.0 at intensity=0 to IntensityScalingMax at intensity=1
+            return Mathf.Lerp(1.0f, IntensityScalingMax, Mathf.Clamp01(intensity));
         }
 
         public static CameraDistributionPreset GetCameraDistributionPreset()
