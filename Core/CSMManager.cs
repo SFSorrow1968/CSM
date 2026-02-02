@@ -177,6 +177,11 @@ namespace CSM.Core
                 float intensityMultiplier = CSMModOptions.GetIntensityMultiplier(intensity);
                 float combinedMultiplier = damageTypeMultiplier * intensityMultiplier;
 
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Damage input: damageType=" + damageType + " (" + damageTypeMultiplier.ToString("F1") + "x), " +
+                              "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x), " +
+                              "combined=" + combinedMultiplier.ToString("F2") + "x");
+
                 // Multiplier > 1 = more intense slow-mo = lower timeScale
                 if (combinedMultiplier != 1.0f)
                 {
@@ -185,9 +190,7 @@ namespace CSM.Core
                     timeScale = Mathf.Clamp(timeScale, 0.01f, 1f);
 
                     if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Multipliers: damageType=" + damageType + " (" + damageTypeMultiplier.ToString("F1") + "x), " +
-                                  "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x), " +
-                                  "combined=" + combinedMultiplier.ToString("F2") + "x, timeScale " + originalTimeScale.ToString("F3") + " -> " + timeScale.ToString("F3"));
+                        Debug.Log("[CSM] Multiplier applied: timeScale " + originalTimeScale.ToString("F3") + " -> " + timeScale.ToString("F3"));
                 }
 
                 if (CSMModOptions.DebugLogging)
