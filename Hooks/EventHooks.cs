@@ -30,6 +30,8 @@ namespace CSM.Hooks
         // This allows attributing DOT/status effect kills (bleeds, fire DOT, lightning) to the player
         private readonly Dictionary<int, PlayerDamageHit> _playerDamageHits = new Dictionary<int, PlayerDamageHit>();
         private const float DOT_ATTRIBUTION_WINDOW = 15f; // Seconds after last hit to attribute DOT kill
+        private float _lastDamageHitCleanupTime = 0f;
+        private const float DAMAGE_HIT_CLEANUP_INTERVAL = 5f;
 
         private class PlayerDamageHit
         {
@@ -83,6 +85,7 @@ namespace CSM.Hooks
                 _instance._lastSliceCleanupTime = 0f;
                 _instance._hookedRagdolls.Clear();
                 _instance._playerDamageHits.Clear();
+                _instance._lastDamageHitCleanupTime = 0f;
                 ThrowTracker.Reset();
             }
         }
@@ -292,9 +295,7 @@ namespace CSM.Hooks
                     }
                 }
 
-                UpdateEnemyTracking();
-
-                int aliveEnemies = CountAliveEnemies();
+                int aliveEnemies = UpdateEnemyTrackingAndGetCount();
                 
                 bool isLastEnemy = IsSmartLastEnemy(aliveEnemies);
 
@@ -576,7 +577,7 @@ namespace CSM.Hooks
             }
         }
 
-        private void UpdateEnemyTracking()
+        private int UpdateEnemyTrackingAndGetCount()
         {
             int currentEnemies = CountAliveEnemies();
             
@@ -603,6 +604,8 @@ namespace CSM.Hooks
             {
                 _lastWaveResetTime = Time.unscaledTime;
             }
+            
+            return currentEnemies;
         }
 
         private bool IsSmartLastEnemy(int currentAliveEnemies)
@@ -768,6 +771,10 @@ namespace CSM.Hooks
         private void CleanupDamageHitCache()
         {
             float now = Time.unscaledTime;
+            if (now - _lastDamageHitCleanupTime < DAMAGE_HIT_CLEANUP_INTERVAL)
+                return;
+            
+            _lastDamageHitCleanupTime = now;
             List<int> expired = null;
             
             foreach (var kvp in _playerDamageHits)
