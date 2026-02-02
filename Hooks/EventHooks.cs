@@ -285,6 +285,13 @@ namespace CSM.Hooks
                 // Extract damage type and intensity from collision
                 DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
                 float impactIntensity = GetImpactIntensity(collisionInstance);
+
+                if (CSMModOptions.DebugLogging)
+                {
+                    bool isStatus = collisionInstance?.damageStruct.isStatus ?? false;
+                    Debug.Log("[CSM] Kill damage: type=" + damageType + " intensity=" + impactIntensity.ToString("F2") + 
+                              " isStatus=" + isStatus + " byPlayer=" + killedByPlayer);
+                }
                 
                 if (isLastEnemy)
                 {
@@ -602,6 +609,14 @@ namespace CSM.Hooks
             {
                 if (collision == null) return false;
 
+                // Use ThunderRoad's built-in method which checks:
+                // - Items held by player
+                // - Ragdoll parts with player interaction
+                // - Spell caster (for elemental/magic damage)
+                if (collision.IsDoneByPlayer())
+                    return true;
+
+                // Additional fallback checks for edge cases
                 if (collision.sourceColliderGroup?.collisionHandler?.item?.mainHandler?.creature?.isPlayer == true)
                     return true;
 
@@ -609,6 +624,10 @@ namespace CSM.Hooks
                     return true;
 
                 if (collision.sourceColliderGroup?.collisionHandler?.ragdollPart?.ragdoll?.creature?.isPlayer == true)
+                    return true;
+
+                // Check casterHand for spell damage (fire, lightning, etc.)
+                if (collision.casterHand?.mana?.creature?.isPlayer == true)
                     return true;
 
                 return false;
