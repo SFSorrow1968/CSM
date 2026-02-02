@@ -299,19 +299,20 @@ namespace CSM.Hooks
                 bool isLastEnemy = IsSmartLastEnemy(aliveEnemies);
 
                 // Extract damage type and intensity from collision
-                // Use tracked elemental damage type if the kill was attributed via recent elemental hit
                 DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
                 float impactIntensity = GetImpactIntensity(collisionInstance);
                 
                 // Track if this is a status effect kill (DOT from BDOT mod, etc.)
                 bool isStatusKill = false;
                 
-                // Override with tracked elemental damage type for status effect kills
-                if (elementalDamageType != DamageType.Unknown && damageType == DamageType.Unknown)
+                // If we have DOT attribution, this is a status kill - use the tracked damage type
+                // BDOT's Kill() call may provide Energy or other damage types, but we want the original
+                // damage type from the player's hit that caused the DOT
+                if (elementalDamageType != DamageType.Unknown)
                 {
                     damageType = elementalDamageType;
-                    isStatusKill = true; // Kill attributed via elemental tracking = status effect kill
-                    // Use elemental damage for intensity if collision intensity is missing
+                    isStatusKill = true; // Kill attributed via DOT tracking = status effect kill
+                    // Use tracked damage for intensity if collision intensity is missing
                     if (impactIntensity < 0.1f && elementalDamage > 0f)
                     {
                         impactIntensity = Mathf.Clamp01(elementalDamage / 50f);

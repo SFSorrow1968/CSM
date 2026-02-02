@@ -118,7 +118,6 @@ namespace CSM.Configuration
         public const string OptionSlashMultiplier = "Slash Multiplier";
         public const string OptionBluntMultiplier = "Blunt Multiplier";
         public const string OptionElementalMultiplier = "Elemental Multiplier";
-        public const string OptionEnvironmentalMultiplier = "Environmental Multiplier";
         public const string OptionDOTMultiplier = "DOT Multiplier";
         public const string OptionIntensityScalingEnabled = "Intensity Scaling";
         public const string OptionIntensityScalingMax = "Max Intensity Multiplier";
@@ -715,14 +714,6 @@ namespace CSM.Configuration
             tooltip = "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills.")]
         public static float ElementalMultiplier = 1.0f;
 
-        [ModOption(name = OptionEnvironmentalMultiplier, category = CategoryDamageMultipliers,
-            categoryOrder = CategoryOrderDamageMultipliers, order = 36,
-            defaultValueIndex = 10,
-            valueSourceName = nameof(DamageMultiplierProvider),
-            interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for environmental kills (telekinesis throws, gravity push, falls). 0x disables slow-mo for environmental kills.")]
-        public static float EnvironmentalMultiplier = 1.0f;
-
         [ModOption(name = OptionDOTMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 37,
             defaultValueIndex = 0,
@@ -1237,8 +1228,7 @@ namespace CSM.Configuration
                 case DamageType.Energy:
                 case DamageType.Fire:
                 case DamageType.Lightning: return ElementalMultiplier;
-                case DamageType.Unknown: return EnvironmentalMultiplier;
-                default: return 1.0f; // UnBlockable
+                default: return 1.0f; // Unknown, UnBlockable - wall impacts use Blunt
             }
         }
 
