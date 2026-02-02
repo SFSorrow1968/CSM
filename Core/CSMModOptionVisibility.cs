@@ -266,7 +266,7 @@ namespace CSM.Core
             if (CSMModOptions.QuickTestNow)
             {
                 var trigger = CSMModOptions.GetQuickTestTrigger();
-                CSMManager.Instance.TriggerSlow(trigger, 0f, null, true);
+                CSMManager.Instance.TriggerSlow(trigger, 0f, null, DamageType.Unknown, 0f, true);
                 CSMModOptions.QuickTestNow = false;
                 changed = true;
             }
