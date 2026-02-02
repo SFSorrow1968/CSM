@@ -7,12 +7,16 @@ using ThunderRoad;
 
 namespace CSM.Core
 {
+    // Simplified: When preset changes -> update values -> sync UI -> done
+    // No throttling, no lock windows, no corruption detection - just direct preset application
     public class CSMModOptionVisibility
     {
         public static CSMModOptionVisibility Instance { get; } = new CSMModOptionVisibility();
 
         private ModManager.ModData _modData;
         private bool _initialized;
+        
+        // Track only preset changes to know when to update UI
         private CSMModOptions.Preset? _lastIntensityPreset;
         private CSMModOptions.ChancePreset? _lastChancePreset;
         private CSMModOptions.CooldownPreset? _lastCooldownPreset;
@@ -20,35 +24,19 @@ namespace CSM.Core
         private CSMModOptions.TransitionPreset? _lastTransitionPreset;
         private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
+        
         private bool _lastDebugLogging;
         private bool _lastResetStats;
-        private readonly Dictionary<TriggerType, CSMModOptions.TriggerCustomValues> _lastCustomValues =
-            new Dictionary<TriggerType, CSMModOptions.TriggerCustomValues>();
-        private readonly Dictionary<TriggerType, CSMModOptions.TriggerCustomValues> _expectedPresetValues =
-            new Dictionary<TriggerType, CSMModOptions.TriggerCustomValues>();
-        private float _presetAppliedTime;
-        private const float PresetLockDuration = 30f; // Seconds to protect preset values from UI corruption
-        private readonly Dictionary<string, string> _baseTooltips =
-            new Dictionary<string, string>(StringComparer.Ordinal);
-
-        private readonly Dictionary<string, ModOption> _modOptionsByKey =
-            new Dictionary<string, ModOption>(StringComparer.Ordinal);
-
-        // Throttle mechanism: only run full check periodically when idle
-        private float _lastFullCheckTime;
-        private const float IdleCheckInterval = 0.5f; // Check every 0.5s when menu not actively used
+        
+        private readonly Dictionary<string, string> _baseTooltips = new Dictionary<string, string>(StringComparer.Ordinal);
+        private readonly Dictionary<string, ModOption> _modOptionsByKey = new Dictionary<string, ModOption>(StringComparer.Ordinal);
 
         private const string OptionKeySeparator = "||";
 
         private static readonly TriggerType[] TriggerTypes =
         {
-            TriggerType.BasicKill,
-            TriggerType.Critical,
-            TriggerType.Dismemberment,
-            TriggerType.Decapitation,
-            TriggerType.Parry,
-            TriggerType.LastEnemy,
-            TriggerType.LastStand,
+            TriggerType.BasicKill, TriggerType.Critical, TriggerType.Dismemberment, TriggerType.Decapitation,
+            TriggerType.Parry, TriggerType.LastEnemy, TriggerType.LastStand,
         };
 
         private static readonly Dictionary<TriggerType, string> ChanceOptionNames = new Dictionary<TriggerType, string>
@@ -94,7 +82,6 @@ namespace CSM.Core
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandCooldown) }
         };
 
-
         private static readonly Dictionary<TriggerType, string> DistributionOptionNames = new Dictionary<TriggerType, string>
         {
             { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicThirdPerson) },
@@ -125,6 +112,7 @@ namespace CSM.Core
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerLastEnemy) },
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerLastStand) }
         };
+        
         private static readonly string ThrownImpactOptionKey = MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerThrownImpactKill);
 
         private CSMModOptionVisibility() { }
@@ -142,39 +130,30 @@ namespace CSM.Core
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
             _lastResetStats = false;
-            _lastCustomValues.Clear();
             _baseTooltips.Clear();
 
             TryInitialize();
             if (_initialized)
             {
-                if (ApplyAllPresets(true))
-                    ModManager.RefreshModOptionsUI();
+                ApplyAllPresets(true);
+                ModManager.RefreshModOptionsUI();
             }
         }
 
-        public void Shutdown()
-        {
-        }
+        public void Shutdown() { }
 
         public void Update()
         {
             if (!_initialized)
             {
                 TryInitialize();
-                if (!_initialized)
-                    return;
-
-                if (ApplyAllPresets(true))
+                if (_initialized)
+                {
+                    ApplyAllPresets(true);
                     ModManager.RefreshModOptionsUI();
+                }
                 return;
             }
-
-            // Throttle: only run full check at intervals when idle
-            float now = Time.unscaledTime;
-            if (now - _lastFullCheckTime < IdleCheckInterval)
-                return;
-            _lastFullCheckTime = now;
 
             if (ApplyAllPresets(false))
                 ModManager.RefreshModOptionsUI();
@@ -182,12 +161,8 @@ namespace CSM.Core
 
         private void TryInitialize()
         {
-            if (_initialized) return;
-
-            if (!ModManager.TryGetModData(Assembly.GetExecutingAssembly(), out _modData))
-                return;
-
-            if (_modData?.modOptions == null || _modData.modOptions.Count == 0)
+            if (_initialized || !ModManager.TryGetModData(Assembly.GetExecutingAssembly(), out _modData) || 
+                _modData?.modOptions == null || _modData.modOptions.Count == 0)
                 return;
 
             CacheModOptions();
@@ -212,65 +187,26 @@ namespace CSM.Core
         private bool ApplyAllPresets(bool force)
         {
             bool changed = false;
-            bool presetChanged = false;
-            bool local;
-
-            local = ApplyIntensityPreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyChancePreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyCooldownPreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyDurationPreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyTransitionPreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyDistributionPreset(force);
-            changed |= local;
-            presetChanged |= local;
-            local = ApplyTriggerProfile(force);
-            changed |= local;
-            presetChanged |= local;
+            changed |= ApplyIntensityPreset(force);
+            changed |= ApplyChancePreset(force);
+            changed |= ApplyCooldownPreset(force);
+            changed |= ApplyDurationPreset(force);
+            changed |= ApplyTransitionPreset(force);
+            changed |= ApplyDistributionPreset(force);
+            changed |= ApplyTriggerProfile(force);
             changed |= ApplyTriggerDependencies();
-            changed |= ApplyDiagnostics(force);
+            changed |= ApplyDiagnostics();
             changed |= ApplyStatisticsReset();
-            changed |= UpdateCustomTooltips(force, presetChanged);
-            if (force || presetChanged)
-                CaptureCustomValues();
-            changed |= ApplyCustomOverrides();
-            if (CSMModOptions.DebugLogging && _lastDebugLogging != CSMModOptions.DebugLogging)
-            {
-                LogMenuState("Debug Enabled");
-            }
-            if (CSMModOptions.DebugLogging && presetChanged)
-            {
-                LogMenuState("Preset Changed");
-            }
-            if ((force || presetChanged || _lastDebugLogging != CSMModOptions.DebugLogging) && CSMModOptions.DebugLogging)
-            {
-                LogEffectiveValues();
-            }
-            _lastDebugLogging = CSMModOptions.DebugLogging;
+            changed |= UpdateDebugTooltips();
             return changed;
         }
 
-        private bool ApplyDiagnostics(bool force)
+        private bool ApplyDiagnostics()
         {
-            bool changed = false;
-
-            if (CSMModOptions.QuickTestNow)
-            {
-                var trigger = CSMModOptions.GetQuickTestTrigger();
-                CSMManager.Instance.TriggerSlow(trigger, 0f, null, DamageType.Unknown, 0f, true);
-                CSMModOptions.QuickTestNow = false;
-                changed = true;
-            }
-            return changed;
+            if (!CSMModOptions.QuickTestNow) return false;
+            CSMManager.Instance.TriggerSlow(CSMModOptions.GetQuickTestTrigger(), 0f, null, DamageType.Unknown, 0f, true);
+            CSMModOptions.QuickTestNow = false;
+            return true;
         }
 
         private bool ApplyStatisticsReset()
@@ -280,17 +216,11 @@ namespace CSM.Core
                 _lastResetStats = CSMModOptions.ResetStatsToggle;
                 return false;
             }
-
             CSMModOptions.ResetStatistics();
             CSMModOptions.ResetStatsToggle = false;
             _lastResetStats = false;
             Debug.Log("[CSM] Statistics reset");
             return true;
-        }
-
-        private static string ResolvePresetLabel(string settingValue, object preset)
-        {
-            return string.IsNullOrWhiteSpace(settingValue) ? preset.ToString() : settingValue;
         }
 
         private bool ApplyIntensityPreset(bool force)
@@ -299,100 +229,46 @@ namespace CSM.Core
             if (!force && _lastIntensityPreset.HasValue && _lastIntensityPreset.Value.Equals(preset))
                 return false;
 
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Applying Intensity Preset: " + ResolvePresetLabel(CSMModOptions.CurrentPreset, preset));
-
             foreach (var trigger in TriggerTypes)
             {
-                CSMManager.GetPresetValues(preset, trigger, out float chance, out float timeScale, out float duration, out float cooldown);
+                CSMManager.GetPresetValues(preset, trigger, out _, out float timeScale, out _, out _);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, timeScale);
                 SyncOptionValue(TimeScaleOptionNames, trigger, timeScale);
-
-                if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " TimeScale = " + timeScale.ToString("0.00") + " (" + (timeScale * 100f).ToString("F0") + "%)");
             }
-
             _lastIntensityPreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply("Intensity Preset", ResolvePresetLabel(CSMModOptions.CurrentPreset, preset));
             return true;
-        }
-
-        private void StoreExpectedPresetValues()
-        {
-            foreach (var trigger in TriggerTypes)
-            {
-                _expectedPresetValues[trigger] = CSMModOptions.GetCustomValues(trigger);
-            }
         }
 
         private bool ApplyChancePreset(bool force)
         {
             var preset = CSMModOptions.GetChancePreset();
-            bool presetChanged = !_lastChancePreset.HasValue || !_lastChancePreset.Value.Equals(preset);
-
-            // When Chance is Off, always apply 100% values to ensure consistency
-            // (but only log when the preset actually changed)
-            bool isOff = preset == CSMModOptions.ChancePreset.Off;
-            if (!force && !isOff && !presetChanged)
+            if (!force && _lastChancePreset.HasValue && _lastChancePreset.Value.Equals(preset))
                 return false;
-
-            if (CSMModOptions.DebugLogging && presetChanged)
-                Debug.Log("[CSM] Applying Chance Preset: " + ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
 
             foreach (var trigger in TriggerTypes)
             {
                 float value = CSMModOptions.GetPresetChanceValue(trigger);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Chance, value);
                 SyncOptionValue(ChanceOptionNames, trigger, value);
-
-                if (CSMModOptions.DebugLogging && presetChanged)
-                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Chance = " + (value * 100f).ToString("F0") + "%");
             }
-
             _lastChancePreset = preset;
-            if (presetChanged)
-            {
-                _presetAppliedTime = Time.unscaledTime;
-                StoreExpectedPresetValues();
-                LogPresetApply("Chance Preset", ResolvePresetLabel(CSMModOptions.ChancePresetSetting, preset));
-            }
-            return presetChanged;
+            return true;
         }
 
         private bool ApplyCooldownPreset(bool force)
         {
             var preset = CSMModOptions.GetCooldownPreset();
-            bool presetChanged = !_lastCooldownPreset.HasValue || !_lastCooldownPreset.Value.Equals(preset);
-
-            // When Cooldown is Off, always apply 0 values to ensure consistency
-            // (but only log when the preset actually changed)
-            bool isOff = preset == CSMModOptions.CooldownPreset.Off;
-            if (!force && !isOff && !presetChanged)
+            if (!force && _lastCooldownPreset.HasValue && _lastCooldownPreset.Value.Equals(preset))
                 return false;
-
-            if (CSMModOptions.DebugLogging && presetChanged)
-                Debug.Log("[CSM] Applying Cooldown Preset: " + ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
 
             foreach (var trigger in TriggerTypes)
             {
                 float value = CSMModOptions.GetPresetCooldownValue(trigger);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Cooldown, value);
                 SyncOptionValue(CooldownOptionNames, trigger, value);
-
-                if (CSMModOptions.DebugLogging && presetChanged)
-                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Cooldown = " + value.ToString("0.##") + "s");
             }
-
             _lastCooldownPreset = preset;
-            if (presetChanged)
-            {
-                _presetAppliedTime = Time.unscaledTime;
-                StoreExpectedPresetValues();
-                LogPresetApply("Cooldown Preset", ResolvePresetLabel(CSMModOptions.CooldownPresetSetting, preset));
-            }
-            return presetChanged;
+            return true;
         }
 
         private bool ApplyDurationPreset(bool force)
@@ -401,23 +277,13 @@ namespace CSM.Core
             if (!force && _lastDurationPreset.HasValue && _lastDurationPreset.Value.Equals(preset))
                 return false;
 
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Applying Duration Preset: " + ResolvePresetLabel(CSMModOptions.DurationPresetSetting, preset));
-
             foreach (var trigger in TriggerTypes)
             {
                 float value = CSMModOptions.GetPresetDurationValue(trigger);
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Duration, value);
                 SyncOptionValue(DurationOptionNames, trigger, value);
-
-                if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Duration = " + value.ToString("0.##") + "s");
             }
-
             _lastDurationPreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply("Duration Preset", ResolvePresetLabel(CSMModOptions.DurationPresetSetting, preset));
             return true;
         }
 
@@ -428,23 +294,12 @@ namespace CSM.Core
                 return false;
 
             string transitionValue = CSMModOptions.GetTransitionPresetValue();
-
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Applying Transition Preset: " + ResolvePresetLabel(CSMModOptions.TransitionPresetSetting, preset));
-
             foreach (var trigger in TriggerTypes)
             {
                 CSMModOptions.SetTriggerEasing(trigger, transitionValue);
                 SyncStringOption(TransitionOptionNames, trigger, transitionValue);
-
-                if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM]   " + GetTriggerUiName(trigger) + " Transition = " + transitionValue);
             }
-
             _lastTransitionPreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply("Transition Preset", ResolvePresetLabel(CSMModOptions.TransitionPresetSetting, preset));
             return true;
         }
 
@@ -457,16 +312,11 @@ namespace CSM.Core
             float multiplier = CSMModOptions.GetCameraDistributionMultiplier(preset);
             foreach (var trigger in TriggerTypes)
             {
-                if (!CSMModOptions.IsThirdPersonEligible(trigger))
-                    continue;
+                if (!CSMModOptions.IsThirdPersonEligible(trigger)) continue;
                 CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Distribution, multiplier);
                 SyncOptionValue(DistributionOptionNames, trigger, multiplier);
             }
-
             _lastDistributionPreset = preset;
-            _presetAppliedTime = Time.unscaledTime;
-            StoreExpectedPresetValues();
-            LogPresetApply("Third Person Distribution", ResolvePresetLabel(CSMModOptions.CameraDistribution, preset));
             return true;
         }
 
@@ -476,41 +326,22 @@ namespace CSM.Core
             if (!force && _lastTriggerProfile.HasValue && _lastTriggerProfile.Value.Equals(profile))
                 return false;
 
-            bool basicKill = true;
-            bool critical = true;
-            bool dismemberment = true;
-            bool decapitation = true;
-            bool parry = true;
-            bool lastEnemy = true;
-            bool lastStand = true;
+            bool basicKill = true, critical = true, dismemberment = true, decapitation = true;
+            bool parry = true, lastEnemy = true, lastStand = true;
 
             switch (profile)
             {
                 case CSMModOptions.TriggerProfilePreset.KillsOnly:
-                    parry = false;
-                    lastStand = false;
+                    parry = lastStand = false;
                     break;
                 case CSMModOptions.TriggerProfilePreset.Highlights:
-                    basicKill = false;
-                    dismemberment = false;
-                    parry = false;
-                    lastStand = false;
+                    basicKill = dismemberment = parry = lastStand = false;
                     break;
                 case CSMModOptions.TriggerProfilePreset.LastEnemyOnly:
-                    basicKill = false;
-                    critical = false;
-                    dismemberment = false;
-                    decapitation = false;
-                    parry = false;
-                    lastStand = false;
+                    basicKill = critical = dismemberment = decapitation = parry = lastStand = false;
                     break;
                 case CSMModOptions.TriggerProfilePreset.ParryOnly:
-                    basicKill = false;
-                    critical = false;
-                    dismemberment = false;
-                    decapitation = false;
-                    lastEnemy = false;
-                    lastStand = false;
+                    basicKill = critical = dismemberment = decapitation = lastEnemy = lastStand = false;
                     break;
             }
 
@@ -529,6 +360,7 @@ namespace CSM.Core
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.Parry, parry);
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastEnemy, lastEnemy);
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastStand, lastStand);
+            
             if (!basicKill && CSMModOptions.EnableThrownImpactKill)
             {
                 CSMModOptions.EnableThrownImpactKill = false;
@@ -536,18 +368,6 @@ namespace CSM.Core
             }
 
             _lastTriggerProfile = profile;
-            if (CSMModOptions.DebugLogging)
-            {
-                Debug.Log("[CSM] Trigger profile applied: " + ResolvePresetLabel(CSMModOptions.TriggerProfile, profile) +
-                          " | Basic=" + basicKill +
-                          " ThrownImpact=" + CSMModOptions.EnableThrownImpactKill +
-                          " Critical=" + critical +
-                          " Dismember=" + dismemberment +
-                          " Decap=" + decapitation +
-                          " Parry=" + parry +
-                          " LastEnemy=" + lastEnemy +
-                          " LastStand=" + lastStand);
-            }
             return true;
         }
 
@@ -558,8 +378,29 @@ namespace CSM.Core
 
             CSMModOptions.EnableThrownImpactKill = false;
             SyncToggleOption(ThrownImpactOptionKey, false);
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Thrown Impact Kill disabled because Basic Kill is off");
+            return true;
+        }
+
+        private bool UpdateDebugTooltips()
+        {
+            bool debugChanged = _lastDebugLogging != CSMModOptions.DebugLogging;
+            _lastDebugLogging = CSMModOptions.DebugLogging;
+            
+            if (!debugChanged || !CSMModOptions.DebugLogging)
+                return false;
+
+            // When debug enabled, show effective values in tooltips
+            foreach (var trigger in TriggerTypes)
+            {
+                var v = CSMModOptions.GetCustomValues(trigger);
+                string summary = string.Format("Effective: {0:F0}% chance | {1:F0}% scale | {2:F1}s dur | {3:F1}s cd",
+                    v.Chance * 100f, v.TimeScale * 100f, v.Duration, v.Cooldown);
+                
+                UpdateTooltip(ChanceOptionNames, trigger, summary);
+                UpdateTooltip(TimeScaleOptionNames, trigger, summary);
+                UpdateTooltip(DurationOptionNames, trigger, summary);
+                UpdateTooltip(CooldownOptionNames, trigger, summary);
+            }
             return true;
         }
 
@@ -568,72 +409,37 @@ namespace CSM.Core
             return (category ?? string.Empty) + OptionKeySeparator + (name ?? string.Empty);
         }
 
-        private static string DescribeOption(ModOption option)
-        {
-            if (option == null) return string.Empty;
-            if (string.IsNullOrEmpty(option.category)) return option.name;
-            return option.category + " / " + option.name;
-        }
-
         private bool SyncOptionValue(Dictionary<TriggerType, string> map, TriggerType type, float value)
         {
-            if (!map.TryGetValue(type, out string optionKey))
-                return false;
-            return SyncOptionValue(optionKey, value);
+            return map.TryGetValue(type, out string key) && SyncOptionValue(key, value);
         }
 
         private bool SyncToggleOption(Dictionary<TriggerType, string> map, TriggerType type, bool value)
         {
-            if (!map.TryGetValue(type, out string optionKey))
-                return false;
-            return SyncToggleOption(optionKey, value);
+            return map.TryGetValue(type, out string key) && SyncToggleOption(key, value);
         }
 
         private bool SyncOptionValue(string optionKey, float value)
         {
             if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionKey);
                 return false;
-            }
 
             if (option.parameterValues == null || option.parameterValues.Length == 0)
                 option.LoadModOptionParameters();
 
-            if (option.parameterValues == null || option.parameterValues.Length == 0)
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing parameters: " + DescribeOption(option));
-                return false;
-            }
-
             int index = FindParameterIndex(option.parameterValues, value);
-            if (index < 0)
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync no parameter match: " + DescribeOption(option) + " value=" + value);
-                return false;
-            }
-
-            if (option.currentValueIndex == index)
+            if (index < 0 || option.currentValueIndex == index)
                 return false;
 
             option.Apply(index);
             option.RefreshUI();
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu sync updated: " + DescribeOption(option) + " -> " + value);
             return true;
         }
 
         private bool SyncToggleOption(string optionKey, bool value)
         {
             if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionKey);
                 return false;
-            }
 
             if (option.parameterValues == null || option.parameterValues.Length == 0)
                 option.LoadModOptionParameters();
@@ -644,368 +450,71 @@ namespace CSM.Core
 
             option.Apply(index);
             option.RefreshUI();
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu toggle updated: " + DescribeOption(option) + " -> " + (value ? "Enabled" : "Disabled"));
             return true;
         }
 
         private bool SyncStringOption(Dictionary<TriggerType, string> map, TriggerType type, string value)
         {
-            if (!map.TryGetValue(type, out string optionKey))
-                return false;
-            return SyncStringOption(optionKey, value);
+            return map.TryGetValue(type, out string key) && SyncStringOption(key, value);
         }
 
         private bool SyncStringOption(string optionKey, string value)
         {
             if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing option: " + optionKey);
                 return false;
-            }
 
             if (option.parameterValues == null || option.parameterValues.Length == 0)
                 option.LoadModOptionParameters();
 
-            if (option.parameterValues == null || option.parameterValues.Length == 0)
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync missing parameters: " + DescribeOption(option));
-                return false;
-            }
-
             int index = FindParameterIndexByName(option.parameterValues, value);
-            if (index < 0)
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogWarning("[CSM] Menu sync no parameter match: " + DescribeOption(option) + " value=" + value);
-                return false;
-            }
-
-            if (option.currentValueIndex == index)
+            if (index < 0 || option.currentValueIndex == index)
                 return false;
 
             option.Apply(index);
             option.RefreshUI();
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu sync updated: " + DescribeOption(option) + " -> " + value);
             return true;
         }
 
         private static int FindParameterIndexByName(ModOptionParameter[] parameters, string value)
         {
             if (parameters == null || string.IsNullOrEmpty(value)) return -1;
-
             for (int i = 0; i < parameters.Length; i++)
-            {
-                var paramValue = parameters[i]?.value;
-                if (paramValue is string sValue && sValue.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0)
+                if (parameters[i]?.value is string sValue && sValue.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0)
                     return i;
-            }
-
             return -1;
         }
 
         private static int FindParameterIndex(ModOptionParameter[] parameters, float value)
         {
             if (parameters == null) return -1;
-
             for (int i = 0; i < parameters.Length; i++)
             {
-                var paramValue = parameters[i]?.value;
-                if (paramValue is float fValue)
-                {
-                    if (Mathf.Abs(fValue - value) < 0.0001f)
-                        return i;
-                }
-                else if (paramValue is double dValue)
-                {
-                    if (Mathf.Abs((float)dValue - value) < 0.0001f)
-                        return i;
-                }
-                else if (paramValue is int iValue)
-                {
-                    if (Mathf.Abs(iValue - value) < 0.0001f)
-                        return i;
-                }
+                var pv = parameters[i]?.value;
+                if ((pv is float fv && Mathf.Abs(fv - value) < 0.0001f) ||
+                    (pv is double dv && Mathf.Abs((float)dv - value) < 0.0001f) ||
+                    (pv is int iv && Mathf.Abs(iv - value) < 0.0001f))
+                    return i;
             }
-
             return -1;
-        }
-
-        private static string BuildEffectiveSummary(TriggerType type)
-        {
-            if (!CSMModOptions.IsTriggerEnabled(type))
-                return "Disabled";
-
-            var values = CSMModOptions.GetCustomValues(type);
-            return BuildSummary(type, values);
-        }
-
-        private static string BuildSummary(TriggerType type, CSMModOptions.TriggerCustomValues values)
-        {
-            string chanceLabel = (values.Chance * 100f).ToString("F0") + "%";
-            string scaleLabel = (values.TimeScale * 100f).ToString("F0") + "%";
-            string durationLabel = values.Duration.ToString("F1") + "s";
-            string cooldownLabel = values.Cooldown.ToString("F1") + "s";
-
-            string tpLabel;
-            if (!CSMModOptions.IsThirdPersonEligible(type))
-            {
-                tpLabel = "N/A";
-            }
-            else
-            {
-                float dist = values.Distribution;
-                if (dist <= 0f)
-                    tpLabel = "Off";
-                else if (dist >= 99f)
-                    tpLabel = "Always";
-                else
-                    tpLabel = dist.ToString("0.#") + "x";
-            }
-
-            return "Chance " + chanceLabel +
-                   " | Scale " + scaleLabel +
-                   " | Dur " + durationLabel +
-                   " | CD " + cooldownLabel +
-                   " | TP " + tpLabel;
-        }
-
-        private static string GetTriggerUiName(TriggerType type)
-        {
-            switch (type)
-            {
-                case TriggerType.BasicKill: return CSMModOptions.TriggerBasicKill;
-                case TriggerType.Critical: return CSMModOptions.TriggerCriticalKill;
-                case TriggerType.Dismemberment: return CSMModOptions.TriggerDismemberment;
-                case TriggerType.Decapitation: return CSMModOptions.TriggerDecapitation;
-                case TriggerType.Parry: return CSMModOptions.TriggerParry;
-                case TriggerType.LastEnemy: return CSMModOptions.TriggerLastEnemy;
-                case TriggerType.LastStand: return CSMModOptions.TriggerLastStand;
-                default: return "Unknown";
-            }
-        }
-
-        private void CaptureCustomValues()
-        {
-            foreach (var trigger in TriggerTypes)
-            {
-                _lastCustomValues[trigger] = ReadCustomValues(trigger);
-            }
-        }
-
-        private bool ApplyCustomOverrides()
-        {
-            bool changed = false;
-            float timeSincePreset = Time.unscaledTime - _presetAppliedTime;
-            bool withinLockWindow = timeSincePreset < PresetLockDuration;
-
-            foreach (var trigger in TriggerTypes)
-            {
-                CSMModOptions.TriggerCustomValues current = ReadCustomValues(trigger);
-                if (!_lastCustomValues.TryGetValue(trigger, out CSMModOptions.TriggerCustomValues last))
-                {
-                    _lastCustomValues[trigger] = current;
-                    continue;
-                }
-
-                if (!CustomValuesChanged(last, current))
-                    continue;
-
-                // Check if values were corrupted by UI (don't match expected preset values)
-                // Only revert within the lock window after preset was applied
-                if (withinLockWindow && _expectedPresetValues.TryGetValue(trigger, out CSMModOptions.TriggerCustomValues expected))
-                {
-                    bool reverted = false;
-
-                    // Check and revert TimeScale
-                    if (Mathf.Abs(current.TimeScale - expected.TimeScale) > 0.0001f &&
-                        Mathf.Abs(last.TimeScale - expected.TimeScale) < 0.0001f)
-                    {
-                        if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] TimeScale corruption: " + GetTriggerUiName(trigger) +
-                                      " expected " + expected.TimeScale.ToString("0.00") +
-                                      ", got " + current.TimeScale.ToString("0.00") + " - reverting");
-                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.TimeScale, expected.TimeScale);
-                        SyncOptionValue(TimeScaleOptionNames, trigger, expected.TimeScale);
-                        current.TimeScale = expected.TimeScale;
-                        reverted = true;
-                    }
-
-                    // Check and revert Chance
-                    if (Mathf.Abs(current.Chance - expected.Chance) > 0.0001f &&
-                        Mathf.Abs(last.Chance - expected.Chance) < 0.0001f)
-                    {
-                        if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] Chance corruption: " + GetTriggerUiName(trigger) +
-                                      " expected " + (expected.Chance * 100f).ToString("F0") + "%" +
-                                      ", got " + (current.Chance * 100f).ToString("F0") + "% - reverting");
-                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Chance, expected.Chance);
-                        SyncOptionValue(ChanceOptionNames, trigger, expected.Chance);
-                        current.Chance = expected.Chance;
-                        reverted = true;
-                    }
-
-                    // Check and revert Duration
-                    if (Mathf.Abs(current.Duration - expected.Duration) > 0.0001f &&
-                        Mathf.Abs(last.Duration - expected.Duration) < 0.0001f)
-                    {
-                        if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] Duration corruption: " + GetTriggerUiName(trigger) +
-                                      " expected " + expected.Duration.ToString("0.##") + "s" +
-                                      ", got " + current.Duration.ToString("0.##") + "s - reverting");
-                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Duration, expected.Duration);
-                        SyncOptionValue(DurationOptionNames, trigger, expected.Duration);
-                        current.Duration = expected.Duration;
-                        reverted = true;
-                    }
-
-                    // Check and revert Cooldown
-                    if (Mathf.Abs(current.Cooldown - expected.Cooldown) > 0.0001f &&
-                        Mathf.Abs(last.Cooldown - expected.Cooldown) < 0.0001f)
-                    {
-                        if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] Cooldown corruption: " + GetTriggerUiName(trigger) +
-                                      " expected " + expected.Cooldown.ToString("0.##") + "s" +
-                                      ", got " + current.Cooldown.ToString("0.##") + "s - reverting");
-                        CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Cooldown, expected.Cooldown);
-                        SyncOptionValue(CooldownOptionNames, trigger, expected.Cooldown);
-                        current.Cooldown = expected.Cooldown;
-                        reverted = true;
-                    }
-
-                    if (reverted)
-                    {
-                        _lastCustomValues[trigger] = current;
-                        changed = true;
-                        continue;
-                    }
-                }
-
-                _lastCustomValues[trigger] = current;
-                if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] Custom override changed: " + GetTriggerUiName(trigger) + " " + BuildSummary(trigger, last) + " -> " + BuildSummary(trigger, current));
-                if (!CSMModOptions.IsTriggerEnabled(trigger))
-                {
-                    CSMModOptions.SetTriggerEnabled(trigger, true);
-                    changed |= SyncToggleOption(TriggerToggleOptionNames, trigger, true);
-                    if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Custom override re-enabled trigger: " + GetTriggerUiName(trigger));
-                }
-            }
-
-            return changed;
-        }
-
-        private static bool CustomValuesChanged(CSMModOptions.TriggerCustomValues a, CSMModOptions.TriggerCustomValues b)
-        {
-            const float epsilon = 0.0001f;
-            if (Mathf.Abs(a.Chance - b.Chance) > epsilon) return true;
-            if (Mathf.Abs(a.TimeScale - b.TimeScale) > epsilon) return true;
-            if (Mathf.Abs(a.Duration - b.Duration) > epsilon) return true;
-            if (Mathf.Abs(a.Cooldown - b.Cooldown) > epsilon) return true;
-            if (Mathf.Abs(a.Distribution - b.Distribution) > epsilon) return true;
-            return false;
-        }
-
-        private static CSMModOptions.TriggerCustomValues ReadCustomValues(TriggerType type)
-        {
-            return CSMModOptions.GetCustomValues(type);
-        }
-
-        private bool UpdateCustomTooltips(bool force, bool presetChanged)
-        {
-            bool debugLogging = CSMModOptions.DebugLogging;
-            if (!force && !presetChanged && debugLogging == _lastDebugLogging)
-                return false;
-
-            bool changed = false;
-            foreach (var trigger in TriggerTypes)
-            {
-                string summary = debugLogging ? BuildEffectiveSummary(trigger) : null;
-                changed |= UpdateTooltip(ChanceOptionNames, trigger, summary);
-                changed |= UpdateTooltip(TimeScaleOptionNames, trigger, summary);
-                changed |= UpdateTooltip(DurationOptionNames, trigger, summary);
-                changed |= UpdateTooltip(CooldownOptionNames, trigger, summary);
-                changed |= UpdateTooltip(DistributionOptionNames, trigger, summary);
-            }
-
-            return changed;
         }
 
         private bool UpdateTooltip(Dictionary<TriggerType, string> map, TriggerType type, string effectiveSummary)
         {
-            if (!map.TryGetValue(type, out string optionKey))
+            if (!map.TryGetValue(type, out string key) || !_modOptionsByKey.TryGetValue(key, out ModOption option))
                 return false;
 
-            return UpdateTooltip(optionKey, effectiveSummary);
-        }
-
-        private bool UpdateTooltip(string optionKey, string effectiveSummary)
-        {
-            if (!_modOptionsByKey.TryGetValue(optionKey, out ModOption option))
-                return false;
-
-            if (!_baseTooltips.TryGetValue(optionKey, out string baseTooltip))
+            if (!_baseTooltips.TryGetValue(key, out string baseTooltip))
                 baseTooltip = option.tooltip ?? string.Empty;
 
-            string newTooltip = baseTooltip ?? string.Empty;
-            if (!string.IsNullOrEmpty(effectiveSummary))
-            {
-                if (string.IsNullOrEmpty(newTooltip))
-                    newTooltip = "Effective: " + effectiveSummary;
-                else
-                    newTooltip = newTooltip.TrimEnd() + " | Effective: " + effectiveSummary;
-            }
+            string newTooltip = string.IsNullOrEmpty(effectiveSummary) ? baseTooltip :
+                string.IsNullOrEmpty(baseTooltip) ? effectiveSummary : baseTooltip + " | " + effectiveSummary;
 
-            if (string.Equals(option.tooltip ?? string.Empty, newTooltip, StringComparison.Ordinal))
+            if (option.tooltip == newTooltip)
                 return false;
 
             option.tooltip = newTooltip;
             option.RefreshUI();
-            if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] Menu tooltip updated: " + DescribeOption(option));
             return true;
         }
-
-        private void LogPresetApply(string label, string value)
-        {
-            if (!CSMModOptions.DebugLogging)
-                return;
-
-            Debug.Log("[CSM] Menu preset applied: " + label + " = " + value);
-        }
-
-        private void LogMenuState(string context)
-        {
-            Debug.Log("[CSM] Menu state (" + context + "): " +
-                      "Intensity=" + CSMModOptions.CurrentPreset +
-                      " | Chance=" + CSMModOptions.ChancePresetSetting +
-                      " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
-                      " | Duration=" + CSMModOptions.DurationPresetSetting +
-                      " | ThirdPerson=" + CSMModOptions.CameraDistribution +
-                      " | TriggerProfile=" + CSMModOptions.TriggerProfile);
-            Debug.Log("[CSM] Menu triggers: " +
-                      "Basic=" + CSMModOptions.EnableBasicKill +
-                      " ThrownImpact=" + CSMModOptions.EnableThrownImpactKill +
-                      " Critical=" + CSMModOptions.EnableCriticalKill +
-                      " Dismember=" + CSMModOptions.EnableDismemberment +
-                      " Decap=" + CSMModOptions.EnableDecapitation +
-                      " Parry=" + CSMModOptions.EnableParry +
-                      " LastEnemy=" + CSMModOptions.EnableLastEnemy +
-                      " LastStand=" + CSMModOptions.EnableLastStand);
-        }
-
-        private void LogEffectiveValues()
-        {
-            Debug.Log("[CSM] Trigger Values:");
-            foreach (var trigger in TriggerTypes)
-            {
-                Debug.Log("[CSM] " + GetTriggerUiName(trigger) + " -> " + BuildEffectiveSummary(trigger));
-            }
-        }
-
     }
 }
