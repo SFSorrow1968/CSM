@@ -119,6 +119,7 @@ namespace CSM.Configuration
         public const string OptionBluntMultiplier = "Blunt Multiplier";
         public const string OptionElementalMultiplier = "Elemental Multiplier";
         public const string OptionEnvironmentalMultiplier = "Environmental Multiplier";
+        public const string OptionDOTMultiplier = "DOT Multiplier";
         public const string OptionIntensityScalingEnabled = "Intensity Scaling";
         public const string OptionIntensityScalingMax = "Max Intensity Multiplier";
 
@@ -722,6 +723,14 @@ namespace CSM.Configuration
             tooltip = "Multiplier for environmental kills (telekinesis throws, gravity push, falls). 0x disables slow-mo for environmental kills.")]
         public static float EnvironmentalMultiplier = 1.0f;
 
+        [ModOption(name = OptionDOTMultiplier, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 37,
+            defaultValueIndex = 0,
+            valueSourceName = nameof(DamageMultiplierProvider),
+            interactionType = (ModOption.InteractionType)2,
+            tooltip = "Multiplier for DOT kills (BDOT mod). Only applies when BDOT is installed. 0x disables slow-mo for bleed/burn kills.")]
+        public static float DOTMultiplier = 0f;
+
         [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 40,
             defaultValueIndex = 0,
@@ -1231,6 +1240,51 @@ namespace CSM.Configuration
                 case DamageType.Unknown: return EnvironmentalMultiplier;
                 default: return 1.0f; // UnBlockable
             }
+        }
+
+        // BDOT detection - cached at startup
+        private static bool? _bdotDetected = null;
+        
+        /// <summary>
+        /// Check if BDOT mod is installed by looking for its main class.
+        /// Result is cached after first check.
+        /// </summary>
+        public static bool IsBDOTInstalled()
+        {
+            if (_bdotDetected.HasValue)
+                return _bdotDetected.Value;
+            
+            try
+            {
+                // Look for BDOT's main module class
+                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    if (assembly.GetType("BDOT.Core.BDOTModule") != null)
+                    {
+                        _bdotDetected = true;
+                        Debug.Log("[CSM] BDOT mod detected - DOT Multiplier enabled");
+                        return true;
+                    }
+                }
+                _bdotDetected = false;
+                return false;
+            }
+            catch
+            {
+                _bdotDetected = false;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Get the DOT multiplier for status effect kills.
+        /// Returns 1.0 (no effect) if BDOT is not installed.
+        /// </summary>
+        public static float GetDOTMultiplier()
+        {
+            if (!IsBDOTInstalled())
+                return 1.0f; // BDOT not installed, don't affect kills
+            return DOTMultiplier;
         }
 
         public static float GetIntensityMultiplier(float intensity)

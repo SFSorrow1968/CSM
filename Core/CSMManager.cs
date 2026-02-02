@@ -143,20 +143,20 @@ namespace CSM.Core
 
         public bool TriggerSlow(TriggerType type)
         {
-            return TriggerSlow(type, 0f, null, DamageType.Unknown, 0f, false);
+            return TriggerSlow(type, 0f, null, DamageType.Unknown, 0f, false, false);
         }
 
         public bool TriggerSlow(TriggerType type, float damageDealt)
         {
-            return TriggerSlow(type, damageDealt, null, DamageType.Unknown, 0f, false);
+            return TriggerSlow(type, damageDealt, null, DamageType.Unknown, 0f, false, false);
         }
 
         public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature)
         {
-            return TriggerSlow(type, damageDealt, targetCreature, DamageType.Unknown, 0f, false);
+            return TriggerSlow(type, damageDealt, targetCreature, DamageType.Unknown, 0f, false, false);
         }
 
-        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, DamageType damageType, float intensity, bool isQuickTest = false)
+        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, DamageType damageType, float intensity, bool isQuickTest = false, bool isStatusKill = false)
         {
             try
             {
@@ -175,6 +175,20 @@ namespace CSM.Core
                 // Apply damage type and intensity multipliers
                 float damageTypeMultiplier = CSMModOptions.GetDamageTypeMultiplier(damageType);
 
+                // Apply DOT multiplier for status effect kills (BDOT bleed/burn deaths)
+                float dotMultiplier = 1.0f;
+                if (isStatusKill)
+                {
+                    dotMultiplier = CSMModOptions.GetDOTMultiplier();
+                    if (dotMultiplier <= 0f)
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - DOT kill disabled (0x multiplier)");
+                        SetLastTriggerDebug(type, "Blocked: DOT kill disabled", isQuickTest);
+                        return false;
+                    }
+                }
+
                 // 0x multiplier disables slow-mo for this damage type
                 if (damageTypeMultiplier <= 0f)
                 {
@@ -185,12 +199,15 @@ namespace CSM.Core
                 }
 
                 float intensityMultiplier = CSMModOptions.GetIntensityMultiplier(intensity);
-                float combinedMultiplier = damageTypeMultiplier * intensityMultiplier;
+                float combinedMultiplier = damageTypeMultiplier * intensityMultiplier * dotMultiplier;
 
                 if (CSMModOptions.DebugLogging)
+                {
+                    string dotInfo = isStatusKill ? " DOT=" + dotMultiplier.ToString("F1") + "x" : "";
                     Debug.Log("[CSM] Damage input: damageType=" + damageType + " (" + damageTypeMultiplier.ToString("F1") + "x), " +
-                              "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x), " +
-                              "combined=" + combinedMultiplier.ToString("F2") + "x");
+                              "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x)," + dotInfo +
+                              " combined=" + combinedMultiplier.ToString("F2") + "x");
+                }
 
                 // Multiplier > 1 = more intense slow-mo = lower timeScale
                 if (combinedMultiplier != 1.0f)

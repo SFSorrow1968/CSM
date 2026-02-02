@@ -303,10 +303,14 @@ namespace CSM.Hooks
                 DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
                 float impactIntensity = GetImpactIntensity(collisionInstance);
                 
+                // Track if this is a status effect kill (DOT from BDOT mod, etc.)
+                bool isStatusKill = false;
+                
                 // Override with tracked elemental damage type for status effect kills
                 if (elementalDamageType != DamageType.Unknown && damageType == DamageType.Unknown)
                 {
                     damageType = elementalDamageType;
+                    isStatusKill = true; // Kill attributed via elemental tracking = status effect kill
                     // Use elemental damage for intensity if collision intensity is missing
                     if (impactIntensity < 0.1f && elementalDamage > 0f)
                     {
@@ -327,7 +331,7 @@ namespace CSM.Hooks
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Last enemy of wave killed (wave had " + _maxEnemiesSeenThisWave + " enemies)");
 
-                    bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature, damageType, impactIntensity, false);
+                    bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature, damageType, impactIntensity, false, isStatusKill);
                     if (triggered)
                     {
                         _maxEnemiesSeenThisWave = 0;
@@ -342,7 +346,7 @@ namespace CSM.Hooks
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Thrown impact kill detected");
-                    CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false);
+                    CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false, isStatusKill);
                     return;
                 }
 
@@ -365,7 +369,7 @@ namespace CSM.Hooks
                         }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Decapitation detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature, damageType, impactIntensity, false))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature, damageType, impactIntensity, false, isStatusKill))
                             return;
                     }
 
@@ -373,7 +377,7 @@ namespace CSM.Hooks
                     {
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Critical kill detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, damageDealt, creature, damageType, impactIntensity, false))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, damageDealt, creature, damageType, impactIntensity, false, isStatusKill))
                             return;
                     }
 
@@ -387,14 +391,14 @@ namespace CSM.Hooks
                         }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Dismemberment detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature, damageType, impactIntensity, false))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature, damageType, impactIntensity, false, isStatusKill))
                             return;
                     }
                 }
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Basic kill with damage=" + damageDealt);
-                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false);
+                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false, isStatusKill);
             }
             catch (Exception ex)
             {
