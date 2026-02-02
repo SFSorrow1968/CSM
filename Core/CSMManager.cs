@@ -174,6 +174,16 @@ namespace CSM.Core
 
                 // Apply damage type and intensity multipliers
                 float damageTypeMultiplier = CSMModOptions.GetDamageTypeMultiplier(damageType);
+
+                // 0x multiplier disables slow-mo for this damage type
+                if (damageTypeMultiplier <= 0f)
+                {
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Damage type " + damageType + " disabled (0x multiplier)");
+                    SetLastTriggerDebug(type, "Blocked: " + damageType + " disabled", isQuickTest);
+                    return false;
+                }
+
                 float intensityMultiplier = CSMModOptions.GetIntensityMultiplier(intensity);
                 float combinedMultiplier = damageTypeMultiplier * intensityMultiplier;
 

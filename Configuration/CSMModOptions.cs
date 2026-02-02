@@ -613,8 +613,9 @@ namespace CSM.Configuration
         public static ModOptionFloat[] DamageMultiplierProvider()
         {
             var list = new List<ModOptionFloat>();
-            // 0.5x to 2.0x in 0.1 increments (16 values, index 5 = 1.0x)
-            for (int i = 5; i <= 20; i++)
+            // 0.0x to 2.0x in 0.1 increments (21 values, index 10 = 1.0x)
+            // 0.0x disables slow-mo for that damage type
+            for (int i = 0; i <= 20; i++)
             {
                 float val = i / 10f;
                 list.Add(new ModOptionFloat($"{val:0.0}x", val));
@@ -684,50 +685,50 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionPierceMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 10,
-            defaultValueIndex = 5,
+            defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for piercing damage (stabs). Higher = more intense slow-mo.")]
+            tooltip = "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type.")]
         public static float PierceMultiplier = 1.0f;
 
         [ModOption(name = OptionSlashMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 20,
-            defaultValueIndex = 5,
+            defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for slashing damage (cuts). Higher = more intense slow-mo.")]
+            tooltip = "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type.")]
         public static float SlashMultiplier = 1.0f;
 
         [ModOption(name = OptionBluntMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 30,
-            defaultValueIndex = 5,
+            defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for blunt damage (impacts). Higher = more intense slow-mo.")]
+            tooltip = "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type.")]
         public static float BluntMultiplier = 1.0f;
 
         [ModOption(name = OptionEnergyMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 35,
-            defaultValueIndex = 5,
+            defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for energy damage. Higher = more intense slow-mo.")]
+            tooltip = "Multiplier for energy damage. 0x disables slow-mo for this type.")]
         public static float EnergyMultiplier = 1.0f;
 
         [ModOption(name = OptionFireMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 36,
-            defaultValueIndex = 5,
+            defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for fire damage. Higher = more intense slow-mo.")]
+            tooltip = "Multiplier for fire damage. 0x disables slow-mo for this type.")]
         public static float FireMultiplier = 1.0f;
 
         [ModOption(name = OptionLightningMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 37,
-            defaultValueIndex = 5,
+            defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for lightning damage. Higher = more intense slow-mo.")]
+            tooltip = "Multiplier for lightning damage. 0x disables slow-mo for this type.")]
         public static float LightningMultiplier = 1.0f;
 
         [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
