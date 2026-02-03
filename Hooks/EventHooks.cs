@@ -35,6 +35,7 @@ namespace CSM.Hooks
         private EventManager.CreatureSpawnedEvent _onCreatureSpawnHandler;
         private EventManager.DeflectEvent _onDeflectHandler;
         private EventManager.CreatureParryEvent _onCreatureParryHandler;
+        private EventManager.LevelLoadEvent _onLevelUnloadHandler;
         
         // Track creatures the player has recently damaged
         // This allows attributing DOT/status effect kills (bleeds, fire DOT, lightning) to the player
@@ -117,6 +118,11 @@ namespace CSM.Hooks
                 SubscribeSpawnEvent();
                 EventManager.onDeflect += _onDeflectHandler;
                 EventManager.onCreatureAttackParry += _onCreatureParryHandler;
+
+                // Subscribe to level unload for cleanup on scene transitions
+                _onLevelUnloadHandler = new EventManager.LevelLoadEvent(this.OnLevelUnload);
+                EventManager.onLevelUnload += _onLevelUnloadHandler;
+
                 _subscribed = true;
                 _deflectSubscribed = true;
                 _parrySubscribed = true;
@@ -204,6 +210,8 @@ namespace CSM.Hooks
                     EventManager.onCreatureAttackParry -= _onCreatureParryHandler;
                 if (_spawnSubscribed && _onCreatureSpawnHandler != null)
                     EventManager.onCreatureSpawn -= _onCreatureSpawnHandler;
+                if (_onLevelUnloadHandler != null)
+                    EventManager.onLevelUnload -= _onLevelUnloadHandler;
             }
             catch (Exception ex)
             {
@@ -217,6 +225,7 @@ namespace CSM.Hooks
             _onDeflectHandler = null;
             _onCreatureParryHandler = null;
             _onCreatureSpawnHandler = null;
+            _onLevelUnloadHandler = null;
 
             _subscribed = false;
             _deflectSubscribed = false;
@@ -287,6 +296,43 @@ namespace CSM.Hooks
         {
             // No longer tracking creature throws - thrown creatures die from Blunt damage
             // which is already handled by the Blunt Multiplier
+        }
+
+        /// <summary>
+        /// Handles level unload events to clean up state and prevent orphaned effects.
+        /// </summary>
+        private void OnLevelUnload(LevelData levelData, LevelData.Mode mode, EventTime eventTime)
+        {
+            // Only handle OnEnd to avoid double-processing
+            if (eventTime != EventTime.OnEnd) return;
+
+            try
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Level unloading - cleaning up state");
+
+                // Cancel any active slow motion
+                CSMManager.Instance.CancelSlowMotion();
+
+                // Stop any active killcam
+                CSMKillcam.Instance.Stop(false);
+
+                // Reset all tracking state
+                ResetState();
+
+                // Unregister ragdoll hooks (creatures will be destroyed)
+                UnregisterAllRagdollHooks();
+
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] Level cleanup complete");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[CSM] Error during level unload cleanup: {ex.Message}");
+                // Force restore time scale as safety fallback
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = 0.02f;
+            }
         }
 
         private void OnCreatureKill(Creature creature, Player player, CollisionInstance collisionInstance, EventTime eventTime)

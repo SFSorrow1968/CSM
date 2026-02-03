@@ -1068,6 +1068,14 @@ namespace CSM.Configuration
                     values.Distribution = 0f;
                     break;
             }
+
+            // Validate and clamp all values to safe ranges (defense-in-depth)
+            values.Chance = Mathf.Clamp(values.Chance, 0f, 1f);
+            values.TimeScale = Mathf.Clamp(values.TimeScale, 0.01f, 1f);
+            values.Duration = Mathf.Clamp(values.Duration, 0.1f, 60f);
+            values.Cooldown = Mathf.Clamp(values.Cooldown, 0f, 300f);
+            values.Distribution = Mathf.Clamp(values.Distribution, 0f, 100f);
+
             return values;
         }
 
@@ -1121,19 +1129,24 @@ namespace CSM.Configuration
             switch (field)
             {
                 case TriggerField.Chance:
-                    chance = value;
+                    // Clamp chance to 0-1 (0-100%)
+                    chance = Mathf.Clamp(value, 0f, 1f);
                     break;
                 case TriggerField.TimeScale:
-                    timeScale = value;
+                    // Clamp time scale to 0.01-1 (1%-100%, never allow 0 which would freeze time)
+                    timeScale = Mathf.Clamp(value, 0.01f, 1f);
                     break;
                 case TriggerField.Duration:
-                    duration = value;
+                    // Clamp duration to 0.1-60 seconds (reasonable range)
+                    duration = Mathf.Clamp(value, 0.1f, 60f);
                     break;
                 case TriggerField.Cooldown:
-                    cooldown = value;
+                    // Clamp cooldown to 0-300 seconds (0 to 5 minutes)
+                    cooldown = Mathf.Clamp(value, 0f, 300f);
                     break;
                 case TriggerField.Distribution:
-                    distribution = value;
+                    // Clamp distribution to 0-100
+                    distribution = Mathf.Clamp(value, 0f, 100f);
                     break;
             }
         }
