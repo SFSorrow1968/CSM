@@ -26,7 +26,6 @@ namespace CSM.Core
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         
         private bool _lastDebugLogging;
-        private bool _lastResetStats;
         
         private readonly Dictionary<string, string> _baseTooltips = new Dictionary<string, string>(StringComparer.Ordinal);
         private readonly Dictionary<string, ModOption> _modOptionsByKey = new Dictionary<string, ModOption>(StringComparer.Ordinal);
@@ -129,7 +128,6 @@ namespace CSM.Core
             _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
-            _lastResetStats = false;
             _nextUpdateTime = 0f;
             _baseTooltips.Clear();
 
@@ -202,7 +200,6 @@ namespace CSM.Core
             changed |= ApplyDistributionPreset(force);
             changed |= ApplyTriggerProfile(force);
             changed |= ApplyDiagnostics();
-            changed |= ApplyStatisticsReset();
             changed |= UpdateDebugTooltips();
             return changed;
         }
@@ -212,20 +209,6 @@ namespace CSM.Core
             if (!CSMModOptions.QuickTestNow) return false;
             CSMManager.Instance.TriggerSlow(CSMModOptions.GetQuickTestTrigger(), 0f, null, DamageType.Unknown, 0f, true);
             CSMModOptions.QuickTestNow = false;
-            return true;
-        }
-
-        private bool ApplyStatisticsReset()
-        {
-            if (!CSMModOptions.ResetStatsToggle || _lastResetStats)
-            {
-                _lastResetStats = CSMModOptions.ResetStatsToggle;
-                return false;
-            }
-            CSMModOptions.ResetStatistics();
-            CSMModOptions.ResetStatsToggle = false;
-            _lastResetStats = false;
-            Debug.Log("[CSM] Statistics reset");
             return true;
         }
 

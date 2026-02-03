@@ -297,9 +297,6 @@ namespace CSM.Core
                 StartSlowMotion(type, timeScale, duration, cooldown, damageDealt);
                 SetLastTriggerDebug(type, "Triggered", isQuickTest);
 
-                CSMModOptions.IncrementTriggerCount(type);
-                CSMModOptions.AddSlowMoTime(duration);
-
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] " + GetTriggerDisplayName(type));
 

@@ -106,11 +106,6 @@ namespace CSM.Configuration
         public const string OptionQuickTestNow = "Quick Test Now";
 
         public const string OptionEasingCurve = "Easing Curve";
-        public const string OptionResetStats = "Reset Statistics";
-
-        public const string CategoryStatistics = "📊 Statistics";
-        public const string OptionStatTotalSlowMoTime = "Total Slow-Mo Time";
-        public const string OptionStatTriggerCounts = "Trigger Counts";
 
         public const string CategoryDamageMultipliers = "⚖ Damage Modifiers";
         public const string OptionPierceMultiplier = "Pierce Multiplier";
@@ -647,8 +642,7 @@ namespace CSM.Configuration
         private const int CategoryOrderCustomLastEnemy = 54;
         private const int CategoryOrderCustomLastStand = 55;
         private const int CategoryOrderCustomParry = 56;
-        private const int CategoryOrderAdvanced = 90;
-        private const int CategoryOrderStatistics = 95;
+        private const int CategoryOrderAdvanced = 99;
 
         #region CSM (Main Settings)
 
@@ -948,13 +942,6 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionQuickTestNow, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
         public static bool QuickTestNow = false;
-
-        #endregion
-
-        #region CSM Statistics
-
-        [ModOption(name = OptionResetStats, category = CategoryStatistics, categoryOrder = CategoryOrderStatistics, order = 10, defaultValueIndex = 0, tooltip = "Toggle to reset all statistics")]
-        public static bool ResetStatsToggle = false;
 
         #endregion
 
@@ -1576,62 +1563,6 @@ namespace CSM.Configuration
                     break;
             }
             return 2.0f;
-        }
-
-        #endregion
-
-        #region Statistics
-
-        private const string StatPrefixSlowMoTime = "CSM_TotalSlowMoTime";
-        private const string StatPrefixTriggerCount = "CSM_TriggerCount_";
-
-        public static float GetTotalSlowMoTime()
-        {
-            return PlayerPrefs.GetFloat(StatPrefixSlowMoTime, 0f);
-        }
-
-        public static void AddSlowMoTime(float duration)
-        {
-            float current = GetTotalSlowMoTime();
-            PlayerPrefs.SetFloat(StatPrefixSlowMoTime, current + duration);
-        }
-
-        public static int GetTriggerCount(TriggerType type)
-        {
-            return PlayerPrefs.GetInt(StatPrefixTriggerCount + type.ToString(), 0);
-        }
-
-        public static void IncrementTriggerCount(TriggerType type)
-        {
-            int current = GetTriggerCount(type);
-            PlayerPrefs.SetInt(StatPrefixTriggerCount + type.ToString(), current + 1);
-        }
-
-        public static void ResetStatistics()
-        {
-            PlayerPrefs.SetFloat(StatPrefixSlowMoTime, 0f);
-            foreach (TriggerType type in Enum.GetValues(typeof(TriggerType)))
-            {
-                PlayerPrefs.SetInt(StatPrefixTriggerCount + type.ToString(), 0);
-            }
-            PlayerPrefs.Save();
-        }
-
-        public static string GetStatisticsSummary()
-        {
-            float totalTime = GetTotalSlowMoTime();
-            int totalTriggers = 0;
-            var sb = new System.Text.StringBuilder();
-            sb.Append("Total: ").Append(totalTime.ToString("F1")).Append("s | ");
-
-            foreach (TriggerType type in Enum.GetValues(typeof(TriggerType)))
-            {
-                int count = GetTriggerCount(type);
-                totalTriggers += count;
-            }
-
-            sb.Append(totalTriggers).Append(" triggers");
-            return sb.ToString();
         }
 
         #endregion
