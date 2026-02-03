@@ -292,39 +292,40 @@ namespace CSM.Hooks
                 DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
                 float impactIntensity = GetImpactIntensity(collisionInstance);
                 float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
+                bool isStatusDamage = collisionInstance?.damageStruct.isStatus ?? false;
                 
-                // Track if this is a status effect kill (DOT from BDOT mod, etc.)
-                // DOT kills are identified by:
-                // 1. DOT attribution was used (elementalDamageType != Unknown) AND
-                // 2. Either no collision data OR damage is 99999 (BDOT's kill signature)
-                // If we have valid collision data with normal damage, it's an instant kill, NOT DOT
+                // Track if this is a status effect kill (DOT from fire, lightning, BDOT bleeds, etc.)
+                // DOT kills are identified by ANY of:
+                // 1. damageStruct.isStatus == true (fire/lightning DOT ticks)
+                // 2. Damage is 99999 (BDOT's kill signature for bleeds)
+                // 3. No valid collision but we have DOT attribution
+                // Instant elemental kills (fireball impact, lightning bolt) have isStatus=false
                 bool isStatusKill = false;
                 const float BDOT_KILL_DAMAGE = 99999f;
                 
-                if (elementalDamageType != DamageType.Unknown)
+                // Check for DOT kill indicators
+                bool isDOTKill = isStatusDamage || 
+                                 damageDealt >= BDOT_KILL_DAMAGE || 
+                                 (collisionInstance == null && elementalDamageType != DamageType.Unknown);
+                
+                if (isDOTKill && elementalDamageType != DamageType.Unknown)
                 {
-                    // DOT attribution was used - check if this is actually a DOT kill
-                    // or just an instant kill where IsDoneByPlayer() failed
-                    bool hasValidCollision = collisionInstance != null && damageDealt > 0f && damageDealt < BDOT_KILL_DAMAGE;
-                    
-                    if (hasValidCollision)
+                    // True DOT kill - use tracked damage type and apply DOT multiplier
+                    damageType = elementalDamageType;
+                    isStatusKill = true;
+                    if (impactIntensity < 0.1f && elementalDamage > 0f)
                     {
-                        // This is an instant kill with valid collision data
-                        // DOT attribution was a false positive (IsDoneByPlayer failed for thrown weapon)
-                        // Use the collision's damage type, not the tracked type
-                        if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] DOT attribution overridden - instant kill with valid collision (damage=" + damageDealt + ")");
+                        impactIntensity = Mathf.Clamp01(elementalDamage / 50f);
                     }
-                    else
-                    {
-                        // This is a true DOT kill - use tracked damage type
-                        damageType = elementalDamageType;
-                        isStatusKill = true;
-                        if (impactIntensity < 0.1f && elementalDamage > 0f)
-                        {
-                            impactIntensity = Mathf.Clamp01(elementalDamage / 50f);
-                        }
-                    }
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] DOT kill detected (isStatus=" + isStatusDamage + " damage=" + damageDealt + ")");
+                }
+                else if (elementalDamageType != DamageType.Unknown)
+                {
+                    // DOT attribution was used but this is an instant kill (valid collision, not status damage)
+                    // Use the collision's damage type, elemental multiplier will apply
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] DOT attribution overridden - instant kill (isStatus=" + isStatusDamage + " damage=" + damageDealt + ")");
                 }
 
                 if (CSMModOptions.DebugLogging)
