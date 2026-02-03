@@ -11,17 +11,17 @@ namespace CSM.Configuration
 
         #region Labels and Categories
 
-        public const string CategoryPresetSelection = "Preset Selection";
-        public const string CategoryTriggers = "CSM Triggers";
-        public const string CategoryKillcam = "CSM Killcam";
-        public const string CategoryAdvanced = "CSM Advanced";
-        public const string CategoryCustomBasic = "Basic Kill";
-        public const string CategoryCustomCritical = "Critical Kill";
-        public const string CategoryCustomDismemberment = "Dismemberment";
-        public const string CategoryCustomDecapitation = "Decapitation";
-        public const string CategoryCustomLastEnemy = "Last Enemy";
-        public const string CategoryCustomLastStand = "Last Stand";
-        public const string CategoryCustomParry = "Parry";
+        public const string CategoryPresetSelection = "⚙ Quick Setup";
+        public const string CategoryTriggers = "⚡ Triggers";
+        public const string CategoryKillcam = "📷 Killcam";
+        public const string CategoryAdvanced = "🔧 Advanced";
+        public const string CategoryCustomBasic = "► Basic Kill";
+        public const string CategoryCustomCritical = "► Critical Kill";
+        public const string CategoryCustomDismemberment = "► Dismemberment";
+        public const string CategoryCustomDecapitation = "► Decapitation";
+        public const string CategoryCustomLastEnemy = "► Last Enemy";
+        public const string CategoryCustomLastStand = "► Last Stand";
+        public const string CategoryCustomParry = "► Parry";
 
         public const string OptionEnableMod = "Enable Mod";
         public const string OptionThirdPersonDistribution = "Third Person Distribution";
@@ -108,16 +108,16 @@ namespace CSM.Configuration
         public const string OptionEasingCurve = "Easing Curve";
         public const string OptionResetStats = "Reset Statistics";
 
-        public const string CategoryStatistics = "CSM Statistics";
+        public const string CategoryStatistics = "📊 Statistics";
         public const string OptionStatTotalSlowMoTime = "Total Slow-Mo Time";
         public const string OptionStatTriggerCounts = "Trigger Counts";
 
-        public const string CategoryDamageMultipliers = "Damage Multipliers";
+        public const string CategoryDamageMultipliers = "⚖ Damage Modifiers";
         public const string OptionPierceMultiplier = "Pierce Multiplier";
         public const string OptionSlashMultiplier = "Slash Multiplier";
         public const string OptionBluntMultiplier = "Blunt Multiplier";
         public const string OptionElementalMultiplier = "Elemental Multiplier";
-        public const string OptionThrownMultiplier = "Thrown Multiplier";
+        public const string OptionThrownMultiplier = "Projectile/Thrown Multiplier";
         public const string OptionDOTMultiplier = "DOT Multiplier";
         public const string OptionIntensityScalingEnabled = "Intensity Scaling";
         public const string OptionIntensityScalingMax = "Max Intensity Multiplier";
@@ -719,7 +719,7 @@ namespace CSM.Configuration
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for thrown kills.")]
+            tooltip = "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills.")]
         public static float ThrownMultiplier = 1.0f;
 
         [ModOption(name = OptionDOTMultiplier, category = CategoryDamageMultipliers,
