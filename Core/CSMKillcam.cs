@@ -20,7 +20,7 @@ namespace CSM.Core
         private const float KillcamHeightMin = 1f;
         private const float KillcamHeightMax = 2f;
         private const float RandomizeRangePercent = 0.2f;
-        private const float CacheRefreshInterval = 5f;
+        private const float CacheRefreshInterval = 30f; // Increased from 5s - cameras rarely change mid-session
 
         public static CSMKillcam Instance { get; } = new CSMKillcam();
 
@@ -47,6 +47,7 @@ namespace CSM.Core
         // Cached references to avoid FindObjectOfType calls
         private ThirdPersonView _cachedThirdPersonView;
         private Camera _cachedFallbackCamera;
+        private Camera[] _cachedAllCameras; // Cached for debug dump
         private float _lastCacheRefreshTime;
 
         private CSMKillcam() { }
@@ -71,6 +72,7 @@ namespace CSM.Core
             _height = 0f;
             _cachedThirdPersonView = null;
             _cachedFallbackCamera = null;
+            _cachedAllCameras = null;
             _lastCacheRefreshTime = 0f;
         }
 
@@ -273,11 +275,11 @@ namespace CSM.Core
                 }
             }
 
-            Camera[] cameras = UnityEngine.Object.FindObjectsOfType<Camera>(true);
+            _cachedAllCameras = UnityEngine.Object.FindObjectsOfType<Camera>(true);
             Camera best = null;
             int bestScore = int.MinValue;
 
-            foreach (var cam in cameras)
+            foreach (var cam in _cachedAllCameras)
             {
                 if (cam == null) continue;
 
@@ -382,23 +384,16 @@ namespace CSM.Core
             if (_dumpedCameras) return;
             _dumpedCameras = true;
 
-            Camera[] cameras = UnityEngine.Object.FindObjectsOfType<Camera>(true);
-            Debug.Log("[CSM] Killcam camera dump (" + cameras.Length + " cameras):");
+            // Use cached cameras if available, otherwise fetch (but this should rarely happen)
+            Camera[] cameras = _cachedAllCameras ?? UnityEngine.Object.FindObjectsOfType<Camera>(true);
+            Debug.Log($"[CSM] Killcam camera dump ({cameras.Length} cameras):");
             foreach (var cam in cameras)
             {
                 if (cam == null) continue;
 
                 string name = cam.name ?? "<null>";
                 string parentPath = GetParentPath(cam.transform);
-                string stereo = cam.stereoTargetEye.ToString();
-                string line = "[CSM] - " + name +
-                              " enabled=" + cam.enabled +
-                              " activeInHierarchy=" + cam.gameObject.activeInHierarchy +
-                              " depth=" + cam.depth.ToString("F1") +
-                              " stereo=" + stereo +
-                              " tag=" + cam.tag +
-                              " parent=" + parentPath;
-                Debug.Log(line);
+                Debug.Log($"[CSM] - {name} enabled={cam.enabled} activeInHierarchy={cam.gameObject.activeInHierarchy} depth={cam.depth:F1} stereo={cam.stereoTargetEye} tag={cam.tag} parent={parentPath}");
             }
         }
 

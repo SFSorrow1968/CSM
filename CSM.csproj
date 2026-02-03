@@ -15,7 +15,7 @@
 
   <!-- Only include CSM source files, exclude SDK and reference projects -->
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="BasSDK\**;7dtd Reference\**;References\**;obj\**;bin\**;builds\**" />
+    <Compile Include="**\*.cs" Exclude="BasSDK\**;7dtd Reference\**;References\**;obj\**;bin\**;builds\**;CSM.Tests\**" />
   </ItemGroup>
 
   <!-- Exclude Harmony patches from all builds (using EventManager events instead) -->

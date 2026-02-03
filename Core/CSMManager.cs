@@ -30,6 +30,7 @@ namespace CSM.Core
         private const float EndOverrunGraceSeconds = 2f;
         private bool _isEasingOut;
         private float _easingOutDuration;
+        private CSMModOptions.EasingCurve _cachedEasingCurve; // Cached at slow-mo start to avoid per-frame lookup
 
         public bool IsActive => _isSlowMotionActive;
 
@@ -122,8 +123,8 @@ namespace CSM.Core
 
         private float EaseInOut(float x)
         {
-            var curve = CSMModOptions.GetEasingCurve(_activeTriggerType);
-            switch (curve)
+            // Use cached easing curve (set in StartSlowMotion) to avoid per-frame lookup
+            switch (_cachedEasingCurve)
             {
                 case CSMModOptions.EasingCurve.Off:
                     return 1f; // Instant - jump to target immediately
@@ -139,6 +140,15 @@ namespace CSM.Core
             float clampedScale = Mathf.Clamp(scale, 0.005f, 1f);
             Time.timeScale = clampedScale;
             Time.fixedDeltaTime = _originalFixedDeltaTime * clampedScale;
+        }
+
+        /// <summary>
+        /// Creates a fluent builder for triggering slow motion.
+        /// Usage: CSMManager.Instance.Trigger(TriggerType.BasicKill).WithCreature(creature).Execute();
+        /// </summary>
+        public SlowMotionTriggerBuilder Trigger(TriggerType type)
+        {
+            return new SlowMotionTriggerBuilder(this, type);
         }
 
         public bool TriggerSlow(TriggerType type)
@@ -281,6 +291,15 @@ namespace CSM.Core
                     return false;
                 }
 
+                // Block triggers during easing out transition to prevent overwriting the original time scale
+                if (_isEasingOut)
+                {
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Easing out in progress");
+                    SetLastTriggerDebug(type, "Blocked: Easing out", isQuickTest);
+                    return false;
+                }
+
                 float roll = UnityEngine.Random.value;
                 if (chance < 1.0f && roll > chance)
                 {
@@ -314,6 +333,63 @@ namespace CSM.Core
                 Debug.LogError("[CSM] TriggerSlow error: " + ex.Message);
                 SetLastTriggerDebug(type, "Error: " + ex.Message, isQuickTest);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Triggers slow motion with detailed result information.
+        /// </summary>
+        public TriggerResult TriggerSlowWithResult(TriggerType type, float damageDealt, Creature targetCreature, DamageType damageType, float intensity, bool isQuickTest = false, bool isStatusKill = false, bool isThrown = false)
+        {
+            try
+            {
+                if (!CSMModOptions.EnableMod)
+                    return TriggerResult.ModDisabled;
+
+                bool enabled;
+                float chance, timeScale, duration, cooldown;
+                GetTriggerConfig(type, out enabled, out chance, out timeScale, out duration, out cooldown);
+
+                // Check DOT multiplier
+                if (isStatusKill && CSMModOptions.GetDOTMultiplier() <= 0f)
+                    return TriggerResult.DOTKillDisabled;
+
+                // Check thrown multiplier
+                if (isThrown && CSMModOptions.GetThrownMultiplier() <= 0f)
+                    return TriggerResult.ThrownWeaponDisabled;
+
+                // Check damage type multiplier
+                if (CSMModOptions.GetDamageTypeMultiplier(damageType) <= 0f)
+                    return TriggerResult.DamageTypeDisabled;
+
+                if (!enabled)
+                    return TriggerResult.TriggerDisabled;
+
+                float now = Time.unscaledTime;
+
+                if (now < _globalCooldownEndTime)
+                    return TriggerResult.GlobalCooldown;
+
+                if (_triggerCooldownEndTimes.TryGetValue(type, out float triggerCooldownEnd) && now < triggerCooldownEnd)
+                    return TriggerResult.TriggerCooldown;
+
+                if (_isSlowMotionActive && (int)type <= (int)_activeTriggerType)
+                    return TriggerResult.AlreadyActive;
+
+                if (_isEasingOut)
+                    return TriggerResult.EasingOut;
+
+                float roll = UnityEngine.Random.value;
+                if (chance < 1.0f && roll > chance)
+                    return TriggerResult.ChanceFailed;
+
+                // Actually trigger the slow motion
+                bool triggered = TriggerSlow(type, damageDealt, targetCreature, damageType, intensity, isQuickTest, isStatusKill, isThrown);
+                return triggered ? TriggerResult.Success : TriggerResult.Error;
+            }
+            catch
+            {
+                return TriggerResult.Error;
             }
         }
 
@@ -462,7 +538,9 @@ namespace CSM.Core
         {
             try
             {
-                if (!_isSlowMotionActive)
+                // Only save original time scale if we're not currently in slow motion
+                // AND not currently easing out (to avoid saving mid-transition values)
+                if (!_isSlowMotionActive && !_isEasingOut)
                 {
                     _originalTimeScale = Time.timeScale;
                     _originalFixedDeltaTime = Time.fixedDeltaTime;
@@ -476,8 +554,9 @@ namespace CSM.Core
 
                 // Easing uses percentage of duration for transition (20%)
                 // If easing curve is Off, no transition (instant)
-                var curve = CSMModOptions.GetEasingCurve(type);
-                float easingDuration = (curve != CSMModOptions.EasingCurve.Off) ? (duration * CSMModOptions.TransitionRampPercent) : 0f;
+                // Cache the easing curve to avoid per-frame lookup during transitions
+                _cachedEasingCurve = CSMModOptions.GetEasingCurve(type);
+                float easingDuration = (_cachedEasingCurve != CSMModOptions.EasingCurve.Off) ? (duration * CSMModOptions.TransitionRampPercent) : 0f;
                 _easingOutDuration = easingDuration;
                 _isEasingOut = false;
 
@@ -497,17 +576,15 @@ namespace CSM.Core
                 }
 
                 float now = Time.unscaledTime;
-                _globalCooldownEndTime = now + duration;
-                _triggerCooldownEndTimes[type] = now + duration + cooldown;
+                // Include easing out duration in global cooldown to prevent new triggers
+                // during the transition back to normal time scale
+                float totalDurationWithEasing = duration + _easingOutDuration;
+                _globalCooldownEndTime = now + totalDurationWithEasing;
+                _triggerCooldownEndTimes[type] = now + totalDurationWithEasing + cooldown;
 
                 if (CSMModOptions.DebugLogging)
                 {
-                    Debug.Log("[CSM] SlowMo config: target=" + _targetTimeScale.ToString("0.###") +
-                              " duration=" + duration.ToString("0.###") +
-                              " cooldown=" + cooldown.ToString("0.###") +
-                              " easing=" + easingDuration.ToString("0.###") + "s (" + curve + ")" +
-                              " endAt=" + _slowMotionEndTime.ToString("0.###") +
-                              " now=" + now.ToString("0.###"));
+                    Debug.Log($"[CSM] SlowMo config: target={_targetTimeScale:0.###} duration={duration:0.###} cooldown={cooldown:0.###} easing={easingDuration:0.###}s ({_cachedEasingCurve}) endAt={_slowMotionEndTime:0.###} now={now:0.###}");
                 }
             }
             catch (Exception ex)
@@ -524,10 +601,9 @@ namespace CSM.Core
             try
             {
                 var endedType = _activeTriggerType;
-                
-                // Check if we should ease out or snap back
-                var curve = CSMModOptions.GetEasingCurve(_activeTriggerType);
-                bool shouldEaseOut = curve != CSMModOptions.EasingCurve.Off && _easingOutDuration > 0f;
+
+                // Check if we should ease out or snap back (using cached curve)
+                bool shouldEaseOut = _cachedEasingCurve != CSMModOptions.EasingCurve.Off && _easingOutDuration > 0f;
                 
                 _isSlowMotionActive = false;
                 

@@ -22,12 +22,19 @@ namespace CSM.Hooks
         private const float WAVE_RESET_TIMEOUT = 10f;
         private int _aliveEnemyCount = -1;
         private float _lastEnemyCountRefreshTime = 0f;
-        private const float ENEMY_COUNT_REFRESH_INTERVAL = 5f;
+        private const float ENEMY_COUNT_REFRESH_INTERVAL = 15f; // Increased from 5s - event-driven tracking handles most updates
         private readonly Dictionary<int, float> _recentSlicedParts = new Dictionary<int, float>();
         private float _lastSliceCleanupTime = 0f;
         private const float SLICE_REARM_SECONDS = 30f;
         private const float SLICE_CLEANUP_INTERVAL = 10f;
         private readonly HashSet<Ragdoll> _hookedRagdolls = new HashSet<Ragdoll>();
+
+        // Store delegate references to ensure proper unsubscription (prevents memory leaks)
+        private EventManager.CreatureKillEvent _onCreatureKillHandler;
+        private EventManager.CreatureHitEvent _onCreatureHitHandler;
+        private EventManager.CreatureSpawnedEvent _onCreatureSpawnHandler;
+        private EventManager.DeflectEvent _onDeflectHandler;
+        private EventManager.CreatureParryEvent _onCreatureParryHandler;
         
         // Track creatures the player has recently damaged
         // This allows attributing DOT/status effect kills (bleeds, fire DOT, lightning) to the player
@@ -99,11 +106,17 @@ namespace CSM.Hooks
 
             try
             {
-                EventManager.onCreatureKill += new EventManager.CreatureKillEvent(this.OnCreatureKill);
-                EventManager.onCreatureHit += new EventManager.CreatureHitEvent(this.OnCreatureHit);
+                // Create and store delegate references for proper unsubscription
+                _onCreatureKillHandler = new EventManager.CreatureKillEvent(this.OnCreatureKill);
+                _onCreatureHitHandler = new EventManager.CreatureHitEvent(this.OnCreatureHit);
+                _onDeflectHandler = new EventManager.DeflectEvent(this.OnDeflect);
+                _onCreatureParryHandler = new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
+
+                EventManager.onCreatureKill += _onCreatureKillHandler;
+                EventManager.onCreatureHit += _onCreatureHitHandler;
                 SubscribeSpawnEvent();
-                EventManager.onDeflect += new EventManager.DeflectEvent(this.OnDeflect);
-                EventManager.onCreatureAttackParry += new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
+                EventManager.onDeflect += _onDeflectHandler;
+                EventManager.onCreatureAttackParry += _onCreatureParryHandler;
                 _subscribed = true;
                 _deflectSubscribed = true;
                 _parrySubscribed = true;
@@ -122,7 +135,9 @@ namespace CSM.Hooks
 
             try
             {
-                EventManager.onDeflect += new EventManager.DeflectEvent(this.OnDeflect);
+                if (_onDeflectHandler == null)
+                    _onDeflectHandler = new EventManager.DeflectEvent(this.OnDeflect);
+                EventManager.onDeflect += _onDeflectHandler;
                 _deflectSubscribed = true;
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Deflect hook subscribed");
@@ -139,7 +154,9 @@ namespace CSM.Hooks
 
             try
             {
-                EventManager.onCreatureSpawn += new EventManager.CreatureSpawnedEvent(this.OnCreatureSpawn);
+                if (_onCreatureSpawnHandler == null)
+                    _onCreatureSpawnHandler = new EventManager.CreatureSpawnedEvent(this.OnCreatureSpawn);
+                EventManager.onCreatureSpawn += _onCreatureSpawnHandler;
                 _spawnSubscribed = true;
                 RegisterExistingCreatures();
                 if (CSMModOptions.DebugLogging)
@@ -157,7 +174,9 @@ namespace CSM.Hooks
 
             try
             {
-                EventManager.onCreatureAttackParry += new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
+                if (_onCreatureParryHandler == null)
+                    _onCreatureParryHandler = new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
+                EventManager.onCreatureAttackParry += _onCreatureParryHandler;
                 _parrySubscribed = true;
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Parry hook subscribed");
@@ -174,16 +193,30 @@ namespace CSM.Hooks
 
             try
             {
-                EventManager.onCreatureKill -= new EventManager.CreatureKillEvent(this.OnCreatureKill);
-                EventManager.onCreatureHit -= new EventManager.CreatureHitEvent(this.OnCreatureHit);
-                EventManager.onDeflect -= new EventManager.DeflectEvent(this.OnDeflect);
-                EventManager.onCreatureAttackParry -= new EventManager.CreatureParryEvent(this.OnCreatureAttackParry);
-                if (_spawnSubscribed)
-                {
-                    EventManager.onCreatureSpawn -= new EventManager.CreatureSpawnedEvent(this.OnCreatureSpawn);
-                }
+                // Use stored delegate references to ensure proper unsubscription
+                if (_onCreatureKillHandler != null)
+                    EventManager.onCreatureKill -= _onCreatureKillHandler;
+                if (_onCreatureHitHandler != null)
+                    EventManager.onCreatureHit -= _onCreatureHitHandler;
+                if (_onDeflectHandler != null)
+                    EventManager.onDeflect -= _onDeflectHandler;
+                if (_onCreatureParryHandler != null)
+                    EventManager.onCreatureAttackParry -= _onCreatureParryHandler;
+                if (_spawnSubscribed && _onCreatureSpawnHandler != null)
+                    EventManager.onCreatureSpawn -= _onCreatureSpawnHandler;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Error during event unsubscription: " + ex.Message);
+            }
+
+            // Clear delegate references
+            _onCreatureKillHandler = null;
+            _onCreatureHitHandler = null;
+            _onDeflectHandler = null;
+            _onCreatureParryHandler = null;
+            _onCreatureSpawnHandler = null;
 
             _subscribed = false;
             _deflectSubscribed = false;
@@ -207,7 +240,11 @@ namespace CSM.Hooks
                 _aliveEnemyCount = aliveCount;
                 _lastEnemyCountRefreshTime = Time.unscaledTime;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogWarning("[CSM] Error registering existing creatures: " + ex.Message);
+            }
         }
 
         private void OnCreatureSpawn(Creature creature)
@@ -623,7 +660,7 @@ namespace CSM.Hooks
             bool isLast = _maxEnemiesSeenThisWave >= minEnemies;
             
             if (CSMModOptions.DebugLogging)
-                Debug.Log("[CSM] IsSmartLastEnemy: alive=" + currentAliveEnemies + " maxWave=" + _maxEnemiesSeenThisWave + " minRequired=" + minEnemies + " result=" + isLast);
+                Debug.Log($"[CSM] IsSmartLastEnemy: alive={currentAliveEnemies} maxWave={_maxEnemiesSeenThisWave} minRequired={minEnemies} result={isLast}");
             
             return isLast;
         }
