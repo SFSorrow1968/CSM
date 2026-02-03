@@ -114,8 +114,6 @@ namespace CSM.Core
             { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerLastEnemy) },
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerLastStand) }
         };
-        
-        private static readonly string ThrownImpactOptionKey = MakeKey(CSMModOptions.CategoryTriggers, CSMModOptions.TriggerThrownImpactKill);
 
         private CSMModOptionVisibility() { }
 
@@ -203,7 +201,6 @@ namespace CSM.Core
             changed |= ApplyTransitionPreset(force);
             changed |= ApplyDistributionPreset(force);
             changed |= ApplyTriggerProfile(force);
-            changed |= ApplyTriggerDependencies();
             changed |= ApplyDiagnostics();
             changed |= ApplyStatisticsReset();
             changed |= UpdateDebugTooltips();
@@ -369,24 +366,8 @@ namespace CSM.Core
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.Parry, parry);
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastEnemy, lastEnemy);
             SyncToggleOption(TriggerToggleOptionNames, TriggerType.LastStand, lastStand);
-            
-            if (!basicKill && CSMModOptions.EnableThrownImpactKill)
-            {
-                CSMModOptions.EnableThrownImpactKill = false;
-                SyncToggleOption(ThrownImpactOptionKey, false);
-            }
 
             _lastTriggerProfile = profile;
-            return true;
-        }
-
-        private bool ApplyTriggerDependencies()
-        {
-            if (CSMModOptions.EnableBasicKill || !CSMModOptions.EnableThrownImpactKill)
-                return false;
-
-            CSMModOptions.EnableThrownImpactKill = false;
-            SyncToggleOption(ThrownImpactOptionKey, false);
             return true;
         }
 

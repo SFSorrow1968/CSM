@@ -41,6 +41,7 @@ namespace CSM.Hooks
             public float Timestamp;
             public DamageType DamageType;
             public float TotalDamage;
+            public bool WasThrown; // Track if the hit was from a thrown weapon
         }
 
         public static void Subscribe()
@@ -60,15 +61,6 @@ namespace CSM.Hooks
             }
             _instance.SubscribeDeflectEvent();
             _instance.SubscribeParryEvent();
-        }
-
-        public static void SubscribeThrowTracking()
-        {
-            if (_instance == null)
-            {
-                _instance = new EventHooks();
-            }
-            _instance.SubscribeSpawnEvent();
         }
 
         public static void Unsubscribe()
@@ -91,7 +83,6 @@ namespace CSM.Hooks
                 _instance._hookedRagdolls.Clear();
                 _instance._playerDamageHits.Clear();
                 _instance._lastDamageHitCleanupTime = 0f;
-                ThrowTracker.Reset();
             }
         }
 
@@ -251,25 +242,14 @@ namespace CSM.Hooks
 
         private void OnRagdollUngrab(RagdollHand ragdollHand, HandleRagdoll handleRagdoll, bool lastHandler)
         {
-            if (!lastHandler) return;
-
-            bool playerReleased = ragdollHand != null && (ragdollHand.playerHand != null || ragdollHand.creature?.isPlayer == true);
-            if (!playerReleased) return;
-
-            var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
-            ThrowTracker.RecordThrow(creature, "Grab");
+            // No longer tracking creature throws - thrown creatures die from Blunt damage
+            // which is already handled by the Blunt Multiplier
         }
 
         private void OnRagdollTelekinesisRelease(ThunderRoad.Skill.SpellPower.SpellTelekinesis spellTelekinesis, HandleRagdoll handleRagdoll, bool lastHandler)
         {
-            if (!lastHandler) return;
-
-            bool playerReleased = spellTelekinesis?.spellCaster?.ragdollHand?.playerHand != null ||
-                                  spellTelekinesis?.spellCaster?.ragdollHand?.creature?.isPlayer == true;
-            if (!playerReleased) return;
-
-            var creature = handleRagdoll?.ragdollPart?.ragdoll?.creature;
-            ThrowTracker.RecordThrow(creature, "Telekinesis");
+            // No longer tracking creature throws - thrown creatures die from Blunt damage
+            // which is already handled by the Blunt Multiplier
         }
 
         private void OnCreatureKill(Creature creature, Player player, CollisionInstance collisionInstance, EventTime eventTime)
@@ -292,20 +272,16 @@ namespace CSM.Hooks
 
                 NotifyEnemyKilled(creature);
 
-                // Check for player attribution including recent elemental damage
+                // Check for player attribution including recent elemental damage and thrown state
                 DamageType elementalDamageType;
                 float elementalDamage;
-                bool killedByPlayer = WasKilledByPlayer(collisionInstance, creature, out elementalDamageType, out elementalDamage);
-                bool thrownImpactKill = false;
+                bool wasThrown;
+                bool killedByPlayer = WasKilledByPlayer(collisionInstance, creature, out elementalDamageType, out elementalDamage, out wasThrown);
                 if (!killedByPlayer)
                 {
-                    thrownImpactKill = ThrowTracker.WasImpactThisFrame(creature);
-                    if (!thrownImpactKill)
-                    {
-                        if (CSMModOptions.DebugLogging)
-                            Debug.Log("[CSM] Kill skipped - not player and not thrown impact");
-                        return;
-                    }
+                    if (CSMModOptions.DebugLogging)
+                        Debug.Log("[CSM] Kill skipped - not player kill");
+                    return;
                 }
 
                 int aliveEnemies = UpdateEnemyTrackingAndGetCount();
@@ -341,12 +317,19 @@ namespace CSM.Hooks
                               (elementalDamageType != DamageType.Unknown ? " (DOT attribution: " + elementalDamageType + ")" : ""));
                 }
                 
+                // Determine if this kill is from a thrown weapon
+                // wasThrown is populated from DOT attribution tracking, IsFromThrownWeapon checks collision data
+                bool isThrownWeaponKill = wasThrown || IsFromThrownWeapon(collisionInstance);
+                
+                if (CSMModOptions.DebugLogging && isThrownWeaponKill)
+                    Debug.Log("[CSM] Thrown weapon kill detected" + (wasThrown ? " (from DOT attribution)" : " (from collision)"));
+                
                 if (isLastEnemy)
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Last enemy of wave killed (wave had " + _maxEnemiesSeenThisWave + " enemies)");
 
-                    bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature, damageType, impactIntensity, false, isStatusKill);
+                    bool triggered = CSMManager.Instance.TriggerSlow(TriggerType.LastEnemy, 0f, creature, damageType, impactIntensity, false, isStatusKill, isThrownWeaponKill);
                     if (triggered)
                     {
                         _maxEnemiesSeenThisWave = 0;
@@ -356,14 +339,6 @@ namespace CSM.Hooks
                 }
 
                 float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
-
-                if (thrownImpactKill)
-                {
-                    if (CSMModOptions.DebugLogging)
-                        Debug.Log("[CSM] Thrown impact kill detected");
-                    CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false, isStatusKill);
-                    return;
-                }
 
                 if (collisionInstance != null && collisionInstance.damageStruct.hitRagdollPart != null)
                 {
@@ -384,7 +359,7 @@ namespace CSM.Hooks
                         }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Decapitation detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature, damageType, impactIntensity, false, isStatusKill))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Decapitation, damageDealt, creature, damageType, impactIntensity, false, isStatusKill, isThrownWeaponKill))
                             return;
                     }
 
@@ -392,7 +367,7 @@ namespace CSM.Hooks
                     {
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Critical kill detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, damageDealt, creature, damageType, impactIntensity, false, isStatusKill))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Critical, damageDealt, creature, damageType, impactIntensity, false, isStatusKill, isThrownWeaponKill))
                             return;
                     }
 
@@ -406,14 +381,14 @@ namespace CSM.Hooks
                         }
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] Dismemberment detected");
-                        if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature, damageType, impactIntensity, false, isStatusKill))
+                        if (CSMManager.Instance.TriggerSlow(TriggerType.Dismemberment, damageDealt, creature, damageType, impactIntensity, false, isStatusKill, isThrownWeaponKill))
                             return;
                     }
                 }
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] Basic kill with damage=" + damageDealt);
-                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false, isStatusKill);
+                CSMManager.Instance.TriggerSlow(TriggerType.BasicKill, damageDealt, creature, damageType, impactIntensity, false, isStatusKill, isThrownWeaponKill);
             }
             catch (Exception ex)
             {
@@ -442,11 +417,6 @@ namespace CSM.Hooks
                 {
                     bool directPlayerHit = WasKilledByPlayer(collisionInstance);
                     
-                    if (!directPlayerHit)
-                    {
-                        ThrowTracker.RecordImpact(creature);
-                    }
-                    
                     // Track all player hits for DOT/status damage attribution
                     // BDOT can cause bleeds from Pierce/Slash and burns from Fire/Lightning
                     var damageType = collisionInstance.damageStruct.damageType;
@@ -458,7 +428,9 @@ namespace CSM.Hooks
                     
                     if (canCauseDOT && directPlayerHit)
                     {
-                        TrackPlayerDamageHit(creature, damageType, collisionInstance.damageStruct.damage);
+                        // Also track if this hit was from a thrown weapon
+                        bool wasThrown = IsFromThrownWeapon(collisionInstance);
+                        TrackPlayerDamageHit(creature, damageType, collisionInstance.damageStruct.damage, wasThrown);
                     }
                 }
 
@@ -700,20 +672,21 @@ namespace CSM.Hooks
 
         private bool WasKilledByPlayer(CollisionInstance collision)
         {
-            return WasKilledByPlayer(collision, null, out _, out _);
+            return WasKilledByPlayer(collision, null, out _, out _, out _);
         }
 
-        private bool WasKilledByPlayer(CollisionInstance collision, Creature creature, out DamageType elementalDamageType, out float elementalDamage)
+        private bool WasKilledByPlayer(CollisionInstance collision, Creature creature, out DamageType elementalDamageType, out float elementalDamage, out bool wasThrown)
         {
             elementalDamageType = DamageType.Unknown;
             elementalDamage = 0f;
+            wasThrown = false;
             
             try
             {
                 if (collision == null)
                 {
                     // No collision but check if player recently hit this creature (for DOT kills)
-                    if (creature != null && TryGetRecentPlayerDamageHit(creature, out elementalDamageType, out elementalDamage))
+                    if (creature != null && TryGetRecentPlayerDamageHit(creature, out elementalDamageType, out elementalDamage, out wasThrown))
                     {
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] DOT kill attributed to player - recent hit: " + elementalDamageType);
@@ -744,7 +717,7 @@ namespace CSM.Hooks
                     return true;
 
                 // Check if player recently hit this creature (for DOT/bleed kills from BDOT, etc.)
-                if (creature != null && TryGetRecentPlayerDamageHit(creature, out elementalDamageType, out elementalDamage))
+                if (creature != null && TryGetRecentPlayerDamageHit(creature, out elementalDamageType, out elementalDamage, out wasThrown))
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] DOT kill attributed to player - recent hit: " + elementalDamageType);
@@ -759,7 +732,34 @@ namespace CSM.Hooks
             }
         }
 
-        private void TrackPlayerDamageHit(Creature creature, DamageType damageType, float damage)
+        /// <summary>
+        /// Check if the damage came from a thrown weapon (dagger, arrow, spear).
+        /// Uses item.isThrowed flag which is set when an item is thrown/released.
+        /// </summary>
+        private bool IsFromThrownWeapon(CollisionInstance collision)
+        {
+            try
+            {
+                if (collision == null) return false;
+
+                // Check if the source item is marked as thrown
+                var item = collision.sourceColliderGroup?.collisionHandler?.item;
+                if (item != null && item.isThrowed)
+                    return true;
+
+                // Also check penetrationFromThrow for penetrating thrown weapons
+                if (collision.damageStruct.penetrationFromThrow)
+                    return true;
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void TrackPlayerDamageHit(Creature creature, DamageType damageType, float damage, bool wasThrown)
         {
             if (creature == null) return;
             int id = creature.GetInstanceID();
@@ -769,6 +769,8 @@ namespace CSM.Hooks
                 existing.Timestamp = Time.unscaledTime;
                 existing.DamageType = damageType;
                 existing.TotalDamage += damage;
+                // Once thrown, always mark as thrown for this creature
+                if (wasThrown) existing.WasThrown = true;
             }
             else
             {
@@ -776,7 +778,8 @@ namespace CSM.Hooks
                 {
                     Timestamp = Time.unscaledTime,
                     DamageType = damageType,
-                    TotalDamage = damage
+                    TotalDamage = damage,
+                    WasThrown = wasThrown
                 };
             }
             
@@ -784,10 +787,11 @@ namespace CSM.Hooks
             CleanupDamageHitCache();
         }
 
-        private bool TryGetRecentPlayerDamageHit(Creature creature, out DamageType damageType, out float totalDamage)
+        private bool TryGetRecentPlayerDamageHit(Creature creature, out DamageType damageType, out float totalDamage, out bool wasThrown)
         {
             damageType = DamageType.Unknown;
             totalDamage = 0f;
+            wasThrown = false;
             
             if (creature == null) return false;
             int id = creature.GetInstanceID();
@@ -798,6 +802,7 @@ namespace CSM.Hooks
                 {
                     damageType = hit.DamageType;
                     totalDamage = hit.TotalDamage;
+                    wasThrown = hit.WasThrown;
                     _playerDamageHits.Remove(id); // Consume the attribution
                     return true;
                 }

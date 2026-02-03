@@ -33,7 +33,6 @@ namespace CSM.Configuration
         public const string OptionTriggerProfile = "Trigger Profile";
 
         public const string TriggerBasicKill = "Basic Kill";
-        public const string TriggerThrownImpactKill = "Thrown Impact Kill";
         public const string TriggerCriticalKill = "Critical Kill";
         public const string TriggerDismemberment = "Dismemberment";
         public const string TriggerDecapitation = "Decapitation";
@@ -118,6 +117,7 @@ namespace CSM.Configuration
         public const string OptionSlashMultiplier = "Slash Multiplier";
         public const string OptionBluntMultiplier = "Blunt Multiplier";
         public const string OptionElementalMultiplier = "Elemental Multiplier";
+        public const string OptionThrownMultiplier = "Thrown Multiplier";
         public const string OptionDOTMultiplier = "DOT Multiplier";
         public const string OptionIntensityScalingEnabled = "Intensity Scaling";
         public const string OptionIntensityScalingMax = "Max Intensity Multiplier";
@@ -714,6 +714,14 @@ namespace CSM.Configuration
             tooltip = "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills.")]
         public static float ElementalMultiplier = 1.0f;
 
+        [ModOption(name = OptionThrownMultiplier, category = CategoryDamageMultipliers,
+            categoryOrder = CategoryOrderDamageMultipliers, order = 36,
+            defaultValueIndex = 10,
+            valueSourceName = nameof(DamageMultiplierProvider),
+            interactionType = (ModOption.InteractionType)2,
+            tooltip = "Multiplier for thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for thrown kills.")]
+        public static float ThrownMultiplier = 1.0f;
+
         [ModOption(name = OptionDOTMultiplier, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 37,
             defaultValueIndex = 0,
@@ -742,9 +750,6 @@ namespace CSM.Configuration
 
         [ModOption(name = TriggerBasicKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
         public static bool EnableBasicKill = true;
-
-        [ModOption(name = TriggerThrownImpactKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 15, defaultValueIndex = 0, tooltip = "Also trigger Basic Kill when a recently thrown enemy dies from the environment")]
-        public static bool EnableThrownImpactKill = false;
 
         [ModOption(name = TriggerCriticalKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
         public static bool EnableCriticalKill = true;
@@ -952,8 +957,6 @@ namespace CSM.Configuration
         public static bool ResetStatsToggle = false;
 
         #endregion
-
-        public const float ThrownImpactWindowSeconds = 0f;
 
         #region Helper Methods
 
@@ -1275,6 +1278,15 @@ namespace CSM.Configuration
             if (!IsBDOTInstalled())
                 return 1.0f; // BDOT not installed, don't affect kills
             return DOTMultiplier;
+        }
+
+        /// <summary>
+        /// Get the thrown weapon multiplier.
+        /// Applied when a kill is made by a thrown item (daggers, arrows, spears).
+        /// </summary>
+        public static float GetThrownMultiplier()
+        {
+            return ThrownMultiplier;
         }
 
         public static float GetIntensityMultiplier(float intensity)

@@ -143,20 +143,20 @@ namespace CSM.Core
 
         public bool TriggerSlow(TriggerType type)
         {
-            return TriggerSlow(type, 0f, null, DamageType.Unknown, 0f, false, false);
+            return TriggerSlow(type, 0f, null, DamageType.Unknown, 0f, false, false, false);
         }
 
         public bool TriggerSlow(TriggerType type, float damageDealt)
         {
-            return TriggerSlow(type, damageDealt, null, DamageType.Unknown, 0f, false, false);
+            return TriggerSlow(type, damageDealt, null, DamageType.Unknown, 0f, false, false, false);
         }
 
         public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature)
         {
-            return TriggerSlow(type, damageDealt, targetCreature, DamageType.Unknown, 0f, false, false);
+            return TriggerSlow(type, damageDealt, targetCreature, DamageType.Unknown, 0f, false, false, false);
         }
 
-        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, DamageType damageType, float intensity, bool isQuickTest = false, bool isStatusKill = false)
+        public bool TriggerSlow(TriggerType type, float damageDealt, Creature targetCreature, DamageType damageType, float intensity, bool isQuickTest = false, bool isStatusKill = false, bool isThrown = false)
         {
             try
             {
@@ -176,8 +176,9 @@ namespace CSM.Core
                 float damageTypeMultiplier = CSMModOptions.GetDamageTypeMultiplier(damageType);
 
                 // Apply DOT multiplier for status effect kills (BDOT bleed/burn deaths)
+                // Exception: Thrown weapon DOT kills still trigger (the initial throw damage caused the DOT)
                 float dotMultiplier = 1.0f;
-                if (isStatusKill)
+                if (isStatusKill && !isThrown)
                 {
                     dotMultiplier = CSMModOptions.GetDOTMultiplier();
                     if (dotMultiplier <= 0f)
@@ -185,6 +186,20 @@ namespace CSM.Core
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - DOT kill disabled (0x multiplier)");
                         SetLastTriggerDebug(type, "Blocked: DOT kill disabled", isQuickTest);
+                        return false;
+                    }
+                }
+
+                // Apply thrown weapon multiplier (daggers, arrows, spears)
+                float thrownMultiplier = 1.0f;
+                if (isThrown)
+                {
+                    thrownMultiplier = CSMModOptions.GetThrownMultiplier();
+                    if (thrownMultiplier <= 0f)
+                    {
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Thrown weapon kill disabled (0x multiplier)");
+                        SetLastTriggerDebug(type, "Blocked: Thrown disabled", isQuickTest);
                         return false;
                     }
                 }
@@ -199,13 +214,14 @@ namespace CSM.Core
                 }
 
                 float intensityMultiplier = CSMModOptions.GetIntensityMultiplier(intensity);
-                float combinedMultiplier = damageTypeMultiplier * intensityMultiplier * dotMultiplier;
+                float combinedMultiplier = damageTypeMultiplier * intensityMultiplier * dotMultiplier * thrownMultiplier;
 
                 if (CSMModOptions.DebugLogging)
                 {
                     string dotInfo = isStatusKill ? " DOT=" + dotMultiplier.ToString("F1") + "x" : "";
+                    string thrownInfo = isThrown ? " Thrown=" + thrownMultiplier.ToString("F1") + "x" : "";
                     Debug.Log("[CSM] Damage input: damageType=" + damageType + " (" + damageTypeMultiplier.ToString("F1") + "x), " +
-                              "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x)," + dotInfo +
+                              "intensity=" + intensity.ToString("F2") + " (" + intensityMultiplier.ToString("F2") + "x)," + dotInfo + thrownInfo +
                               " combined=" + combinedMultiplier.ToString("F2") + "x");
                 }
 
