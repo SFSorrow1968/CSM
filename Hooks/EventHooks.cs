@@ -291,21 +291,39 @@ namespace CSM.Hooks
                 // Extract damage type and intensity from collision
                 DamageType damageType = collisionInstance?.damageStruct.damageType ?? DamageType.Unknown;
                 float impactIntensity = GetImpactIntensity(collisionInstance);
+                float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
                 
                 // Track if this is a status effect kill (DOT from BDOT mod, etc.)
+                // DOT kills are identified by:
+                // 1. DOT attribution was used (elementalDamageType != Unknown) AND
+                // 2. Either no collision data OR damage is 99999 (BDOT's kill signature)
+                // If we have valid collision data with normal damage, it's an instant kill, NOT DOT
                 bool isStatusKill = false;
+                const float BDOT_KILL_DAMAGE = 99999f;
                 
-                // If we have DOT attribution, this is a status kill - use the tracked damage type
-                // BDOT's Kill() call may provide Energy or other damage types, but we want the original
-                // damage type from the player's hit that caused the DOT
                 if (elementalDamageType != DamageType.Unknown)
                 {
-                    damageType = elementalDamageType;
-                    isStatusKill = true; // Kill attributed via DOT tracking = status effect kill
-                    // Use tracked damage for intensity if collision intensity is missing
-                    if (impactIntensity < 0.1f && elementalDamage > 0f)
+                    // DOT attribution was used - check if this is actually a DOT kill
+                    // or just an instant kill where IsDoneByPlayer() failed
+                    bool hasValidCollision = collisionInstance != null && damageDealt > 0f && damageDealt < BDOT_KILL_DAMAGE;
+                    
+                    if (hasValidCollision)
                     {
-                        impactIntensity = Mathf.Clamp01(elementalDamage / 50f);
+                        // This is an instant kill with valid collision data
+                        // DOT attribution was a false positive (IsDoneByPlayer failed for thrown weapon)
+                        // Use the collision's damage type, not the tracked type
+                        if (CSMModOptions.DebugLogging)
+                            Debug.Log("[CSM] DOT attribution overridden - instant kill with valid collision (damage=" + damageDealt + ")");
+                    }
+                    else
+                    {
+                        // This is a true DOT kill - use tracked damage type
+                        damageType = elementalDamageType;
+                        isStatusKill = true;
+                        if (impactIntensity < 0.1f && elementalDamage > 0f)
+                        {
+                            impactIntensity = Mathf.Clamp01(elementalDamage / 50f);
+                        }
                     }
                 }
 
@@ -340,8 +358,6 @@ namespace CSM.Hooks
                         return;
                     }
                 }
-
-                float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
 
                 if (collisionInstance != null && collisionInstance.damageStruct.hitRagdollPart != null)
                 {
