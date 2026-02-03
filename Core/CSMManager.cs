@@ -661,7 +661,8 @@ namespace CSM.Core
                 _slowMotionEndTime = 0f;
 
                 TryRestoreTimeScale();
-                Debug.Log("[CSM] SlowMo cancelled");
+                if (CSMModOptions.DebugLogging)
+                    Debug.Log("[CSM] SlowMo cancelled");
                 if (CSMModOptions.DebugLogging)
                 {
                     Debug.Log("[CSM] SlowMo elapsed (cancel): " + elapsed.ToString("0.###") +
