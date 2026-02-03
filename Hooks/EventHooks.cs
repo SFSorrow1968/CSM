@@ -294,18 +294,18 @@ namespace CSM.Hooks
                 float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
                 bool isStatusDamage = collisionInstance?.damageStruct.isStatus ?? false;
                 
-                // Track if this is a status effect kill (DOT from fire, lightning, BDOT bleeds, etc.)
+                // Track if this is a status effect kill (DOT from fire, lightning, CDoT bleeds, etc.)
                 // DOT kills are identified by ANY of:
                 // 1. damageStruct.isStatus == true (fire/lightning DOT ticks)
-                // 2. Damage is 99999 (BDOT's kill signature for bleeds)
+                // 2. Damage is 99999 (CDoT's kill signature for bleeds)
                 // 3. No valid collision but we have DOT attribution
                 // Instant elemental kills (fireball impact, lightning bolt) have isStatus=false
                 bool isStatusKill = false;
-                const float BDOT_KILL_DAMAGE = 99999f;
+                const float CDOT_KILL_DAMAGE = 99999f;
                 
                 // Check for DOT kill indicators
                 bool isDOTKill = isStatusDamage || 
-                                 damageDealt >= BDOT_KILL_DAMAGE || 
+                                 damageDealt >= CDOT_KILL_DAMAGE || 
                                  (collisionInstance == null && elementalDamageType != DamageType.Unknown);
                 
                 if (isDOTKill && elementalDamageType != DamageType.Unknown)
@@ -437,7 +437,7 @@ namespace CSM.Hooks
                     bool directPlayerHit = WasKilledByPlayer(collisionInstance);
                     
                     // Track all player hits - needed for:
-                    // 1. DOT/status damage attribution (BDOT bleeds, burns)
+                    // 1. DOT/status damage attribution (CDoT bleeds, burns)
                     // 2. Thrown weapon detection (item.isThrowed may be cleared by kill time)
                     var damageType = collisionInstance.damageStruct.damageType;
                     
@@ -735,7 +735,7 @@ namespace CSM.Hooks
                 if (collision.casterHand?.mana?.creature?.isPlayer == true)
                     return true;
 
-                // Check if player recently hit this creature (for DOT/bleed kills from BDOT, etc.)
+                // Check if player recently hit this creature (for DOT/bleed kills from CDoT, etc.)
                 if (creature != null && TryGetRecentPlayerDamageHit(creature, out elementalDamageType, out elementalDamage, out wasThrown))
                 {
                     if (CSMModOptions.DebugLogging)

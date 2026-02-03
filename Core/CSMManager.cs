@@ -175,7 +175,7 @@ namespace CSM.Core
                 // Apply damage type and intensity multipliers
                 float damageTypeMultiplier = CSMModOptions.GetDamageTypeMultiplier(damageType);
 
-                // Apply DOT multiplier for status effect kills (BDOT bleed/burn deaths)
+                // Apply DOT multiplier for status effect kills (CDoT bleed/burn deaths)
                 float dotMultiplier = 1.0f;
                 if (isStatusKill)
                 {

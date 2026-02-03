@@ -721,7 +721,7 @@ namespace CSM.Configuration
             defaultValueIndex = 0,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for DOT kills (BDOT mod). Only applies when BDOT is installed. 0x disables slow-mo for bleed/burn kills.")]
+            tooltip = "Multiplier for DOT kills (CDoT mod). Only applies when CDoT is installed. 0x disables slow-mo for bleed/burn kills.")]
         public static float DOTMultiplier = 0f;
 
         [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
@@ -1222,48 +1222,48 @@ namespace CSM.Configuration
             }
         }
 
-        // BDOT detection - cached at startup
-        private static bool? _bdotDetected = null;
+        // CDoT detection - cached at startup
+        private static bool? _cdotDetected = null;
         
         /// <summary>
-        /// Check if BDOT mod is installed by looking for its main class.
+        /// Check if CDoT mod is installed by looking for its main class.
         /// Result is cached after first check.
         /// </summary>
-        public static bool IsBDOTInstalled()
+        public static bool IsCDoTInstalled()
         {
-            if (_bdotDetected.HasValue)
-                return _bdotDetected.Value;
+            if (_cdotDetected.HasValue)
+                return _cdotDetected.Value;
             
             try
             {
-                // Look for BDOT's main module class
+                // Look for CDoT's main module class
                 foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    if (assembly.GetType("BDOT.Core.BDOTModule") != null)
+                    if (assembly.GetType("CDoT.Core.CDoTModule") != null)
                     {
-                        _bdotDetected = true;
-                        Debug.Log("[CSM] BDOT mod detected - DOT Multiplier enabled");
+                        _cdotDetected = true;
+                        Debug.Log("[CSM] CDoT mod detected - DOT Multiplier enabled");
                         return true;
                     }
                 }
-                _bdotDetected = false;
+                _cdotDetected = false;
                 return false;
             }
             catch
             {
-                _bdotDetected = false;
+                _cdotDetected = false;
                 return false;
             }
         }
 
         /// <summary>
         /// Get the DOT multiplier for status effect kills.
-        /// Returns 1.0 (no effect) if BDOT is not installed.
+        /// Returns 1.0 (no effect) if CDoT is not installed.
         /// </summary>
         public static float GetDOTMultiplier()
         {
-            if (!IsBDOTInstalled())
-                return 1.0f; // BDOT not installed, don't affect kills
+            if (!IsCDoTInstalled())
+                return 1.0f; // CDoT not installed, don't affect kills
             return DOTMultiplier;
         }
 
