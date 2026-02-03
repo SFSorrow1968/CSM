@@ -412,10 +412,9 @@ namespace CSM.Hooks
                     return;
                 }
 
-                if (creature.isKilled)
-                    return;
-
                 // Track player damage for DOT attribution and thrown weapon detection
+                // IMPORTANT: Do this BEFORE the isKilled check because instant kills need this data!
+                // OnCreatureHit fires even for killing blows, but isKilled may already be true
                 if (collisionInstance != null)
                 {
                     bool directPlayerHit = WasKilledByPlayer(collisionInstance);
@@ -432,6 +431,10 @@ namespace CSM.Hooks
                         TrackPlayerDamageHit(creature, damageType, collisionInstance.damageStruct.damage, wasThrown);
                     }
                 }
+
+                // Skip slice handling for already-dead creatures
+                if (creature.isKilled)
+                    return;
 
                 if (collisionInstance != null &&
                     collisionInstance.damageStruct.hitRagdollPart != null &&
