@@ -318,11 +318,14 @@ namespace CSM.Hooks
                 }
                 
                 // Determine if this kill is from a thrown weapon
-                // wasThrown is populated from DOT attribution tracking, IsFromThrownWeapon checks collision data
-                bool isThrownWeaponKill = wasThrown || IsFromThrownWeapon(collisionInstance);
+                // Sources (in order of reliability):
+                // 1. wasThrown from DOT attribution tracking (for DOT kills)
+                // 2. WasRecentHitFromThrown - checks if recent hit was thrown (for instant kills where isThrowed may be cleared)
+                // 3. IsFromThrownWeapon - checks collision data directly (penetrationFromThrow for Pierce)
+                bool isThrownWeaponKill = wasThrown || WasRecentHitFromThrown(creature) || IsFromThrownWeapon(collisionInstance);
                 
                 if (CSMModOptions.DebugLogging && isThrownWeaponKill)
-                    Debug.Log("[CSM] Thrown weapon kill detected" + (wasThrown ? " (from DOT attribution)" : " (from collision)"));
+                    Debug.Log("[CSM] Thrown weapon kill detected");
                 
                 if (isLastEnemy)
                 {
@@ -412,23 +415,19 @@ namespace CSM.Hooks
                 if (creature.isKilled)
                     return;
 
-                // Track elemental damage from player for status effect kill attribution
+                // Track player damage for DOT attribution and thrown weapon detection
                 if (collisionInstance != null)
                 {
                     bool directPlayerHit = WasKilledByPlayer(collisionInstance);
                     
-                    // Track all player hits for DOT/status damage attribution
-                    // BDOT can cause bleeds from Pierce/Slash and burns from Fire/Lightning
+                    // Track all player hits - needed for:
+                    // 1. DOT/status damage attribution (BDOT bleeds, burns)
+                    // 2. Thrown weapon detection (item.isThrowed may be cleared by kill time)
                     var damageType = collisionInstance.damageStruct.damageType;
-                    bool canCauseDOT = damageType == DamageType.Pierce || 
-                                       damageType == DamageType.Slash ||
-                                       damageType == DamageType.Energy || 
-                                       damageType == DamageType.Fire || 
-                                       damageType == DamageType.Lightning;
                     
-                    if (canCauseDOT && directPlayerHit)
+                    if (directPlayerHit)
                     {
-                        // Also track if this hit was from a thrown weapon
+                        // Track if this hit was from a thrown weapon (must check NOW before isThrowed is cleared)
                         bool wasThrown = IsFromThrownWeapon(collisionInstance);
                         TrackPlayerDamageHit(creature, damageType, collisionInstance.damageStruct.damage, wasThrown);
                     }
@@ -807,6 +806,26 @@ namespace CSM.Hooks
                     return true;
                 }
                 _playerDamageHits.Remove(id); // Expired
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if a recent hit on this creature was from a thrown weapon.
+        /// Does NOT consume the attribution (use for instant kills where we need thrown state
+        /// but the hit tracking should remain for potential DOT attribution).
+        /// </summary>
+        private bool WasRecentHitFromThrown(Creature creature)
+        {
+            if (creature == null) return false;
+            int id = creature.GetInstanceID();
+            
+            if (_playerDamageHits.TryGetValue(id, out var hit))
+            {
+                if (Time.unscaledTime - hit.Timestamp <= DOT_ATTRIBUTION_WINDOW)
+                {
+                    return hit.WasThrown;
+                }
             }
             return false;
         }
