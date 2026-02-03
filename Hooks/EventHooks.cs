@@ -20,6 +20,9 @@ namespace CSM.Hooks
         private int _maxEnemiesSeenThisWave = 0;
         private float _lastWaveResetTime = 0f;
         private const float WAVE_RESET_TIMEOUT = 10f;
+        private int _aliveEnemyCount = -1;
+        private float _lastEnemyCountRefreshTime = 0f;
+        private const float ENEMY_COUNT_REFRESH_INTERVAL = 5f;
         private readonly Dictionary<int, float> _recentSlicedParts = new Dictionary<int, float>();
         private float _lastSliceCleanupTime = 0f;
         private const float SLICE_REARM_SECONDS = 30f;
@@ -81,6 +84,8 @@ namespace CSM.Hooks
                 _instance._lastStandTriggered = false;
                 _instance._maxEnemiesSeenThisWave = 0;
                 _instance._lastWaveResetTime = 0f;
+                _instance._aliveEnemyCount = -1;
+                _instance._lastEnemyCountRefreshTime = 0f;
                 _instance._recentSlicedParts.Clear();
                 _instance._lastSliceCleanupTime = 0f;
                 _instance._hookedRagdolls.Clear();
@@ -201,10 +206,15 @@ namespace CSM.Hooks
             try
             {
                 if (Creature.allActive == null) return;
+                int aliveCount = 0;
                 foreach (var creature in Creature.allActive)
                 {
                     RegisterRagdollHooks(creature);
+                    if (creature != null && !creature.isPlayer && !creature.isKilled)
+                        aliveCount++;
                 }
+                _aliveEnemyCount = aliveCount;
+                _lastEnemyCountRefreshTime = Time.unscaledTime;
             }
             catch { }
         }
@@ -213,6 +223,7 @@ namespace CSM.Hooks
         {
             if (creature == null) return;
             RegisterRagdollHooks(creature);
+            IncrementAliveEnemyCount(creature);
         }
 
         private void RegisterRagdollHooks(Creature creature)
@@ -278,6 +289,8 @@ namespace CSM.Hooks
                     CSMManager.Instance.CancelSlowMotion();
                     return;
                 }
+
+                NotifyEnemyKilled(creature);
 
                 // Check for player attribution including recent elemental damage
                 DamageType elementalDamageType;
@@ -579,7 +592,7 @@ namespace CSM.Hooks
 
         private int UpdateEnemyTrackingAndGetCount()
         {
-            int currentEnemies = CountAliveEnemies();
+            int currentEnemies = GetAliveEnemyCount();
             
             int totalInWave = currentEnemies + 1;
             
@@ -644,6 +657,31 @@ namespace CSM.Hooks
             {
                 return 0;
             }
+        }
+
+        private int GetAliveEnemyCount()
+        {
+            float now = Time.unscaledTime;
+            if (_aliveEnemyCount < 0 || now - _lastEnemyCountRefreshTime > ENEMY_COUNT_REFRESH_INTERVAL)
+            {
+                _aliveEnemyCount = CountAliveEnemies();
+                _lastEnemyCountRefreshTime = now;
+            }
+            return _aliveEnemyCount;
+        }
+
+        private void IncrementAliveEnemyCount(Creature creature)
+        {
+            if (creature == null || creature.isPlayer || creature.isKilled) return;
+            if (_aliveEnemyCount < 0) return;
+            _aliveEnemyCount++;
+        }
+
+        private void NotifyEnemyKilled(Creature creature)
+        {
+            if (creature == null || creature.isPlayer) return;
+            if (_aliveEnemyCount < 0) return;
+            _aliveEnemyCount = Mathf.Max(0, _aliveEnemyCount - 1);
         }
 
         private float GetHealthRatio(Creature creature)

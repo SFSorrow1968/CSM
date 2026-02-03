@@ -257,11 +257,20 @@ namespace CSM.Core
         {
             // Use cached result if available and recent
             float now = Time.unscaledTime;
-            if (_cachedFallbackCamera != null && now - _lastCacheRefreshTime < CacheRefreshInterval)
+            if (now - _lastCacheRefreshTime < CacheRefreshInterval)
             {
-                // Validate cached camera is still valid
-                if (_cachedFallbackCamera.gameObject != null)
-                    return _cachedFallbackCamera;
+                if (_cachedFallbackCamera != null)
+                {
+                    // Validate cached camera is still valid
+                    if (_cachedFallbackCamera.gameObject != null)
+                        return _cachedFallbackCamera;
+
+                    _cachedFallbackCamera = null;
+                }
+                else
+                {
+                    return null;
+                }
             }
 
             Camera[] cameras = UnityEngine.Object.FindObjectsOfType<Camera>(true);

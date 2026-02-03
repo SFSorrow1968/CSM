@@ -51,7 +51,15 @@ namespace CSM.Patches
 
             private static bool IsLastEnemy()
             {
-                return Creature.allActive.Count(c => !c.isPlayer && !c.isKilled) == 0;
+                if (Creature.allActive == null) return false;
+
+                foreach (var creature in Creature.allActive)
+                {
+                    if (creature != null && !creature.isPlayer && !creature.isKilled)
+                        return false;
+                }
+
+                return true;
             }
 
             private static bool WasCriticalKill(Creature creature)

@@ -32,6 +32,8 @@ namespace CSM.Core
         private readonly Dictionary<string, ModOption> _modOptionsByKey = new Dictionary<string, ModOption>(StringComparer.Ordinal);
 
         private const string OptionKeySeparator = "||";
+        private const float UpdateIntervalSeconds = 0.1f;
+        private float _nextUpdateTime;
 
         private static readonly TriggerType[] TriggerTypes =
         {
@@ -130,6 +132,7 @@ namespace CSM.Core
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
             _lastResetStats = false;
+            _nextUpdateTime = 0f;
             _baseTooltips.Clear();
 
             TryInitialize();
@@ -154,6 +157,12 @@ namespace CSM.Core
                 }
                 return;
             }
+
+            float now = Time.unscaledTime;
+            if (now < _nextUpdateTime)
+                return;
+
+            _nextUpdateTime = now + UpdateIntervalSeconds;
 
             if (ApplyAllPresets(false))
                 ModManager.RefreshModOptionsUI();
