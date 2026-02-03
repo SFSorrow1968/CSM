@@ -176,9 +176,8 @@ namespace CSM.Core
                 float damageTypeMultiplier = CSMModOptions.GetDamageTypeMultiplier(damageType);
 
                 // Apply DOT multiplier for status effect kills (BDOT bleed/burn deaths)
-                // Exception: Thrown weapon DOT kills still trigger (the initial throw damage caused the DOT)
                 float dotMultiplier = 1.0f;
-                if (isStatusKill && !isThrown)
+                if (isStatusKill)
                 {
                     dotMultiplier = CSMModOptions.GetDOTMultiplier();
                     if (dotMultiplier <= 0f)
