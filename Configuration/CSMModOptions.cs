@@ -197,15 +197,17 @@ namespace CSM.Configuration
 
         private readonly struct PresetOption<TEnum>
         {
-            public PresetOption(string label, string value, TEnum preset)
+            public PresetOption(string label, string value, string localizationId, TEnum preset)
             {
                 Label = label;
                 Value = value;
+                LocalizationId = localizationId;
                 Preset = preset;
             }
 
             public string Label { get; }
             public string Value { get; }
+            public string LocalizationId { get; }
             public TEnum Preset { get; }
         }
 
@@ -215,7 +217,14 @@ namespace CSM.Configuration
             for (int i = 0; i < options.Length; i++)
             {
                 var option = options[i];
-                result[i] = new ModOptionString(option.Label, option.Value);
+                if (!string.IsNullOrWhiteSpace(option.LocalizationId))
+                {
+                    result[i] = new ModOptionString(option.Label, option.LocalizationId, option.Value);
+                }
+                else
+                {
+                    result[i] = new ModOptionString(option.Label, option.Value);
+                }
             }
             return result;
         }
@@ -248,63 +257,63 @@ namespace CSM.Configuration
 
         private static readonly PresetOption<Preset>[] IntensityPresetOptions =
         {
-            new PresetOption<Preset>("Subtle", "Subtle", Preset.Subtle),
-            new PresetOption<Preset>("Default", "Default", Preset.Default),
-            new PresetOption<Preset>("Dramatic", "Dramatic", Preset.Dramatic),
-            new PresetOption<Preset>("Cinematic", "Cinematic", Preset.Cinematic),
-            new PresetOption<Preset>("Epic", "Epic", Preset.Epic)
+            new PresetOption<Preset>("Subtle", "Subtle", "PresetSubtle", Preset.Subtle),
+            new PresetOption<Preset>("Default", "Default", "PresetDefault", Preset.Default),
+            new PresetOption<Preset>("Dramatic", "Dramatic", "PresetDramatic", Preset.Dramatic),
+            new PresetOption<Preset>("Cinematic", "Cinematic", "PresetCinematic", Preset.Cinematic),
+            new PresetOption<Preset>("Epic", "Epic", "PresetEpic", Preset.Epic)
         };
 
         private static readonly PresetOption<TriggerProfilePreset>[] TriggerProfileOptions =
         {
-            new PresetOption<TriggerProfilePreset>("All Triggers", "All", TriggerProfilePreset.All),
-            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", TriggerProfilePreset.KillsOnly),
-            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", TriggerProfilePreset.Highlights),
-            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", TriggerProfilePreset.LastEnemyOnly),
-            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", TriggerProfilePreset.ParryOnly)
+            new PresetOption<TriggerProfilePreset>("All Triggers", "All", "ProfileAll", TriggerProfilePreset.All),
+            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", "ProfileKillsOnly", TriggerProfilePreset.KillsOnly),
+            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", "ProfileHighlights", TriggerProfilePreset.Highlights),
+            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", "ProfileLastEnemyOnly", TriggerProfilePreset.LastEnemyOnly),
+            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", "ProfileParryOnly", TriggerProfilePreset.ParryOnly)
         };
 
         private static readonly PresetOption<ChancePreset>[] ChancePresetOptions =
         {
-            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", ChancePreset.Off),
-            new PresetOption<ChancePreset>("Very Rare", "Very Rare", ChancePreset.VeryRare),
-            new PresetOption<ChancePreset>("Rare", "Rare", ChancePreset.Rare),
-            new PresetOption<ChancePreset>("Default", "Default", ChancePreset.Default),
-            new PresetOption<ChancePreset>("Frequent", "Frequent", ChancePreset.Frequent)
+            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", "ChanceOff", ChancePreset.Off),
+            new PresetOption<ChancePreset>("Very Rare", "Very Rare", "ChanceVeryRare", ChancePreset.VeryRare),
+            new PresetOption<ChancePreset>("Rare", "Rare", "ChanceRare", ChancePreset.Rare),
+            new PresetOption<ChancePreset>("Default", "Default", "ChanceDefault", ChancePreset.Default),
+            new PresetOption<ChancePreset>("Frequent", "Frequent", "ChanceFrequent", ChancePreset.Frequent)
         };
 
         private static readonly PresetOption<CooldownPreset>[] CooldownPresetOptions =
         {
-            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", CooldownPreset.Off),
-            new PresetOption<CooldownPreset>("Short", "Short", CooldownPreset.Short),
-            new PresetOption<CooldownPreset>("Default", "Default", CooldownPreset.Default),
-            new PresetOption<CooldownPreset>("Long", "Long", CooldownPreset.Long),
-            new PresetOption<CooldownPreset>("Extended", "Extended", CooldownPreset.Extended)
+            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", "CooldownOff", CooldownPreset.Off),
+            new PresetOption<CooldownPreset>("Short", "Short", "CooldownShort", CooldownPreset.Short),
+            new PresetOption<CooldownPreset>("Default", "Default", "CooldownDefault", CooldownPreset.Default),
+            new PresetOption<CooldownPreset>("Long", "Long", "CooldownLong", CooldownPreset.Long),
+            new PresetOption<CooldownPreset>("Extended", "Extended", "CooldownExtended", CooldownPreset.Extended)
         };
 
         private static readonly PresetOption<DurationPreset>[] DurationPresetOptions =
         {
-            new PresetOption<DurationPreset>("Very Short", "Very Short", DurationPreset.VeryShort),
-            new PresetOption<DurationPreset>("Short", "Short", DurationPreset.Short),
-            new PresetOption<DurationPreset>("Default", "Default", DurationPreset.Default),
-            new PresetOption<DurationPreset>("Long", "Long", DurationPreset.Long),
-            new PresetOption<DurationPreset>("Extended", "Extended", DurationPreset.Extended)
+            new PresetOption<DurationPreset>("Very Short", "Very Short", "DurationVeryShort", DurationPreset.VeryShort),
+            new PresetOption<DurationPreset>("Short", "Short", "DurationShort", DurationPreset.Short),
+            new PresetOption<DurationPreset>("Default", "Default", "DurationDefault", DurationPreset.Default),
+            new PresetOption<DurationPreset>("Long", "Long", "DurationLong", DurationPreset.Long),
+            new PresetOption<DurationPreset>("Extended", "Extended", "DurationExtended", DurationPreset.Extended)
         };
 
         private static readonly PresetOption<TransitionPreset>[] TransitionPresetOptions =
         {
-            new PresetOption<TransitionPreset>("Off (Instant)", "Off", TransitionPreset.Off),
-            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", TransitionPreset.Smoothstep),
-            new PresetOption<TransitionPreset>("Linear", "Linear", TransitionPreset.Linear)
+            new PresetOption<TransitionPreset>("Off (Instant)", "Off", "TransitionOff", TransitionPreset.Off),
+            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", "TransitionSmoothstep", TransitionPreset.Smoothstep),
+            new PresetOption<TransitionPreset>("Linear", "Linear", "TransitionLinear", TransitionPreset.Linear)
         };
 
         private static readonly PresetOption<CameraDistributionPreset>[] CameraDistributionOptions =
         {
-            new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", CameraDistributionPreset.FirstPersonOnly),
-            new PresetOption<CameraDistributionPreset>("Mixed (Rare Third Person)", "Mixed (Rare Third Person)", CameraDistributionPreset.MostlyFirstPerson),
-            new PresetOption<CameraDistributionPreset>("Mixed", "Mixed", CameraDistributionPreset.Mixed),
-            new PresetOption<CameraDistributionPreset>("Mostly Third Person", "Mostly Third Person", CameraDistributionPreset.MostlyThirdPerson),
-            new PresetOption<CameraDistributionPreset>("Third Person Only", "Third Person Only", CameraDistributionPreset.ThirdPersonOnly)
+            new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", "CameraFirstPersonOnly", CameraDistributionPreset.FirstPersonOnly),
+            new PresetOption<CameraDistributionPreset>("Mixed (Rare Third Person)", "Mixed (Rare Third Person)", "CameraMostlyFirstPerson", CameraDistributionPreset.MostlyFirstPerson),
+            new PresetOption<CameraDistributionPreset>("Mixed", "Mixed", "CameraMixed", CameraDistributionPreset.Mixed),
+            new PresetOption<CameraDistributionPreset>("Mostly Third Person", "Mostly Third Person", "CameraMostlyThirdPerson", CameraDistributionPreset.MostlyThirdPerson),
+            new PresetOption<CameraDistributionPreset>("Third Person Only", "Third Person Only", "CameraThirdPersonOnly", CameraDistributionPreset.ThirdPersonOnly)
         };
 
         private static readonly Dictionary<string, Preset> IntensityPresetMap = BuildPresetMap(IntensityPresetOptions,
@@ -371,13 +380,13 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
-                new ModOptionString(TriggerBasicKill, TriggerBasicKill),
-                new ModOptionString(TriggerCriticalKill, TriggerCriticalKill),
-                new ModOptionString(TriggerDismemberment, TriggerDismemberment),
-                new ModOptionString(TriggerDecapitation, TriggerDecapitation),
-                new ModOptionString(TriggerParry, TriggerParry),
-                new ModOptionString(TriggerLastEnemy, TriggerLastEnemy),
-                new ModOptionString(TriggerLastStand, TriggerLastStand)
+                new ModOptionString(TriggerBasicKill, nameof(TriggerBasicKill), TriggerBasicKill),
+                new ModOptionString(TriggerCriticalKill, nameof(TriggerCriticalKill), TriggerCriticalKill),
+                new ModOptionString(TriggerDismemberment, nameof(TriggerDismemberment), TriggerDismemberment),
+                new ModOptionString(TriggerDecapitation, nameof(TriggerDecapitation), TriggerDecapitation),
+                new ModOptionString(TriggerParry, nameof(TriggerParry), TriggerParry),
+                new ModOptionString(TriggerLastEnemy, nameof(TriggerLastEnemy), TriggerLastEnemy),
+                new ModOptionString(TriggerLastStand, nameof(TriggerLastStand), TriggerLastStand)
             };
         }
 
@@ -405,9 +414,9 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
-                new ModOptionString("Off", "Off"),
-                new ModOptionString("Smoothstep", "Smoothstep"),
-                new ModOptionString("Linear", "Linear")
+                new ModOptionString("Off", "EasingOff", "Off"),
+                new ModOptionString("Smoothstep", "EasingSmoothstep", "Smoothstep"),
+                new ModOptionString("Linear", "EasingLinear", "Linear")
             };
         }
 
