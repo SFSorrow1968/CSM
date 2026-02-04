@@ -1,6 +1,7 @@
 {
   "$type": "ThunderRoad.TextData, ThunderRoad",
   "id": "CSM_Options",
+  "version": 1,
   "groupId": "CSM_Options",
   "textList": [
     {
