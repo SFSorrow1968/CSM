@@ -70,11 +70,23 @@
       <HintPath>libs\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>libs\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
   <!-- Harmony removed - using EventManager events for all builds -->
 
   <!-- Newtonsoft.Json removed - using ModOptions for all configuration -->
+
+  <!-- Copy localization TextData files to output -->
+  <ItemGroup>
+    <Content Include="Texts\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Texts\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
 
   <!-- Post-build messages -->
   <Target Name="PostBuildMessage" AfterTargets="Build">
