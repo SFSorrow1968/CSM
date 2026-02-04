@@ -139,12 +139,10 @@ def main():
                     text = strip_emoji(translations[old_id][csv_col])
                     text_list.append({"id": new_id, "text": text})
 
-        # Create the JSON structure
+        # Create the JSON structure (minimal fields only)
         data = {
             "$type": "ThunderRoad.TextData, ThunderRoad",
             "id": GROUP_ID,
-            "sensitiveContent": "None",
-            "sensitiveFilterBehaviour": "None",
             "groupId": GROUP_ID,
             "textList": text_list
         }

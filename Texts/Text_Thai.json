@@ -1,8 +1,6 @@
 {
   "$type": "ThunderRoad.TextData, ThunderRoad",
   "id": "CSM_Options",
-  "sensitiveContent": "None",
-  "sensitiveFilterBehaviour": "None",
   "groupId": "CSM_Options",
   "textList": [
     {
