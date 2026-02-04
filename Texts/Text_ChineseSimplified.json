@@ -7,159 +7,159 @@
   "textList": [
     {
       "id": "CSM_Options.CameraFirstPersonOnly",
-      "text": "First Person Only"
+      "text": "第一人称视角"
     },
     {
       "id": "CSM_Options.CameraMixed",
-      "text": "Mixed"
+      "text": "混合"
     },
     {
       "id": "CSM_Options.CameraMixedRare",
-      "text": "Mixed (Rare Third Person)"
+      "text": "混合（罕见的第三人称）"
     },
     {
       "id": "CSM_Options.CameraMostlyThirdPerson",
-      "text": "Mostly Third Person"
+      "text": "大多为第三人称"
     },
     {
       "id": "CSM_Options.CameraThirdPersonOnly",
-      "text": "Third Person Only"
+      "text": "仅限第三人称"
     },
     {
       "id": "CSM_Options.CategoryAdvanced",
-      "text": "Advanced"
+      "text": "高级"
     },
     {
       "id": "CSM_Options.CategoryCustomBasic",
-      "text": "Basic Kill"
+      "text": "基本击杀"
     },
     {
       "id": "CSM_Options.CategoryCustomCritical",
-      "text": "Critical Kill"
+      "text": "致命一击"
     },
     {
       "id": "CSM_Options.CategoryCustomDecapitation",
-      "text": "Decapitation"
+      "text": "斩首"
     },
     {
       "id": "CSM_Options.CategoryCustomDismemberment",
-      "text": "Dismemberment"
+      "text": "►肢解"
     },
     {
       "id": "CSM_Options.CategoryCustomLastEnemy",
-      "text": "Last Enemy"
+      "text": "最后的敌人"
     },
     {
       "id": "CSM_Options.CategoryCustomLastStand",
-      "text": "Last Stand"
+      "text": "最后的抵抗"
     },
     {
       "id": "CSM_Options.CategoryCustomParry",
-      "text": "Parry"
+      "text": "格挡"
     },
     {
       "id": "CSM_Options.CategoryDamageMultipliers",
-      "text": "Damage Modifiers"
+      "text": "伤害修正"
     },
     {
       "id": "CSM_Options.CategoryKillcam",
-      "text": "Killcam"
+      "text": "📷击杀镜头"
     },
     {
       "id": "CSM_Options.CategoryPresetSelection",
-      "text": "Quick Setup"
+      "text": "快速设置"
     },
     {
       "id": "CSM_Options.CategoryTriggers",
-      "text": "Triggers"
+      "text": "触发器"
     },
     {
       "id": "CSM_Options.ChanceDefault",
-      "text": "Default"
+      "text": "默认"
     },
     {
       "id": "CSM_Options.ChanceFrequent",
-      "text": "Frequent"
+      "text": "频繁"
     },
     {
       "id": "CSM_Options.ChanceOff",
-      "text": "Off (Cooldown Only)"
+      "text": "关闭（仅冷却）"
     },
     {
       "id": "CSM_Options.ChanceRare",
-      "text": "Rare"
+      "text": "稀有的"
     },
     {
       "id": "CSM_Options.ChanceVeryRare",
-      "text": "Very Rare"
+      "text": "非常罕见"
     },
     {
       "id": "CSM_Options.CooldownDefault",
-      "text": "Default"
+      "text": "默认"
     },
     {
       "id": "CSM_Options.CooldownExtended",
-      "text": "Extended"
+      "text": "扩展"
     },
     {
       "id": "CSM_Options.CooldownLong",
-      "text": "Long"
+      "text": "长的"
     },
     {
       "id": "CSM_Options.CooldownOff",
-      "text": "Off (No Cooldown)"
+      "text": "关闭（无冷却时间）"
     },
     {
       "id": "CSM_Options.CooldownShort",
-      "text": "Short"
+      "text": "短的"
     },
     {
       "id": "CSM_Options.DurationDefault",
-      "text": "Default"
+      "text": "默认"
     },
     {
       "id": "CSM_Options.DurationExtended",
-      "text": "Extended"
+      "text": "扩展"
     },
     {
       "id": "CSM_Options.DurationLong",
-      "text": "Long"
+      "text": "长的"
     },
     {
       "id": "CSM_Options.DurationShort",
-      "text": "Short"
+      "text": "短的"
     },
     {
       "id": "CSM_Options.DurationVeryShort",
-      "text": "Very Short"
+      "text": "非常短"
     },
     {
       "id": "CSM_Options.PresetCinematic",
-      "text": "Cinematic"
+      "text": "电影"
     },
     {
       "id": "CSM_Options.PresetDefault",
-      "text": "Default"
+      "text": "默认"
     },
     {
       "id": "CSM_Options.PresetDramatic",
-      "text": "Dramatic"
+      "text": "戏剧性"
     },
     {
       "id": "CSM_Options.PresetEpic",
-      "text": "Epic"
+      "text": "史诗"
     },
     {
       "id": "CSM_Options.PresetSubtle",
-      "text": "Subtle"
+      "text": "微妙的"
     },
     {
       "id": "CSM_Options.TransitionLinear",
-      "text": "Linear"
+      "text": "线性"
     },
     {
       "id": "CSM_Options.TransitionOff",
-      "text": "Off (Instant)"
+      "text": "关闭（即时）"
     },
     {
       "id": "CSM_Options.TransitionSmoothstep",
@@ -167,11 +167,11 @@
     },
     {
       "id": "CSM_Options.EasingLinear",
-      "text": "Linear"
+      "text": "线性"
     },
     {
       "id": "CSM_Options.EasingOff",
-      "text": "Off"
+      "text": "离开"
     },
     {
       "id": "CSM_Options.EasingSmoothstep",
@@ -179,599 +179,599 @@
     },
     {
       "id": "CSM_Options.OptionBasicChance",
-      "text": "Basic Chance"
+      "text": "基本机会"
     },
     {
       "id": "CSM_Options.OptionBasicCooldown",
-      "text": "Basic Cooldown"
+      "text": "基础冷却时间"
     },
     {
       "id": "CSM_Options.OptionBasicDuration",
-      "text": "Basic Duration"
+      "text": "基本时长"
     },
     {
       "id": "CSM_Options.OptionBasicThirdPerson",
-      "text": "Basic Third Person"
+      "text": "基本第三人称"
     },
     {
       "id": "CSM_Options.OptionBasicTimeScale",
-      "text": "Basic Time Scale"
+      "text": "基本时间尺度"
     },
     {
       "id": "CSM_Options.OptionBasicTransition",
-      "text": "Basic Transition"
+      "text": "基本过渡"
     },
     {
       "id": "CSM_Options.OptionBluntMultiplier",
-      "text": "Blunt Multiplier"
+      "text": "钝化倍增器"
     },
     {
       "id": "CSM_Options.OptionCameraDistance",
-      "text": "Camera Distance"
+      "text": "相机距离"
     },
     {
       "id": "CSM_Options.OptionCameraHeight",
-      "text": "Camera Height"
+      "text": "摄像机高度"
     },
     {
       "id": "CSM_Options.OptionChancePreset",
-      "text": "Chance Preset"
+      "text": "机会预设"
     },
     {
       "id": "CSM_Options.OptionCooldownPreset",
-      "text": "Cooldown Preset"
+      "text": "冷却预设"
     },
     {
       "id": "CSM_Options.OptionCriticalChance",
-      "text": "Critical Chance"
+      "text": "暴击几率"
     },
     {
       "id": "CSM_Options.OptionCriticalCooldown",
-      "text": "Critical Cooldown"
+      "text": "关键冷却时间"
     },
     {
       "id": "CSM_Options.OptionCriticalDuration",
-      "text": "Critical Duration"
+      "text": "临界持续时间"
     },
     {
       "id": "CSM_Options.OptionCriticalThirdPerson",
-      "text": "Critical Third Person"
+      "text": "批判性第三人称"
     },
     {
       "id": "CSM_Options.OptionCriticalTimeScale",
-      "text": "Critical Time Scale"
+      "text": "临界时间尺度"
     },
     {
       "id": "CSM_Options.OptionCriticalTransition",
-      "text": "Critical Transition"
+      "text": "关键过渡"
     },
     {
       "id": "CSM_Options.OptionDOTMultiplier",
-      "text": "DOT Multiplier"
+      "text": "点乘数"
     },
     {
       "id": "CSM_Options.OptionDebugLogging",
-      "text": "Debug Logging"
+      "text": "调试日志"
     },
     {
       "id": "CSM_Options.OptionDebugOverlay",
-      "text": "Debug Overlay"
+      "text": "调试叠加层"
     },
     {
       "id": "CSM_Options.OptionDecapChance",
-      "text": "Decap Chance"
+      "text": "斩首机会"
     },
     {
       "id": "CSM_Options.OptionDecapCooldown",
-      "text": "Decap Cooldown"
+      "text": "斩首冷却"
     },
     {
       "id": "CSM_Options.OptionDecapDuration",
-      "text": "Decap Duration"
+      "text": "斩首持续时间"
     },
     {
       "id": "CSM_Options.OptionDecapThirdPerson",
-      "text": "Decap Third Person"
+      "text": "斩首第三人称"
     },
     {
       "id": "CSM_Options.OptionDecapTimeScale",
-      "text": "Decap Time Scale"
+      "text": "斩首时间尺度"
     },
     {
       "id": "CSM_Options.OptionDecapTransition",
-      "text": "Decap Transition"
+      "text": "脱帽过渡"
     },
     {
       "id": "CSM_Options.OptionDismemberChance",
-      "text": "Dismember Chance"
+      "text": "肢解机会"
     },
     {
       "id": "CSM_Options.OptionDismemberCooldown",
-      "text": "Dismember Cooldown"
+      "text": "肢解冷却"
     },
     {
       "id": "CSM_Options.OptionDismemberDuration",
-      "text": "Dismember Duration"
+      "text": "肢解持续时间"
     },
     {
       "id": "CSM_Options.OptionDismemberThirdPerson",
-      "text": "Dismember Third Person"
+      "text": "肢解第三人"
     },
     {
       "id": "CSM_Options.OptionDismemberTimeScale",
-      "text": "Dismember Time Scale"
+      "text": "肢解时间尺度"
     },
     {
       "id": "CSM_Options.OptionDismemberTransition",
-      "text": "Dismember Transition"
+      "text": "肢解过渡"
     },
     {
       "id": "CSM_Options.OptionDurationPreset",
-      "text": "Duration Preset"
+      "text": "持续时间预设"
     },
     {
       "id": "CSM_Options.OptionElementalMultiplier",
-      "text": "Elemental Multiplier"
+      "text": "元素倍增器"
     },
     {
       "id": "CSM_Options.OptionEnableMod",
-      "text": "Enable Mod"
+      "text": "启用模组"
     },
     {
       "id": "CSM_Options.OptionIntensityPreset",
-      "text": "Intensity Preset"
+      "text": "强度预设"
     },
     {
       "id": "CSM_Options.OptionIntensityScalingEnabled",
-      "text": "Intensity Scaling"
+      "text": "强度缩放"
     },
     {
       "id": "CSM_Options.OptionIntensityScalingMax",
-      "text": "Max Intensity Multiplier"
+      "text": "最大强度倍增器"
     },
     {
       "id": "CSM_Options.OptionLastEnemyChance",
-      "text": "LastEnemy Chance"
+      "text": "最后敌人的机会"
     },
     {
       "id": "CSM_Options.OptionLastEnemyCooldown",
-      "text": "LastEnemy Cooldown"
+      "text": "最后敌人冷却时间"
     },
     {
       "id": "CSM_Options.OptionLastEnemyDuration",
-      "text": "LastEnemy Duration"
+      "text": "LastEnemy 持续时间"
     },
     {
       "id": "CSM_Options.OptionLastEnemyThirdPerson",
-      "text": "LastEnemy Third Person"
+      "text": "《最后的敌人》第三人称"
     },
     {
       "id": "CSM_Options.OptionLastEnemyTimeScale",
-      "text": "LastEnemy Time Scale"
+      "text": "LastEney 时间尺度"
     },
     {
       "id": "CSM_Options.OptionLastEnemyTransition",
-      "text": "LastEnemy Transition"
+      "text": "最后敌人过渡"
     },
     {
       "id": "CSM_Options.OptionLastStandCooldown",
-      "text": "LastStand Cooldown"
+      "text": "最后抵抗冷却时间"
     },
     {
       "id": "CSM_Options.OptionLastStandDuration",
-      "text": "LastStand Duration"
+      "text": "最后抵抗持续时间"
     },
     {
       "id": "CSM_Options.OptionLastStandThreshold",
-      "text": "Last Stand Threshold"
+      "text": "最后防线阈值"
     },
     {
       "id": "CSM_Options.OptionLastStandTimeScale",
-      "text": "LastStand Time Scale"
+      "text": "最后防线时间尺度"
     },
     {
       "id": "CSM_Options.OptionLastStandTransition",
-      "text": "LastStand Transition"
+      "text": "最后防线过渡"
     },
     {
       "id": "CSM_Options.OptionOrbitSpeed",
-      "text": "Orbit Speed"
+      "text": "轨道速度"
     },
     {
       "id": "CSM_Options.OptionParryChance",
-      "text": "Parry Chance"
+      "text": "格挡机会"
     },
     {
       "id": "CSM_Options.OptionParryCooldown",
-      "text": "Parry Cooldown"
+      "text": "招架冷却时间"
     },
     {
       "id": "CSM_Options.OptionParryDuration",
-      "text": "Parry Duration"
+      "text": "格挡持续时间"
     },
     {
       "id": "CSM_Options.OptionParryTimeScale",
-      "text": "Parry Time Scale"
+      "text": "格挡时间尺度"
     },
     {
       "id": "CSM_Options.OptionParryTransition",
-      "text": "Parry Transition"
+      "text": "格挡过渡"
     },
     {
       "id": "CSM_Options.OptionPierceMultiplier",
-      "text": "Pierce Multiplier"
+      "text": "皮尔斯倍增器"
     },
     {
       "id": "CSM_Options.OptionQuickTestNow",
-      "text": "Quick Test Now"
+      "text": "立即快速测试"
     },
     {
       "id": "CSM_Options.OptionQuickTestTrigger",
-      "text": "Quick Test Trigger"
+      "text": "快速测试触发器"
     },
     {
       "id": "CSM_Options.OptionRandomizeDistance",
-      "text": "Randomize Distance"
+      "text": "随机化距离"
     },
     {
       "id": "CSM_Options.OptionRandomizeHeight",
-      "text": "Randomize Height"
+      "text": "随机高度"
     },
     {
       "id": "CSM_Options.OptionSlashMultiplier",
-      "text": "Slash Multiplier"
+      "text": "斜杠倍率"
     },
     {
       "id": "CSM_Options.OptionThirdPersonDistribution",
-      "text": "Third Person Distribution"
+      "text": "第三方分销"
     },
     {
       "id": "CSM_Options.OptionThrownMultiplier",
-      "text": "Projectile/Thrown Multiplier"
+      "text": "投射物/投掷物倍率"
     },
     {
       "id": "CSM_Options.OptionTransitionPreset",
-      "text": "Transition Preset"
+      "text": "过渡预设"
     },
     {
       "id": "CSM_Options.OptionTriggerProfile",
-      "text": "Trigger Profile"
+      "text": "触发配置文件"
     },
     {
       "id": "CSM_Options.ProfileAll",
-      "text": "All Triggers"
+      "text": "所有触发器"
     },
     {
       "id": "CSM_Options.ProfileHighlights",
-      "text": "Highlights"
+      "text": "精彩片段"
     },
     {
       "id": "CSM_Options.ProfileKillsOnly",
-      "text": "Kills Only"
+      "text": "仅杀戮"
     },
     {
       "id": "CSM_Options.ProfileLastEnemyOnly",
-      "text": "Last Enemy Only"
+      "text": "仅最后敌人"
     },
     {
       "id": "CSM_Options.ProfileParryOnly",
-      "text": "Parry Only"
+      "text": "仅格挡"
     },
     {
       "id": "CSM_Options.TooltipBasicChance",
-      "text": "Chance to trigger"
+      "text": "触发几率"
     },
     {
       "id": "CSM_Options.TooltipBasicCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipBasicDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipBasicThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "第三人称击杀回放频率倍增器（0% 禁用）"
     },
     {
       "id": "CSM_Options.TooltipBasicTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipBasicTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipBluntMultiplier",
-      "text": "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type."
+      "text": "钝击伤害（冲击）倍率。0x 表示该类型伤害不触发慢动作效果。"
     },
     {
       "id": "CSM_Options.TooltipCameraDistance",
-      "text": "Distance from target"
+      "text": "与目标的距离"
     },
     {
       "id": "CSM_Options.TooltipCameraHeight",
-      "text": "Height offset"
+      "text": "高度偏移"
     },
     {
       "id": "CSM_Options.TooltipChancePreset",
-      "text": "Sets per-trigger chance values. Off means chance is ignored (cooldown only)."
+      "text": "设置每次触发的几率值。关闭表示忽略几率（仅考虑冷却时间）。"
     },
     {
       "id": "CSM_Options.TooltipCooldownPreset",
-      "text": "Sets per-trigger cooldown values. Off disables cooldown."
+      "text": "设置每次触发的冷却时间。关闭则禁用冷却时间。"
     },
     {
       "id": "CSM_Options.TooltipCriticalChance",
-      "text": "Chance to trigger"
+      "text": "触发几率"
     },
     {
       "id": "CSM_Options.TooltipCriticalCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipCriticalDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipCriticalThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "第三人称击杀回放频率倍增器（0% 禁用）"
     },
     {
       "id": "CSM_Options.TooltipCriticalTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipCriticalTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipDOTMultiplier",
-      "text": "Multiplier for DOT kills (CDoT mod). Only applies when CDoT is installed. 0x disables slow-mo for bleed/burn kills."
+      "text": "持续伤害击杀倍率（CDoT模组）。仅在安装CDoT模组后生效。0x值禁用流血/燃烧击杀的慢动作效果。"
     },
     {
       "id": "CSM_Options.TooltipDebugLogging",
-      "text": "Enable verbose debug logging"
+      "text": "启用详细调试日志"
     },
     {
       "id": "CSM_Options.TooltipDebugOverlay",
-      "text": "Show on-screen debug overlay with CSM state"
+      "text": "在屏幕上显示带有 CSM 状态的调试叠加层"
     },
     {
       "id": "CSM_Options.TooltipDecapChance",
-      "text": "Chance to trigger"
+      "text": "触发几率"
     },
     {
       "id": "CSM_Options.TooltipDecapCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipDecapDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipDecapThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "第三人称击杀回放频率倍增器（0% 禁用）"
     },
     {
       "id": "CSM_Options.TooltipDecapTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipDecapTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipDismemberChance",
-      "text": "Chance to trigger"
+      "text": "触发几率"
     },
     {
       "id": "CSM_Options.TooltipDismemberCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipDismemberDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipDismemberThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "第三人称击杀回放频率倍增器（0% 禁用）"
     },
     {
       "id": "CSM_Options.TooltipDismemberTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipDismemberTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipDurationPreset",
-      "text": "Sets per-trigger duration values."
+      "text": "设置每次触发的持续时间值。"
     },
     {
       "id": "CSM_Options.TooltipElementalMultiplier",
-      "text": "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills."
+      "text": "元素伤害倍率（火焰、闪电、能量）。0x 表示禁用元素击杀的慢动作效果。"
     },
     {
       "id": "CSM_Options.TooltipEnableMod",
-      "text": "Master switch for the entire mod"
+      "text": "整个模块的总开关"
     },
     {
       "id": "CSM_Options.TooltipIntensityPreset",
-      "text": "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme"
+      "text": "强度模式。微妙 = 短暂，默认 = 平衡，戏剧性 = 更强，电影级 = 戏剧性，史诗级 = 极致"
     },
     {
       "id": "CSM_Options.TooltipIntensityScalingEnabled",
-      "text": "Scale slow-mo intensity based on impact force. Off by default."
+      "text": "根据冲击力调整慢动作强度。默认关闭。"
     },
     {
       "id": "CSM_Options.TooltipIntensityScalingMax",
-      "text": "Maximum multiplier at full intensity (min is always 1.0x)."
+      "text": "全功率下的最大倍率（最小始终为 1.0x）。"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyChance",
-      "text": "Chance to trigger"
+      "text": "触发几率"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "第三人称击杀回放频率倍增器（0% 禁用）"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipLastStandCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipLastStandDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipLastStandThreshold",
-      "text": "Health % to trigger Last Stand"
+      "text": "触发“背水一战”时的生命值百分比"
     },
     {
       "id": "CSM_Options.TooltipLastStandTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipLastStandTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipOrbitSpeed",
-      "text": "Camera rotation speed (0 for static)"
+      "text": "相机旋转速度（0 表示静止）"
     },
     {
       "id": "CSM_Options.TooltipParryChance",
-      "text": "Chance to trigger"
+      "text": "触发几率"
     },
     {
       "id": "CSM_Options.TooltipParryCooldown",
-      "text": "Cooldown"
+      "text": "冷却"
     },
     {
       "id": "CSM_Options.TooltipParryDuration",
-      "text": "Duration"
+      "text": "期间"
     },
     {
       "id": "CSM_Options.TooltipParryTimeScale",
-      "text": "Time scale"
+      "text": "时间尺度"
     },
     {
       "id": "CSM_Options.TooltipParryTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "过渡曲线（持续时间的 20%）。关闭 = 瞬间。"
     },
     {
       "id": "CSM_Options.TooltipPierceMultiplier",
-      "text": "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type."
+      "text": "穿刺伤害（刺击）倍率。0x 表示该类型伤害不触发慢动作效果。"
     },
     {
       "id": "CSM_Options.TooltipQuickTestNow",
-      "text": "Toggle to fire the selected trigger once"
+      "text": "切换以触发一次选定的触发器"
     },
     {
       "id": "CSM_Options.TooltipQuickTestTrigger",
-      "text": "Which trigger to simulate"
+      "text": "要模拟哪个触发器"
     },
     {
       "id": "CSM_Options.TooltipRandomizeDistance",
-      "text": "Randomize distance per killcam"
+      "text": "随机化每个击杀镜头的距离"
     },
     {
       "id": "CSM_Options.TooltipRandomizeHeight",
-      "text": "Randomize height per killcam"
+      "text": "每个击杀镜头随机调整高度"
     },
     {
       "id": "CSM_Options.TooltipSlashMultiplier",
-      "text": "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type."
+      "text": "劈砍伤害倍率。0x 表示该类型伤害不触发慢动作效果。"
     },
     {
       "id": "CSM_Options.TooltipThirdPersonDistribution",
-      "text": "Controls how often third-person killcam appears."
+      "text": "控制第三人称击杀镜头的出现频率。"
     },
     {
       "id": "CSM_Options.TooltipThrownMultiplier",
-      "text": "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills."
+      "text": "投掷武器（匕首、箭矢、长矛）击杀倍率。0x 表示禁用投掷武器击杀的慢动作效果。"
     },
     {
       "id": "CSM_Options.TooltipTransitionPreset",
-      "text": "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate."
+      "text": "设置每次触发的过渡曲线。关闭 = 瞬时，平滑步进 = 平滑过渡，线性 = 恒定速率。"
     },
     {
       "id": "CSM_Options.TooltipTriggerBasicKill",
-      "text": "Trigger on any enemy kill"
+      "text": "击杀任何敌人时触发"
     },
     {
       "id": "CSM_Options.TooltipTriggerCriticalKill",
-      "text": "Trigger on head/throat kills"
+      "text": "击中头部/喉咙即可致死"
     },
     {
       "id": "CSM_Options.TooltipTriggerDecapitation",
-      "text": "Trigger on decapitation"
+      "text": "斩首触发"
     },
     {
       "id": "CSM_Options.TooltipTriggerDismemberment",
-      "text": "Trigger when severing limbs"
+      "text": "肢体断裂时触发"
     },
     {
       "id": "CSM_Options.TooltipTriggerLastEnemy",
-      "text": "Trigger when killing the final enemy of a wave"
+      "text": "击杀一波敌人中的最后一个敌人时触发。"
     },
     {
       "id": "CSM_Options.TooltipTriggerLastStand",
-      "text": "Trigger when your health drops critically low"
+      "text": "当你的生命值降至极低时触发"
     },
     {
       "id": "CSM_Options.TooltipTriggerParry",
-      "text": "Trigger on successful weapon deflections"
+      "text": "成功偏转武器时触发"
     },
     {
       "id": "CSM_Options.TooltipTriggerProfile",
-      "text": "Which triggers are active. Selecting a profile updates the per-trigger toggles."
+      "text": "哪些触发器处于激活状态？选择配置文件会更新每个触发器的切换设置。"
     },
     {
       "id": "CSM_Options.TriggerBasicKill",
-      "text": "Basic Kill"
+      "text": "基本击杀"
     },
     {
       "id": "CSM_Options.TriggerCriticalKill",
-      "text": "Critical Kill"
+      "text": "致命一击"
     },
     {
       "id": "CSM_Options.TriggerDecapitation",
-      "text": "Decapitation"
+      "text": "斩首"
     },
     {
       "id": "CSM_Options.TriggerDismemberment",
-      "text": "Dismemberment"
+      "text": "肢解"
     },
     {
       "id": "CSM_Options.TriggerLastEnemy",
-      "text": "Last Enemy"
+      "text": "最后敌人"
     },
     {
       "id": "CSM_Options.TriggerLastStand",
-      "text": "Last Stand"
+      "text": "最后一站"
     },
     {
       "id": "CSM_Options.TriggerParry",
-      "text": "Parry"
+      "text": "格挡"
     }
   ]
 }

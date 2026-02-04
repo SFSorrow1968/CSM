@@ -7,771 +7,771 @@
   "textList": [
     {
       "id": "CSM_Options.CameraFirstPersonOnly",
-      "text": "First Person Only"
+      "text": "Sólo en primera persona"
     },
     {
       "id": "CSM_Options.CameraMixed",
-      "text": "Mixed"
+      "text": "Mezclado"
     },
     {
       "id": "CSM_Options.CameraMixedRare",
-      "text": "Mixed (Rare Third Person)"
+      "text": "Mixto (Tercera persona rara)"
     },
     {
       "id": "CSM_Options.CameraMostlyThirdPerson",
-      "text": "Mostly Third Person"
+      "text": "Mayormente en tercera persona"
     },
     {
       "id": "CSM_Options.CameraThirdPersonOnly",
-      "text": "Third Person Only"
+      "text": "Sólo en tercera persona"
     },
     {
       "id": "CSM_Options.CategoryAdvanced",
-      "text": "Advanced"
+      "text": "Avanzado"
     },
     {
       "id": "CSM_Options.CategoryCustomBasic",
-      "text": "Basic Kill"
+      "text": "Muerte básica"
     },
     {
       "id": "CSM_Options.CategoryCustomCritical",
-      "text": "Critical Kill"
+      "text": "Muerte crítica"
     },
     {
       "id": "CSM_Options.CategoryCustomDecapitation",
-      "text": "Decapitation"
+      "text": "Decapitación"
     },
     {
       "id": "CSM_Options.CategoryCustomDismemberment",
-      "text": "Dismemberment"
+      "text": "Desmembramiento"
     },
     {
       "id": "CSM_Options.CategoryCustomLastEnemy",
-      "text": "Last Enemy"
+      "text": "Último enemigo"
     },
     {
       "id": "CSM_Options.CategoryCustomLastStand",
-      "text": "Last Stand"
+      "text": "Última resistencia"
     },
     {
       "id": "CSM_Options.CategoryCustomParry",
-      "text": "Parry"
+      "text": "Parada"
     },
     {
       "id": "CSM_Options.CategoryDamageMultipliers",
-      "text": "Damage Modifiers"
+      "text": "Modificadores de daño"
     },
     {
       "id": "CSM_Options.CategoryKillcam",
-      "text": "Killcam"
+      "text": "Cámara de muerte"
     },
     {
       "id": "CSM_Options.CategoryPresetSelection",
-      "text": "Quick Setup"
+      "text": "Configuración rápida"
     },
     {
       "id": "CSM_Options.CategoryTriggers",
-      "text": "Triggers"
+      "text": "Desencadenantes"
     },
     {
       "id": "CSM_Options.ChanceDefault",
-      "text": "Default"
+      "text": "Por defecto"
     },
     {
       "id": "CSM_Options.ChanceFrequent",
-      "text": "Frequent"
+      "text": "Frecuente"
     },
     {
       "id": "CSM_Options.ChanceOff",
-      "text": "Off (Cooldown Only)"
+      "text": "Desactivado (solo tiempo de reutilización)"
     },
     {
       "id": "CSM_Options.ChanceRare",
-      "text": "Rare"
+      "text": "Extraño"
     },
     {
       "id": "CSM_Options.ChanceVeryRare",
-      "text": "Very Rare"
+      "text": "Muy raro"
     },
     {
       "id": "CSM_Options.CooldownDefault",
-      "text": "Default"
+      "text": "Por defecto"
     },
     {
       "id": "CSM_Options.CooldownExtended",
-      "text": "Extended"
+      "text": "Extendido"
     },
     {
       "id": "CSM_Options.CooldownLong",
-      "text": "Long"
+      "text": "Largo"
     },
     {
       "id": "CSM_Options.CooldownOff",
-      "text": "Off (No Cooldown)"
+      "text": "Apagado (sin tiempo de reutilización)"
     },
     {
       "id": "CSM_Options.CooldownShort",
-      "text": "Short"
+      "text": "Corto"
     },
     {
       "id": "CSM_Options.DurationDefault",
-      "text": "Default"
+      "text": "Por defecto"
     },
     {
       "id": "CSM_Options.DurationExtended",
-      "text": "Extended"
+      "text": "Extendido"
     },
     {
       "id": "CSM_Options.DurationLong",
-      "text": "Long"
+      "text": "Largo"
     },
     {
       "id": "CSM_Options.DurationShort",
-      "text": "Short"
+      "text": "Corto"
     },
     {
       "id": "CSM_Options.DurationVeryShort",
-      "text": "Very Short"
+      "text": "Muy corto"
     },
     {
       "id": "CSM_Options.PresetCinematic",
-      "text": "Cinematic"
+      "text": "Cinematográfico"
     },
     {
       "id": "CSM_Options.PresetDefault",
-      "text": "Default"
+      "text": "Por defecto"
     },
     {
       "id": "CSM_Options.PresetDramatic",
-      "text": "Dramatic"
+      "text": "Dramático"
     },
     {
       "id": "CSM_Options.PresetEpic",
-      "text": "Epic"
+      "text": "Épico"
     },
     {
       "id": "CSM_Options.PresetSubtle",
-      "text": "Subtle"
+      "text": "Sutil"
     },
     {
       "id": "CSM_Options.TransitionLinear",
-      "text": "Linear"
+      "text": "Lineal"
     },
     {
       "id": "CSM_Options.TransitionOff",
-      "text": "Off (Instant)"
+      "text": "Apagado (instantáneo)"
     },
     {
       "id": "CSM_Options.TransitionSmoothstep",
-      "text": "Smoothstep"
+      "text": "Paso suave"
     },
     {
       "id": "CSM_Options.EasingLinear",
-      "text": "Linear"
+      "text": "Lineal"
     },
     {
       "id": "CSM_Options.EasingOff",
-      "text": "Off"
+      "text": "Apagado"
     },
     {
       "id": "CSM_Options.EasingSmoothstep",
-      "text": "Smoothstep"
+      "text": "Paso suave"
     },
     {
       "id": "CSM_Options.OptionBasicChance",
-      "text": "Basic Chance"
+      "text": "Oportunidad básica"
     },
     {
       "id": "CSM_Options.OptionBasicCooldown",
-      "text": "Basic Cooldown"
+      "text": "Enfriamiento básico"
     },
     {
       "id": "CSM_Options.OptionBasicDuration",
-      "text": "Basic Duration"
+      "text": "Duración básica"
     },
     {
       "id": "CSM_Options.OptionBasicThirdPerson",
-      "text": "Basic Third Person"
+      "text": "Tercera persona básica"
     },
     {
       "id": "CSM_Options.OptionBasicTimeScale",
-      "text": "Basic Time Scale"
+      "text": "Escala de tiempo básica"
     },
     {
       "id": "CSM_Options.OptionBasicTransition",
-      "text": "Basic Transition"
+      "text": "Transición básica"
     },
     {
       "id": "CSM_Options.OptionBluntMultiplier",
-      "text": "Blunt Multiplier"
+      "text": "Multiplicador contundente"
     },
     {
       "id": "CSM_Options.OptionCameraDistance",
-      "text": "Camera Distance"
+      "text": "Distancia de la cámara"
     },
     {
       "id": "CSM_Options.OptionCameraHeight",
-      "text": "Camera Height"
+      "text": "Altura de la cámara"
     },
     {
       "id": "CSM_Options.OptionChancePreset",
-      "text": "Chance Preset"
+      "text": "Ajuste preestablecido de oportunidad"
     },
     {
       "id": "CSM_Options.OptionCooldownPreset",
-      "text": "Cooldown Preset"
+      "text": "Preajuste de enfriamiento"
     },
     {
       "id": "CSM_Options.OptionCriticalChance",
-      "text": "Critical Chance"
+      "text": "Oportunidad crítica"
     },
     {
       "id": "CSM_Options.OptionCriticalCooldown",
-      "text": "Critical Cooldown"
+      "text": "Tiempo de reutilización crítico"
     },
     {
       "id": "CSM_Options.OptionCriticalDuration",
-      "text": "Critical Duration"
+      "text": "Duración crítica"
     },
     {
       "id": "CSM_Options.OptionCriticalThirdPerson",
-      "text": "Critical Third Person"
+      "text": "Tercera persona crítica"
     },
     {
       "id": "CSM_Options.OptionCriticalTimeScale",
-      "text": "Critical Time Scale"
+      "text": "Escala de tiempo crítica"
     },
     {
       "id": "CSM_Options.OptionCriticalTransition",
-      "text": "Critical Transition"
+      "text": "Transición crítica"
     },
     {
       "id": "CSM_Options.OptionDOTMultiplier",
-      "text": "DOT Multiplier"
+      "text": "Multiplicador DOT"
     },
     {
       "id": "CSM_Options.OptionDebugLogging",
-      "text": "Debug Logging"
+      "text": "Registro de depuración"
     },
     {
       "id": "CSM_Options.OptionDebugOverlay",
-      "text": "Debug Overlay"
+      "text": "Superposición de depuración"
     },
     {
       "id": "CSM_Options.OptionDecapChance",
-      "text": "Decap Chance"
+      "text": "Probabilidad de decapitar"
     },
     {
       "id": "CSM_Options.OptionDecapCooldown",
-      "text": "Decap Cooldown"
+      "text": "Tiempo de reutilización de decap"
     },
     {
       "id": "CSM_Options.OptionDecapDuration",
-      "text": "Decap Duration"
+      "text": "Duración de la descapulación"
     },
     {
       "id": "CSM_Options.OptionDecapThirdPerson",
-      "text": "Decap Third Person"
+      "text": "Decap Tercera persona"
     },
     {
       "id": "CSM_Options.OptionDecapTimeScale",
-      "text": "Decap Time Scale"
+      "text": "Escala de tiempo de descapulación"
     },
     {
       "id": "CSM_Options.OptionDecapTransition",
-      "text": "Decap Transition"
+      "text": "Transición de decap"
     },
     {
       "id": "CSM_Options.OptionDismemberChance",
-      "text": "Dismember Chance"
+      "text": "Desmembrar la oportunidad"
     },
     {
       "id": "CSM_Options.OptionDismemberCooldown",
-      "text": "Dismember Cooldown"
+      "text": "Desmembrar tiempo de reutilización"
     },
     {
       "id": "CSM_Options.OptionDismemberDuration",
-      "text": "Dismember Duration"
+      "text": "Duración del desmembramiento"
     },
     {
       "id": "CSM_Options.OptionDismemberThirdPerson",
-      "text": "Dismember Third Person"
+      "text": "Desmembrar Tercera Persona"
     },
     {
       "id": "CSM_Options.OptionDismemberTimeScale",
-      "text": "Dismember Time Scale"
+      "text": "Escala de tiempo de desmembramiento"
     },
     {
       "id": "CSM_Options.OptionDismemberTransition",
-      "text": "Dismember Transition"
+      "text": "Transición de desmembramiento"
     },
     {
       "id": "CSM_Options.OptionDurationPreset",
-      "text": "Duration Preset"
+      "text": "Preajuste de duración"
     },
     {
       "id": "CSM_Options.OptionElementalMultiplier",
-      "text": "Elemental Multiplier"
+      "text": "Multiplicador elemental"
     },
     {
       "id": "CSM_Options.OptionEnableMod",
-      "text": "Enable Mod"
+      "text": "Habilitar Mod"
     },
     {
       "id": "CSM_Options.OptionIntensityPreset",
-      "text": "Intensity Preset"
+      "text": "Preajuste de intensidad"
     },
     {
       "id": "CSM_Options.OptionIntensityScalingEnabled",
-      "text": "Intensity Scaling"
+      "text": "Escala de intensidad"
     },
     {
       "id": "CSM_Options.OptionIntensityScalingMax",
-      "text": "Max Intensity Multiplier"
+      "text": "Multiplicador de intensidad máxima"
     },
     {
       "id": "CSM_Options.OptionLastEnemyChance",
-      "text": "LastEnemy Chance"
+      "text": "Última oportunidad para el enemigo"
     },
     {
       "id": "CSM_Options.OptionLastEnemyCooldown",
-      "text": "LastEnemy Cooldown"
+      "text": "Tiempo de reutilización del último enemigo"
     },
     {
       "id": "CSM_Options.OptionLastEnemyDuration",
-      "text": "LastEnemy Duration"
+      "text": "Duración del último enemigo"
     },
     {
       "id": "CSM_Options.OptionLastEnemyThirdPerson",
-      "text": "LastEnemy Third Person"
+      "text": "LastEnemy Tercera persona"
     },
     {
       "id": "CSM_Options.OptionLastEnemyTimeScale",
-      "text": "LastEnemy Time Scale"
+      "text": "Escala de tiempo de LastEnemy"
     },
     {
       "id": "CSM_Options.OptionLastEnemyTransition",
-      "text": "LastEnemy Transition"
+      "text": "Transición de LastEnemy"
     },
     {
       "id": "CSM_Options.OptionLastStandCooldown",
-      "text": "LastStand Cooldown"
+      "text": "Tiempo de reutilización de LastStand"
     },
     {
       "id": "CSM_Options.OptionLastStandDuration",
-      "text": "LastStand Duration"
+      "text": "Duración de LastStand"
     },
     {
       "id": "CSM_Options.OptionLastStandThreshold",
-      "text": "Last Stand Threshold"
+      "text": "Umbral de la última resistencia"
     },
     {
       "id": "CSM_Options.OptionLastStandTimeScale",
-      "text": "LastStand Time Scale"
+      "text": "Escala de tiempo de LastStand"
     },
     {
       "id": "CSM_Options.OptionLastStandTransition",
-      "text": "LastStand Transition"
+      "text": "Transición de LastStand"
     },
     {
       "id": "CSM_Options.OptionOrbitSpeed",
-      "text": "Orbit Speed"
+      "text": "Velocidad de órbita"
     },
     {
       "id": "CSM_Options.OptionParryChance",
-      "text": "Parry Chance"
+      "text": "Oportunidad de parada"
     },
     {
       "id": "CSM_Options.OptionParryCooldown",
-      "text": "Parry Cooldown"
+      "text": "Tiempo de reutilización de parada"
     },
     {
       "id": "CSM_Options.OptionParryDuration",
-      "text": "Parry Duration"
+      "text": "Duración de la parada"
     },
     {
       "id": "CSM_Options.OptionParryTimeScale",
-      "text": "Parry Time Scale"
+      "text": "Escala de tiempo de parada"
     },
     {
       "id": "CSM_Options.OptionParryTransition",
-      "text": "Parry Transition"
+      "text": "Transición de parada"
     },
     {
       "id": "CSM_Options.OptionPierceMultiplier",
-      "text": "Pierce Multiplier"
+      "text": "Multiplicador de perforación"
     },
     {
       "id": "CSM_Options.OptionQuickTestNow",
-      "text": "Quick Test Now"
+      "text": "Prueba rápida ahora"
     },
     {
       "id": "CSM_Options.OptionQuickTestTrigger",
-      "text": "Quick Test Trigger"
+      "text": "Disparador de prueba rápida"
     },
     {
       "id": "CSM_Options.OptionRandomizeDistance",
-      "text": "Randomize Distance"
+      "text": "Aleatorizar distancia"
     },
     {
       "id": "CSM_Options.OptionRandomizeHeight",
-      "text": "Randomize Height"
+      "text": "Aleatorizar altura"
     },
     {
       "id": "CSM_Options.OptionSlashMultiplier",
-      "text": "Slash Multiplier"
+      "text": "Multiplicador de barra"
     },
     {
       "id": "CSM_Options.OptionThirdPersonDistribution",
-      "text": "Third Person Distribution"
+      "text": "Distribución en tercera persona"
     },
     {
       "id": "CSM_Options.OptionThrownMultiplier",
-      "text": "Projectile/Thrown Multiplier"
+      "text": "Multiplicador de proyectiles/lanzamientos"
     },
     {
       "id": "CSM_Options.OptionTransitionPreset",
-      "text": "Transition Preset"
+      "text": "Preajuste de transición"
     },
     {
       "id": "CSM_Options.OptionTriggerProfile",
-      "text": "Trigger Profile"
+      "text": "Perfil de activación"
     },
     {
       "id": "CSM_Options.ProfileAll",
-      "text": "All Triggers"
+      "text": "Todos los activadores"
     },
     {
       "id": "CSM_Options.ProfileHighlights",
-      "text": "Highlights"
+      "text": "Reflejos"
     },
     {
       "id": "CSM_Options.ProfileKillsOnly",
-      "text": "Kills Only"
+      "text": "Solo mata"
     },
     {
       "id": "CSM_Options.ProfileLastEnemyOnly",
-      "text": "Last Enemy Only"
+      "text": "Solo el último enemigo"
     },
     {
       "id": "CSM_Options.ProfileParryOnly",
-      "text": "Parry Only"
+      "text": "Solo parada"
     },
     {
       "id": "CSM_Options.TooltipBasicChance",
-      "text": "Chance to trigger"
+      "text": "Posibilidad de activación"
     },
     {
       "id": "CSM_Options.TooltipBasicCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipBasicDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipBasicThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "Multiplicador de frecuencia de cámara de muerte en tercera persona (0 % de desactivación)"
     },
     {
       "id": "CSM_Options.TooltipBasicTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipBasicTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipBluntMultiplier",
-      "text": "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type."
+      "text": "Multiplicador de daño contundente (impactos). 0x desactiva la cámara lenta para este tipo."
     },
     {
       "id": "CSM_Options.TooltipCameraDistance",
-      "text": "Distance from target"
+      "text": "Distancia del objetivo"
     },
     {
       "id": "CSM_Options.TooltipCameraHeight",
-      "text": "Height offset"
+      "text": "Desplazamiento de altura"
     },
     {
       "id": "CSM_Options.TooltipChancePreset",
-      "text": "Sets per-trigger chance values. Off means chance is ignored (cooldown only)."
+      "text": "Establece valores de probabilidad por disparador. Si está desactivado, se ignora la probabilidad (solo tiempo de reutilización)."
     },
     {
       "id": "CSM_Options.TooltipCooldownPreset",
-      "text": "Sets per-trigger cooldown values. Off disables cooldown."
+      "text": "Establece valores de enfriamiento por disparador. Desactivado desactiva el enfriamiento."
     },
     {
       "id": "CSM_Options.TooltipCriticalChance",
-      "text": "Chance to trigger"
+      "text": "Posibilidad de activación"
     },
     {
       "id": "CSM_Options.TooltipCriticalCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipCriticalDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipCriticalThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "Multiplicador de frecuencia de cámara de muerte en tercera persona (0 % de desactivación)"
     },
     {
       "id": "CSM_Options.TooltipCriticalTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipCriticalTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipDOTMultiplier",
-      "text": "Multiplier for DOT kills (CDoT mod). Only applies when CDoT is installed. 0x disables slow-mo for bleed/burn kills."
+      "text": "Multiplicador de bajas por daño en el tiempo (mod CDoT). Solo se aplica cuando CDoT está instalado. 0x desactiva la cámara lenta para bajas por sangrado/quema."
     },
     {
       "id": "CSM_Options.TooltipDebugLogging",
-      "text": "Enable verbose debug logging"
+      "text": "Habilitar el registro de depuración detallado"
     },
     {
       "id": "CSM_Options.TooltipDebugOverlay",
-      "text": "Show on-screen debug overlay with CSM state"
+      "text": "Mostrar la superposición de depuración en pantalla con el estado de CSM"
     },
     {
       "id": "CSM_Options.TooltipDecapChance",
-      "text": "Chance to trigger"
+      "text": "Posibilidad de activación"
     },
     {
       "id": "CSM_Options.TooltipDecapCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipDecapDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipDecapThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "Multiplicador de frecuencia de cámara de muerte en tercera persona (0 % de desactivación)"
     },
     {
       "id": "CSM_Options.TooltipDecapTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipDecapTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipDismemberChance",
-      "text": "Chance to trigger"
+      "text": "Posibilidad de activación"
     },
     {
       "id": "CSM_Options.TooltipDismemberCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipDismemberDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipDismemberThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "Multiplicador de frecuencia de cámara de muerte en tercera persona (0 % de desactivación)"
     },
     {
       "id": "CSM_Options.TooltipDismemberTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipDismemberTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipDurationPreset",
-      "text": "Sets per-trigger duration values."
+      "text": "Establece valores de duración por disparador."
     },
     {
       "id": "CSM_Options.TooltipElementalMultiplier",
-      "text": "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills."
+      "text": "Multiplicador de daño elemental (Fuego, Rayo, Energía). 0x desactiva la cámara lenta para muertes elementales."
     },
     {
       "id": "CSM_Options.TooltipEnableMod",
-      "text": "Master switch for the entire mod"
+      "text": "Interruptor maestro para todo el mod"
     },
     {
       "id": "CSM_Options.TooltipIntensityPreset",
-      "text": "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme"
+      "text": "Perfil de intensidad. Sutil = breve, Predeterminado = equilibrado, Dramático = más intenso, Cinematográfico = dramático, Épico = extremo"
     },
     {
       "id": "CSM_Options.TooltipIntensityScalingEnabled",
-      "text": "Scale slow-mo intensity based on impact force. Off by default."
+      "text": "Ajusta la intensidad de la cámara lenta según la fuerza del impacto. Desactivado por defecto."
     },
     {
       "id": "CSM_Options.TooltipIntensityScalingMax",
-      "text": "Maximum multiplier at full intensity (min is always 1.0x)."
+      "text": "Multiplicador máximo a máxima intensidad (el mínimo es siempre 1,0x)."
     },
     {
       "id": "CSM_Options.TooltipLastEnemyChance",
-      "text": "Chance to trigger"
+      "text": "Posibilidad de activación"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "Multiplicador de frecuencia de cámara de muerte en tercera persona (0 % de desactivación)"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipLastStandCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipLastStandDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipLastStandThreshold",
-      "text": "Health % to trigger Last Stand"
+      "text": "% de salud para activar Última resistencia"
     },
     {
       "id": "CSM_Options.TooltipLastStandTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipLastStandTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipOrbitSpeed",
-      "text": "Camera rotation speed (0 for static)"
+      "text": "Velocidad de rotación de la cámara (0 para estática)"
     },
     {
       "id": "CSM_Options.TooltipParryChance",
-      "text": "Chance to trigger"
+      "text": "Posibilidad de activación"
     },
     {
       "id": "CSM_Options.TooltipParryCooldown",
-      "text": "Cooldown"
+      "text": "Enfriarse"
     },
     {
       "id": "CSM_Options.TooltipParryDuration",
-      "text": "Duration"
+      "text": "Duración"
     },
     {
       "id": "CSM_Options.TooltipParryTimeScale",
-      "text": "Time scale"
+      "text": "Escala de tiempo"
     },
     {
       "id": "CSM_Options.TooltipParryTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "Curva de transición (20% de duración). Apagado = instantáneo."
     },
     {
       "id": "CSM_Options.TooltipPierceMultiplier",
-      "text": "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type."
+      "text": "Multiplicador de daño perforante (puñaladas). 0x desactiva la cámara lenta para este tipo."
     },
     {
       "id": "CSM_Options.TooltipQuickTestNow",
-      "text": "Toggle to fire the selected trigger once"
+      "text": "Alternar para disparar el disparador seleccionado una vez"
     },
     {
       "id": "CSM_Options.TooltipQuickTestTrigger",
-      "text": "Which trigger to simulate"
+      "text": "¿Qué disparador simular?"
     },
     {
       "id": "CSM_Options.TooltipRandomizeDistance",
-      "text": "Randomize distance per killcam"
+      "text": "Aleatorizar la distancia por killcam"
     },
     {
       "id": "CSM_Options.TooltipRandomizeHeight",
-      "text": "Randomize height per killcam"
+      "text": "Aleatorizar la altura por killcam"
     },
     {
       "id": "CSM_Options.TooltipSlashMultiplier",
-      "text": "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type."
+      "text": "Multiplicador de daño cortante (cortes). 0x deshabilita la cámara lenta para este tipo."
     },
     {
       "id": "CSM_Options.TooltipThirdPersonDistribution",
-      "text": "Controls how often third-person killcam appears."
+      "text": "Controla la frecuencia con la que aparece la cámara de muerte en tercera persona."
     },
     {
       "id": "CSM_Options.TooltipThrownMultiplier",
-      "text": "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills."
+      "text": "Multiplicador de muertes por proyectiles o armas arrojadizas (dagas, flechas, lanzas). 0x desactiva la cámara lenta para muertes por proyectiles."
     },
     {
       "id": "CSM_Options.TooltipTransitionPreset",
-      "text": "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate."
+      "text": "Establece la curva de transición por disparo. Desactivado = instantáneo, Paso suave = rampa suave, Lineal = velocidad constante."
     },
     {
       "id": "CSM_Options.TooltipTriggerBasicKill",
-      "text": "Trigger on any enemy kill"
+      "text": "Se activa al matar a cualquier enemigo."
     },
     {
       "id": "CSM_Options.TooltipTriggerCriticalKill",
-      "text": "Trigger on head/throat kills"
+      "text": "El gatillo en la cabeza/garganta mata"
     },
     {
       "id": "CSM_Options.TooltipTriggerDecapitation",
-      "text": "Trigger on decapitation"
+      "text": "Gatillo de decapitación"
     },
     {
       "id": "CSM_Options.TooltipTriggerDismemberment",
-      "text": "Trigger when severing limbs"
+      "text": "Gatillo al cortar extremidades"
     },
     {
       "id": "CSM_Options.TooltipTriggerLastEnemy",
-      "text": "Trigger when killing the final enemy of a wave"
+      "text": "Se activa al matar al último enemigo de una oleada."
     },
     {
       "id": "CSM_Options.TooltipTriggerLastStand",
-      "text": "Trigger when your health drops critically low"
+      "text": "Se activa cuando tu salud cae críticamente"
     },
     {
       "id": "CSM_Options.TooltipTriggerParry",
-      "text": "Trigger on successful weapon deflections"
+      "text": "Disparador en desvíos de armas exitosos"
     },
     {
       "id": "CSM_Options.TooltipTriggerProfile",
-      "text": "Which triggers are active. Selecting a profile updates the per-trigger toggles."
+      "text": "Qué activadores están activos. Al seleccionar un perfil, se actualizan los interruptores de cada activador."
     },
     {
       "id": "CSM_Options.TriggerBasicKill",
-      "text": "Basic Kill"
+      "text": "Muerte básica"
     },
     {
       "id": "CSM_Options.TriggerCriticalKill",
-      "text": "Critical Kill"
+      "text": "Muerte crítica"
     },
     {
       "id": "CSM_Options.TriggerDecapitation",
-      "text": "Decapitation"
+      "text": "Decapitación"
     },
     {
       "id": "CSM_Options.TriggerDismemberment",
-      "text": "Dismemberment"
+      "text": "Desmembramiento"
     },
     {
       "id": "CSM_Options.TriggerLastEnemy",
-      "text": "Last Enemy"
+      "text": "Último enemigo"
     },
     {
       "id": "CSM_Options.TriggerLastStand",
-      "text": "Last Stand"
+      "text": "Última resistencia"
     },
     {
       "id": "CSM_Options.TriggerParry",
-      "text": "Parry"
+      "text": "Parar"
     }
   ]
 }

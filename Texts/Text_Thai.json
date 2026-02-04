@@ -1,0 +1,777 @@
+{
+  "$type": "ThunderRoad.TextData, ThunderRoad",
+  "id": "CSM_Options",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "None",
+  "groupId": "CSM_Options",
+  "textList": [
+    {
+      "id": "CSM_Options.CameraFirstPersonOnly",
+      "text": "มุมมองบุคคลที่หนึ่งเท่านั้น"
+    },
+    {
+      "id": "CSM_Options.CameraMixed",
+      "text": "ผสม"
+    },
+    {
+      "id": "CSM_Options.CameraMixedRare",
+      "text": "ผสม (บุคคลที่สามที่หายาก)"
+    },
+    {
+      "id": "CSM_Options.CameraMostlyThirdPerson",
+      "text": "ส่วนใหญ่เป็นการมองจากมุมมองบุคคลที่สาม"
+    },
+    {
+      "id": "CSM_Options.CameraThirdPersonOnly",
+      "text": "บุคคลที่สามเท่านั้น"
+    },
+    {
+      "id": "CSM_Options.CategoryAdvanced",
+      "text": "ขั้นสูง"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomBasic",
+      "text": "การสังหารขั้นพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomCritical",
+      "text": "สังหารอย่างเด็ดขาด"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomDecapitation",
+      "text": "การตัดหัว"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomDismemberment",
+      "text": "การตัดแขนตัดขา"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomLastEnemy",
+      "text": "ศัตรูตัวสุดท้าย"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomLastStand",
+      "text": "การต่อสู้ครั้งสุดท้าย"
+    },
+    {
+      "id": "CSM_Options.CategoryCustomParry",
+      "text": "แพร์รี่"
+    },
+    {
+      "id": "CSM_Options.CategoryDamageMultipliers",
+      "text": "ตัวปรับค่าความเสียหาย"
+    },
+    {
+      "id": "CSM_Options.CategoryKillcam",
+      "text": "Killcam"
+    },
+    {
+      "id": "CSM_Options.CategoryPresetSelection",
+      "text": "ตั้งค่าอย่างรวดเร็ว"
+    },
+    {
+      "id": "CSM_Options.CategoryTriggers",
+      "text": "ตัวกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.ChanceDefault",
+      "text": "ค่าเริ่มต้น"
+    },
+    {
+      "id": "CSM_Options.ChanceFrequent",
+      "text": "บ่อย"
+    },
+    {
+      "id": "CSM_Options.ChanceOff",
+      "text": "ปิด (เฉพาะช่วงคูลดาวน์)"
+    },
+    {
+      "id": "CSM_Options.ChanceRare",
+      "text": "หายาก"
+    },
+    {
+      "id": "CSM_Options.ChanceVeryRare",
+      "text": "หายากมาก"
+    },
+    {
+      "id": "CSM_Options.CooldownDefault",
+      "text": "ค่าเริ่มต้น"
+    },
+    {
+      "id": "CSM_Options.CooldownExtended",
+      "text": "ขยาย"
+    },
+    {
+      "id": "CSM_Options.CooldownLong",
+      "text": "ยาว"
+    },
+    {
+      "id": "CSM_Options.CooldownOff",
+      "text": "ปิด (ไม่มีระยะเวลาคูลดาวน์)"
+    },
+    {
+      "id": "CSM_Options.CooldownShort",
+      "text": "สั้น"
+    },
+    {
+      "id": "CSM_Options.DurationDefault",
+      "text": "ค่าเริ่มต้น"
+    },
+    {
+      "id": "CSM_Options.DurationExtended",
+      "text": "ขยาย"
+    },
+    {
+      "id": "CSM_Options.DurationLong",
+      "text": "ยาว"
+    },
+    {
+      "id": "CSM_Options.DurationShort",
+      "text": "สั้น"
+    },
+    {
+      "id": "CSM_Options.DurationVeryShort",
+      "text": "สั้นมาก"
+    },
+    {
+      "id": "CSM_Options.PresetCinematic",
+      "text": "ภาพยนตร์"
+    },
+    {
+      "id": "CSM_Options.PresetDefault",
+      "text": "ค่าเริ่มต้น"
+    },
+    {
+      "id": "CSM_Options.PresetDramatic",
+      "text": "น่าทึ่ง"
+    },
+    {
+      "id": "CSM_Options.PresetEpic",
+      "text": "มหากาพย์"
+    },
+    {
+      "id": "CSM_Options.PresetSubtle",
+      "text": "ละเอียดอ่อน"
+    },
+    {
+      "id": "CSM_Options.TransitionLinear",
+      "text": "เชิงเส้น"
+    },
+    {
+      "id": "CSM_Options.TransitionOff",
+      "text": "ปิด (ทันที)"
+    },
+    {
+      "id": "CSM_Options.TransitionSmoothstep",
+      "text": "สมูทสเต็ป"
+    },
+    {
+      "id": "CSM_Options.EasingLinear",
+      "text": "เชิงเส้น"
+    },
+    {
+      "id": "CSM_Options.EasingOff",
+      "text": "ปิด"
+    },
+    {
+      "id": "CSM_Options.EasingSmoothstep",
+      "text": "สมูทสเต็ป"
+    },
+    {
+      "id": "CSM_Options.OptionBasicChance",
+      "text": "โอกาสพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.OptionBasicCooldown",
+      "text": "คูลดาวน์พื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.OptionBasicDuration",
+      "text": "ระยะเวลาพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.OptionBasicThirdPerson",
+      "text": "บุคคลที่สามขั้นพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.OptionBasicTimeScale",
+      "text": "มาตราเวลาพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.OptionBasicTransition",
+      "text": "การเปลี่ยนผ่านขั้นพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.OptionBluntMultiplier",
+      "text": "ตัวคูณทื่อ"
+    },
+    {
+      "id": "CSM_Options.OptionCameraDistance",
+      "text": "ระยะห่างของกล้อง"
+    },
+    {
+      "id": "CSM_Options.OptionCameraHeight",
+      "text": "ความสูงของกล้อง"
+    },
+    {
+      "id": "CSM_Options.OptionChancePreset",
+      "text": "ค่าที่ตั้งไว้ล่วงหน้าของโอกาส"
+    },
+    {
+      "id": "CSM_Options.OptionCooldownPreset",
+      "text": "ค่าที่ตั้งไว้ล่วงหน้าสำหรับคูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.OptionCriticalChance",
+      "text": "โอกาสวิกฤติ"
+    },
+    {
+      "id": "CSM_Options.OptionCriticalCooldown",
+      "text": "คูลดาวน์วิกฤต"
+    },
+    {
+      "id": "CSM_Options.OptionCriticalDuration",
+      "text": "ระยะเวลาวิกฤต"
+    },
+    {
+      "id": "CSM_Options.OptionCriticalThirdPerson",
+      "text": "บุคคลที่สามเชิงวิพากษ์"
+    },
+    {
+      "id": "CSM_Options.OptionCriticalTimeScale",
+      "text": "มาตราเวลาวิกฤต"
+    },
+    {
+      "id": "CSM_Options.OptionCriticalTransition",
+      "text": "การเปลี่ยนผ่านที่สำคัญ"
+    },
+    {
+      "id": "CSM_Options.OptionDOTMultiplier",
+      "text": "ตัวคูณดอท"
+    },
+    {
+      "id": "CSM_Options.OptionDebugLogging",
+      "text": "การบันทึกข้อมูลการแก้ไขข้อผิดพลาด"
+    },
+    {
+      "id": "CSM_Options.OptionDebugOverlay",
+      "text": "โอเวอร์เลย์ดีบัก"
+    },
+    {
+      "id": "CSM_Options.OptionDecapChance",
+      "text": "เดแคป แชนซ์"
+    },
+    {
+      "id": "CSM_Options.OptionDecapCooldown",
+      "text": "คูลดาวน์การถอดหัว"
+    },
+    {
+      "id": "CSM_Options.OptionDecapDuration",
+      "text": "ระยะเวลาการตัดหัว"
+    },
+    {
+      "id": "CSM_Options.OptionDecapThirdPerson",
+      "text": "เดแคป บุคคลที่สาม"
+    },
+    {
+      "id": "CSM_Options.OptionDecapTimeScale",
+      "text": "มาตราเวลาตัดหัว"
+    },
+    {
+      "id": "CSM_Options.OptionDecapTransition",
+      "text": "การเปลี่ยนผ่านแบบ Decap"
+    },
+    {
+      "id": "CSM_Options.OptionDismemberChance",
+      "text": "โอกาสที่อวัยวะจะขาด"
+    },
+    {
+      "id": "CSM_Options.OptionDismemberCooldown",
+      "text": "คูลดาวน์การตัดแขนขา"
+    },
+    {
+      "id": "CSM_Options.OptionDismemberDuration",
+      "text": "ระยะเวลาการตัดแขนขา"
+    },
+    {
+      "id": "CSM_Options.OptionDismemberThirdPerson",
+      "text": "บุคคลที่สามตัดแขนขา"
+    },
+    {
+      "id": "CSM_Options.OptionDismemberTimeScale",
+      "text": "มาตราส่วนเวลาการแยกชิ้นส่วน"
+    },
+    {
+      "id": "CSM_Options.OptionDismemberTransition",
+      "text": "การเปลี่ยนผ่านแบบแยกส่วน"
+    },
+    {
+      "id": "CSM_Options.OptionDurationPreset",
+      "text": "ระยะเวลาที่ตั้งไว้ล่วงหน้า"
+    },
+    {
+      "id": "CSM_Options.OptionElementalMultiplier",
+      "text": "ตัวคูณธาตุ"
+    },
+    {
+      "id": "CSM_Options.OptionEnableMod",
+      "text": "เปิดใช้งานม็อด"
+    },
+    {
+      "id": "CSM_Options.OptionIntensityPreset",
+      "text": "การตั้งค่าความเข้มล่วงหน้า"
+    },
+    {
+      "id": "CSM_Options.OptionIntensityScalingEnabled",
+      "text": "การปรับขนาดความเข้มข้น"
+    },
+    {
+      "id": "CSM_Options.OptionIntensityScalingMax",
+      "text": "ตัวคูณความเข้มสูงสุด"
+    },
+    {
+      "id": "CSM_Options.OptionLastEnemyChance",
+      "text": "โอกาสสุดท้ายกับศัตรู"
+    },
+    {
+      "id": "CSM_Options.OptionLastEnemyCooldown",
+      "text": "คูลดาวน์ LastEnemy"
+    },
+    {
+      "id": "CSM_Options.OptionLastEnemyDuration",
+      "text": "ระยะเวลา LastEnemy"
+    },
+    {
+      "id": "CSM_Options.OptionLastEnemyThirdPerson",
+      "text": "LastEnemy บุคคลที่สาม"
+    },
+    {
+      "id": "CSM_Options.OptionLastEnemyTimeScale",
+      "text": "มาตราเวลา LastEnemy"
+    },
+    {
+      "id": "CSM_Options.OptionLastEnemyTransition",
+      "text": "LastEnemy Transition"
+    },
+    {
+      "id": "CSM_Options.OptionLastStandCooldown",
+      "text": "คูลดาวน์ LastStand"
+    },
+    {
+      "id": "CSM_Options.OptionLastStandDuration",
+      "text": "ระยะเวลา LastStand"
+    },
+    {
+      "id": "CSM_Options.OptionLastStandThreshold",
+      "text": "ขีดจำกัดการต่อสู้ครั้งสุดท้าย"
+    },
+    {
+      "id": "CSM_Options.OptionLastStandTimeScale",
+      "text": "มาตราเวลา LastStand"
+    },
+    {
+      "id": "CSM_Options.OptionLastStandTransition",
+      "text": "การเปลี่ยนผ่าน LastStand"
+    },
+    {
+      "id": "CSM_Options.OptionOrbitSpeed",
+      "text": "ความเร็ววงโคจร"
+    },
+    {
+      "id": "CSM_Options.OptionParryChance",
+      "text": "แพร์รี่ แชนซ์"
+    },
+    {
+      "id": "CSM_Options.OptionParryCooldown",
+      "text": "คูลดาวน์การปัดป้อง"
+    },
+    {
+      "id": "CSM_Options.OptionParryDuration",
+      "text": "ระยะเวลาการปัดป้อง"
+    },
+    {
+      "id": "CSM_Options.OptionParryTimeScale",
+      "text": "มาตราเวลาของ Parry"
+    },
+    {
+      "id": "CSM_Options.OptionParryTransition",
+      "text": "การเปลี่ยนผ่านของแพร์รี่"
+    },
+    {
+      "id": "CSM_Options.OptionPierceMultiplier",
+      "text": "ตัวคูณการเจาะ"
+    },
+    {
+      "id": "CSM_Options.OptionQuickTestNow",
+      "text": "ทดสอบด่วนเลยตอนนี้"
+    },
+    {
+      "id": "CSM_Options.OptionQuickTestTrigger",
+      "text": "ตัวกระตุ้นการทดสอบด่วน"
+    },
+    {
+      "id": "CSM_Options.OptionRandomizeDistance",
+      "text": "สุ่มระยะทาง"
+    },
+    {
+      "id": "CSM_Options.OptionRandomizeHeight",
+      "text": "สุ่มความสูง"
+    },
+    {
+      "id": "CSM_Options.OptionSlashMultiplier",
+      "text": "ตัวคูณการฟัน"
+    },
+    {
+      "id": "CSM_Options.OptionThirdPersonDistribution",
+      "text": "การแจกจ่ายบุคคลที่สาม"
+    },
+    {
+      "id": "CSM_Options.OptionThrownMultiplier",
+      "text": "ตัวคูณกระสุน/การขว้าง"
+    },
+    {
+      "id": "CSM_Options.OptionTransitionPreset",
+      "text": "ค่าที่ตั้งไว้ล่วงหน้าสำหรับการเปลี่ยนภาพ"
+    },
+    {
+      "id": "CSM_Options.OptionTriggerProfile",
+      "text": "โปรไฟล์ทริกเกอร์"
+    },
+    {
+      "id": "CSM_Options.ProfileAll",
+      "text": "ทริกเกอร์ทั้งหมด"
+    },
+    {
+      "id": "CSM_Options.ProfileHighlights",
+      "text": "จุดเด่น"
+    },
+    {
+      "id": "CSM_Options.ProfileKillsOnly",
+      "text": "ฆ่าเท่านั้น"
+    },
+    {
+      "id": "CSM_Options.ProfileLastEnemyOnly",
+      "text": "ศัตรูสุดท้ายเท่านั้น"
+    },
+    {
+      "id": "CSM_Options.ProfileParryOnly",
+      "text": "พาร์รี่เท่านั้น"
+    },
+    {
+      "id": "CSM_Options.TooltipBasicChance",
+      "text": "โอกาสที่จะเกิดการกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TooltipBasicCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipBasicDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipBasicThirdPerson",
+      "text": "ตัวคูณความถี่ของ killcam มุมมองบุคคลที่สาม (ปิดใช้งาน 0%)"
+    },
+    {
+      "id": "CSM_Options.TooltipBasicTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipBasicTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipBluntMultiplier",
+      "text": "ตัวคูณสำหรับความเสียหายจากการกระแทก (แรงกระแทก) ค่า 0x จะปิดใช้งานสโลว์โมชั่นสำหรับความเสียหายประเภทนี้"
+    },
+    {
+      "id": "CSM_Options.TooltipCameraDistance",
+      "text": "ระยะห่างจากเป้าหมาย"
+    },
+    {
+      "id": "CSM_Options.TooltipCameraHeight",
+      "text": "การชดเชยความสูง"
+    },
+    {
+      "id": "CSM_Options.TooltipChancePreset",
+      "text": "กำหนดค่าโอกาสต่อการกระตุ้นแต่ละครั้ง ปิดหมายความว่าไม่สนใจโอกาส (เฉพาะช่วงเวลาคูลดาวน์)"
+    },
+    {
+      "id": "CSM_Options.TooltipCooldownPreset",
+      "text": "กำหนดค่าคูลดาวน์ต่อการใช้งานแต่ละครั้ง ปิดการทำงานเพื่อปิดใช้งานคูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipCriticalChance",
+      "text": "โอกาสที่จะเกิดการกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TooltipCriticalCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipCriticalDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipCriticalThirdPerson",
+      "text": "ตัวคูณความถี่ของ killcam มุมมองบุคคลที่สาม (ปิดใช้งาน 0%)"
+    },
+    {
+      "id": "CSM_Options.TooltipCriticalTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipCriticalTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipDOTMultiplier",
+      "text": "ตัวคูณสำหรับการสังหารด้วย DOT (ม็อด CDoT) ใช้ได้เฉพาะเมื่อติดตั้ง CDoT แล้วเท่านั้น 0x จะปิดใช้งานสโลว์โมชั่นสำหรับการสังหารด้วยเลือดออก/เผาไหม้"
+    },
+    {
+      "id": "CSM_Options.TooltipDebugLogging",
+      "text": "เปิดใช้งานการบันทึกข้อมูลการแก้ไขข้อผิดพลาดแบบละเอียด"
+    },
+    {
+      "id": "CSM_Options.TooltipDebugOverlay",
+      "text": "แสดงโอเวอร์เลย์การดีบักบนหน้าจอพร้อมสถานะ CSM"
+    },
+    {
+      "id": "CSM_Options.TooltipDecapChance",
+      "text": "โอกาสที่จะเกิดการกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TooltipDecapCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipDecapDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipDecapThirdPerson",
+      "text": "ตัวคูณความถี่ของ killcam มุมมองบุคคลที่สาม (ปิดใช้งาน 0%)"
+    },
+    {
+      "id": "CSM_Options.TooltipDecapTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipDecapTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipDismemberChance",
+      "text": "โอกาสที่จะเกิดการกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TooltipDismemberCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipDismemberDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipDismemberThirdPerson",
+      "text": "ตัวคูณความถี่ของ killcam มุมมองบุคคลที่สาม (ปิดใช้งาน 0%)"
+    },
+    {
+      "id": "CSM_Options.TooltipDismemberTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipDismemberTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipDurationPreset",
+      "text": "กำหนดค่าระยะเวลาต่อการกระตุ้นแต่ละครั้ง"
+    },
+    {
+      "id": "CSM_Options.TooltipElementalMultiplier",
+      "text": "ตัวคูณสำหรับความเสียหายธาตุ (ไฟ สายฟ้า พลังงาน) 0x จะปิดใช้งานสโลว์โมชั่นสำหรับการสังหารด้วยธาตุ"
+    },
+    {
+      "id": "CSM_Options.TooltipEnableMod",
+      "text": "สวิตช์หลักสำหรับโมดิฟายทั้งหมด"
+    },
+    {
+      "id": "CSM_Options.TooltipIntensityPreset",
+      "text": "ระดับความเข้มข้น: ละเอียดอ่อน = สั้น, ปกติ = สมดุล, ดราม่า = เข้มข้นขึ้น, ภาพยนตร์ = ดราม่าจัด, มหากาพย์ = สุดขีด"
+    },
+    {
+      "id": "CSM_Options.TooltipIntensityScalingEnabled",
+      "text": "ปรับความเข้มข้นของภาพสโลว์โมชั่นตามแรงกระแทก โดยค่าเริ่มต้นจะปิดใช้งานอยู่"
+    },
+    {
+      "id": "CSM_Options.TooltipIntensityScalingMax",
+      "text": "ตัวคูณสูงสุดที่ความเข้มเต็มที่ (ค่าต่ำสุดคือ 1.0x เสมอ)"
+    },
+    {
+      "id": "CSM_Options.TooltipLastEnemyChance",
+      "text": "โอกาสที่จะเกิดการกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TooltipLastEnemyCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipLastEnemyDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipLastEnemyThirdPerson",
+      "text": "ตัวคูณความถี่ของ killcam มุมมองบุคคลที่สาม (ปิดใช้งาน 0%)"
+    },
+    {
+      "id": "CSM_Options.TooltipLastEnemyTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipLastEnemyTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipLastStandCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipLastStandDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipLastStandThreshold",
+      "text": "เปอร์เซ็นต์พลังชีวิตที่จะใช้ในการต่อสู้ครั้งสุดท้าย"
+    },
+    {
+      "id": "CSM_Options.TooltipLastStandTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipLastStandTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipOrbitSpeed",
+      "text": "ความเร็วในการหมุนของกล้อง (0 สำหรับภาพนิ่ง)"
+    },
+    {
+      "id": "CSM_Options.TooltipParryChance",
+      "text": "โอกาสที่จะเกิดการกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TooltipParryCooldown",
+      "text": "คูลดาวน์"
+    },
+    {
+      "id": "CSM_Options.TooltipParryDuration",
+      "text": "ระยะเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipParryTimeScale",
+      "text": "มาตราส่วนเวลา"
+    },
+    {
+      "id": "CSM_Options.TooltipParryTransition",
+      "text": "เส้นโค้งการเปลี่ยนผ่าน (20% ของระยะเวลา) ปิด = ทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipPierceMultiplier",
+      "text": "ตัวคูณสำหรับความเสียหายจากการเจาะ (แทง) ค่า 0x จะปิดใช้งานสโลว์โมชั่นสำหรับความเสียหายประเภทนี้"
+    },
+    {
+      "id": "CSM_Options.TooltipQuickTestNow",
+      "text": "สลับเพื่อสั่งการทริกเกอร์ที่เลือกไว้หนึ่งครั้ง"
+    },
+    {
+      "id": "CSM_Options.TooltipQuickTestTrigger",
+      "text": "ใช้ทริกเกอร์ใดในการจำลอง"
+    },
+    {
+      "id": "CSM_Options.TooltipRandomizeDistance",
+      "text": "สุ่มระยะทางต่อคิลแคม"
+    },
+    {
+      "id": "CSM_Options.TooltipRandomizeHeight",
+      "text": "สุ่มความสูงต่อ killcam"
+    },
+    {
+      "id": "CSM_Options.TooltipSlashMultiplier",
+      "text": "ตัวคูณสำหรับความเสียหายจากการฟัน (การตัด) 0x จะปิดใช้งานสโลว์โมชั่นสำหรับความเสียหายประเภทนี้"
+    },
+    {
+      "id": "CSM_Options.TooltipThirdPersonDistribution",
+      "text": "ควบคุมความถี่ในการแสดงภาพ Killcam ในมุมมองบุคคลที่สาม"
+    },
+    {
+      "id": "CSM_Options.TooltipThrownMultiplier",
+      "text": "ตัวคูณสำหรับการสังหารด้วยอาวุธขว้าง (มีดสั้น ลูกธนู หอก) ค่า 0x จะปิดใช้งานสโลว์โมชั่นสำหรับการสังหารด้วยอาวุธขว้าง"
+    },
+    {
+      "id": "CSM_Options.TooltipTransitionPreset",
+      "text": "ตั้งค่าเส้นโค้งการเปลี่ยนผ่านต่อการกระตุ้นแต่ละครั้ง ปิด = เปลี่ยนทันที, ค่อยเป็นค่อยไป = เปลี่ยนอย่างราบรื่น, เชิงเส้น = อัตราคงที่"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerBasicKill",
+      "text": "ทำงานเมื่อสังหารศัตรูได้ทุกครั้ง"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerCriticalKill",
+      "text": "การยิงเข้าที่หัว/ลำคอจะทำให้ตายทันที"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerDecapitation",
+      "text": "กลไกการทำงานเมื่อตัดหัว"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerDismemberment",
+      "text": "กลไกการทำงานเมื่อตัดแขนขา"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerLastEnemy",
+      "text": "เอฟเฟกต์จะทำงานเมื่อกำจัดศัตรูตัวสุดท้ายของเวฟ"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerLastStand",
+      "text": "ระบบจะทำงานเมื่อสุขภาพของคุณลดลงต่ำมากจนอยู่ในเกณฑ์วิกฤต"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerParry",
+      "text": "ทริกเกอร์เมื่อป้องกันอาวุธได้สำเร็จ"
+    },
+    {
+      "id": "CSM_Options.TooltipTriggerProfile",
+      "text": "ตัวกระตุ้นใดบ้างที่เปิดใช้งาน การเลือกโปรไฟล์จะอัปเดตตัวเลือกสำหรับแต่ละตัวกระตุ้น"
+    },
+    {
+      "id": "CSM_Options.TriggerBasicKill",
+      "text": "การสังหารขั้นพื้นฐาน"
+    },
+    {
+      "id": "CSM_Options.TriggerCriticalKill",
+      "text": "คริติคอล คิลล์"
+    },
+    {
+      "id": "CSM_Options.TriggerDecapitation",
+      "text": "การตัดหัว"
+    },
+    {
+      "id": "CSM_Options.TriggerDismemberment",
+      "text": "การแยกชิ้นส่วน"
+    },
+    {
+      "id": "CSM_Options.TriggerLastEnemy",
+      "text": "ศัตรูสุดท้าย"
+    },
+    {
+      "id": "CSM_Options.TriggerLastStand",
+      "text": "การต่อสู้ครั้งสุดท้าย"
+    },
+    {
+      "id": "CSM_Options.TriggerParry",
+      "text": "แพร์รี่"
+    }
+  ]
+}

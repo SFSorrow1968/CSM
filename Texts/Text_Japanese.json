@@ -7,771 +7,771 @@
   "textList": [
     {
       "id": "CSM_Options.CameraFirstPersonOnly",
-      "text": "First Person Only"
+      "text": "一人称のみ"
     },
     {
       "id": "CSM_Options.CameraMixed",
-      "text": "Mixed"
+      "text": "混合"
     },
     {
       "id": "CSM_Options.CameraMixedRare",
-      "text": "Mixed (Rare Third Person)"
+      "text": "混合（稀に三人称）"
     },
     {
       "id": "CSM_Options.CameraMostlyThirdPerson",
-      "text": "Mostly Third Person"
+      "text": "主に三人称"
     },
     {
       "id": "CSM_Options.CameraThirdPersonOnly",
-      "text": "Third Person Only"
+      "text": "三人称のみ"
     },
     {
       "id": "CSM_Options.CategoryAdvanced",
-      "text": "Advanced"
+      "text": "上級"
     },
     {
       "id": "CSM_Options.CategoryCustomBasic",
-      "text": "Basic Kill"
+      "text": "基本的なキル"
     },
     {
       "id": "CSM_Options.CategoryCustomCritical",
-      "text": "Critical Kill"
+      "text": "クリティカルキル"
     },
     {
       "id": "CSM_Options.CategoryCustomDecapitation",
-      "text": "Decapitation"
+      "text": "斬首"
     },
     {
       "id": "CSM_Options.CategoryCustomDismemberment",
-      "text": "Dismemberment"
+      "text": "切断"
     },
     {
       "id": "CSM_Options.CategoryCustomLastEnemy",
-      "text": "Last Enemy"
+      "text": "最後の敵"
     },
     {
       "id": "CSM_Options.CategoryCustomLastStand",
-      "text": "Last Stand"
+      "text": "ラストスタンド"
     },
     {
       "id": "CSM_Options.CategoryCustomParry",
-      "text": "Parry"
+      "text": "パリー"
     },
     {
       "id": "CSM_Options.CategoryDamageMultipliers",
-      "text": "Damage Modifiers"
+      "text": "ダメージ補正"
     },
     {
       "id": "CSM_Options.CategoryKillcam",
-      "text": "Killcam"
+      "text": "キルカム"
     },
     {
       "id": "CSM_Options.CategoryPresetSelection",
-      "text": "Quick Setup"
+      "text": "クイックセットアップ"
     },
     {
       "id": "CSM_Options.CategoryTriggers",
-      "text": "Triggers"
+      "text": "トリガー"
     },
     {
       "id": "CSM_Options.ChanceDefault",
-      "text": "Default"
+      "text": "デフォルト"
     },
     {
       "id": "CSM_Options.ChanceFrequent",
-      "text": "Frequent"
+      "text": "頻繁"
     },
     {
       "id": "CSM_Options.ChanceOff",
-      "text": "Off (Cooldown Only)"
+      "text": "オフ（クールダウンのみ）"
     },
     {
       "id": "CSM_Options.ChanceRare",
-      "text": "Rare"
+      "text": "レア"
     },
     {
       "id": "CSM_Options.ChanceVeryRare",
-      "text": "Very Rare"
+      "text": "非常にまれ"
     },
     {
       "id": "CSM_Options.CooldownDefault",
-      "text": "Default"
+      "text": "デフォルト"
     },
     {
       "id": "CSM_Options.CooldownExtended",
-      "text": "Extended"
+      "text": "拡張"
     },
     {
       "id": "CSM_Options.CooldownLong",
-      "text": "Long"
+      "text": "長さ"
     },
     {
       "id": "CSM_Options.CooldownOff",
-      "text": "Off (No Cooldown)"
+      "text": "オフ（クールダウンなし）"
     },
     {
       "id": "CSM_Options.CooldownShort",
-      "text": "Short"
+      "text": "短い"
     },
     {
       "id": "CSM_Options.DurationDefault",
-      "text": "Default"
+      "text": "デフォルト"
     },
     {
       "id": "CSM_Options.DurationExtended",
-      "text": "Extended"
+      "text": "拡張"
     },
     {
       "id": "CSM_Options.DurationLong",
-      "text": "Long"
+      "text": "長さ"
     },
     {
       "id": "CSM_Options.DurationShort",
-      "text": "Short"
+      "text": "短い"
     },
     {
       "id": "CSM_Options.DurationVeryShort",
-      "text": "Very Short"
+      "text": "非常に短い"
     },
     {
       "id": "CSM_Options.PresetCinematic",
-      "text": "Cinematic"
+      "text": "映画のような"
     },
     {
       "id": "CSM_Options.PresetDefault",
-      "text": "Default"
+      "text": "デフォルト"
     },
     {
       "id": "CSM_Options.PresetDramatic",
-      "text": "Dramatic"
+      "text": "劇的"
     },
     {
       "id": "CSM_Options.PresetEpic",
-      "text": "Epic"
+      "text": "すごい"
     },
     {
       "id": "CSM_Options.PresetSubtle",
-      "text": "Subtle"
+      "text": "微妙"
     },
     {
       "id": "CSM_Options.TransitionLinear",
-      "text": "Linear"
+      "text": "リニア"
     },
     {
       "id": "CSM_Options.TransitionOff",
-      "text": "Off (Instant)"
+      "text": "オフ（即時）"
     },
     {
       "id": "CSM_Options.TransitionSmoothstep",
-      "text": "Smoothstep"
+      "text": "スムーズステップ"
     },
     {
       "id": "CSM_Options.EasingLinear",
-      "text": "Linear"
+      "text": "リニア"
     },
     {
       "id": "CSM_Options.EasingOff",
-      "text": "Off"
+      "text": "オフ"
     },
     {
       "id": "CSM_Options.EasingSmoothstep",
-      "text": "Smoothstep"
+      "text": "スムーズステップ"
     },
     {
       "id": "CSM_Options.OptionBasicChance",
-      "text": "Basic Chance"
+      "text": "基本チャンス"
     },
     {
       "id": "CSM_Options.OptionBasicCooldown",
-      "text": "Basic Cooldown"
+      "text": "基本クールダウン"
     },
     {
       "id": "CSM_Options.OptionBasicDuration",
-      "text": "Basic Duration"
+      "text": "基本期間"
     },
     {
       "id": "CSM_Options.OptionBasicThirdPerson",
-      "text": "Basic Third Person"
+      "text": "基本的な三人称"
     },
     {
       "id": "CSM_Options.OptionBasicTimeScale",
-      "text": "Basic Time Scale"
+      "text": "基本的な時間スケール"
     },
     {
       "id": "CSM_Options.OptionBasicTransition",
-      "text": "Basic Transition"
+      "text": "基本的な移行"
     },
     {
       "id": "CSM_Options.OptionBluntMultiplier",
-      "text": "Blunt Multiplier"
+      "text": "鈍い乗数"
     },
     {
       "id": "CSM_Options.OptionCameraDistance",
-      "text": "Camera Distance"
+      "text": "カメラ距離"
     },
     {
       "id": "CSM_Options.OptionCameraHeight",
-      "text": "Camera Height"
+      "text": "カメラの高さ"
     },
     {
       "id": "CSM_Options.OptionChancePreset",
-      "text": "Chance Preset"
+      "text": "チャンスプリセット"
     },
     {
       "id": "CSM_Options.OptionCooldownPreset",
-      "text": "Cooldown Preset"
+      "text": "クールダウンプリセット"
     },
     {
       "id": "CSM_Options.OptionCriticalChance",
-      "text": "Critical Chance"
+      "text": "クリティカルチャンス"
     },
     {
       "id": "CSM_Options.OptionCriticalCooldown",
-      "text": "Critical Cooldown"
+      "text": "クリティカルクールダウン"
     },
     {
       "id": "CSM_Options.OptionCriticalDuration",
-      "text": "Critical Duration"
+      "text": "クリティカル持続時間"
     },
     {
       "id": "CSM_Options.OptionCriticalThirdPerson",
-      "text": "Critical Third Person"
+      "text": "批判的な第三者"
     },
     {
       "id": "CSM_Options.OptionCriticalTimeScale",
-      "text": "Critical Time Scale"
+      "text": "重要な時間スケール"
     },
     {
       "id": "CSM_Options.OptionCriticalTransition",
-      "text": "Critical Transition"
+      "text": "重要な移行"
     },
     {
       "id": "CSM_Options.OptionDOTMultiplier",
-      "text": "DOT Multiplier"
+      "text": "DOT乗数"
     },
     {
       "id": "CSM_Options.OptionDebugLogging",
-      "text": "Debug Logging"
+      "text": "デバッグログ"
     },
     {
       "id": "CSM_Options.OptionDebugOverlay",
-      "text": "Debug Overlay"
+      "text": "デバッグオーバーレイ"
     },
     {
       "id": "CSM_Options.OptionDecapChance",
-      "text": "Decap Chance"
+      "text": "デキャップチャンス"
     },
     {
       "id": "CSM_Options.OptionDecapCooldown",
-      "text": "Decap Cooldown"
+      "text": "デキャップクールダウン"
     },
     {
       "id": "CSM_Options.OptionDecapDuration",
-      "text": "Decap Duration"
+      "text": "デキャップ期間"
     },
     {
       "id": "CSM_Options.OptionDecapThirdPerson",
-      "text": "Decap Third Person"
+      "text": "デキャップ・サードパーソン"
     },
     {
       "id": "CSM_Options.OptionDecapTimeScale",
-      "text": "Decap Time Scale"
+      "text": "デキャップ時間スケール"
     },
     {
       "id": "CSM_Options.OptionDecapTransition",
-      "text": "Decap Transition"
+      "text": "デキャップ移行"
     },
     {
       "id": "CSM_Options.OptionDismemberChance",
-      "text": "Dismember Chance"
+      "text": "四肢切断のチャンス"
     },
     {
       "id": "CSM_Options.OptionDismemberCooldown",
-      "text": "Dismember Cooldown"
+      "text": "切断クールダウン"
     },
     {
       "id": "CSM_Options.OptionDismemberDuration",
-      "text": "Dismember Duration"
+      "text": "切断持続時間"
     },
     {
       "id": "CSM_Options.OptionDismemberThirdPerson",
-      "text": "Dismember Third Person"
+      "text": "第三者を解体する"
     },
     {
       "id": "CSM_Options.OptionDismemberTimeScale",
-      "text": "Dismember Time Scale"
+      "text": "タイムスケールを分解"
     },
     {
       "id": "CSM_Options.OptionDismemberTransition",
-      "text": "Dismember Transition"
+      "text": "解体移行"
     },
     {
       "id": "CSM_Options.OptionDurationPreset",
-      "text": "Duration Preset"
+      "text": "期間プリセット"
     },
     {
       "id": "CSM_Options.OptionElementalMultiplier",
-      "text": "Elemental Multiplier"
+      "text": "エレメンタル乗数"
     },
     {
       "id": "CSM_Options.OptionEnableMod",
-      "text": "Enable Mod"
+      "text": "Modを有効にする"
     },
     {
       "id": "CSM_Options.OptionIntensityPreset",
-      "text": "Intensity Preset"
+      "text": "強度プリセット"
     },
     {
       "id": "CSM_Options.OptionIntensityScalingEnabled",
-      "text": "Intensity Scaling"
+      "text": "強度スケーリング"
     },
     {
       "id": "CSM_Options.OptionIntensityScalingMax",
-      "text": "Max Intensity Multiplier"
+      "text": "最大強度乗数"
     },
     {
       "id": "CSM_Options.OptionLastEnemyChance",
-      "text": "LastEnemy Chance"
+      "text": "最後の敵のチャンス"
     },
     {
       "id": "CSM_Options.OptionLastEnemyCooldown",
-      "text": "LastEnemy Cooldown"
+      "text": "最後の敵のクールダウン"
     },
     {
       "id": "CSM_Options.OptionLastEnemyDuration",
-      "text": "LastEnemy Duration"
+      "text": "最後の敵の持続時間"
     },
     {
       "id": "CSM_Options.OptionLastEnemyThirdPerson",
-      "text": "LastEnemy Third Person"
+      "text": "ラストエネミー三人称"
     },
     {
       "id": "CSM_Options.OptionLastEnemyTimeScale",
-      "text": "LastEnemy Time Scale"
+      "text": "ラストエネミー タイムスケール"
     },
     {
       "id": "CSM_Options.OptionLastEnemyTransition",
-      "text": "LastEnemy Transition"
+      "text": "ラストエネミートランジション"
     },
     {
       "id": "CSM_Options.OptionLastStandCooldown",
-      "text": "LastStand Cooldown"
+      "text": "ラストスタンドクールダウン"
     },
     {
       "id": "CSM_Options.OptionLastStandDuration",
-      "text": "LastStand Duration"
+      "text": "ラストスタンド持続時間"
     },
     {
       "id": "CSM_Options.OptionLastStandThreshold",
-      "text": "Last Stand Threshold"
+      "text": "ラストスタンドの閾値"
     },
     {
       "id": "CSM_Options.OptionLastStandTimeScale",
-      "text": "LastStand Time Scale"
+      "text": "LastStand タイムスケール"
     },
     {
       "id": "CSM_Options.OptionLastStandTransition",
-      "text": "LastStand Transition"
+      "text": "ラストスタンドトランジション"
     },
     {
       "id": "CSM_Options.OptionOrbitSpeed",
-      "text": "Orbit Speed"
+      "text": "軌道速度"
     },
     {
       "id": "CSM_Options.OptionParryChance",
-      "text": "Parry Chance"
+      "text": "パリーチャンス"
     },
     {
       "id": "CSM_Options.OptionParryCooldown",
-      "text": "Parry Cooldown"
+      "text": "パリークールダウン"
     },
     {
       "id": "CSM_Options.OptionParryDuration",
-      "text": "Parry Duration"
+      "text": "パリー持続時間"
     },
     {
       "id": "CSM_Options.OptionParryTimeScale",
-      "text": "Parry Time Scale"
+      "text": "パリータイムスケール"
     },
     {
       "id": "CSM_Options.OptionParryTransition",
-      "text": "Parry Transition"
+      "text": "パリートランジション"
     },
     {
       "id": "CSM_Options.OptionPierceMultiplier",
-      "text": "Pierce Multiplier"
+      "text": "ピアス乗数"
     },
     {
       "id": "CSM_Options.OptionQuickTestNow",
-      "text": "Quick Test Now"
+      "text": "今すぐクイックテスト"
     },
     {
       "id": "CSM_Options.OptionQuickTestTrigger",
-      "text": "Quick Test Trigger"
+      "text": "クイックテストトリガー"
     },
     {
       "id": "CSM_Options.OptionRandomizeDistance",
-      "text": "Randomize Distance"
+      "text": "距離をランダム化"
     },
     {
       "id": "CSM_Options.OptionRandomizeHeight",
-      "text": "Randomize Height"
+      "text": "高さをランダム化"
     },
     {
       "id": "CSM_Options.OptionSlashMultiplier",
-      "text": "Slash Multiplier"
+      "text": "スラッシュ乗数"
     },
     {
       "id": "CSM_Options.OptionThirdPersonDistribution",
-      "text": "Third Person Distribution"
+      "text": "三人称分布"
     },
     {
       "id": "CSM_Options.OptionThrownMultiplier",
-      "text": "Projectile/Thrown Multiplier"
+      "text": "発射物/投擲物乗数"
     },
     {
       "id": "CSM_Options.OptionTransitionPreset",
-      "text": "Transition Preset"
+      "text": "トランジションプリセット"
     },
     {
       "id": "CSM_Options.OptionTriggerProfile",
-      "text": "Trigger Profile"
+      "text": "トリガープロファイル"
     },
     {
       "id": "CSM_Options.ProfileAll",
-      "text": "All Triggers"
+      "text": "すべてのトリガー"
     },
     {
       "id": "CSM_Options.ProfileHighlights",
-      "text": "Highlights"
+      "text": "ハイライト"
     },
     {
       "id": "CSM_Options.ProfileKillsOnly",
-      "text": "Kills Only"
+      "text": "キルのみ"
     },
     {
       "id": "CSM_Options.ProfileLastEnemyOnly",
-      "text": "Last Enemy Only"
+      "text": "最後の敵のみ"
     },
     {
       "id": "CSM_Options.ProfileParryOnly",
-      "text": "Parry Only"
+      "text": "パリーのみ"
     },
     {
       "id": "CSM_Options.TooltipBasicChance",
-      "text": "Chance to trigger"
+      "text": "発動のチャンス"
     },
     {
       "id": "CSM_Options.TooltipBasicCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipBasicDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipBasicThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "三人称キルカメラ頻度乗数（0%で無効）"
     },
     {
       "id": "CSM_Options.TooltipBasicTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipBasicTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipBluntMultiplier",
-      "text": "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type."
+      "text": "鈍的ダメージ（衝撃）の乗数。0x は、このタイプのスローモーションを無効にします。"
     },
     {
       "id": "CSM_Options.TooltipCameraDistance",
-      "text": "Distance from target"
+      "text": "ターゲットからの距離"
     },
     {
       "id": "CSM_Options.TooltipCameraHeight",
-      "text": "Height offset"
+      "text": "高さオフセット"
     },
     {
       "id": "CSM_Options.TooltipChancePreset",
-      "text": "Sets per-trigger chance values. Off means chance is ignored (cooldown only)."
+      "text": "トリガーごとの確率値を設定します。オフにすると確率は無視されます（クールダウンのみ）。"
     },
     {
       "id": "CSM_Options.TooltipCooldownPreset",
-      "text": "Sets per-trigger cooldown values. Off disables cooldown."
+      "text": "トリガーごとのクールダウン値を設定します。オフにするとクールダウンが無効になります。"
     },
     {
       "id": "CSM_Options.TooltipCriticalChance",
-      "text": "Chance to trigger"
+      "text": "発動のチャンス"
     },
     {
       "id": "CSM_Options.TooltipCriticalCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipCriticalDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipCriticalThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "三人称キルカメラ頻度乗数（0%で無効）"
     },
     {
       "id": "CSM_Options.TooltipCriticalTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipCriticalTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipDOTMultiplier",
-      "text": "Multiplier for DOT kills (CDoT mod). Only applies when CDoT is installed. 0x disables slow-mo for bleed/burn kills."
+      "text": "DOTキルの乗数（CDoT mod）。CDoTがインストールされている場合にのみ適用されます。0x にすると、出血/燃焼キルのスローモーションが無効になります。"
     },
     {
       "id": "CSM_Options.TooltipDebugLogging",
-      "text": "Enable verbose debug logging"
+      "text": "詳細なデバッグログを有効にする"
     },
     {
       "id": "CSM_Options.TooltipDebugOverlay",
-      "text": "Show on-screen debug overlay with CSM state"
+      "text": "CSM の状態を画面上のデバッグ オーバーレイに表示する"
     },
     {
       "id": "CSM_Options.TooltipDecapChance",
-      "text": "Chance to trigger"
+      "text": "発動のチャンス"
     },
     {
       "id": "CSM_Options.TooltipDecapCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipDecapDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipDecapThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "三人称キルカメラ頻度乗数（0%で無効）"
     },
     {
       "id": "CSM_Options.TooltipDecapTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipDecapTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipDismemberChance",
-      "text": "Chance to trigger"
+      "text": "発動のチャンス"
     },
     {
       "id": "CSM_Options.TooltipDismemberCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipDismemberDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipDismemberThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "三人称キルカメラ頻度乗数（0%で無効）"
     },
     {
       "id": "CSM_Options.TooltipDismemberTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipDismemberTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipDurationPreset",
-      "text": "Sets per-trigger duration values."
+      "text": "トリガーごとの期間の値を設定します。"
     },
     {
       "id": "CSM_Options.TooltipElementalMultiplier",
-      "text": "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills."
+      "text": "属性ダメージ (火、雷、エネルギー) の乗数。0x にすると、属性キルのスローモーションが無効になります。"
     },
     {
       "id": "CSM_Options.TooltipEnableMod",
-      "text": "Master switch for the entire mod"
+      "text": "モッド全体のマスタースイッチ"
     },
     {
       "id": "CSM_Options.TooltipIntensityPreset",
-      "text": "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme"
+      "text": "強度プロファイル。Subtle = 簡潔、Default = バランス、Dramatic = より強め、Cinematic = ドラマチック、Epic = 極端"
     },
     {
       "id": "CSM_Options.TooltipIntensityScalingEnabled",
-      "text": "Scale slow-mo intensity based on impact force. Off by default."
+      "text": "衝撃の強さに応じてスローモーションの強度を調整します。デフォルトではオフになっています。"
     },
     {
       "id": "CSM_Options.TooltipIntensityScalingMax",
-      "text": "Maximum multiplier at full intensity (min is always 1.0x)."
+      "text": "最大強度での最大乗数 (最小は常に 1.0 倍)。"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyChance",
-      "text": "Chance to trigger"
+      "text": "発動のチャンス"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyThirdPerson",
-      "text": "Third-person killcam frequency multiplier (0% disables)"
+      "text": "三人称キルカメラ頻度乗数（0%で無効）"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipLastEnemyTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipLastStandCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipLastStandDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipLastStandThreshold",
-      "text": "Health % to trigger Last Stand"
+      "text": "ラストスタンドを発動するための体力%"
     },
     {
       "id": "CSM_Options.TooltipLastStandTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipLastStandTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipOrbitSpeed",
-      "text": "Camera rotation speed (0 for static)"
+      "text": "カメラの回転速度（静止時は0）"
     },
     {
       "id": "CSM_Options.TooltipParryChance",
-      "text": "Chance to trigger"
+      "text": "発動のチャンス"
     },
     {
       "id": "CSM_Options.TooltipParryCooldown",
-      "text": "Cooldown"
+      "text": "クールダウン"
     },
     {
       "id": "CSM_Options.TooltipParryDuration",
-      "text": "Duration"
+      "text": "間隔"
     },
     {
       "id": "CSM_Options.TooltipParryTimeScale",
-      "text": "Time scale"
+      "text": "時間スケール"
     },
     {
       "id": "CSM_Options.TooltipParryTransition",
-      "text": "Transition curve (20% of duration). Off = instant."
+      "text": "遷移曲線（持続時間の 20%）。オフ = 即時。"
     },
     {
       "id": "CSM_Options.TooltipPierceMultiplier",
-      "text": "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type."
+      "text": "貫通ダメージ（突き）の乗数。0x にすると、このタイプのスローモーションが無効になります。"
     },
     {
       "id": "CSM_Options.TooltipQuickTestNow",
-      "text": "Toggle to fire the selected trigger once"
+      "text": "選択したトリガーを1回発動するように切り替えます"
     },
     {
       "id": "CSM_Options.TooltipQuickTestTrigger",
-      "text": "Which trigger to simulate"
+      "text": "どのトリガーをシミュレートするか"
     },
     {
       "id": "CSM_Options.TooltipRandomizeDistance",
-      "text": "Randomize distance per killcam"
+      "text": "キルカメラごとの距離をランダム化する"
     },
     {
       "id": "CSM_Options.TooltipRandomizeHeight",
-      "text": "Randomize height per killcam"
+      "text": "キルカメラごとに高さをランダム化"
     },
     {
       "id": "CSM_Options.TooltipSlashMultiplier",
-      "text": "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type."
+      "text": "斬撃ダメージ（カット）の乗数。0x にすると、このタイプのスローモーションが無効になります。"
     },
     {
       "id": "CSM_Options.TooltipThirdPersonDistribution",
-      "text": "Controls how often third-person killcam appears."
+      "text": "三人称キルカメラの表示頻度を制御します。"
     },
     {
       "id": "CSM_Options.TooltipThrownMultiplier",
-      "text": "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills."
+      "text": "発射物/投擲武器（短剣、矢、槍）によるキルの乗数。0x にすると、発射物によるキルのスローモーションが無効になります。"
     },
     {
       "id": "CSM_Options.TooltipTransitionPreset",
-      "text": "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate."
+      "text": "トリガーごとの遷移曲線を設定します。Off = 即時、Smoothstep = スムーズな傾斜、Linear = 一定速度。"
     },
     {
       "id": "CSM_Options.TooltipTriggerBasicKill",
-      "text": "Trigger on any enemy kill"
+      "text": "敵を倒すと発動"
     },
     {
       "id": "CSM_Options.TooltipTriggerCriticalKill",
-      "text": "Trigger on head/throat kills"
+      "text": "頭/喉を撃たれた場合のトリガー"
     },
     {
       "id": "CSM_Options.TooltipTriggerDecapitation",
-      "text": "Trigger on decapitation"
+      "text": "斬首の引き金"
     },
     {
       "id": "CSM_Options.TooltipTriggerDismemberment",
-      "text": "Trigger when severing limbs"
+      "text": "手足を切断するときにトリガー"
     },
     {
       "id": "CSM_Options.TooltipTriggerLastEnemy",
-      "text": "Trigger when killing the final enemy of a wave"
+      "text": "ウェーブの最後の敵を倒すと発動する"
     },
     {
       "id": "CSM_Options.TooltipTriggerLastStand",
-      "text": "Trigger when your health drops critically low"
+      "text": "体力が極端に低下したときに発動します"
     },
     {
       "id": "CSM_Options.TooltipTriggerParry",
-      "text": "Trigger on successful weapon deflections"
+      "text": "武器の偏向に成功したときに発動する"
     },
     {
       "id": "CSM_Options.TooltipTriggerProfile",
-      "text": "Which triggers are active. Selecting a profile updates the per-trigger toggles."
+      "text": "アクティブなトリガー。プロファイルを選択すると、トリガーごとのトグルが更新されます。"
     },
     {
       "id": "CSM_Options.TriggerBasicKill",
-      "text": "Basic Kill"
+      "text": "基本的なキル"
     },
     {
       "id": "CSM_Options.TriggerCriticalKill",
-      "text": "Critical Kill"
+      "text": "クリティカルキル"
     },
     {
       "id": "CSM_Options.TriggerDecapitation",
-      "text": "Decapitation"
+      "text": "斬首"
     },
     {
       "id": "CSM_Options.TriggerDismemberment",
-      "text": "Dismemberment"
+      "text": "切断"
     },
     {
       "id": "CSM_Options.TriggerLastEnemy",
-      "text": "Last Enemy"
+      "text": "最後の敵"
     },
     {
       "id": "CSM_Options.TriggerLastStand",
-      "text": "Last Stand"
+      "text": "最後の砦"
     },
     {
       "id": "CSM_Options.TriggerParry",
-      "text": "Parry"
+      "text": "パリー"
     }
   ]
 }
