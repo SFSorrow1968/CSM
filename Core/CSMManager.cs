@@ -64,6 +64,9 @@ namespace CSM.Core
 
                 if (!_isSlowMotionActive) return;
 
+                // Track frame times during slow motion
+                PerformanceMetrics.Instance?.RecordFrame();
+
                 if (Time.unscaledTime >= _slowMotionEndTime)
                 {
                     EndSlowMotion();
@@ -586,6 +589,9 @@ namespace CSM.Core
                 {
                     Debug.Log($"[CSM] SlowMo config: target={_targetTimeScale:0.###} duration={duration:0.###} cooldown={cooldown:0.###} easing={easingDuration:0.###}s ({_cachedEasingCurve}) endAt={_slowMotionEndTime:0.###} now={now:0.###}");
                 }
+
+                // Start performance tracking session
+                PerformanceMetrics.Instance?.StartSession();
             }
             catch (Exception ex)
             {
@@ -647,6 +653,9 @@ namespace CSM.Core
                 Debug.LogError("[CSM] EndSlowMotion error: " + ex.Message);
                 TryRestoreTimeScale();
             }
+
+            // End performance tracking session
+            PerformanceMetrics.Instance?.EndSession();
         }
 
         public void CancelSlowMotion()
@@ -676,6 +685,9 @@ namespace CSM.Core
                 Debug.LogError("[CSM] CancelSlowMotion error: " + ex.Message);
                 TryRestoreTimeScale();
             }
+
+            // End performance tracking session
+            PerformanceMetrics.Instance?.EndSession();
         }
 
         private void TryRestoreTimeScale()

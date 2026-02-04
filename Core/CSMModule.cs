@@ -27,6 +27,8 @@ namespace CSM.Core
                 CSMManager.Instance.Initialize();
                 CSMKillcam.Instance.Initialize();
                 CSMModOptionVisibility.Instance.Initialize();
+                PerformanceMetrics.Instance.Initialize();
+                DebugOverlay.Instance.Initialize();
 
 #if NOMAD
                 Debug.Log("[CSM] Subscribing event hooks (Nomad mode)...");
@@ -51,10 +53,27 @@ namespace CSM.Core
                 CSMManager.Instance?.Update();
                 CSMKillcam.Instance?.Update();
                 CSMModOptionVisibility.Instance?.Update();
+
+                // Update performance metrics baseline when not in slow motion
+                if (!CSMManager.Instance.IsActive)
+                    PerformanceMetrics.Instance?.UpdateBaseline();
             }
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] ScriptUpdate error: " + ex.Message);
+            }
+        }
+
+        private void OnGUI()
+        {
+            try
+            {
+                DebugOverlay.Instance?.Draw();
+            }
+            catch (Exception ex)
+            {
+                if (CSMModOptions.DebugLogging)
+                    Debug.LogError("[CSM] OnGUI error: " + ex.Message);
             }
         }
 
@@ -67,6 +86,8 @@ namespace CSM.Core
                 CSMManager.Instance?.CancelSlowMotion();
                 CSMKillcam.Instance?.Shutdown();
                 CSMModOptionVisibility.Instance?.Shutdown();
+                PerformanceMetrics.Instance?.Shutdown();
+                DebugOverlay.Instance?.Shutdown();
 
                 EventHooks.Unsubscribe();
                 EventHooks.ResetState();

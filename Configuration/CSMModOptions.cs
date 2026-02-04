@@ -102,6 +102,7 @@ namespace CSM.Configuration
         public const string OptionParryTransition = "Parry Transition";
 
         public const string OptionDebugLogging = "Debug Logging";
+        public const string OptionDebugOverlay = "Debug Overlay";
         public const string OptionQuickTestTrigger = "Quick Test Trigger";
         public const string OptionQuickTestNow = "Quick Test Now";
 
@@ -936,6 +937,9 @@ namespace CSM.Configuration
 
         [ModOption(name = OptionDebugLogging, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
+
+        [ModOption(name = OptionDebugOverlay, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 15, defaultValueIndex = 0, tooltip = "Show on-screen debug overlay with CSM state")]
+        public static bool DebugOverlay = false;
 
         [ModOption(name = OptionQuickTestTrigger, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
         public static string QuickTestTrigger = TriggerBasicKill;
