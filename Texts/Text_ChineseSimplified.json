@@ -8,7 +8,7 @@
     "textGroups": [
         {
             "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-            "id": "CSM",
+            "id": "CSMOptions",
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -38,62 +38,62 @@
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
-                    "text": "🔧 高级"
+                    "text": "高级"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomBasic",
-                    "text": "► 基本击杀"
+                    "text": "基本击杀"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomCritical",
-                    "text": "► 致命一击"
+                    "text": "致命一击"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDecapitation",
-                    "text": "► 斩首"
+                    "text": "斩首"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDismemberment",
-                    "text": "►肢解"
+                    "text": "肢解"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastEnemy",
-                    "text": "► 最后的敌人"
+                    "text": "最后的敌人"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastStand",
-                    "text": "► 最后的抵抗"
+                    "text": "最后的抵抗"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomParry",
-                    "text": "► 格挡"
+                    "text": "格挡"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
-                    "text": "⚖ 伤害修正"
+                    "text": "伤害修正"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryKillcam",
-                    "text": "📷击杀镜头"
+                    "text": "击杀镜头"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryPresetSelection",
-                    "text": "⚙ 快速设置"
+                    "text": "快速设置"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryTriggers",
-                    "text": "⚡ 触发器"
+                    "text": "触发器"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",

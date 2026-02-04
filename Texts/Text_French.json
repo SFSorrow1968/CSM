@@ -8,7 +8,7 @@
     "textGroups": [
         {
             "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-            "id": "CSM",
+            "id": "CSMOptions",
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -38,62 +38,62 @@
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
-                    "text": "🔧 Avancé"
+                    "text": "Avancé"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomBasic",
-                    "text": "► Attaque de base"
+                    "text": "Attaque de base"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomCritical",
-                    "text": "► Coup critique"
+                    "text": "Coup critique"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDecapitation",
-                    "text": "► Décapitation"
+                    "text": "Décapitation"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDismemberment",
-                    "text": "► Démembrement"
+                    "text": "Démembrement"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastEnemy",
-                    "text": "► Dernier ennemi"
+                    "text": "Dernier ennemi"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastStand",
-                    "text": "► Dernier rempart"
+                    "text": "Dernier rempart"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomParry",
-                    "text": "► Parry"
+                    "text": "Parry"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
-                    "text": "⚖ Modificateurs de dégâts"
+                    "text": "Modificateurs de dégâts"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryKillcam",
-                    "text": "📷 Killcam"
+                    "text": "Killcam"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryPresetSelection",
-                    "text": "⚙ Configuration rapide"
+                    "text": "Configuration rapide"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryTriggers",
-                    "text": "⚡ Déclencheurs"
+                    "text": "Déclencheurs"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",

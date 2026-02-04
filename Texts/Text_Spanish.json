@@ -8,7 +8,7 @@
     "textGroups": [
         {
             "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-            "id": "CSM",
+            "id": "CSMOptions",
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -38,62 +38,62 @@
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
-                    "text": "🔧 Avanzado"
+                    "text": "Avanzado"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomBasic",
-                    "text": "► Muerte básica"
+                    "text": "Muerte básica"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomCritical",
-                    "text": "► Muerte crítica"
+                    "text": "Muerte crítica"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDecapitation",
-                    "text": "► Decapitación"
+                    "text": "Decapitación"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDismemberment",
-                    "text": "► Desmembramiento"
+                    "text": "Desmembramiento"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastEnemy",
-                    "text": "► Último enemigo"
+                    "text": "Último enemigo"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastStand",
-                    "text": "► Última resistencia"
+                    "text": "Última resistencia"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomParry",
-                    "text": "► Parada"
+                    "text": "Parada"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
-                    "text": "⚖ Modificadores de daño"
+                    "text": "Modificadores de daño"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryKillcam",
-                    "text": "📷 Cámara de muerte"
+                    "text": "Cámara de muerte"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryPresetSelection",
-                    "text": "⚙ Configuración rápida"
+                    "text": "Configuración rápida"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryTriggers",
-                    "text": "⚡ Desencadenantes"
+                    "text": "Desencadenantes"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",

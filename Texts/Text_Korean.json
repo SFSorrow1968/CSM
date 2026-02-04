@@ -8,7 +8,7 @@
     "textGroups": [
         {
             "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-            "id": "CSM",
+            "id": "CSMOptions",
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -38,62 +38,62 @@
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
-                    "text": "🔧 고급"
+                    "text": "고급"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomBasic",
-                    "text": "► 기본 처치"
+                    "text": "기본 처치"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomCritical",
-                    "text": "► 치명타"
+                    "text": "치명타"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDecapitation",
-                    "text": "► 참수"
+                    "text": "참수"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDismemberment",
-                    "text": "► 사지 절단"
+                    "text": "사지 절단"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastEnemy",
-                    "text": "► 마지막 적"
+                    "text": "마지막 적"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastStand",
-                    "text": "► 최후의 저항"
+                    "text": "최후의 저항"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomParry",
-                    "text": "► 패리"
+                    "text": "패리"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
-                    "text": "⚖ 피해 수정치"
+                    "text": "피해 수정치"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryKillcam",
-                    "text": "📷 킬캠"
+                    "text": "킬캠"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryPresetSelection",
-                    "text": "⚙ 빠른 설치"
+                    "text": "빠른 설치"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryTriggers",
-                    "text": "⚡ 트리거"
+                    "text": "트리거"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",

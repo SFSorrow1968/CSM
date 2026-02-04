@@ -8,21 +8,21 @@ namespace CSM.Configuration
     public static class CSMModOptions
     {
         public const string VERSION = "2.0.1";
-        public const string LocalizationGroupId = "CSM";
+        public const string LocalizationGroupId = "CSMOptions";
 
         #region Labels and Categories
 
-        public const string CategoryPresetSelection = "⚙ Quick Setup";
-        public const string CategoryTriggers = "⚡ Triggers";
-        public const string CategoryKillcam = "📷 Killcam";
-        public const string CategoryAdvanced = "🔧 Advanced";
-        public const string CategoryCustomBasic = "► Basic Kill";
-        public const string CategoryCustomCritical = "► Critical Kill";
-        public const string CategoryCustomDismemberment = "► Dismemberment";
-        public const string CategoryCustomDecapitation = "► Decapitation";
-        public const string CategoryCustomLastEnemy = "► Last Enemy";
-        public const string CategoryCustomLastStand = "► Last Stand";
-        public const string CategoryCustomParry = "► Parry";
+        public const string CategoryPresetSelection = "Quick Setup";
+        public const string CategoryTriggers = "Triggers";
+        public const string CategoryKillcam = "Killcam";
+        public const string CategoryAdvanced = "Advanced";
+        public const string CategoryCustomBasic = "Basic Kill";
+        public const string CategoryCustomCritical = "Critical Kill";
+        public const string CategoryCustomDismemberment = "Dismemberment";
+        public const string CategoryCustomDecapitation = "Decapitation";
+        public const string CategoryCustomLastEnemy = "Last Enemy";
+        public const string CategoryCustomLastStand = "Last Stand";
+        public const string CategoryCustomParry = "Parry";
 
         public const string OptionEnableMod = "Enable Mod";
         public const string OptionThirdPersonDistribution = "Third Person Distribution";
@@ -109,7 +109,7 @@ namespace CSM.Configuration
 
         public const string OptionEasingCurve = "Easing Curve";
 
-        public const string CategoryDamageMultipliers = "⚖ Damage Modifiers";
+        public const string CategoryDamageMultipliers = "Damage Modifiers";
         public const string OptionPierceMultiplier = "Pierce Multiplier";
         public const string OptionSlashMultiplier = "Slash Multiplier";
         public const string OptionBluntMultiplier = "Blunt Multiplier";

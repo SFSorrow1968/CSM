@@ -8,7 +8,7 @@
     "textGroups": [
         {
             "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-            "id": "CSM",
+            "id": "CSMOptions",
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -38,62 +38,62 @@
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
-                    "text": "🔧 ขั้นสูง"
+                    "text": "ขั้นสูง"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomBasic",
-                    "text": "► การสังหารขั้นพื้นฐาน"
+                    "text": "การสังหารขั้นพื้นฐาน"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomCritical",
-                    "text": "► สังหารอย่างเด็ดขาด"
+                    "text": "สังหารอย่างเด็ดขาด"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDecapitation",
-                    "text": "► การตัดหัว"
+                    "text": "การตัดหัว"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomDismemberment",
-                    "text": "► การตัดแขนตัดขา"
+                    "text": "การตัดแขนตัดขา"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastEnemy",
-                    "text": "► ศัตรูตัวสุดท้าย"
+                    "text": "ศัตรูตัวสุดท้าย"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomLastStand",
-                    "text": "► การต่อสู้ครั้งสุดท้าย"
+                    "text": "การต่อสู้ครั้งสุดท้าย"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryCustomParry",
-                    "text": "► แพร์รี่"
+                    "text": "แพร์รี่"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
-                    "text": "⚖ ตัวปรับค่าความเสียหาย"
+                    "text": "ตัวปรับค่าความเสียหาย"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryKillcam",
-                    "text": "📷 Killcam"
+                    "text": "Killcam"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryPresetSelection",
-                    "text": "⚙ ตั้งค่าอย่างรวดเร็ว"
+                    "text": "ตั้งค่าอย่างรวดเร็ว"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryTriggers",
-                    "text": "⚡ ตัวกระตุ้น"
+                    "text": "ตัวกระตุ้น"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
