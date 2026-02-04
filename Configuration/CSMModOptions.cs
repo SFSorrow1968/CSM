@@ -9,6 +9,9 @@ namespace CSM.Configuration
     {
         public const string VERSION = "2.0.1";
 
+        // Localization group ID - intentionally different from mod name to avoid UI conflicts
+        private const string LocalizationGroupId = "CSM_Options";
+
         #region Labels and Categories
 
         public const string CategoryPresetSelection = "Quick Setup";
@@ -257,63 +260,63 @@ namespace CSM.Configuration
 
         private static readonly PresetOption<Preset>[] IntensityPresetOptions =
         {
-            new PresetOption<Preset>("Subtle", "Subtle", null, Preset.Subtle),
-            new PresetOption<Preset>("Default", "Default", null, Preset.Default),
-            new PresetOption<Preset>("Dramatic", "Dramatic", null, Preset.Dramatic),
-            new PresetOption<Preset>("Cinematic", "Cinematic", null, Preset.Cinematic),
-            new PresetOption<Preset>("Epic", "Epic", null, Preset.Epic)
+            new PresetOption<Preset>("Subtle", "Subtle", LocalizationGroupId + ".PresetSubtle", Preset.Subtle),
+            new PresetOption<Preset>("Default", "Default", LocalizationGroupId + ".PresetDefault", Preset.Default),
+            new PresetOption<Preset>("Dramatic", "Dramatic", LocalizationGroupId + ".PresetDramatic", Preset.Dramatic),
+            new PresetOption<Preset>("Cinematic", "Cinematic", LocalizationGroupId + ".PresetCinematic", Preset.Cinematic),
+            new PresetOption<Preset>("Epic", "Epic", LocalizationGroupId + ".PresetEpic", Preset.Epic)
         };
 
         private static readonly PresetOption<TriggerProfilePreset>[] TriggerProfileOptions =
         {
-            new PresetOption<TriggerProfilePreset>("All Triggers", "All", null, TriggerProfilePreset.All),
-            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", null, TriggerProfilePreset.KillsOnly),
-            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", null, TriggerProfilePreset.Highlights),
-            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", null, TriggerProfilePreset.LastEnemyOnly),
-            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", null, TriggerProfilePreset.ParryOnly)
+            new PresetOption<TriggerProfilePreset>("All Triggers", "All", LocalizationGroupId + ".TriggerProfileAll", TriggerProfilePreset.All),
+            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", LocalizationGroupId + ".TriggerProfileKillsOnly", TriggerProfilePreset.KillsOnly),
+            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", LocalizationGroupId + ".TriggerProfileHighlights", TriggerProfilePreset.Highlights),
+            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", LocalizationGroupId + ".TriggerProfileLastEnemyOnly", TriggerProfilePreset.LastEnemyOnly),
+            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", LocalizationGroupId + ".TriggerProfileParryOnly", TriggerProfilePreset.ParryOnly)
         };
 
         private static readonly PresetOption<ChancePreset>[] ChancePresetOptions =
         {
-            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", null, ChancePreset.Off),
-            new PresetOption<ChancePreset>("Very Rare", "Very Rare", null, ChancePreset.VeryRare),
-            new PresetOption<ChancePreset>("Rare", "Rare", null, ChancePreset.Rare),
-            new PresetOption<ChancePreset>("Default", "Default", null, ChancePreset.Default),
-            new PresetOption<ChancePreset>("Frequent", "Frequent", null, ChancePreset.Frequent)
+            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", LocalizationGroupId + ".ChanceOff", ChancePreset.Off),
+            new PresetOption<ChancePreset>("Very Rare", "Very Rare", LocalizationGroupId + ".ChanceVeryRare", ChancePreset.VeryRare),
+            new PresetOption<ChancePreset>("Rare", "Rare", LocalizationGroupId + ".ChanceRare", ChancePreset.Rare),
+            new PresetOption<ChancePreset>("Default", "Default", LocalizationGroupId + ".ChanceDefault", ChancePreset.Default),
+            new PresetOption<ChancePreset>("Frequent", "Frequent", LocalizationGroupId + ".ChanceFrequent", ChancePreset.Frequent)
         };
 
         private static readonly PresetOption<CooldownPreset>[] CooldownPresetOptions =
         {
-            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", null, CooldownPreset.Off),
-            new PresetOption<CooldownPreset>("Short", "Short", null, CooldownPreset.Short),
-            new PresetOption<CooldownPreset>("Default", "Default", null, CooldownPreset.Default),
-            new PresetOption<CooldownPreset>("Long", "Long", null, CooldownPreset.Long),
-            new PresetOption<CooldownPreset>("Extended", "Extended", null, CooldownPreset.Extended)
+            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", LocalizationGroupId + ".CooldownOff", CooldownPreset.Off),
+            new PresetOption<CooldownPreset>("Short", "Short", LocalizationGroupId + ".CooldownShort", CooldownPreset.Short),
+            new PresetOption<CooldownPreset>("Default", "Default", LocalizationGroupId + ".CooldownDefault", CooldownPreset.Default),
+            new PresetOption<CooldownPreset>("Long", "Long", LocalizationGroupId + ".CooldownLong", CooldownPreset.Long),
+            new PresetOption<CooldownPreset>("Extended", "Extended", LocalizationGroupId + ".CooldownExtended", CooldownPreset.Extended)
         };
 
         private static readonly PresetOption<DurationPreset>[] DurationPresetOptions =
         {
-            new PresetOption<DurationPreset>("Very Short", "Very Short", null, DurationPreset.VeryShort),
-            new PresetOption<DurationPreset>("Short", "Short", null, DurationPreset.Short),
-            new PresetOption<DurationPreset>("Default", "Default", null, DurationPreset.Default),
-            new PresetOption<DurationPreset>("Long", "Long", null, DurationPreset.Long),
-            new PresetOption<DurationPreset>("Extended", "Extended", null, DurationPreset.Extended)
+            new PresetOption<DurationPreset>("Very Short", "Very Short", LocalizationGroupId + ".DurationVeryShort", DurationPreset.VeryShort),
+            new PresetOption<DurationPreset>("Short", "Short", LocalizationGroupId + ".DurationShort", DurationPreset.Short),
+            new PresetOption<DurationPreset>("Default", "Default", LocalizationGroupId + ".DurationDefault", DurationPreset.Default),
+            new PresetOption<DurationPreset>("Long", "Long", LocalizationGroupId + ".DurationLong", DurationPreset.Long),
+            new PresetOption<DurationPreset>("Extended", "Extended", LocalizationGroupId + ".DurationExtended", DurationPreset.Extended)
         };
 
         private static readonly PresetOption<TransitionPreset>[] TransitionPresetOptions =
         {
-            new PresetOption<TransitionPreset>("Off (Instant)", "Off", null, TransitionPreset.Off),
-            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", null, TransitionPreset.Smoothstep),
-            new PresetOption<TransitionPreset>("Linear", "Linear", null, TransitionPreset.Linear)
+            new PresetOption<TransitionPreset>("Off (Instant)", "Off", LocalizationGroupId + ".TransitionOff", TransitionPreset.Off),
+            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", LocalizationGroupId + ".TransitionSmoothstep", TransitionPreset.Smoothstep),
+            new PresetOption<TransitionPreset>("Linear", "Linear", LocalizationGroupId + ".TransitionLinear", TransitionPreset.Linear)
         };
 
         private static readonly PresetOption<CameraDistributionPreset>[] CameraDistributionOptions =
         {
-            new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", null, CameraDistributionPreset.FirstPersonOnly),
-            new PresetOption<CameraDistributionPreset>("Mixed (Rare Third Person)", "Mixed (Rare Third Person)", null, CameraDistributionPreset.MostlyFirstPerson),
-            new PresetOption<CameraDistributionPreset>("Mixed", "Mixed", null, CameraDistributionPreset.Mixed),
-            new PresetOption<CameraDistributionPreset>("Mostly Third Person", "Mostly Third Person", null, CameraDistributionPreset.MostlyThirdPerson),
-            new PresetOption<CameraDistributionPreset>("Third Person Only", "Third Person Only", null, CameraDistributionPreset.ThirdPersonOnly)
+            new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", LocalizationGroupId + ".CameraFirstPersonOnly", CameraDistributionPreset.FirstPersonOnly),
+            new PresetOption<CameraDistributionPreset>("Mixed (Rare Third Person)", "Mixed (Rare Third Person)", LocalizationGroupId + ".CameraMixedRare", CameraDistributionPreset.MostlyFirstPerson),
+            new PresetOption<CameraDistributionPreset>("Mixed", "Mixed", LocalizationGroupId + ".CameraMixed", CameraDistributionPreset.Mixed),
+            new PresetOption<CameraDistributionPreset>("Mostly Third Person", "Mostly Third Person", LocalizationGroupId + ".CameraMostlyThirdPerson", CameraDistributionPreset.MostlyThirdPerson),
+            new PresetOption<CameraDistributionPreset>("Third Person Only", "Third Person Only", LocalizationGroupId + ".CameraThirdPersonOnly", CameraDistributionPreset.ThirdPersonOnly)
         };
 
         private static readonly Dictionary<string, Preset> IntensityPresetMap = BuildPresetMap(IntensityPresetOptions,
@@ -380,13 +383,13 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
-                new ModOptionString(TriggerBasicKill, TriggerBasicKill),
-                new ModOptionString(TriggerCriticalKill, TriggerCriticalKill),
-                new ModOptionString(TriggerDismemberment, TriggerDismemberment),
-                new ModOptionString(TriggerDecapitation, TriggerDecapitation),
-                new ModOptionString(TriggerParry, TriggerParry),
-                new ModOptionString(TriggerLastEnemy, TriggerLastEnemy),
-                new ModOptionString(TriggerLastStand, TriggerLastStand)
+                new ModOptionString(TriggerBasicKill, LocalizationGroupId + ".TriggerBasicKill", TriggerBasicKill),
+                new ModOptionString(TriggerCriticalKill, LocalizationGroupId + ".TriggerCriticalKill", TriggerCriticalKill),
+                new ModOptionString(TriggerDismemberment, LocalizationGroupId + ".TriggerDismemberment", TriggerDismemberment),
+                new ModOptionString(TriggerDecapitation, LocalizationGroupId + ".TriggerDecapitation", TriggerDecapitation),
+                new ModOptionString(TriggerParry, LocalizationGroupId + ".TriggerParry", TriggerParry),
+                new ModOptionString(TriggerLastEnemy, LocalizationGroupId + ".TriggerLastEnemy", TriggerLastEnemy),
+                new ModOptionString(TriggerLastStand, LocalizationGroupId + ".TriggerLastStand", TriggerLastStand)
             };
         }
 
@@ -656,28 +659,28 @@ namespace CSM.Configuration
 
         #region CSM (Main Settings)
 
-        [ModOption(name = OptionEnableMod, order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
+        [ModOption(name = OptionEnableMod, nameLocalizationId = LocalizationGroupId + ".EnableMod", order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = OptionThirdPersonDistribution, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
+        [ModOption(name = OptionThirdPersonDistribution, nameLocalizationId = LocalizationGroupId + ".ThirdPersonDistribution", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.")]
         public static string CameraDistribution = "First Person Only";
 
-        [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
+        [ModOption(name = OptionIntensityPreset, nameLocalizationId = LocalizationGroupId + ".IntensityPreset", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
         public static string CurrentPreset = "Default";
 
-        [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
+        [ModOption(name = OptionChancePreset, nameLocalizationId = LocalizationGroupId + ".ChancePreset", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Off";
 
-        [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
+        [ModOption(name = OptionDurationPreset, nameLocalizationId = LocalizationGroupId + ".DurationPreset", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Default";
 
-        [ModOption(name = OptionCooldownPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
+        [ModOption(name = OptionCooldownPreset, nameLocalizationId = LocalizationGroupId + ".CooldownPreset", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Default";
 
-        [ModOption(name = OptionTransitionPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 55, defaultValueIndex = 1, valueSourceName = "TransitionPresetProvider", tooltip = "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate.")]
+        [ModOption(name = OptionTransitionPreset, nameLocalizationId = LocalizationGroupId + ".TransitionPreset", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 55, defaultValueIndex = 1, valueSourceName = "TransitionPresetProvider", tooltip = "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate.")]
         public static string TransitionPresetSetting = "Smoothstep";
 
-        [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
+        [ModOption(name = OptionTriggerProfile, nameLocalizationId = LocalizationGroupId + ".TriggerProfile", category = CategoryPresetSelection, categoryLocalizationId = LocalizationGroupId + ".CategoryPresetSelection", categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
         public static int LastEnemyMinimumGroup = 1;
@@ -686,7 +689,7 @@ namespace CSM.Configuration
 
         #region Damage Multipliers
 
-        [ModOption(name = OptionPierceMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionPierceMultiplier, nameLocalizationId = LocalizationGroupId + ".PierceMultiplier", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 10,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
@@ -694,7 +697,7 @@ namespace CSM.Configuration
             tooltip = "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type.")]
         public static float PierceMultiplier = 1.0f;
 
-        [ModOption(name = OptionSlashMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionSlashMultiplier, nameLocalizationId = LocalizationGroupId + ".SlashMultiplier", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 20,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
@@ -702,7 +705,7 @@ namespace CSM.Configuration
             tooltip = "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type.")]
         public static float SlashMultiplier = 1.0f;
 
-        [ModOption(name = OptionBluntMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionBluntMultiplier, nameLocalizationId = LocalizationGroupId + ".BluntMultiplier", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 30,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
@@ -710,7 +713,7 @@ namespace CSM.Configuration
             tooltip = "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type.")]
         public static float BluntMultiplier = 1.0f;
 
-        [ModOption(name = OptionElementalMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionElementalMultiplier, nameLocalizationId = LocalizationGroupId + ".ElementalMultiplier", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 35,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
@@ -718,7 +721,7 @@ namespace CSM.Configuration
             tooltip = "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills.")]
         public static float ElementalMultiplier = 1.0f;
 
-        [ModOption(name = OptionThrownMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionThrownMultiplier, nameLocalizationId = LocalizationGroupId + ".ThrownMultiplier", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 36,
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
@@ -726,7 +729,7 @@ namespace CSM.Configuration
             tooltip = "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills.")]
         public static float ThrownMultiplier = 1.0f;
 
-        [ModOption(name = OptionDOTMultiplier, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionDOTMultiplier, nameLocalizationId = LocalizationGroupId + ".DOTMultiplier", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 37,
             defaultValueIndex = 0,
             valueSourceName = nameof(DamageMultiplierProvider),
@@ -734,13 +737,13 @@ namespace CSM.Configuration
             tooltip = "Multiplier for DOT kills (CDoT mod). Only applies when CDoT is installed. 0x disables slow-mo for bleed/burn kills.")]
         public static float DOTMultiplier = 0f;
 
-        [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionIntensityScalingEnabled, nameLocalizationId = LocalizationGroupId + ".IntensityScalingEnabled", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 40,
             defaultValueIndex = 0,
             tooltip = "Scale slow-mo intensity based on impact force. Off by default.")]
         public static bool IntensityScalingEnabled = false;
 
-        [ModOption(name = OptionIntensityScalingMax, category = CategoryDamageMultipliers,
+        [ModOption(name = OptionIntensityScalingMax, nameLocalizationId = LocalizationGroupId + ".IntensityScalingMax", category = CategoryDamageMultipliers, categoryLocalizationId = LocalizationGroupId + ".CategoryDamageMultipliers",
             categoryOrder = CategoryOrderDamageMultipliers, order = 50,
             defaultValueIndex = 5,
             valueSourceName = nameof(IntensityMaxProvider),
@@ -752,28 +755,28 @@ namespace CSM.Configuration
 
         #region CSM Triggers (Enable/Disable)
 
-        [ModOption(name = TriggerBasicKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
+        [ModOption(name = TriggerBasicKill, nameLocalizationId = LocalizationGroupId + ".TriggerBasicKill", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
         public static bool EnableBasicKill = true;
 
-        [ModOption(name = TriggerCriticalKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
+        [ModOption(name = TriggerCriticalKill, nameLocalizationId = LocalizationGroupId + ".TriggerCriticalKill", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
         public static bool EnableCriticalKill = true;
 
-        [ModOption(name = TriggerDismemberment, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
+        [ModOption(name = TriggerDismemberment, nameLocalizationId = LocalizationGroupId + ".TriggerDismemberment", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
         public static bool EnableDismemberment = true;
 
-        [ModOption(name = TriggerDecapitation, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
+        [ModOption(name = TriggerDecapitation, nameLocalizationId = LocalizationGroupId + ".TriggerDecapitation", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
         public static bool EnableDecapitation = true;
 
-        [ModOption(name = TriggerLastEnemy, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
+        [ModOption(name = TriggerLastEnemy, nameLocalizationId = LocalizationGroupId + ".TriggerLastEnemy", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
         public static bool EnableLastEnemy = true;
 
-        [ModOption(name = TriggerLastStand, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
+        [ModOption(name = TriggerLastStand, nameLocalizationId = LocalizationGroupId + ".TriggerLastStand", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
         public static bool EnableLastStand = true;
 
-        [ModOption(name = OptionLastStandThreshold, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
+        [ModOption(name = OptionLastStandThreshold, nameLocalizationId = LocalizationGroupId + ".LastStandThreshold", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
         public static float LastStandThreshold = 0.15f;
 
-        [ModOption(name = TriggerParry, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
+        [ModOption(name = TriggerParry, nameLocalizationId = LocalizationGroupId + ".TriggerParry", category = CategoryTriggers, categoryLocalizationId = LocalizationGroupId + ".CategoryTriggers", categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
         public static bool EnableParry = true;
 
         #endregion
@@ -944,16 +947,16 @@ namespace CSM.Configuration
 
         #region CSM Advanced
 
-        [ModOption(name = OptionDebugLogging, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
+        [ModOption(name = OptionDebugLogging, nameLocalizationId = LocalizationGroupId + ".DebugLogging", category = CategoryAdvanced, categoryLocalizationId = LocalizationGroupId + ".CategoryAdvanced", categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
 
-        [ModOption(name = OptionDebugOverlay, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 15, defaultValueIndex = 0, tooltip = "Show on-screen debug overlay with CSM state")]
+        [ModOption(name = OptionDebugOverlay, nameLocalizationId = LocalizationGroupId + ".DebugOverlay", category = CategoryAdvanced, categoryLocalizationId = LocalizationGroupId + ".CategoryAdvanced", categoryOrder = CategoryOrderAdvanced, order = 15, defaultValueIndex = 0, tooltip = "Show on-screen debug overlay with CSM state")]
         public static bool DebugOverlay = false;
 
-        [ModOption(name = OptionQuickTestTrigger, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
+        [ModOption(name = OptionQuickTestTrigger, nameLocalizationId = LocalizationGroupId + ".QuickTestTrigger", category = CategoryAdvanced, categoryLocalizationId = LocalizationGroupId + ".CategoryAdvanced", categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
         public static string QuickTestTrigger = TriggerBasicKill;
 
-        [ModOption(name = OptionQuickTestNow, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
+        [ModOption(name = OptionQuickTestNow, nameLocalizationId = LocalizationGroupId + ".QuickTestNow", category = CategoryAdvanced, categoryLocalizationId = LocalizationGroupId + ".CategoryAdvanced", categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
         public static bool QuickTestNow = false;
 
         #endregion
