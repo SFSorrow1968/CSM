@@ -1311,6 +1311,16 @@ namespace CSM.Configuration
         }
 
         /// <summary>
+        /// Get the killcam chance for a trigger based on its third-person distribution setting.
+        /// </summary>
+        public static float GetKillcamChance(TriggerType triggerType)
+        {
+            var values = GetCustomValues(triggerType);
+            // Distribution is a multiplier where 0 = off, 1 = 100%, 100 = always
+            return Mathf.Clamp01(values.Distribution);
+        }
+
+        /// <summary>
         /// Get chance value for a trigger based on the current ChancePreset.
         /// All values are final (from XLSX), no runtime calculations.
         /// </summary>
