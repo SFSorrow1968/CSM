@@ -520,7 +520,7 @@ namespace CSM.Hooks
                     bool directPlayerHit = WasKilledByPlayer(collisionInstance);
                     
                     // Track all player hits - needed for:
-                    // 1. DOT/status damage attribution (CDoT bleeds, burns)
+                    // 1. DOT/status damage attribution (DOT bleeds, burns)
                     // 2. Thrown weapon detection (item.isThrowed may be cleared by kill time)
                     var damageType = collisionInstance.damageStruct.damageType;
                     

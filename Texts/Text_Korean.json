@@ -1,776 +1,976 @@
 {
-  "$type": "ThunderRoad.TextData, ThunderRoad",
-  "id": "CSM_Options",
-  "version": 1,
-  "groupId": "CSM_Options",
-  "textList": [
-    {
-      "id": "CSM_Options.CameraFirstPersonOnly",
-      "text": "1인칭 시점만 가능"
-    },
-    {
-      "id": "CSM_Options.CameraMixed",
-      "text": "혼합"
-    },
-    {
-      "id": "CSM_Options.CameraMixedRare",
-      "text": "혼합형 (드물게 3인칭 시점 사용)"
-    },
-    {
-      "id": "CSM_Options.CameraMostlyThirdPerson",
-      "text": "주로 3인칭 시점"
-    },
-    {
-      "id": "CSM_Options.CameraThirdPersonOnly",
-      "text": "3인칭 시점만 사용"
-    },
-    {
-      "id": "CSM_Options.CategoryAdvanced",
-      "text": "고급"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomBasic",
-      "text": "기본 처치"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomCritical",
-      "text": "치명타"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomDecapitation",
-      "text": "참수"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomDismemberment",
-      "text": "사지 절단"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomLastEnemy",
-      "text": "마지막 적"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomLastStand",
-      "text": "최후의 저항"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomParry",
-      "text": "패리"
-    },
-    {
-      "id": "CSM_Options.CategoryDamageMultipliers",
-      "text": "피해 수정치"
-    },
-    {
-      "id": "CSM_Options.CategoryKillcam",
-      "text": "킬캠"
-    },
-    {
-      "id": "CSM_Options.CategoryPresetSelection",
-      "text": "빠른 설치"
-    },
-    {
-      "id": "CSM_Options.CategoryTriggers",
-      "text": "트리거"
-    },
-    {
-      "id": "CSM_Options.ChanceDefault",
-      "text": "기본"
-    },
-    {
-      "id": "CSM_Options.ChanceFrequent",
-      "text": "잦은"
-    },
-    {
-      "id": "CSM_Options.ChanceOff",
-      "text": "꺼짐 (냉각 시간 동안만)"
-    },
-    {
-      "id": "CSM_Options.ChanceRare",
-      "text": "희귀한"
-    },
-    {
-      "id": "CSM_Options.ChanceVeryRare",
-      "text": "매우 희귀함"
-    },
-    {
-      "id": "CSM_Options.CooldownDefault",
-      "text": "기본"
-    },
-    {
-      "id": "CSM_Options.CooldownExtended",
-      "text": "펼친"
-    },
-    {
-      "id": "CSM_Options.CooldownLong",
-      "text": "긴"
-    },
-    {
-      "id": "CSM_Options.CooldownOff",
-      "text": "꺼짐 (재사용 대기시간 없음)"
-    },
-    {
-      "id": "CSM_Options.CooldownShort",
-      "text": "짧은"
-    },
-    {
-      "id": "CSM_Options.DurationDefault",
-      "text": "기본"
-    },
-    {
-      "id": "CSM_Options.DurationExtended",
-      "text": "펼친"
-    },
-    {
-      "id": "CSM_Options.DurationLong",
-      "text": "긴"
-    },
-    {
-      "id": "CSM_Options.DurationShort",
-      "text": "짧은"
-    },
-    {
-      "id": "CSM_Options.DurationVeryShort",
-      "text": "아주 짧은"
-    },
-    {
-      "id": "CSM_Options.PresetCinematic",
-      "text": "시네마틱"
-    },
-    {
-      "id": "CSM_Options.PresetDefault",
-      "text": "기본"
-    },
-    {
-      "id": "CSM_Options.PresetDramatic",
-      "text": "극적인"
-    },
-    {
-      "id": "CSM_Options.PresetEpic",
-      "text": "서사시"
-    },
-    {
-      "id": "CSM_Options.PresetSubtle",
-      "text": "미묘한"
-    },
-    {
-      "id": "CSM_Options.TransitionLinear",
-      "text": "선의"
-    },
-    {
-      "id": "CSM_Options.TransitionOff",
-      "text": "꺼짐(즉시)"
-    },
-    {
-      "id": "CSM_Options.TransitionSmoothstep",
-      "text": "스무스스텝"
-    },
-    {
-      "id": "CSM_Options.EasingLinear",
-      "text": "선의"
-    },
-    {
-      "id": "CSM_Options.EasingOff",
-      "text": "끄다"
-    },
-    {
-      "id": "CSM_Options.EasingSmoothstep",
-      "text": "스무스스텝"
-    },
-    {
-      "id": "CSM_Options.OptionBasicChance",
-      "text": "기본 확률"
-    },
-    {
-      "id": "CSM_Options.OptionBasicCooldown",
-      "text": "기본 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionBasicDuration",
-      "text": "기본 기간"
-    },
-    {
-      "id": "CSM_Options.OptionBasicThirdPerson",
-      "text": "기본 3인칭"
-    },
-    {
-      "id": "CSM_Options.OptionBasicTimeScale",
-      "text": "기본 시간 척도"
-    },
-    {
-      "id": "CSM_Options.OptionBasicTransition",
-      "text": "기본 전환"
-    },
-    {
-      "id": "CSM_Options.OptionBluntMultiplier",
-      "text": "둔한 배율"
-    },
-    {
-      "id": "CSM_Options.OptionCameraDistance",
-      "text": "카메라 거리"
-    },
-    {
-      "id": "CSM_Options.OptionCameraHeight",
-      "text": "카메라 높이"
-    },
-    {
-      "id": "CSM_Options.OptionChancePreset",
-      "text": "확률 사전 설정"
-    },
-    {
-      "id": "CSM_Options.OptionCooldownPreset",
-      "text": "쿨다운 사전 설정"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalChance",
-      "text": "치명타 확률"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalCooldown",
-      "text": "치명타 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalDuration",
-      "text": "임계 지속 시간"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalThirdPerson",
-      "text": "비판적 3인칭 시점"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalTimeScale",
-      "text": "임계 시간 척도"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalTransition",
-      "text": "임계 전환"
-    },
-    {
-      "id": "CSM_Options.OptionDOTMultiplier",
-      "text": "도트 승수"
-    },
-    {
-      "id": "CSM_Options.OptionDebugLogging",
-      "text": "디버그 로깅"
-    },
-    {
-      "id": "CSM_Options.OptionDebugOverlay",
-      "text": "디버그 오버레이"
-    },
-    {
-      "id": "CSM_Options.OptionDecapChance",
-      "text": "데캡 찬스"
-    },
-    {
-      "id": "CSM_Options.OptionDecapCooldown",
-      "text": "데캡 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionDecapDuration",
-      "text": "디캡 지속 시간"
-    },
-    {
-      "id": "CSM_Options.OptionDecapThirdPerson",
-      "text": "데캡 3인칭"
-    },
-    {
-      "id": "CSM_Options.OptionDecapTimeScale",
-      "text": "디캡 시간 척도"
-    },
-    {
-      "id": "CSM_Options.OptionDecapTransition",
-      "text": "디캡 전환"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberChance",
-      "text": "디스멤버 찬스"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberCooldown",
-      "text": "사지 절단 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberDuration",
-      "text": "해체 기간"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberThirdPerson",
-      "text": "제3자를 사지 절단하다"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberTimeScale",
-      "text": "시간 척도 분해"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberTransition",
-      "text": "해체 전환"
-    },
-    {
-      "id": "CSM_Options.OptionDurationPreset",
-      "text": "지속 시간 사전 설정"
-    },
-    {
-      "id": "CSM_Options.OptionElementalMultiplier",
-      "text": "원소 배율"
-    },
-    {
-      "id": "CSM_Options.OptionEnableMod",
-      "text": "모드 활성화"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityPreset",
-      "text": "강도 사전 설정"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityScalingEnabled",
-      "text": "강도 스케일링"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityScalingMax",
-      "text": "최대 강도 배율"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyChance",
-      "text": "마지막 적의 기회"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyCooldown",
-      "text": "마지막 적 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyDuration",
-      "text": "라스트에너미 지속 시간"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyThirdPerson",
-      "text": "라스트이너미 3인칭"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyTimeScale",
-      "text": "라스트에너미 시간 척도"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyTransition",
-      "text": "라스트에너미 전환"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandCooldown",
-      "text": "라스트스탠드 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandDuration",
-      "text": "라스트스탠드 지속 시간"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandThreshold",
-      "text": "최후의 저항 문턱"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandTimeScale",
-      "text": "라스트스탠드 시간 척도"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandTransition",
-      "text": "라스트스탠드 전환"
-    },
-    {
-      "id": "CSM_Options.OptionOrbitSpeed",
-      "text": "궤도 속도"
-    },
-    {
-      "id": "CSM_Options.OptionParryChance",
-      "text": "패리 찬스"
-    },
-    {
-      "id": "CSM_Options.OptionParryCooldown",
-      "text": "패리 쿨다운"
-    },
-    {
-      "id": "CSM_Options.OptionParryDuration",
-      "text": "패리 지속 시간"
-    },
-    {
-      "id": "CSM_Options.OptionParryTimeScale",
-      "text": "패리 시간 척도"
-    },
-    {
-      "id": "CSM_Options.OptionParryTransition",
-      "text": "패리 전환"
-    },
-    {
-      "id": "CSM_Options.OptionPierceMultiplier",
-      "text": "관통 배율"
-    },
-    {
-      "id": "CSM_Options.OptionQuickTestNow",
-      "text": "지금 바로 빠른 테스트해 보세요"
-    },
-    {
-      "id": "CSM_Options.OptionQuickTestTrigger",
-      "text": "빠른 테스트 트리거"
-    },
-    {
-      "id": "CSM_Options.OptionRandomizeDistance",
-      "text": "거리 무작위화"
-    },
-    {
-      "id": "CSM_Options.OptionRandomizeHeight",
-      "text": "높이 무작위화"
-    },
-    {
-      "id": "CSM_Options.OptionSlashMultiplier",
-      "text": "슬래시 배율"
-    },
-    {
-      "id": "CSM_Options.OptionThirdPersonDistribution",
-      "text": "제3자 배포"
-    },
-    {
-      "id": "CSM_Options.OptionThrownMultiplier",
-      "text": "투사체/투척 배율"
-    },
-    {
-      "id": "CSM_Options.OptionTransitionPreset",
-      "text": "전환 사전 설정"
-    },
-    {
-      "id": "CSM_Options.OptionTriggerProfile",
-      "text": "트리거 프로필"
-    },
-    {
-      "id": "CSM_Options.ProfileAll",
-      "text": "모든 트리거"
-    },
-    {
-      "id": "CSM_Options.ProfileHighlights",
-      "text": "하이라이트"
-    },
-    {
-      "id": "CSM_Options.ProfileKillsOnly",
-      "text": "킬만"
-    },
-    {
-      "id": "CSM_Options.ProfileLastEnemyOnly",
-      "text": "마지막 적만"
-    },
-    {
-      "id": "CSM_Options.ProfileParryOnly",
-      "text": "패리 전용"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicChance",
-      "text": "발동될 확률"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicThirdPerson",
-      "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipBluntMultiplier",
-      "text": "둔기 공격(충격) 피해에 대한 배율입니다. 0x는 이 유형에 대한 슬로우 모션을 비활성화합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipCameraDistance",
-      "text": "목표물과의 거리"
-    },
-    {
-      "id": "CSM_Options.TooltipCameraHeight",
-      "text": "높이 오프셋"
-    },
-    {
-      "id": "CSM_Options.TooltipChancePreset",
-      "text": "발동 확률 값을 설정합니다. 끄면 확률이 무시되고 쿨다운만 적용됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipCooldownPreset",
-      "text": "각 트리거별 재사용 대기시간 값을 설정합니다. 끄면 재사용 대기시간이 비활성화됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalChance",
-      "text": "발동될 확률"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalThirdPerson",
-      "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipDOTMultiplier",
-      "text": "지속 피해 처치 시 적용되는 배율(CDoT 모드). CDoT 모드가 설치된 경우에만 적용됩니다. 0x로 설정하면 출혈/화상 처치 시 슬로우 모션이 비활성화됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipDebugLogging",
-      "text": "자세한 디버그 로깅을 활성화합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipDebugOverlay",
-      "text": "CSM 상태를 화면에 디버그 오버레이로 표시합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipDecapChance",
-      "text": "발동될 확률"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapThirdPerson",
-      "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberChance",
-      "text": "발동될 확률"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberThirdPerson",
-      "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipDurationPreset",
-      "text": "트리거별 지속 시간 값을 설정합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipElementalMultiplier",
-      "text": "속성 피해(화염, 번개, 에너지) 배율입니다. 0x로 설정하면 속성 공격으로 적을 처치할 때 슬로우 모션이 비활성화됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipEnableMod",
-      "text": "전체 모드의 마스터 스위치"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityPreset",
-      "text": "강도 프로필. 미묘함 = 짧음, 기본 = 균형, 극적 = 강렬함, 영화적 = 극적, 웅장함 = 극대함"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityScalingEnabled",
-      "text": "충격력에 따라 슬로우 모션 강도를 조절합니다. 기본적으로는 꺼져 있습니다."
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityScalingMax",
-      "text": "최대 강도에서의 최대 배율 (최소값은 항상 1.0배)."
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyChance",
-      "text": "발동될 확률"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyThirdPerson",
-      "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandThreshold",
-      "text": "최후의 저항을 발동시키려면 체력 %가 필요합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipOrbitSpeed",
-      "text": "카메라 회전 속도 (정지 상태일 경우 0)"
-    },
-    {
-      "id": "CSM_Options.TooltipParryChance",
-      "text": "발동될 확률"
-    },
-    {
-      "id": "CSM_Options.TooltipParryCooldown",
-      "text": "쿨다운"
-    },
-    {
-      "id": "CSM_Options.TooltipParryDuration",
-      "text": "지속"
-    },
-    {
-      "id": "CSM_Options.TooltipParryTimeScale",
-      "text": "시간 척도"
-    },
-    {
-      "id": "CSM_Options.TooltipParryTransition",
-      "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-    },
-    {
-      "id": "CSM_Options.TooltipPierceMultiplier",
-      "text": "관통 공격(찌르기) 피해량 배율입니다. 0x로 설정하면 이 유형에 대한 슬로우 모션이 비활성화됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipQuickTestNow",
-      "text": "선택한 트리거를 한 번만 발사하려면 토글하세요."
-    },
-    {
-      "id": "CSM_Options.TooltipQuickTestTrigger",
-      "text": "어떤 트리거를 시뮬레이션할 것인가"
-    },
-    {
-      "id": "CSM_Options.TooltipRandomizeDistance",
-      "text": "킬캠당 거리 무작위화"
-    },
-    {
-      "id": "CSM_Options.TooltipRandomizeHeight",
-      "text": "킬캠마다 높이를 무작위로 설정합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipSlashMultiplier",
-      "text": "베기 공격(베기) 피해량 배율입니다. 0x는 이 유형에 대한 슬로우 모션을 비활성화합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipThirdPersonDistribution",
-      "text": "3인칭 킬캠이 나타나는 빈도를 조절합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipThrownMultiplier",
-      "text": "투사체/투척 무기(단검, 화살, 창) 처치 시 적용되는 배율입니다. 0x로 설정하면 투사체 처치 시 슬로우 모션이 비활성화됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipTransitionPreset",
-      "text": "트리거별 전환 곡선을 설정합니다. 꺼짐 = 즉시 전환, Smoothstep = 부드러운 램프 전환, Linear = 일정한 전환율."
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerBasicKill",
-      "text": "적 처치 시 발동"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerCriticalKill",
-      "text": "머리나 목에 방아쇠를 당기면 사망합니다."
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerDecapitation",
-      "text": "참수 시 발동"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerDismemberment",
-      "text": "사지 절단 시 발동"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerLastEnemy",
-      "text": "웨이브의 마지막 적을 처치하면 발동됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerLastStand",
-      "text": "체력이 심각하게 낮아지면 발동됩니다."
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerParry",
-      "text": "무기 방어 성공 시 발동"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerProfile",
-      "text": "어떤 트리거가 활성화되어 있는지 보여줍니다. 프로필을 선택하면 트리거별 토글이 업데이트됩니다."
-    },
-    {
-      "id": "CSM_Options.TriggerBasicKill",
-      "text": "기본 처치"
-    },
-    {
-      "id": "CSM_Options.TriggerCriticalKill",
-      "text": "치명타"
-    },
-    {
-      "id": "CSM_Options.TriggerDecapitation",
-      "text": "참수"
-    },
-    {
-      "id": "CSM_Options.TriggerDismemberment",
-      "text": "절단"
-    },
-    {
-      "id": "CSM_Options.TriggerLastEnemy",
-      "text": "마지막 적"
-    },
-    {
-      "id": "CSM_Options.TriggerLastStand",
-      "text": "최후의 저항"
-    },
-    {
-      "id": "CSM_Options.TriggerParry",
-      "text": "패리"
-    }
-  ]
+    "$type": "ThunderRoad.TextData, ThunderRoad",
+    "id": "Korean",
+    "sensitiveContent": "None",
+    "sensitiveFilterBehaviour": "Discard",
+    "version": 1,
+    "languageCode": "ko",
+    "textGroups": [
+        {
+            "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+            "id": "CSM",
+            "texts": [
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraFirstPersonOnly",
+                    "text": "1인칭 시점만 가능"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMixed",
+                    "text": "혼합"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMostlyFirstPerson",
+                    "text": "혼합형 (드물게 3인칭 시점 사용)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMostlyThirdPerson",
+                    "text": "주로 3인칭 시점"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraThirdPersonOnly",
+                    "text": "3인칭 시점만 사용"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryAdvanced",
+                    "text": "🔧 고급"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomBasic",
+                    "text": "► 기본 처치"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomCritical",
+                    "text": "► 치명타"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomDecapitation",
+                    "text": "► 참수"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomDismemberment",
+                    "text": "► 사지 절단"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomLastEnemy",
+                    "text": "► 마지막 적"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomLastStand",
+                    "text": "► 최후의 저항"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomParry",
+                    "text": "► 패리"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryDamageMultipliers",
+                    "text": "⚖ 피해 수정치"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryKillcam",
+                    "text": "📷 킬캠"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryPresetSelection",
+                    "text": "⚙ 빠른 설치"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryTriggers",
+                    "text": "⚡ 트리거"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceDefault",
+                    "text": "기본"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceFrequent",
+                    "text": "잦은"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceOff",
+                    "text": "꺼짐 (냉각 시간 동안만)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceRare",
+                    "text": "희귀한"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceVeryRare",
+                    "text": "매우 희귀함"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownDefault",
+                    "text": "기본"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownExtended",
+                    "text": "펼친"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownLong",
+                    "text": "긴"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownOff",
+                    "text": "꺼짐 (재사용 대기시간 없음)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownShort",
+                    "text": "짧은"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationDefault",
+                    "text": "기본"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationExtended",
+                    "text": "펼친"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationLong",
+                    "text": "긴"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationShort",
+                    "text": "짧은"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationVeryShort",
+                    "text": "아주 짧은"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingLinear",
+                    "text": "선의"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingOff",
+                    "text": "끄다"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingSmoothstep",
+                    "text": "스무스스텝"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicChance",
+                    "text": "기본 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicCooldown",
+                    "text": "기본 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicDuration",
+                    "text": "기본 기간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicThirdPerson",
+                    "text": "기본 3인칭"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicTimeScale",
+                    "text": "기본 시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicTransition",
+                    "text": "기본 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBluntMultiplier",
+                    "text": "둔한 배율"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCameraDistance",
+                    "text": "카메라 거리"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCameraHeight",
+                    "text": "카메라 높이"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionChancePreset",
+                    "text": "확률 사전 설정"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCooldownPreset",
+                    "text": "쿨다운 사전 설정"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalChance",
+                    "text": "치명타 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalCooldown",
+                    "text": "치명타 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalDuration",
+                    "text": "임계 지속 시간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalThirdPerson",
+                    "text": "비판적 3인칭 시점"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalTimeScale",
+                    "text": "임계 시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalTransition",
+                    "text": "임계 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDOTMultiplier",
+                    "text": "도트 승수"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDebugLogging",
+                    "text": "디버그 로깅"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDebugOverlay",
+                    "text": "디버그 오버레이"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapChance",
+                    "text": "데캡 찬스"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapCooldown",
+                    "text": "데캡 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapDuration",
+                    "text": "디캡 지속 시간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapThirdPerson",
+                    "text": "데캡 3인칭"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapTimeScale",
+                    "text": "디캡 시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapTransition",
+                    "text": "디캡 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberChance",
+                    "text": "디스멤버 찬스"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberCooldown",
+                    "text": "사지 절단 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberDuration",
+                    "text": "해체 기간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberThirdPerson",
+                    "text": "제3자를 사지 절단하다"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberTimeScale",
+                    "text": "시간 척도 분해"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberTransition",
+                    "text": "해체 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDurationPreset",
+                    "text": "지속 시간 사전 설정"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionElementalMultiplier",
+                    "text": "원소 배율"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionEnableMod",
+                    "text": "모드 활성화"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityPreset",
+                    "text": "강도 사전 설정"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityScalingEnabled",
+                    "text": "강도 스케일링"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityScalingMax",
+                    "text": "최대 강도 배율"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyChance",
+                    "text": "마지막 적의 기회"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyCooldown",
+                    "text": "마지막 적 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyDuration",
+                    "text": "라스트에너미 지속 시간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyThirdPerson",
+                    "text": "라스트이너미 3인칭"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyTimeScale",
+                    "text": "라스트에너미 시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyTransition",
+                    "text": "라스트에너미 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandCooldown",
+                    "text": "라스트스탠드 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandDuration",
+                    "text": "라스트스탠드 지속 시간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandThreshold",
+                    "text": "최후의 저항 문턱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandTimeScale",
+                    "text": "라스트스탠드 시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandTransition",
+                    "text": "라스트스탠드 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionOrbitSpeed",
+                    "text": "궤도 속도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryChance",
+                    "text": "패리 찬스"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryCooldown",
+                    "text": "패리 쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryDuration",
+                    "text": "패리 지속 시간"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryTimeScale",
+                    "text": "패리 시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryTransition",
+                    "text": "패리 전환"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionPierceMultiplier",
+                    "text": "관통 배율"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionQuickTestNow",
+                    "text": "지금 바로 빠른 테스트해 보세요"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionQuickTestTrigger",
+                    "text": "빠른 테스트 트리거"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionRandomizeDistance",
+                    "text": "거리 무작위화"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionRandomizeHeight",
+                    "text": "높이 무작위화"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionSlashMultiplier",
+                    "text": "슬래시 배율"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionThirdPersonDistribution",
+                    "text": "제3자 배포"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionThrownMultiplier",
+                    "text": "투사체/투척 배율"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionTransitionPreset",
+                    "text": "전환 사전 설정"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionTriggerProfile",
+                    "text": "트리거 프로필"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetCinematic",
+                    "text": "시네마틱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetDefault",
+                    "text": "기본"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetDramatic",
+                    "text": "극적인"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetEpic",
+                    "text": "서사시"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetSubtle",
+                    "text": "미묘한"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileAll",
+                    "text": "모든 트리거"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileHighlights",
+                    "text": "하이라이트"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileKillsOnly",
+                    "text": "킬만"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileLastEnemyOnly",
+                    "text": "마지막 적만"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileParryOnly",
+                    "text": "패리 전용"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicChance",
+                    "text": "발동될 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicThirdPerson",
+                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBluntMultiplier",
+                    "text": "둔기 공격(충격) 피해에 대한 배율입니다. 0x는 이 유형에 대한 슬로우 모션을 비활성화합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCameraDistance",
+                    "text": "목표물과의 거리"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCameraHeight",
+                    "text": "높이 오프셋"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipChancePreset",
+                    "text": "발동 확률 값을 설정합니다. 끄면 확률이 무시되고 쿨다운만 적용됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCooldownPreset",
+                    "text": "각 트리거별 재사용 대기시간 값을 설정합니다. 끄면 재사용 대기시간이 비활성화됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalChance",
+                    "text": "발동될 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalThirdPerson",
+                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDOTMultiplier",
+                    "text": "지속 피해 처치 시 적용되는 배율(DOT 모드). DOT 모드가 설치된 경우에만 적용됩니다. 0x로 설정하면 출혈/화상 처치 시 슬로우 모션이 비활성화됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDebugLogging",
+                    "text": "자세한 디버그 로깅을 활성화합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDebugOverlay",
+                    "text": "CSM 상태를 화면에 디버그 오버레이로 표시합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapChance",
+                    "text": "발동될 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapThirdPerson",
+                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberChance",
+                    "text": "발동될 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberThirdPerson",
+                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDurationPreset",
+                    "text": "트리거별 지속 시간 값을 설정합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipElementalMultiplier",
+                    "text": "속성 피해(화염, 번개, 에너지) 배율입니다. 0x로 설정하면 속성 공격으로 적을 처치할 때 슬로우 모션이 비활성화됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipEnableMod",
+                    "text": "전체 모드의 마스터 스위치"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityPreset",
+                    "text": "강도 프로필. 미묘함 = 짧음, 기본 = 균형, 극적 = 강렬함, 영화적 = 극적, 웅장함 = 극대함"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityScalingEnabled",
+                    "text": "충격력에 따라 슬로우 모션 강도를 조절합니다. 기본적으로는 꺼져 있습니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityScalingMax",
+                    "text": "최대 강도에서의 최대 배율 (최소값은 항상 1.0배)."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyChance",
+                    "text": "발동될 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyThirdPerson",
+                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandThreshold",
+                    "text": "최후의 저항을 발동시키려면 체력 %가 필요합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipOrbitSpeed",
+                    "text": "카메라 회전 속도 (정지 상태일 경우 0)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryChance",
+                    "text": "발동될 확률"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryCooldown",
+                    "text": "쿨다운"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryDuration",
+                    "text": "지속"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryTimeScale",
+                    "text": "시간 척도"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryTransition",
+                    "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipPierceMultiplier",
+                    "text": "관통 공격(찌르기) 피해량 배율입니다. 0x로 설정하면 이 유형에 대한 슬로우 모션이 비활성화됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipQuickTestNow",
+                    "text": "선택한 트리거를 한 번만 발사하려면 토글하세요."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipQuickTestTrigger",
+                    "text": "어떤 트리거를 시뮬레이션할 것인가"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipRandomizeDistance",
+                    "text": "킬캠당 거리 무작위화"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipRandomizeHeight",
+                    "text": "킬캠마다 높이를 무작위로 설정합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipSlashMultiplier",
+                    "text": "베기 공격(베기) 피해량 배율입니다. 0x는 이 유형에 대한 슬로우 모션을 비활성화합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipThirdPersonDistribution",
+                    "text": "3인칭 킬캠이 나타나는 빈도를 조절합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipThrownMultiplier",
+                    "text": "투사체/투척 무기(단검, 화살, 창) 처치 시 적용되는 배율입니다. 0x로 설정하면 투사체 처치 시 슬로우 모션이 비활성화됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTransitionPreset",
+                    "text": "트리거별 전환 곡선을 설정합니다. 꺼짐 = 즉시 전환, Smoothstep = 부드러운 램프 전환, Linear = 일정한 전환율."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerBasicKill",
+                    "text": "적 처치 시 발동"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerCriticalKill",
+                    "text": "머리나 목에 방아쇠를 당기면 사망합니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerDecapitation",
+                    "text": "참수 시 발동"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerDismemberment",
+                    "text": "사지 절단 시 발동"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerLastEnemy",
+                    "text": "웨이브의 마지막 적을 처치하면 발동됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerLastStand",
+                    "text": "체력이 심각하게 낮아지면 발동됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerParry",
+                    "text": "무기 방어 성공 시 발동"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerProfile",
+                    "text": "어떤 트리거가 활성화되어 있는지 보여줍니다. 프로필을 선택하면 트리거별 토글이 업데이트됩니다."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionLinear",
+                    "text": "선의"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionOff",
+                    "text": "꺼짐(즉시)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionSmoothstep",
+                    "text": "스무스스텝"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerBasicKill",
+                    "text": "기본 처치"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerCriticalKill",
+                    "text": "치명타"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerDecapitation",
+                    "text": "참수"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerDismemberment",
+                    "text": "절단"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerLastEnemy",
+                    "text": "마지막 적"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerLastStand",
+                    "text": "최후의 저항"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerParry",
+                    "text": "패리"
+                }
+            ]
+        }
+    ]
 }

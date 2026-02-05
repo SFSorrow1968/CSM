@@ -1,776 +1,976 @@
 {
-  "$type": "ThunderRoad.TextData, ThunderRoad",
-  "id": "CSM_Options",
-  "version": 1,
-  "groupId": "CSM_Options",
-  "textList": [
-    {
-      "id": "CSM_Options.CameraFirstPersonOnly",
-      "text": "第一人稱視角"
-    },
-    {
-      "id": "CSM_Options.CameraMixed",
-      "text": "混合"
-    },
-    {
-      "id": "CSM_Options.CameraMixedRare",
-      "text": "混合（罕見的第三人稱）"
-    },
-    {
-      "id": "CSM_Options.CameraMostlyThirdPerson",
-      "text": "大多為第三人稱"
-    },
-    {
-      "id": "CSM_Options.CameraThirdPersonOnly",
-      "text": "限第三人稱"
-    },
-    {
-      "id": "CSM_Options.CategoryAdvanced",
-      "text": "高級"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomBasic",
-      "text": "基本擊殺"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomCritical",
-      "text": "致命一擊"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomDecapitation",
-      "text": "斬首"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomDismemberment",
-      "text": "►肢解"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomLastEnemy",
-      "text": "最後的敵人"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomLastStand",
-      "text": "最後的抵抗"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomParry",
-      "text": "格擋"
-    },
-    {
-      "id": "CSM_Options.CategoryDamageMultipliers",
-      "text": "傷害修正"
-    },
-    {
-      "id": "CSM_Options.CategoryKillcam",
-      "text": "📷擊殺鏡頭"
-    },
-    {
-      "id": "CSM_Options.CategoryPresetSelection",
-      "text": "快速設定"
-    },
-    {
-      "id": "CSM_Options.CategoryTriggers",
-      "text": "觸發器"
-    },
-    {
-      "id": "CSM_Options.ChanceDefault",
-      "text": "預設"
-    },
-    {
-      "id": "CSM_Options.ChanceFrequent",
-      "text": "頻繁"
-    },
-    {
-      "id": "CSM_Options.ChanceOff",
-      "text": "關閉（僅冷卻）"
-    },
-    {
-      "id": "CSM_Options.ChanceRare",
-      "text": "稀有的"
-    },
-    {
-      "id": "CSM_Options.ChanceVeryRare",
-      "text": "非常罕見"
-    },
-    {
-      "id": "CSM_Options.CooldownDefault",
-      "text": "預設"
-    },
-    {
-      "id": "CSM_Options.CooldownExtended",
-      "text": "擴充"
-    },
-    {
-      "id": "CSM_Options.CooldownLong",
-      "text": "長的"
-    },
-    {
-      "id": "CSM_Options.CooldownOff",
-      "text": "關閉（無冷卻時間）"
-    },
-    {
-      "id": "CSM_Options.CooldownShort",
-      "text": "短的"
-    },
-    {
-      "id": "CSM_Options.DurationDefault",
-      "text": "預設"
-    },
-    {
-      "id": "CSM_Options.DurationExtended",
-      "text": "擴充"
-    },
-    {
-      "id": "CSM_Options.DurationLong",
-      "text": "長的"
-    },
-    {
-      "id": "CSM_Options.DurationShort",
-      "text": "短的"
-    },
-    {
-      "id": "CSM_Options.DurationVeryShort",
-      "text": "非常短"
-    },
-    {
-      "id": "CSM_Options.PresetCinematic",
-      "text": "電影"
-    },
-    {
-      "id": "CSM_Options.PresetDefault",
-      "text": "預設"
-    },
-    {
-      "id": "CSM_Options.PresetDramatic",
-      "text": "戲劇性"
-    },
-    {
-      "id": "CSM_Options.PresetEpic",
-      "text": "史詩"
-    },
-    {
-      "id": "CSM_Options.PresetSubtle",
-      "text": "微妙的"
-    },
-    {
-      "id": "CSM_Options.TransitionLinear",
-      "text": "線性"
-    },
-    {
-      "id": "CSM_Options.TransitionOff",
-      "text": "關閉（即時）"
-    },
-    {
-      "id": "CSM_Options.TransitionSmoothstep",
-      "text": "Smoothstep"
-    },
-    {
-      "id": "CSM_Options.EasingLinear",
-      "text": "線性"
-    },
-    {
-      "id": "CSM_Options.EasingOff",
-      "text": "離開"
-    },
-    {
-      "id": "CSM_Options.EasingSmoothstep",
-      "text": "Smoothstep"
-    },
-    {
-      "id": "CSM_Options.OptionBasicChance",
-      "text": "基本機會"
-    },
-    {
-      "id": "CSM_Options.OptionBasicCooldown",
-      "text": "基礎冷卻時間"
-    },
-    {
-      "id": "CSM_Options.OptionBasicDuration",
-      "text": "基本時長"
-    },
-    {
-      "id": "CSM_Options.OptionBasicThirdPerson",
-      "text": "基本第三人稱"
-    },
-    {
-      "id": "CSM_Options.OptionBasicTimeScale",
-      "text": "基本時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionBasicTransition",
-      "text": "基本過渡"
-    },
-    {
-      "id": "CSM_Options.OptionBluntMultiplier",
-      "text": "鈍化倍增器"
-    },
-    {
-      "id": "CSM_Options.OptionCameraDistance",
-      "text": "相機距離"
-    },
-    {
-      "id": "CSM_Options.OptionCameraHeight",
-      "text": "攝影機高度"
-    },
-    {
-      "id": "CSM_Options.OptionChancePreset",
-      "text": "機會預設"
-    },
-    {
-      "id": "CSM_Options.OptionCooldownPreset",
-      "text": "冷卻預設"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalChance",
-      "text": "暴擊幾率"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalCooldown",
-      "text": "關鍵冷卻時間"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalDuration",
-      "text": "臨界持續時間"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalThirdPerson",
-      "text": "批判性第三人稱"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalTimeScale",
-      "text": "臨界時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalTransition",
-      "text": "關鍵過渡"
-    },
-    {
-      "id": "CSM_Options.OptionDOTMultiplier",
-      "text": "點乘數"
-    },
-    {
-      "id": "CSM_Options.OptionDebugLogging",
-      "text": "偵錯日誌"
-    },
-    {
-      "id": "CSM_Options.OptionDebugOverlay",
-      "text": "調試疊加層"
-    },
-    {
-      "id": "CSM_Options.OptionDecapChance",
-      "text": "斬首機會"
-    },
-    {
-      "id": "CSM_Options.OptionDecapCooldown",
-      "text": "斬首冷卻"
-    },
-    {
-      "id": "CSM_Options.OptionDecapDuration",
-      "text": "斬首持續時間"
-    },
-    {
-      "id": "CSM_Options.OptionDecapThirdPerson",
-      "text": "斬首第三人稱"
-    },
-    {
-      "id": "CSM_Options.OptionDecapTimeScale",
-      "text": "斬首時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionDecapTransition",
-      "text": "脫帽過渡"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberChance",
-      "text": "肢解機會"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberCooldown",
-      "text": "肢解冷卻"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberDuration",
-      "text": "肢解持續時間"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberThirdPerson",
-      "text": "肢解第三人"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberTimeScale",
-      "text": "肢解時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberTransition",
-      "text": "肢解過渡"
-    },
-    {
-      "id": "CSM_Options.OptionDurationPreset",
-      "text": "持續時間預設"
-    },
-    {
-      "id": "CSM_Options.OptionElementalMultiplier",
-      "text": "元素倍增器"
-    },
-    {
-      "id": "CSM_Options.OptionEnableMod",
-      "text": "啟用模組"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityPreset",
-      "text": "強度預設"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityScalingEnabled",
-      "text": "強度縮放"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityScalingMax",
-      "text": "最大強度倍增器"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyChance",
-      "text": "最後敵人的機會"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyCooldown",
-      "text": "最後敵人冷卻時間"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyDuration",
-      "text": "LastEnemy 持續時間"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyThirdPerson",
-      "text": "《最後的敵人》第三人稱"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyTimeScale",
-      "text": "LastEney 時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyTransition",
-      "text": "最後敵人過渡"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandCooldown",
-      "text": "最後抵抗冷卻時間"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandDuration",
-      "text": "最後抵抗持續時間"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandThreshold",
-      "text": "最後防線閾值"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandTimeScale",
-      "text": "最後防線時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandTransition",
-      "text": "最後防線過渡"
-    },
-    {
-      "id": "CSM_Options.OptionOrbitSpeed",
-      "text": "軌道速度"
-    },
-    {
-      "id": "CSM_Options.OptionParryChance",
-      "text": "格擋機會"
-    },
-    {
-      "id": "CSM_Options.OptionParryCooldown",
-      "text": "招架冷卻時間"
-    },
-    {
-      "id": "CSM_Options.OptionParryDuration",
-      "text": "格擋持續時間"
-    },
-    {
-      "id": "CSM_Options.OptionParryTimeScale",
-      "text": "格擋時間尺度"
-    },
-    {
-      "id": "CSM_Options.OptionParryTransition",
-      "text": "格擋過渡"
-    },
-    {
-      "id": "CSM_Options.OptionPierceMultiplier",
-      "text": "皮爾斯倍增器"
-    },
-    {
-      "id": "CSM_Options.OptionQuickTestNow",
-      "text": "立即快速測試"
-    },
-    {
-      "id": "CSM_Options.OptionQuickTestTrigger",
-      "text": "快速測試觸發器"
-    },
-    {
-      "id": "CSM_Options.OptionRandomizeDistance",
-      "text": "隨機化距離"
-    },
-    {
-      "id": "CSM_Options.OptionRandomizeHeight",
-      "text": "隨機高度"
-    },
-    {
-      "id": "CSM_Options.OptionSlashMultiplier",
-      "text": "斜槓倍率"
-    },
-    {
-      "id": "CSM_Options.OptionThirdPersonDistribution",
-      "text": "第三方分銷"
-    },
-    {
-      "id": "CSM_Options.OptionThrownMultiplier",
-      "text": "投射物/投擲物倍率"
-    },
-    {
-      "id": "CSM_Options.OptionTransitionPreset",
-      "text": "過渡預設"
-    },
-    {
-      "id": "CSM_Options.OptionTriggerProfile",
-      "text": "觸發設定檔"
-    },
-    {
-      "id": "CSM_Options.ProfileAll",
-      "text": "所有觸發器"
-    },
-    {
-      "id": "CSM_Options.ProfileHighlights",
-      "text": "精彩片段"
-    },
-    {
-      "id": "CSM_Options.ProfileKillsOnly",
-      "text": "僅殺戮"
-    },
-    {
-      "id": "CSM_Options.ProfileLastEnemyOnly",
-      "text": "僅最後敵人"
-    },
-    {
-      "id": "CSM_Options.ProfileParryOnly",
-      "text": "僅格擋"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicChance",
-      "text": "觸發幾率"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicThirdPerson",
-      "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipBluntMultiplier",
-      "text": "鈍擊傷害（衝擊）倍率。 0x 表示該類型傷害不會觸發慢動作效果。"
-    },
-    {
-      "id": "CSM_Options.TooltipCameraDistance",
-      "text": "與目標的距離"
-    },
-    {
-      "id": "CSM_Options.TooltipCameraHeight",
-      "text": "高度偏移"
-    },
-    {
-      "id": "CSM_Options.TooltipChancePreset",
-      "text": "設定每次觸發的幾率值。關閉表示忽略幾率（僅考慮冷卻時間）。"
-    },
-    {
-      "id": "CSM_Options.TooltipCooldownPreset",
-      "text": "設定每次觸發的冷卻時間。關閉則禁用冷卻時間。"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalChance",
-      "text": "觸發幾率"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalThirdPerson",
-      "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipDOTMultiplier",
-      "text": "持續傷害擊殺倍率（CDoT模組）。僅在安裝CDoT模組後生效。 0x值停用流血/燃燒擊殺的慢動作效果。"
-    },
-    {
-      "id": "CSM_Options.TooltipDebugLogging",
-      "text": "啟用詳細調試日誌"
-    },
-    {
-      "id": "CSM_Options.TooltipDebugOverlay",
-      "text": "在螢幕上顯示具有 CSM 狀態的調試疊加層"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapChance",
-      "text": "觸發幾率"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapThirdPerson",
-      "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberChance",
-      "text": "觸發幾率"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberThirdPerson",
-      "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipDurationPreset",
-      "text": "設定每次觸發的持續時間值。"
-    },
-    {
-      "id": "CSM_Options.TooltipElementalMultiplier",
-      "text": "元素傷害倍率（火焰、閃電、能量）。 0x 表示禁用元素擊殺的慢動作效果。"
-    },
-    {
-      "id": "CSM_Options.TooltipEnableMod",
-      "text": "整個模組的總開關"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityPreset",
-      "text": "強度模式。微妙 = 短暫，預設 = 平衡，戲劇性 = 更強，電影級 = 戲劇性，史詩級 = 極致"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityScalingEnabled",
-      "text": "根據衝擊力調整慢動作強度。預設關閉。"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityScalingMax",
-      "text": "全功率下的最大倍率（最小始終為 1.0x）。"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyChance",
-      "text": "觸發幾率"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyThirdPerson",
-      "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandThreshold",
-      "text": "觸發「背水一戰」時的生命值百分比"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipOrbitSpeed",
-      "text": "相機旋轉速度（0 表示靜止）"
-    },
-    {
-      "id": "CSM_Options.TooltipParryChance",
-      "text": "觸發幾率"
-    },
-    {
-      "id": "CSM_Options.TooltipParryCooldown",
-      "text": "冷卻"
-    },
-    {
-      "id": "CSM_Options.TooltipParryDuration",
-      "text": "期間"
-    },
-    {
-      "id": "CSM_Options.TooltipParryTimeScale",
-      "text": "時間尺度"
-    },
-    {
-      "id": "CSM_Options.TooltipParryTransition",
-      "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
-    },
-    {
-      "id": "CSM_Options.TooltipPierceMultiplier",
-      "text": "穿刺傷害（刺擊）倍率。 0x 表示該類型傷害不會觸發慢動作效果。"
-    },
-    {
-      "id": "CSM_Options.TooltipQuickTestNow",
-      "text": "切換以觸發一次選定的觸發器"
-    },
-    {
-      "id": "CSM_Options.TooltipQuickTestTrigger",
-      "text": "要模擬哪個觸發器"
-    },
-    {
-      "id": "CSM_Options.TooltipRandomizeDistance",
-      "text": "隨機化每個擊殺鏡頭的距離"
-    },
-    {
-      "id": "CSM_Options.TooltipRandomizeHeight",
-      "text": "每個擊殺鏡頭隨機調整高度"
-    },
-    {
-      "id": "CSM_Options.TooltipSlashMultiplier",
-      "text": "劈砍傷害倍率。 0x 表示該類型傷害不會觸發慢動作效果。"
-    },
-    {
-      "id": "CSM_Options.TooltipThirdPersonDistribution",
-      "text": "控制第三人稱擊殺鏡頭的出現頻率。"
-    },
-    {
-      "id": "CSM_Options.TooltipThrownMultiplier",
-      "text": "投擲武器（匕首、箭矢、長矛）擊殺倍率。 0x 表示禁用投擲武器擊殺的慢動作效果。"
-    },
-    {
-      "id": "CSM_Options.TooltipTransitionPreset",
-      "text": "設定每次觸發的過渡曲線。關閉 = 瞬時，平滑步進 = 平滑過渡，線性 = 恆定速率。"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerBasicKill",
-      "text": "擊殺任何敵人時觸發"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerCriticalKill",
-      "text": "擊中頭部/喉嚨即可致死"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerDecapitation",
-      "text": "斬首觸發"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerDismemberment",
-      "text": "肢體斷裂時觸發"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerLastEnemy",
-      "text": "擊殺一波敵人中的最後一個敵人時觸發。"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerLastStand",
-      "text": "當你的生命值降至極低時觸發"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerParry",
-      "text": "成功偏轉武器時觸發"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerProfile",
-      "text": "哪些觸發器處於啟動狀態？選擇設定檔會更新每個觸發器的切換設定。"
-    },
-    {
-      "id": "CSM_Options.TriggerBasicKill",
-      "text": "基本擊殺"
-    },
-    {
-      "id": "CSM_Options.TriggerCriticalKill",
-      "text": "致命一擊"
-    },
-    {
-      "id": "CSM_Options.TriggerDecapitation",
-      "text": "斬首"
-    },
-    {
-      "id": "CSM_Options.TriggerDismemberment",
-      "text": "肢解"
-    },
-    {
-      "id": "CSM_Options.TriggerLastEnemy",
-      "text": "最後敵人"
-    },
-    {
-      "id": "CSM_Options.TriggerLastStand",
-      "text": "最後一站"
-    },
-    {
-      "id": "CSM_Options.TriggerParry",
-      "text": "格擋"
-    }
-  ]
+    "$type": "ThunderRoad.TextData, ThunderRoad",
+    "id": "ChineseTraditional",
+    "sensitiveContent": "None",
+    "sensitiveFilterBehaviour": "Discard",
+    "version": 1,
+    "languageCode": "zh-Hant",
+    "textGroups": [
+        {
+            "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+            "id": "CSM",
+            "texts": [
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraFirstPersonOnly",
+                    "text": "第一人稱視角"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMixed",
+                    "text": "混合"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMostlyFirstPerson",
+                    "text": "混合（罕見的第三人稱）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMostlyThirdPerson",
+                    "text": "大多為第三人稱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraThirdPersonOnly",
+                    "text": "限第三人稱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryAdvanced",
+                    "text": "🔧 高級"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomBasic",
+                    "text": "► 基本擊殺"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomCritical",
+                    "text": "► 致命一擊"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomDecapitation",
+                    "text": "► 斬首"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomDismemberment",
+                    "text": "►肢解"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomLastEnemy",
+                    "text": "► 最後的敵人"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomLastStand",
+                    "text": "► 最後的抵抗"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomParry",
+                    "text": "► 格擋"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryDamageMultipliers",
+                    "text": "⚖ 傷害修正"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryKillcam",
+                    "text": "📷擊殺鏡頭"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryPresetSelection",
+                    "text": "⚙ 快速設定"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryTriggers",
+                    "text": "⚡ 觸發器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceDefault",
+                    "text": "預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceFrequent",
+                    "text": "頻繁"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceOff",
+                    "text": "關閉（僅冷卻）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceRare",
+                    "text": "稀有的"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceVeryRare",
+                    "text": "非常罕見"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownDefault",
+                    "text": "預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownExtended",
+                    "text": "擴充"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownLong",
+                    "text": "長的"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownOff",
+                    "text": "關閉（無冷卻時間）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownShort",
+                    "text": "短的"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationDefault",
+                    "text": "預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationExtended",
+                    "text": "擴充"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationLong",
+                    "text": "長的"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationShort",
+                    "text": "短的"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationVeryShort",
+                    "text": "非常短"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingLinear",
+                    "text": "線性"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingOff",
+                    "text": "離開"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingSmoothstep",
+                    "text": "Smoothstep"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicChance",
+                    "text": "基本機會"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicCooldown",
+                    "text": "基礎冷卻時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicDuration",
+                    "text": "基本時長"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicThirdPerson",
+                    "text": "基本第三人稱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicTimeScale",
+                    "text": "基本時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicTransition",
+                    "text": "基本過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBluntMultiplier",
+                    "text": "鈍化倍增器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCameraDistance",
+                    "text": "相機距離"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCameraHeight",
+                    "text": "攝影機高度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionChancePreset",
+                    "text": "機會預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCooldownPreset",
+                    "text": "冷卻預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalChance",
+                    "text": "暴擊幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalCooldown",
+                    "text": "關鍵冷卻時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalDuration",
+                    "text": "臨界持續時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalThirdPerson",
+                    "text": "批判性第三人稱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalTimeScale",
+                    "text": "臨界時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalTransition",
+                    "text": "關鍵過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDOTMultiplier",
+                    "text": "點乘數"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDebugLogging",
+                    "text": "偵錯日誌"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDebugOverlay",
+                    "text": "調試疊加層"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapChance",
+                    "text": "斬首機會"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapCooldown",
+                    "text": "斬首冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapDuration",
+                    "text": "斬首持續時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapThirdPerson",
+                    "text": "斬首第三人稱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapTimeScale",
+                    "text": "斬首時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapTransition",
+                    "text": "脫帽過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberChance",
+                    "text": "肢解機會"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberCooldown",
+                    "text": "肢解冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberDuration",
+                    "text": "肢解持續時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberThirdPerson",
+                    "text": "肢解第三人"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberTimeScale",
+                    "text": "肢解時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberTransition",
+                    "text": "肢解過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDurationPreset",
+                    "text": "持續時間預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionElementalMultiplier",
+                    "text": "元素倍增器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionEnableMod",
+                    "text": "啟用模組"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityPreset",
+                    "text": "強度預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityScalingEnabled",
+                    "text": "強度縮放"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityScalingMax",
+                    "text": "最大強度倍增器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyChance",
+                    "text": "最後敵人的機會"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyCooldown",
+                    "text": "最後敵人冷卻時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyDuration",
+                    "text": "LastEnemy 持續時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyThirdPerson",
+                    "text": "《最後的敵人》第三人稱"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyTimeScale",
+                    "text": "LastEney 時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyTransition",
+                    "text": "最後敵人過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandCooldown",
+                    "text": "最後抵抗冷卻時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandDuration",
+                    "text": "最後抵抗持續時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandThreshold",
+                    "text": "最後防線閾值"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandTimeScale",
+                    "text": "最後防線時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandTransition",
+                    "text": "最後防線過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionOrbitSpeed",
+                    "text": "軌道速度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryChance",
+                    "text": "格擋機會"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryCooldown",
+                    "text": "招架冷卻時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryDuration",
+                    "text": "格擋持續時間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryTimeScale",
+                    "text": "格擋時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryTransition",
+                    "text": "格擋過渡"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionPierceMultiplier",
+                    "text": "皮爾斯倍增器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionQuickTestNow",
+                    "text": "立即快速測試"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionQuickTestTrigger",
+                    "text": "快速測試觸發器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionRandomizeDistance",
+                    "text": "隨機化距離"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionRandomizeHeight",
+                    "text": "隨機高度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionSlashMultiplier",
+                    "text": "斜槓倍率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionThirdPersonDistribution",
+                    "text": "第三方分銷"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionThrownMultiplier",
+                    "text": "投射物/投擲物倍率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionTransitionPreset",
+                    "text": "過渡預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionTriggerProfile",
+                    "text": "觸發設定檔"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetCinematic",
+                    "text": "電影"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetDefault",
+                    "text": "預設"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetDramatic",
+                    "text": "戲劇性"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetEpic",
+                    "text": "史詩"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetSubtle",
+                    "text": "微妙的"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileAll",
+                    "text": "所有觸發器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileHighlights",
+                    "text": "精彩片段"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileKillsOnly",
+                    "text": "僅殺戮"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileLastEnemyOnly",
+                    "text": "僅最後敵人"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileParryOnly",
+                    "text": "僅格擋"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicChance",
+                    "text": "觸發幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicThirdPerson",
+                    "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBluntMultiplier",
+                    "text": "鈍擊傷害（衝擊）倍率。 0x 表示該類型傷害不會觸發慢動作效果。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCameraDistance",
+                    "text": "與目標的距離"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCameraHeight",
+                    "text": "高度偏移"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipChancePreset",
+                    "text": "設定每次觸發的幾率值。關閉表示忽略幾率（僅考慮冷卻時間）。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCooldownPreset",
+                    "text": "設定每次觸發的冷卻時間。關閉則禁用冷卻時間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalChance",
+                    "text": "觸發幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalThirdPerson",
+                    "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDOTMultiplier",
+                    "text": "持續傷害擊殺倍率（DOT模組）。僅在安裝DOT模組後生效。 0x值停用流血/燃燒擊殺的慢動作效果。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDebugLogging",
+                    "text": "啟用詳細調試日誌"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDebugOverlay",
+                    "text": "在螢幕上顯示具有 CSM 狀態的調試疊加層"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapChance",
+                    "text": "觸發幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapThirdPerson",
+                    "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberChance",
+                    "text": "觸發幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberThirdPerson",
+                    "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDurationPreset",
+                    "text": "設定每次觸發的持續時間值。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipElementalMultiplier",
+                    "text": "元素傷害倍率（火焰、閃電、能量）。 0x 表示禁用元素擊殺的慢動作效果。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipEnableMod",
+                    "text": "整個模組的總開關"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityPreset",
+                    "text": "強度模式。微妙 = 短暫，預設 = 平衡，戲劇性 = 更強，電影級 = 戲劇性，史詩級 = 極致"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityScalingEnabled",
+                    "text": "根據衝擊力調整慢動作強度。預設關閉。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityScalingMax",
+                    "text": "全功率下的最大倍率（最小始終為 1.0x）。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyChance",
+                    "text": "觸發幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyThirdPerson",
+                    "text": "第三人稱擊殺回放頻率倍增器（0% 禁用）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandThreshold",
+                    "text": "觸發「背水一戰」時的生命值百分比"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipOrbitSpeed",
+                    "text": "相機旋轉速度（0 表示靜止）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryChance",
+                    "text": "觸發幾率"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryCooldown",
+                    "text": "冷卻"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryDuration",
+                    "text": "期間"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryTimeScale",
+                    "text": "時間尺度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryTransition",
+                    "text": "過渡曲線（持續時間的 20%）。關閉 = 瞬間。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipPierceMultiplier",
+                    "text": "穿刺傷害（刺擊）倍率。 0x 表示該類型傷害不會觸發慢動作效果。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipQuickTestNow",
+                    "text": "切換以觸發一次選定的觸發器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipQuickTestTrigger",
+                    "text": "要模擬哪個觸發器"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipRandomizeDistance",
+                    "text": "隨機化每個擊殺鏡頭的距離"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipRandomizeHeight",
+                    "text": "每個擊殺鏡頭隨機調整高度"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipSlashMultiplier",
+                    "text": "劈砍傷害倍率。 0x 表示該類型傷害不會觸發慢動作效果。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipThirdPersonDistribution",
+                    "text": "控制第三人稱擊殺鏡頭的出現頻率。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipThrownMultiplier",
+                    "text": "投擲武器（匕首、箭矢、長矛）擊殺倍率。 0x 表示禁用投擲武器擊殺的慢動作效果。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTransitionPreset",
+                    "text": "設定每次觸發的過渡曲線。關閉 = 瞬時，平滑步進 = 平滑過渡，線性 = 恆定速率。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerBasicKill",
+                    "text": "擊殺任何敵人時觸發"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerCriticalKill",
+                    "text": "擊中頭部/喉嚨即可致死"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerDecapitation",
+                    "text": "斬首觸發"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerDismemberment",
+                    "text": "肢體斷裂時觸發"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerLastEnemy",
+                    "text": "擊殺一波敵人中的最後一個敵人時觸發。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerLastStand",
+                    "text": "當你的生命值降至極低時觸發"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerParry",
+                    "text": "成功偏轉武器時觸發"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerProfile",
+                    "text": "哪些觸發器處於啟動狀態？選擇設定檔會更新每個觸發器的切換設定。"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionLinear",
+                    "text": "線性"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionOff",
+                    "text": "關閉（即時）"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionSmoothstep",
+                    "text": "Smoothstep"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerBasicKill",
+                    "text": "基本擊殺"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerCriticalKill",
+                    "text": "致命一擊"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerDecapitation",
+                    "text": "斬首"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerDismemberment",
+                    "text": "肢解"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerLastEnemy",
+                    "text": "最後敵人"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerLastStand",
+                    "text": "最後一站"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerParry",
+                    "text": "格擋"
+                }
+            ]
+        }
+    ]
 }

@@ -71,7 +71,7 @@ namespace CSM.Core
         }
 
         /// <summary>
-        /// Mark this as a status effect kill (DOT from fire, lightning, CDoT bleeds).
+        /// Mark this as a status effect kill (DOT from fire, lightning, DOT bleeds).
         /// </summary>
         public SlowMotionTriggerBuilder AsStatusKill()
         {

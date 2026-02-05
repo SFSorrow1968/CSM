@@ -1,776 +1,976 @@
 {
-  "$type": "ThunderRoad.TextData, ThunderRoad",
-  "id": "CSM_Options",
-  "version": 1,
-  "groupId": "CSM_Options",
-  "textList": [
-    {
-      "id": "CSM_Options.CameraFirstPersonOnly",
-      "text": "Nur die Ich-Perspektive"
-    },
-    {
-      "id": "CSM_Options.CameraMixed",
-      "text": "Gemischt"
-    },
-    {
-      "id": "CSM_Options.CameraMixedRare",
-      "text": "Gemischt (seltene dritte Person)"
-    },
-    {
-      "id": "CSM_Options.CameraMostlyThirdPerson",
-      "text": "Überwiegend in der dritten Person"
-    },
-    {
-      "id": "CSM_Options.CameraThirdPersonOnly",
-      "text": "Nur die dritte Person"
-    },
-    {
-      "id": "CSM_Options.CategoryAdvanced",
-      "text": "Fortgeschritten"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomBasic",
-      "text": "Standardkill"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomCritical",
-      "text": "Kritischer Treffer"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomDecapitation",
-      "text": "Enthauptung"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomDismemberment",
-      "text": "Zerstückelung"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomLastEnemy",
-      "text": "Letzter Feind"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomLastStand",
-      "text": "Letzter Widerstand"
-    },
-    {
-      "id": "CSM_Options.CategoryCustomParry",
-      "text": "Parieren"
-    },
-    {
-      "id": "CSM_Options.CategoryDamageMultipliers",
-      "text": "Schadensmodifikatoren"
-    },
-    {
-      "id": "CSM_Options.CategoryKillcam",
-      "text": "Killcam"
-    },
-    {
-      "id": "CSM_Options.CategoryPresetSelection",
-      "text": "Schnelle Einrichtung"
-    },
-    {
-      "id": "CSM_Options.CategoryTriggers",
-      "text": "Auslöser"
-    },
-    {
-      "id": "CSM_Options.ChanceDefault",
-      "text": "Standard"
-    },
-    {
-      "id": "CSM_Options.ChanceFrequent",
-      "text": "Häufig"
-    },
-    {
-      "id": "CSM_Options.ChanceOff",
-      "text": "Aus (nur Abkühlphase)"
-    },
-    {
-      "id": "CSM_Options.ChanceRare",
-      "text": "Selten"
-    },
-    {
-      "id": "CSM_Options.ChanceVeryRare",
-      "text": "Sehr selten"
-    },
-    {
-      "id": "CSM_Options.CooldownDefault",
-      "text": "Standard"
-    },
-    {
-      "id": "CSM_Options.CooldownExtended",
-      "text": "Erweitert"
-    },
-    {
-      "id": "CSM_Options.CooldownLong",
-      "text": "Lang"
-    },
-    {
-      "id": "CSM_Options.CooldownOff",
-      "text": "Aus (Keine Abklingzeit)"
-    },
-    {
-      "id": "CSM_Options.CooldownShort",
-      "text": "Kurz"
-    },
-    {
-      "id": "CSM_Options.DurationDefault",
-      "text": "Standard"
-    },
-    {
-      "id": "CSM_Options.DurationExtended",
-      "text": "Erweitert"
-    },
-    {
-      "id": "CSM_Options.DurationLong",
-      "text": "Lang"
-    },
-    {
-      "id": "CSM_Options.DurationShort",
-      "text": "Kurz"
-    },
-    {
-      "id": "CSM_Options.DurationVeryShort",
-      "text": "Sehr kurz"
-    },
-    {
-      "id": "CSM_Options.PresetCinematic",
-      "text": "Filmisch"
-    },
-    {
-      "id": "CSM_Options.PresetDefault",
-      "text": "Standard"
-    },
-    {
-      "id": "CSM_Options.PresetDramatic",
-      "text": "Dramatisch"
-    },
-    {
-      "id": "CSM_Options.PresetEpic",
-      "text": "Epos"
-    },
-    {
-      "id": "CSM_Options.PresetSubtle",
-      "text": "Subtil"
-    },
-    {
-      "id": "CSM_Options.TransitionLinear",
-      "text": "Linear"
-    },
-    {
-      "id": "CSM_Options.TransitionOff",
-      "text": "Aus (sofort)"
-    },
-    {
-      "id": "CSM_Options.TransitionSmoothstep",
-      "text": "Smoothstep"
-    },
-    {
-      "id": "CSM_Options.EasingLinear",
-      "text": "Linear"
-    },
-    {
-      "id": "CSM_Options.EasingOff",
-      "text": "Aus"
-    },
-    {
-      "id": "CSM_Options.EasingSmoothstep",
-      "text": "Smoothstep"
-    },
-    {
-      "id": "CSM_Options.OptionBasicChance",
-      "text": "Grundlegende Chance"
-    },
-    {
-      "id": "CSM_Options.OptionBasicCooldown",
-      "text": "Grundlegende Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.OptionBasicDuration",
-      "text": "Grunddauer"
-    },
-    {
-      "id": "CSM_Options.OptionBasicThirdPerson",
-      "text": "Grundlegende dritte Person"
-    },
-    {
-      "id": "CSM_Options.OptionBasicTimeScale",
-      "text": "Grundlegende Zeitskala"
-    },
-    {
-      "id": "CSM_Options.OptionBasicTransition",
-      "text": "Grundlegender Übergang"
-    },
-    {
-      "id": "CSM_Options.OptionBluntMultiplier",
-      "text": "Stumpfer Multiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionCameraDistance",
-      "text": "Kameraabstand"
-    },
-    {
-      "id": "CSM_Options.OptionCameraHeight",
-      "text": "Kamerahöhe"
-    },
-    {
-      "id": "CSM_Options.OptionChancePreset",
-      "text": "Chance-Voreinstellung"
-    },
-    {
-      "id": "CSM_Options.OptionCooldownPreset",
-      "text": "Abklingzeit-Voreinstellung"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalChance",
-      "text": "Kritische Chance"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalCooldown",
-      "text": "Kritische Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalDuration",
-      "text": "Kritische Dauer"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalThirdPerson",
-      "text": "Kritische dritte Person"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalTimeScale",
-      "text": "Kritische Zeitskala"
-    },
-    {
-      "id": "CSM_Options.OptionCriticalTransition",
-      "text": "Kritischer Übergang"
-    },
-    {
-      "id": "CSM_Options.OptionDOTMultiplier",
-      "text": "DOT-Multiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionDebugLogging",
-      "text": "Debug-Protokollierung"
-    },
-    {
-      "id": "CSM_Options.OptionDebugOverlay",
-      "text": "Debug-Overlay"
-    },
-    {
-      "id": "CSM_Options.OptionDecapChance",
-      "text": "Chance auf Enthauptung"
-    },
-    {
-      "id": "CSM_Options.OptionDecapCooldown",
-      "text": "Entkappungs-Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.OptionDecapDuration",
-      "text": "Decap-Dauer"
-    },
-    {
-      "id": "CSM_Options.OptionDecapThirdPerson",
-      "text": "Enthauptung der dritten Person"
-    },
-    {
-      "id": "CSM_Options.OptionDecapTimeScale",
-      "text": "Decap-Zeitskala"
-    },
-    {
-      "id": "CSM_Options.OptionDecapTransition",
-      "text": "Decap-Übergang"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberChance",
-      "text": "Chance zerreißen"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberCooldown",
-      "text": "Zerstückeln-Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberDuration",
-      "text": "Dauer der Zerstückelung"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberThirdPerson",
-      "text": "Zerstückelung einer dritten Person"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberTimeScale",
-      "text": "Zeitlicher Ablauf der Zerstückelung"
-    },
-    {
-      "id": "CSM_Options.OptionDismemberTransition",
-      "text": "Übergang zur Zerstückelung"
-    },
-    {
-      "id": "CSM_Options.OptionDurationPreset",
-      "text": "Voreinstellung für Dauer"
-    },
-    {
-      "id": "CSM_Options.OptionElementalMultiplier",
-      "text": "Elementarer Multiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionEnableMod",
-      "text": "Mod aktivieren"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityPreset",
-      "text": "Intensitätsvoreinstellung"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityScalingEnabled",
-      "text": "Intensitätsskalierung"
-    },
-    {
-      "id": "CSM_Options.OptionIntensityScalingMax",
-      "text": "Maximaler Intensitätsmultiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyChance",
-      "text": "LastEnemy Chance"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyCooldown",
-      "text": "Abklingzeit des letzten Gegners"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyDuration",
-      "text": "Dauer des letzten Gegners"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyThirdPerson",
-      "text": "LastEnemy (Dritte Person)"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyTimeScale",
-      "text": "Zeitskala des letzten Gegners"
-    },
-    {
-      "id": "CSM_Options.OptionLastEnemyTransition",
-      "text": "Übergang zum letzten Feind"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandCooldown",
-      "text": "LastStand-Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandDuration",
-      "text": "Dauer von LastStand"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandThreshold",
-      "text": "Schwelle des letzten Gefechts"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandTimeScale",
-      "text": "Zeitskala für den letzten Kampf"
-    },
-    {
-      "id": "CSM_Options.OptionLastStandTransition",
-      "text": "LastStand-Übergang"
-    },
-    {
-      "id": "CSM_Options.OptionOrbitSpeed",
-      "text": "Orbitgeschwindigkeit"
-    },
-    {
-      "id": "CSM_Options.OptionParryChance",
-      "text": "Parierchance"
-    },
-    {
-      "id": "CSM_Options.OptionParryCooldown",
-      "text": "Parieren-Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.OptionParryDuration",
-      "text": "Parierdauer"
-    },
-    {
-      "id": "CSM_Options.OptionParryTimeScale",
-      "text": "Parier-Zeitskala"
-    },
-    {
-      "id": "CSM_Options.OptionParryTransition",
-      "text": "Parierübergang"
-    },
-    {
-      "id": "CSM_Options.OptionPierceMultiplier",
-      "text": "Durchdringungsmultiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionQuickTestNow",
-      "text": "Schnelltest jetzt"
-    },
-    {
-      "id": "CSM_Options.OptionQuickTestTrigger",
-      "text": "Schnelltest-Auslöser"
-    },
-    {
-      "id": "CSM_Options.OptionRandomizeDistance",
-      "text": "Distanz zufällig festlegen"
-    },
-    {
-      "id": "CSM_Options.OptionRandomizeHeight",
-      "text": "Höhe zufällig festlegen"
-    },
-    {
-      "id": "CSM_Options.OptionSlashMultiplier",
-      "text": "Slash-Multiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionThirdPersonDistribution",
-      "text": "Verteilung in der dritten Person"
-    },
-    {
-      "id": "CSM_Options.OptionThrownMultiplier",
-      "text": "Projektil-/Wurfmultiplikator"
-    },
-    {
-      "id": "CSM_Options.OptionTransitionPreset",
-      "text": "Übergangsvoreinstellung"
-    },
-    {
-      "id": "CSM_Options.OptionTriggerProfile",
-      "text": "Triggerprofil"
-    },
-    {
-      "id": "CSM_Options.ProfileAll",
-      "text": "Alle Trigger"
-    },
-    {
-      "id": "CSM_Options.ProfileHighlights",
-      "text": "Highlights"
-    },
-    {
-      "id": "CSM_Options.ProfileKillsOnly",
-      "text": "Tötet nur"
-    },
-    {
-      "id": "CSM_Options.ProfileLastEnemyOnly",
-      "text": "Nur der letzte Feind"
-    },
-    {
-      "id": "CSM_Options.ProfileParryOnly",
-      "text": "Nur Parieren"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicChance",
-      "text": "Chance zum Auslösen"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicThirdPerson",
-      "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipBasicTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipBluntMultiplier",
-      "text": "Multiplikator für stumpfen Schaden (Aufprall). 0x deaktiviert die Zeitlupe für diesen Schadenstyp."
-    },
-    {
-      "id": "CSM_Options.TooltipCameraDistance",
-      "text": "Entfernung vom Ziel"
-    },
-    {
-      "id": "CSM_Options.TooltipCameraHeight",
-      "text": "Höhenversatz"
-    },
-    {
-      "id": "CSM_Options.TooltipChancePreset",
-      "text": "Legt die Wahrscheinlichkeitswerte pro Auslösung fest. „Aus“ bedeutet, dass die Wahrscheinlichkeit ignoriert wird (nur Abklingzeit)."
-    },
-    {
-      "id": "CSM_Options.TooltipCooldownPreset",
-      "text": "Legt die Abklingzeitwerte pro Auslöser fest. „Aus“ deaktiviert die Abklingzeit."
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalChance",
-      "text": "Chance zum Auslösen"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalThirdPerson",
-      "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipCriticalTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipDOTMultiplier",
-      "text": "Multiplikator für DoT-Kills (CDoT-Mod). Gilt nur, wenn CDoT installiert ist. 0x deaktiviert die Zeitlupe für Blutungs-/Verbrennungskills."
-    },
-    {
-      "id": "CSM_Options.TooltipDebugLogging",
-      "text": "Ausführliche Debug-Protokollierung aktivieren"
-    },
-    {
-      "id": "CSM_Options.TooltipDebugOverlay",
-      "text": "Debug-Overlay mit CSM-Status auf dem Bildschirm anzeigen"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapChance",
-      "text": "Chance zum Auslösen"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapThirdPerson",
-      "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipDecapTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberChance",
-      "text": "Chance zum Auslösen"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberThirdPerson",
-      "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipDismemberTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipDurationPreset",
-      "text": "Legt Dauerwerte pro Trigger fest."
-    },
-    {
-      "id": "CSM_Options.TooltipElementalMultiplier",
-      "text": "Multiplikator für Elementarschaden (Feuer, Blitz, Energie). 0x deaktiviert die Zeitlupe bei Elementarkills."
-    },
-    {
-      "id": "CSM_Options.TooltipEnableMod",
-      "text": "Hauptschalter für die gesamte Modifikation"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityPreset",
-      "text": "Intensitätsprofil. Subtil = kurz, Standard = ausgewogen, Dramatisch = stärker, Filmisch = dramatisch, Episch = extrem"
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityScalingEnabled",
-      "text": "Die Intensität der Zeitlupe wird anhand der Aufprallstärke angepasst. Standardmäßig deaktiviert."
-    },
-    {
-      "id": "CSM_Options.TooltipIntensityScalingMax",
-      "text": "Maximaler Multiplikator bei voller Intensität (Minimum ist immer 1,0x)."
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyChance",
-      "text": "Chance zum Auslösen"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyThirdPerson",
-      "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipLastEnemyTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandThreshold",
-      "text": "Gesundheitsprozentsatz, um Letztes Gefecht auszulösen"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipLastStandTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipOrbitSpeed",
-      "text": "Kameradrehgeschwindigkeit (0 für statisch)"
-    },
-    {
-      "id": "CSM_Options.TooltipParryChance",
-      "text": "Chance zum Auslösen"
-    },
-    {
-      "id": "CSM_Options.TooltipParryCooldown",
-      "text": "Abklingzeit"
-    },
-    {
-      "id": "CSM_Options.TooltipParryDuration",
-      "text": "Dauer"
-    },
-    {
-      "id": "CSM_Options.TooltipParryTimeScale",
-      "text": "Zeitskala"
-    },
-    {
-      "id": "CSM_Options.TooltipParryTransition",
-      "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
-    },
-    {
-      "id": "CSM_Options.TooltipPierceMultiplier",
-      "text": "Multiplikator für Stichschaden. 0x deaktiviert die Zeitlupe für diesen Schadenstyp."
-    },
-    {
-      "id": "CSM_Options.TooltipQuickTestNow",
-      "text": "Um den ausgewählten Trigger einmalig auszulösen, schalten Sie ihn um."
-    },
-    {
-      "id": "CSM_Options.TooltipQuickTestTrigger",
-      "text": "Welcher Auslöser soll simuliert werden?"
-    },
-    {
-      "id": "CSM_Options.TooltipRandomizeDistance",
-      "text": "Distanz pro Killcam randomisieren"
-    },
-    {
-      "id": "CSM_Options.TooltipRandomizeHeight",
-      "text": "Die Höhe pro Killcam wird zufällig festgelegt."
-    },
-    {
-      "id": "CSM_Options.TooltipSlashMultiplier",
-      "text": "Multiplikator für Hiebschaden. 0x deaktiviert die Zeitlupe für diesen Schadenstyp."
-    },
-    {
-      "id": "CSM_Options.TooltipThirdPersonDistribution",
-      "text": "Steuert, wie oft die Killcam aus der Third-Person-Perspektive angezeigt wird."
-    },
-    {
-      "id": "CSM_Options.TooltipThrownMultiplier",
-      "text": "Multiplikator für Kills durch Projektile/Wurfwaffen (Dolche, Pfeile, Speere). 0x deaktiviert die Zeitlupe für Projektilkills."
-    },
-    {
-      "id": "CSM_Options.TooltipTransitionPreset",
-      "text": "Legt die Übergangskurve pro Trigger fest. Aus = sofortiger Übergang, Sanfter Übergang = sanfter Anstieg, Linear = konstante Anstiegsrate."
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerBasicKill",
-      "text": "Wird bei jedem Feindtod ausgelöst"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerCriticalKill",
-      "text": "Auslöser am Kopf/Hals tötet"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerDecapitation",
-      "text": "Auslöser bei Enthauptung"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerDismemberment",
-      "text": "Auslöser beim Abtrennen von Gliedmaßen"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerLastEnemy",
-      "text": "Wird ausgelöst, wenn der letzte Gegner einer Welle getötet wird."
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerLastStand",
-      "text": "Auslösen, wenn dein Gesundheitszustand kritisch niedrig ist"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerParry",
-      "text": "Auslöser bei erfolgreicher Waffenabwehr"
-    },
-    {
-      "id": "CSM_Options.TooltipTriggerProfile",
-      "text": "Welche Trigger sind aktiv? Durch die Auswahl eines Profils werden die Schalter für die einzelnen Trigger aktualisiert."
-    },
-    {
-      "id": "CSM_Options.TriggerBasicKill",
-      "text": "Standardkill"
-    },
-    {
-      "id": "CSM_Options.TriggerCriticalKill",
-      "text": "Kritischer Kill"
-    },
-    {
-      "id": "CSM_Options.TriggerDecapitation",
-      "text": "Enthauptung"
-    },
-    {
-      "id": "CSM_Options.TriggerDismemberment",
-      "text": "Zerstückelung"
-    },
-    {
-      "id": "CSM_Options.TriggerLastEnemy",
-      "text": "Letzter Feind"
-    },
-    {
-      "id": "CSM_Options.TriggerLastStand",
-      "text": "Letzter Stand"
-    },
-    {
-      "id": "CSM_Options.TriggerParry",
-      "text": "Parieren"
-    }
-  ]
+    "$type": "ThunderRoad.TextData, ThunderRoad",
+    "id": "German",
+    "sensitiveContent": "None",
+    "sensitiveFilterBehaviour": "Discard",
+    "version": 1,
+    "languageCode": "de",
+    "textGroups": [
+        {
+            "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+            "id": "CSM",
+            "texts": [
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraFirstPersonOnly",
+                    "text": "Nur die Ich-Perspektive"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMixed",
+                    "text": "Gemischt"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMostlyFirstPerson",
+                    "text": "Gemischt (seltene dritte Person)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraMostlyThirdPerson",
+                    "text": "Überwiegend in der dritten Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CameraThirdPersonOnly",
+                    "text": "Nur die dritte Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryAdvanced",
+                    "text": "🔧 Fortgeschritten"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomBasic",
+                    "text": "► Standardkill"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomCritical",
+                    "text": "► Kritischer Treffer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomDecapitation",
+                    "text": "► Enthauptung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomDismemberment",
+                    "text": "► Zerstückelung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomLastEnemy",
+                    "text": "► Letzter Feind"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomLastStand",
+                    "text": "► Letzter Widerstand"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryCustomParry",
+                    "text": "► Parieren"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryDamageMultipliers",
+                    "text": "⚖ Schadensmodifikatoren"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryKillcam",
+                    "text": "📷 Killcam"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryPresetSelection",
+                    "text": "⚙ Schnelle Einrichtung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CategoryTriggers",
+                    "text": "⚡ Auslöser"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceDefault",
+                    "text": "Standard"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceFrequent",
+                    "text": "Häufig"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceOff",
+                    "text": "Aus (nur Abkühlphase)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceRare",
+                    "text": "Selten"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ChanceVeryRare",
+                    "text": "Sehr selten"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownDefault",
+                    "text": "Standard"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownExtended",
+                    "text": "Erweitert"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownLong",
+                    "text": "Lang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownOff",
+                    "text": "Aus (Keine Abklingzeit)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "CooldownShort",
+                    "text": "Kurz"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationDefault",
+                    "text": "Standard"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationExtended",
+                    "text": "Erweitert"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationLong",
+                    "text": "Lang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationShort",
+                    "text": "Kurz"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "DurationVeryShort",
+                    "text": "Sehr kurz"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingLinear",
+                    "text": "Linear"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingOff",
+                    "text": "Aus"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "EasingSmoothstep",
+                    "text": "Smoothstep"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicChance",
+                    "text": "Grundlegende Chance"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicCooldown",
+                    "text": "Grundlegende Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicDuration",
+                    "text": "Grunddauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicThirdPerson",
+                    "text": "Grundlegende dritte Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicTimeScale",
+                    "text": "Grundlegende Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBasicTransition",
+                    "text": "Grundlegender Übergang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionBluntMultiplier",
+                    "text": "Stumpfer Multiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCameraDistance",
+                    "text": "Kameraabstand"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCameraHeight",
+                    "text": "Kamerahöhe"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionChancePreset",
+                    "text": "Chance-Voreinstellung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCooldownPreset",
+                    "text": "Abklingzeit-Voreinstellung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalChance",
+                    "text": "Kritische Chance"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalCooldown",
+                    "text": "Kritische Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalDuration",
+                    "text": "Kritische Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalThirdPerson",
+                    "text": "Kritische dritte Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalTimeScale",
+                    "text": "Kritische Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionCriticalTransition",
+                    "text": "Kritischer Übergang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDOTMultiplier",
+                    "text": "DOT-Multiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDebugLogging",
+                    "text": "Debug-Protokollierung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDebugOverlay",
+                    "text": "Debug-Overlay"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapChance",
+                    "text": "Chance auf Enthauptung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapCooldown",
+                    "text": "Entkappungs-Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapDuration",
+                    "text": "Decap-Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapThirdPerson",
+                    "text": "Enthauptung der dritten Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapTimeScale",
+                    "text": "Decap-Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDecapTransition",
+                    "text": "Decap-Übergang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberChance",
+                    "text": "Chance zerreißen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberCooldown",
+                    "text": "Zerstückeln-Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberDuration",
+                    "text": "Dauer der Zerstückelung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberThirdPerson",
+                    "text": "Zerstückelung einer dritten Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberTimeScale",
+                    "text": "Zeitlicher Ablauf der Zerstückelung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDismemberTransition",
+                    "text": "Übergang zur Zerstückelung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionDurationPreset",
+                    "text": "Voreinstellung für Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionElementalMultiplier",
+                    "text": "Elementarer Multiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionEnableMod",
+                    "text": "Mod aktivieren"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityPreset",
+                    "text": "Intensitätsvoreinstellung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityScalingEnabled",
+                    "text": "Intensitätsskalierung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionIntensityScalingMax",
+                    "text": "Maximaler Intensitätsmultiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyChance",
+                    "text": "LastEnemy Chance"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyCooldown",
+                    "text": "Abklingzeit des letzten Gegners"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyDuration",
+                    "text": "Dauer des letzten Gegners"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyThirdPerson",
+                    "text": "LastEnemy (Dritte Person)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyTimeScale",
+                    "text": "Zeitskala des letzten Gegners"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastEnemyTransition",
+                    "text": "Übergang zum letzten Feind"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandCooldown",
+                    "text": "LastStand-Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandDuration",
+                    "text": "Dauer von LastStand"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandThreshold",
+                    "text": "Schwelle des letzten Gefechts"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandTimeScale",
+                    "text": "Zeitskala für den letzten Kampf"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionLastStandTransition",
+                    "text": "LastStand-Übergang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionOrbitSpeed",
+                    "text": "Orbitgeschwindigkeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryChance",
+                    "text": "Parierchance"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryCooldown",
+                    "text": "Parieren-Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryDuration",
+                    "text": "Parierdauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryTimeScale",
+                    "text": "Parier-Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionParryTransition",
+                    "text": "Parierübergang"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionPierceMultiplier",
+                    "text": "Durchdringungsmultiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionQuickTestNow",
+                    "text": "Schnelltest jetzt"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionQuickTestTrigger",
+                    "text": "Schnelltest-Auslöser"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionRandomizeDistance",
+                    "text": "Distanz zufällig festlegen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionRandomizeHeight",
+                    "text": "Höhe zufällig festlegen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionSlashMultiplier",
+                    "text": "Slash-Multiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionThirdPersonDistribution",
+                    "text": "Verteilung in der dritten Person"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionThrownMultiplier",
+                    "text": "Projektil-/Wurfmultiplikator"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionTransitionPreset",
+                    "text": "Übergangsvoreinstellung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "OptionTriggerProfile",
+                    "text": "Triggerprofil"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetCinematic",
+                    "text": "Filmisch"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetDefault",
+                    "text": "Standard"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetDramatic",
+                    "text": "Dramatisch"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetEpic",
+                    "text": "Epos"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "PresetSubtle",
+                    "text": "Subtil"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileAll",
+                    "text": "Alle Trigger"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileHighlights",
+                    "text": "Highlights"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileKillsOnly",
+                    "text": "Tötet nur"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileLastEnemyOnly",
+                    "text": "Nur der letzte Feind"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "ProfileParryOnly",
+                    "text": "Nur Parieren"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicChance",
+                    "text": "Chance zum Auslösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicThirdPerson",
+                    "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBasicTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipBluntMultiplier",
+                    "text": "Multiplikator für stumpfen Schaden (Aufprall). 0x deaktiviert die Zeitlupe für diesen Schadenstyp."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCameraDistance",
+                    "text": "Entfernung vom Ziel"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCameraHeight",
+                    "text": "Höhenversatz"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipChancePreset",
+                    "text": "Legt die Wahrscheinlichkeitswerte pro Auslösung fest. „Aus“ bedeutet, dass die Wahrscheinlichkeit ignoriert wird (nur Abklingzeit)."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCooldownPreset",
+                    "text": "Legt die Abklingzeitwerte pro Auslöser fest. „Aus“ deaktiviert die Abklingzeit."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalChance",
+                    "text": "Chance zum Auslösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalThirdPerson",
+                    "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipCriticalTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDOTMultiplier",
+                    "text": "Multiplikator für DoT-Kills (DOT-Mod). Gilt nur, wenn DOT installiert ist. 0x deaktiviert die Zeitlupe für Blutungs-/Verbrennungskills."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDebugLogging",
+                    "text": "Ausführliche Debug-Protokollierung aktivieren"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDebugOverlay",
+                    "text": "Debug-Overlay mit CSM-Status auf dem Bildschirm anzeigen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapChance",
+                    "text": "Chance zum Auslösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapThirdPerson",
+                    "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDecapTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberChance",
+                    "text": "Chance zum Auslösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberThirdPerson",
+                    "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDismemberTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipDurationPreset",
+                    "text": "Legt Dauerwerte pro Trigger fest."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipElementalMultiplier",
+                    "text": "Multiplikator für Elementarschaden (Feuer, Blitz, Energie). 0x deaktiviert die Zeitlupe bei Elementarkills."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipEnableMod",
+                    "text": "Hauptschalter für die gesamte Modifikation"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityPreset",
+                    "text": "Intensitätsprofil. Subtil = kurz, Standard = ausgewogen, Dramatisch = stärker, Filmisch = dramatisch, Episch = extrem"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityScalingEnabled",
+                    "text": "Die Intensität der Zeitlupe wird anhand der Aufprallstärke angepasst. Standardmäßig deaktiviert."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipIntensityScalingMax",
+                    "text": "Maximaler Multiplikator bei voller Intensität (Minimum ist immer 1,0x)."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyChance",
+                    "text": "Chance zum Auslösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyThirdPerson",
+                    "text": "Multiplikator für die Häufigkeit der Killcam aus der Third-Person-Perspektive (0 % deaktiviert)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastEnemyTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandThreshold",
+                    "text": "Gesundheitsprozentsatz, um Letztes Gefecht auszulösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipLastStandTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipOrbitSpeed",
+                    "text": "Kameradrehgeschwindigkeit (0 für statisch)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryChance",
+                    "text": "Chance zum Auslösen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryCooldown",
+                    "text": "Abklingzeit"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryDuration",
+                    "text": "Dauer"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryTimeScale",
+                    "text": "Zeitskala"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipParryTransition",
+                    "text": "Übergangskurve (20 % der Dauer). Aus = sofort."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipPierceMultiplier",
+                    "text": "Multiplikator für Stichschaden. 0x deaktiviert die Zeitlupe für diesen Schadenstyp."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipQuickTestNow",
+                    "text": "Um den ausgewählten Trigger einmalig auszulösen, schalten Sie ihn um."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipQuickTestTrigger",
+                    "text": "Welcher Auslöser soll simuliert werden?"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipRandomizeDistance",
+                    "text": "Distanz pro Killcam randomisieren"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipRandomizeHeight",
+                    "text": "Die Höhe pro Killcam wird zufällig festgelegt."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipSlashMultiplier",
+                    "text": "Multiplikator für Hiebschaden. 0x deaktiviert die Zeitlupe für diesen Schadenstyp."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipThirdPersonDistribution",
+                    "text": "Steuert, wie oft die Killcam aus der Third-Person-Perspektive angezeigt wird."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipThrownMultiplier",
+                    "text": "Multiplikator für Kills durch Projektile/Wurfwaffen (Dolche, Pfeile, Speere). 0x deaktiviert die Zeitlupe für Projektilkills."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTransitionPreset",
+                    "text": "Legt die Übergangskurve pro Trigger fest. Aus = sofortiger Übergang, Sanfter Übergang = sanfter Anstieg, Linear = konstante Anstiegsrate."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerBasicKill",
+                    "text": "Wird bei jedem Feindtod ausgelöst"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerCriticalKill",
+                    "text": "Auslöser am Kopf/Hals tötet"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerDecapitation",
+                    "text": "Auslöser bei Enthauptung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerDismemberment",
+                    "text": "Auslöser beim Abtrennen von Gliedmaßen"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerLastEnemy",
+                    "text": "Wird ausgelöst, wenn der letzte Gegner einer Welle getötet wird."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerLastStand",
+                    "text": "Auslösen, wenn dein Gesundheitszustand kritisch niedrig ist"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerParry",
+                    "text": "Auslöser bei erfolgreicher Waffenabwehr"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TooltipTriggerProfile",
+                    "text": "Welche Trigger sind aktiv? Durch die Auswahl eines Profils werden die Schalter für die einzelnen Trigger aktualisiert."
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionLinear",
+                    "text": "Linear"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionOff",
+                    "text": "Aus (sofort)"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TransitionSmoothstep",
+                    "text": "Smoothstep"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerBasicKill",
+                    "text": "Standardkill"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerCriticalKill",
+                    "text": "Kritischer Kill"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerDecapitation",
+                    "text": "Enthauptung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerDismemberment",
+                    "text": "Zerstückelung"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerLastEnemy",
+                    "text": "Letzter Feind"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerLastStand",
+                    "text": "Letzter Stand"
+                },
+                {
+                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+                    "id": "TriggerParry",
+                    "text": "Parieren"
+                }
+            ]
+        }
+    ]
 }
