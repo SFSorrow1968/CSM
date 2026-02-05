@@ -739,26 +739,10 @@ namespace CSM.Core
             string durationLabel = duration.ToString("F1") + "s";
             string cooldownLabel = cooldown.ToString("F1") + "s";
 
-            string tpLabel;
-            if (!CSMModOptions.IsThirdPersonEligible(type))
-            {
-                tpLabel = "N/A";
-            }
-            else
-            {
-                if (distribution <= 0f)
-                    tpLabel = "Off";
-                else if (distribution >= 99f)
-                    tpLabel = "Always";
-                else
-                    tpLabel = distribution.ToString("0.#") + "x";
-            }
-
             return "Chance " + chanceLabel +
                    " | Scale " + scaleLabel +
                    " | Dur " + durationLabel +
-                   " | CD " + cooldownLabel +
-                   " | TP " + tpLabel;
+                   " | CD " + cooldownLabel;
         }
 
         private static void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)

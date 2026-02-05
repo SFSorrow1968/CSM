@@ -2,8 +2,8 @@
 
 When making changes in this repo:
 - Always build (Release and Nomad).
-- If any UI/options change, regenerate `MENU_MOCK.xlsx` using `_agent/build_menu_mock_xlsx.py` (file is in `_design/`).
-- If new UI text/labels are added, update translations: run `python _export_translations.py` (in `_translations/`), translate new rows in Google Sheets using GOOGLETRANSLATE formulas, paste values, save as `_translations.csv`, then run `python _import_translations.py`.
+- Only regenerate `_design/MENU_MOCK.xlsx` if user says "Mock" or explicitly requests it.
+- Only update translations if user says "Translations" or explicitly requests it.
 - Always commit your changes.
 - `DEVELOPMENT.md` contains platform/ModOptions notes; consult it when needed.
 - Quick refs: `DEVELOPMENT.md` sections "Platform Differences", "ModOptions System", "EventManager Events".
@@ -13,5 +13,5 @@ When making changes in this repo:
 - `_design/MENU_MOCK.xlsx` is the current UI reference (preset guide removed).
 - Check `References/` for new logs/screenshots before starting; screenshots live in `References/Screenshots/`.
 - Common edit points: UI options in `Configuration/CSMModOptions.cs`, UI sync/tooltips in `Core/CSMModOptionVisibility.cs`, runtime logic in `Core/CSMManager.cs`.
-- Only add new pointers to these agent files if a redundant task cost significant time and the note would materially help onboarding agents avoid it.
+- **QUIRKS.md**: Check this file before tackling complex problems. Add new entries if a redundant task cost significant time and the note would help future agents avoid it.
 - If the user says "publish", follow `_docs/PUBLISH.md`.

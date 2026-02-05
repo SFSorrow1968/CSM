@@ -22,7 +22,6 @@ namespace CSM.Core
         private CSMModOptions.CooldownPreset? _lastCooldownPreset;
         private CSMModOptions.DurationPreset? _lastDurationPreset;
         private CSMModOptions.TransitionPreset? _lastTransitionPreset;
-        private CSMModOptions.CameraDistributionPreset? _lastDistributionPreset;
         private CSMModOptions.TriggerProfilePreset? _lastTriggerProfile;
         
         private bool _lastDebugLogging;
@@ -83,14 +82,6 @@ namespace CSM.Core
             { TriggerType.LastStand, MakeKey(CSMModOptions.CategoryCustomLastStand, CSMModOptions.OptionLastStandCooldown) }
         };
 
-        private static readonly Dictionary<TriggerType, string> DistributionOptionNames = new Dictionary<TriggerType, string>
-        {
-            { TriggerType.BasicKill, MakeKey(CSMModOptions.CategoryCustomBasic, CSMModOptions.OptionBasicThirdPerson) },
-            { TriggerType.Critical, MakeKey(CSMModOptions.CategoryCustomCritical, CSMModOptions.OptionCriticalThirdPerson) },
-            { TriggerType.Dismemberment, MakeKey(CSMModOptions.CategoryCustomDismemberment, CSMModOptions.OptionDismemberThirdPerson) },
-            { TriggerType.Decapitation, MakeKey(CSMModOptions.CategoryCustomDecapitation, CSMModOptions.OptionDecapThirdPerson) },
-            { TriggerType.LastEnemy, MakeKey(CSMModOptions.CategoryCustomLastEnemy, CSMModOptions.OptionLastEnemyThirdPerson) }
-        };
 
         private static readonly Dictionary<TriggerType, string> TransitionOptionNames = new Dictionary<TriggerType, string>
         {
@@ -125,7 +116,6 @@ namespace CSM.Core
             _lastCooldownPreset = null;
             _lastDurationPreset = null;
             _lastTransitionPreset = null;
-            _lastDistributionPreset = null;
             _lastTriggerProfile = null;
             _lastDebugLogging = false;
             _nextUpdateTime = 0f;
@@ -197,7 +187,6 @@ namespace CSM.Core
             changed |= ApplyCooldownPreset(force);
             changed |= ApplyDurationPreset(force);
             changed |= ApplyTransitionPreset(force);
-            changed |= ApplyDistributionPreset(force);
             changed |= ApplyTriggerProfile(force);
             changed |= ApplyDiagnostics();
             changed |= UpdateDebugTooltips();
@@ -292,22 +281,6 @@ namespace CSM.Core
             return true;
         }
 
-        private bool ApplyDistributionPreset(bool force)
-        {
-            var preset = CSMModOptions.GetCameraDistributionPreset();
-            if (!force && _lastDistributionPreset.HasValue && _lastDistributionPreset.Value.Equals(preset))
-                return false;
-
-            float multiplier = CSMModOptions.GetCameraDistributionMultiplier(preset);
-            foreach (var trigger in TriggerTypes)
-            {
-                if (!CSMModOptions.IsThirdPersonEligible(trigger)) continue;
-                CSMModOptions.SetTriggerValue(trigger, CSMModOptions.TriggerField.Distribution, multiplier);
-                SyncOptionValue(DistributionOptionNames, trigger, multiplier);
-            }
-            _lastDistributionPreset = preset;
-            return true;
-        }
 
         private bool ApplyTriggerProfile(bool force)
         {
