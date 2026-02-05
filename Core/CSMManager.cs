@@ -321,13 +321,6 @@ namespace CSM.Core
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] " + GetTriggerDisplayName(type));
-
-                float distribution = CSMModOptions.GetThirdPersonDistribution(type);
-                bool allowThirdPerson = distribution > 0f;
-                if (CSMModOptions.IsThirdPersonEligible(type) && allowThirdPerson)
-                {
-                    CSMKillcam.Instance.TryStartKillcam(type, targetCreature, duration, allowThirdPerson);
-                }
                 
                 return true;
             }
@@ -678,7 +671,6 @@ namespace CSM.Core
                               "s (expected " + expected.ToString("0.###") +
                               "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
                 }
-                CSMKillcam.Instance.Stop(false);
             }
             catch (Exception ex)
             {

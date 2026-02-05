@@ -26,9 +26,10 @@
 5. Tell agent translations are ready
 
 **Agent does:**
-1. Run `python _generate_all_translations.py`
-2. Build: `dotnet build -c Release && dotnet build -c Nomad`
-3. Commit changes
+1. Navigate to `_translations/` folder
+2. Run `python _generate_all_translations.py`
+3. Build: `dotnet build -c Release && dotnet build -c Nomad`
+4. Commit changes
 
 ## Code Examples
 
@@ -49,10 +50,11 @@ new ModOptionString("Label", LocalizationGroupId + ".LabelId", "Value")
 ## File Structure
 
 ```
-_translations.csv              <- Master file (agent adds keys/formulas, user resolves translations)
-_generate_all_translations.py  <- Generates JSON from CSV
-Texts/
-  Text_*.json                  <- Generated (don't edit directly)
+_translations/                 <- New folder for all translation files
+  _translations.csv            <- Master file (agent adds keys/formulas, user resolves translations)
+  _generate_all_translations.py<- Generates JSON from CSV
+  Texts/
+    Text_*.json                <- Generated (don't edit directly)
 ```
 
 ## CSV Format

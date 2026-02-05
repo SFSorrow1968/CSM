@@ -4,7 +4,7 @@ import subprocess
 import json
 from pathlib import Path
 
-BASE = Path(__file__).parent
+BASE = Path(__file__).parent.parent
 MANIFEST = BASE / "manifest.json"
 
 def get_version():

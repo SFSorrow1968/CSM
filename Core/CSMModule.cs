@@ -25,7 +25,6 @@ namespace CSM.Core
 #endif
 
                 CSMManager.Instance.Initialize();
-                CSMKillcam.Instance.Initialize();
                 CSMModOptionVisibility.Instance.Initialize();
                 PerformanceMetrics.Instance.Initialize();
                 DebugOverlay.Instance.Initialize();
@@ -51,7 +50,6 @@ namespace CSM.Core
             {
                 base.ScriptUpdate();
                 CSMManager.Instance?.Update();
-                CSMKillcam.Instance?.Update();
                 CSMModOptionVisibility.Instance?.Update();
 
                 // Update performance metrics baseline when not in slow motion
@@ -84,7 +82,6 @@ namespace CSM.Core
                 Debug.Log("[CSM] ScriptDisable...");
 
                 CSMManager.Instance?.CancelSlowMotion();
-                CSMKillcam.Instance?.Shutdown();
                 CSMModOptionVisibility.Instance?.Shutdown();
                 PerformanceMetrics.Instance?.Shutdown();
                 DebugOverlay.Instance?.Shutdown();

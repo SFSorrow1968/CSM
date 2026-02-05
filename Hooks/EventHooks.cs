@@ -314,9 +314,6 @@ namespace CSM.Hooks
                 // Cancel any active slow motion
                 CSMManager.Instance.CancelSlowMotion();
 
-                // Stop any active killcam
-                CSMKillcam.Instance.Stop(false);
-
                 // Reset all tracking state
                 ResetState();
 
@@ -377,18 +374,18 @@ namespace CSM.Hooks
                 float damageDealt = collisionInstance?.damageStruct.damage ?? 0f;
                 bool isStatusDamage = collisionInstance?.damageStruct.isStatus ?? false;
                 
-                // Track if this is a status effect kill (DOT from fire, lightning, CDoT bleeds, etc.)
+                // Track if this is a status effect kill (DOT from fire, lightning, DOT bleeds, etc.)
                 // DOT kills are identified by ANY of:
                 // 1. damageStruct.isStatus == true (fire/lightning DOT ticks)
-                // 2. Damage is 99999 (CDoT's kill signature for bleeds)
+                // 2. Damage is 99999 (DOT's kill signature for bleeds)
                 // 3. No valid collision but we have DOT attribution
                 // Instant elemental kills (fireball impact, lightning bolt) have isStatus=false
                 bool isStatusKill = false;
-                const float CDOT_KILL_DAMAGE = 99999f;
+                const float DOT_KILL_DAMAGE = 99999f;
                 
                 // Check for DOT kill indicators
                 bool isDOTKill = isStatusDamage || 
-                                 damageDealt >= CDOT_KILL_DAMAGE || 
+                                 damageDealt >= DOT_KILL_DAMAGE || 
                                  (collisionInstance == null && elementalDamageType != DamageType.Unknown);
                 
                 if (isDOTKill && elementalDamageType != DamageType.Unknown)
