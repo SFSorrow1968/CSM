@@ -14,7 +14,7 @@ namespace CSM.Configuration
 
         public const string CategoryPresetSelection = "⚙ Quick Setup";
         public const string CategoryTriggers = "⚡ Triggers";
-        public const string CategoryKillcam = "📷 Killcam";
+
         public const string CategoryAdvanced = "🔧 Advanced";
         public const string CategoryCustomBasic = "► Basic Kill";
         public const string CategoryCustomCritical = "► Critical Kill";
@@ -25,7 +25,7 @@ namespace CSM.Configuration
         public const string CategoryCustomParry = "► Parry";
 
         public const string OptionEnableMod = "Enable Mod";
-        public const string OptionThirdPersonDistribution = "Third Person Distribution";
+
         public const string OptionIntensityPreset = "Intensity Preset";
         public const string OptionChancePreset = "Chance Preset";
         public const string OptionCooldownPreset = "Cooldown Preset";
@@ -43,11 +43,7 @@ namespace CSM.Configuration
 
         public const string OptionLastStandThreshold = "Last Stand Threshold";
 
-        public const string OptionCameraDistance = "Camera Distance";
-        public const string OptionRandomizeDistance = "Randomize Distance";
-        public const string OptionCameraHeight = "Camera Height";
-        public const string OptionRandomizeHeight = "Randomize Height";
-        public const string OptionOrbitSpeed = "Orbit Speed";
+
 
         // Legacy shared names (kept for reference, but not used in ModOption attributes)
         public const string OptionChance = "Chance";
@@ -61,35 +57,35 @@ namespace CSM.Configuration
         public const string OptionBasicDuration = "Basic Duration";
         public const string OptionBasicCooldown = "Basic Cooldown";
         public const string OptionBasicTransition = "Basic Transition";
-        public const string OptionBasicThirdPerson = "Basic Third Person";
+
 
         public const string OptionCriticalChance = "Critical Chance";
         public const string OptionCriticalTimeScale = "Critical Time Scale";
         public const string OptionCriticalDuration = "Critical Duration";
         public const string OptionCriticalCooldown = "Critical Cooldown";
         public const string OptionCriticalTransition = "Critical Transition";
-        public const string OptionCriticalThirdPerson = "Critical Third Person";
+
 
         public const string OptionDismemberChance = "Dismember Chance";
         public const string OptionDismemberTimeScale = "Dismember Time Scale";
         public const string OptionDismemberDuration = "Dismember Duration";
         public const string OptionDismemberCooldown = "Dismember Cooldown";
         public const string OptionDismemberTransition = "Dismember Transition";
-        public const string OptionDismemberThirdPerson = "Dismember Third Person";
+
 
         public const string OptionDecapChance = "Decap Chance";
         public const string OptionDecapTimeScale = "Decap Time Scale";
         public const string OptionDecapDuration = "Decap Duration";
         public const string OptionDecapCooldown = "Decap Cooldown";
         public const string OptionDecapTransition = "Decap Transition";
-        public const string OptionDecapThirdPerson = "Decap Third Person";
+
 
         public const string OptionLastEnemyChance = "LastEnemy Chance";
         public const string OptionLastEnemyTimeScale = "LastEnemy Time Scale";
         public const string OptionLastEnemyDuration = "LastEnemy Duration";
         public const string OptionLastEnemyCooldown = "LastEnemy Cooldown";
         public const string OptionLastEnemyTransition = "LastEnemy Transition";
-        public const string OptionLastEnemyThirdPerson = "LastEnemy Third Person";
+
 
         public const string OptionLastStandTimeScale = "LastStand Time Scale";
         public const string OptionLastStandDuration = "LastStand Duration";
@@ -185,14 +181,6 @@ namespace CSM.Configuration
             Linear = 2
         }
 
-        public enum CameraDistributionPreset
-        {
-            FirstPersonOnly = 0,
-            MostlyFirstPerson = 1,
-            Mixed = 2,
-            MostlyThirdPerson = 3,
-            ThirdPersonOnly = 4
-        }
 
         #endregion
 
@@ -308,15 +296,6 @@ namespace CSM.Configuration
             new PresetOption<TransitionPreset>("Linear", "Linear", LocalizationGroupId + ".TransitionLinear", TransitionPreset.Linear)
         };
 
-        private static readonly PresetOption<CameraDistributionPreset>[] CameraDistributionOptions =
-        {
-            new PresetOption<CameraDistributionPreset>("First Person Only", "First Person Only", LocalizationGroupId + ".CameraFirstPersonOnly", CameraDistributionPreset.FirstPersonOnly),
-            new PresetOption<CameraDistributionPreset>("Mixed (Rare Third Person)", "Mixed (Rare Third Person)", LocalizationGroupId + ".CameraMostlyFirstPerson", CameraDistributionPreset.MostlyFirstPerson),
-            new PresetOption<CameraDistributionPreset>("Mixed", "Mixed", LocalizationGroupId + ".CameraMixed", CameraDistributionPreset.Mixed),
-            new PresetOption<CameraDistributionPreset>("Mostly Third Person", "Mostly Third Person", LocalizationGroupId + ".CameraMostlyThirdPerson", CameraDistributionPreset.MostlyThirdPerson),
-            new PresetOption<CameraDistributionPreset>("Third Person Only", "Third Person Only", LocalizationGroupId + ".CameraThirdPersonOnly", CameraDistributionPreset.ThirdPersonOnly)
-        };
-
         private static readonly Dictionary<string, Preset> IntensityPresetMap = BuildPresetMap(IntensityPresetOptions,
             new Dictionary<string, Preset>
             {
@@ -352,17 +331,6 @@ namespace CSM.Configuration
             new Dictionary<string, TransitionPreset>
             {
                 { "Balanced", TransitionPreset.Smoothstep }
-            });
-
-        private static readonly Dictionary<string, CameraDistributionPreset> CameraDistributionMap = BuildPresetMap(CameraDistributionOptions,
-            new Dictionary<string, CameraDistributionPreset>
-            {
-                { "Mostly First Person", CameraDistributionPreset.MostlyFirstPerson },
-                { "Rare", CameraDistributionPreset.MostlyFirstPerson },
-                { "Default", CameraDistributionPreset.Mixed },
-                { "Balanced", CameraDistributionPreset.Mixed },
-                { "Frequent", CameraDistributionPreset.MostlyThirdPerson },
-                { "Always", CameraDistributionPreset.ThirdPersonOnly }
             });
 
         #region Value Providers
@@ -421,10 +389,6 @@ namespace CSM.Configuration
             };
         }
 
-        public static ModOptionString[] CameraDistributionProvider()
-        {
-            return BuildStringOptions(CameraDistributionOptions);
-        }
 
         public static ModOptionFloat[] TimeScaleProvider()
         {
@@ -546,17 +510,6 @@ namespace CSM.Configuration
             return list.ToArray();
         }
 
-        public static ModOptionFloat[] CustomThirdPersonDistributionProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("Off (0%)", 0f),
-                new ModOptionFloat("Rare (40%)", 0.4f),
-                new ModOptionFloat("Mixed (100%)", 1.0f),
-                new ModOptionFloat("Frequent (140%)", 1.4f),
-                new ModOptionFloat("Always (10000%)", 100f)
-            };
-        }
 
         public static ModOptionFloat[] ThresholdProvider()
         {
@@ -583,37 +536,7 @@ namespace CSM.Configuration
 
 
 
-        public static ModOptionFloat[] KillcamDistanceProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("2m", 2f),
-                new ModOptionFloat("3m", 3f),
-                new ModOptionFloat("4m", 4f),
-                new ModOptionFloat("5m", 5f)
-            };
-        }
 
-        public static ModOptionFloat[] KillcamHeightProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("1m", 1f),
-                new ModOptionFloat("1.5m", 1.5f),
-                new ModOptionFloat("2m", 2f)
-            };
-        }
-
-        public static ModOptionFloat[] KillcamOrbitSpeedProvider()
-        {
-            return new ModOptionFloat[]
-            {
-                new ModOptionFloat("None", 0f),
-                new ModOptionFloat("Slow", 15f),
-                new ModOptionFloat("Medium", 30f),
-                new ModOptionFloat("Fast", 45f)
-            };
-        }
 
         public static ModOptionFloat[] DamageMultiplierProvider()
         {
@@ -645,7 +568,7 @@ namespace CSM.Configuration
         private const int CategoryOrderPreset = 10;
         private const int CategoryOrderDamageMultipliers = 25;
         private const int CategoryOrderTriggers = 30;
-        private const int CategoryOrderKillcam = 40;
+
         private const int CategoryOrderCustomBasic = 50;
         private const int CategoryOrderCustomCritical = 51;
         private const int CategoryOrderCustomDismemberment = 52;
@@ -660,8 +583,7 @@ namespace CSM.Configuration
         [ModOption(name = OptionEnableMod, order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionEnableMod), tooltipLocalizationId = LocalizationGroupId + ".TooltipEnableMod")]
         public static bool EnableMod = true;
 
-        [ModOption(name = OptionThirdPersonDistribution, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 60, defaultValueIndex = 0, valueSourceName = "CameraDistributionProvider", tooltip = "Controls how often third-person killcam appears.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionThirdPersonDistribution), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipThirdPersonDistribution")]
-        public static string CameraDistribution = "First Person Only";
+
 
         [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionIntensityPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipIntensityPreset")]
         public static string CurrentPreset = "Default";
@@ -779,24 +701,6 @@ namespace CSM.Configuration
 
         #endregion
 
-        #region CSM Killcam
-
-        [ModOption(name = OptionCameraDistance, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 10, defaultValueIndex = 1, valueSourceName = "KillcamDistanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Distance from target", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCameraDistance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryKillcam), tooltipLocalizationId = LocalizationGroupId + ".TooltipCameraDistance")]
-        public static float KillcamDistance = 3f;
-
-        [ModOption(name = OptionRandomizeDistance, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 20, defaultValueIndex = 0, tooltip = "Randomize distance per killcam", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionRandomizeDistance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryKillcam), tooltipLocalizationId = LocalizationGroupId + ".TooltipRandomizeDistance")]
-        public static bool KillcamRandomizeDistance = false;
-
-        [ModOption(name = OptionCameraHeight, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 30, defaultValueIndex = 1, valueSourceName = "KillcamHeightProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Height offset", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCameraHeight), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryKillcam), tooltipLocalizationId = LocalizationGroupId + ".TooltipCameraHeight")]
-        public static float KillcamHeight = 1.5f;
-
-        [ModOption(name = OptionRandomizeHeight, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 40, defaultValueIndex = 0, tooltip = "Randomize height per killcam", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionRandomizeHeight), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryKillcam), tooltipLocalizationId = LocalizationGroupId + ".TooltipRandomizeHeight")]
-        public static bool KillcamRandomizeHeight = false;
-
-        [ModOption(name = OptionOrbitSpeed, category = CategoryKillcam, categoryOrder = CategoryOrderKillcam, order = 50, defaultValueIndex = 1, valueSourceName = "KillcamOrbitSpeedProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Camera rotation speed (0 for static)", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionOrbitSpeed), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryKillcam), tooltipLocalizationId = LocalizationGroupId + ".TooltipOrbitSpeed")]
-        public static float KillcamOrbitSpeed = 15f;
-
-        #endregion
 
         #region Custom: Basic Kill
 
@@ -815,8 +719,7 @@ namespace CSM.Configuration
         [ModOption(name = OptionBasicTransition, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicTransition")]
         public static string BasicKillEasing = "Smoothstep";
 
-        [ModOption(name = OptionBasicThirdPerson, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicThirdPerson), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicThirdPerson")]
-        public static float BasicKillThirdPersonDistribution = 0f;
+
 
         #endregion
 
@@ -837,8 +740,7 @@ namespace CSM.Configuration
         [ModOption(name = OptionCriticalTransition, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalTransition")]
         public static string CriticalKillEasing = "Smoothstep";
 
-        [ModOption(name = OptionCriticalThirdPerson, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalThirdPerson), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalThirdPerson")]
-        public static float CriticalKillThirdPersonDistribution = 0f;
+
 
         #endregion
 
@@ -859,8 +761,7 @@ namespace CSM.Configuration
         [ModOption(name = OptionDismemberTransition, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberTransition")]
         public static string DismembermentEasing = "Smoothstep";
 
-        [ModOption(name = OptionDismemberThirdPerson, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberThirdPerson), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberThirdPerson")]
-        public static float DismembermentThirdPersonDistribution = 0f;
+
 
         #endregion
 
@@ -881,8 +782,7 @@ namespace CSM.Configuration
         [ModOption(name = OptionDecapTransition, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapTransition")]
         public static string DecapitationEasing = "Smoothstep";
 
-        [ModOption(name = OptionDecapThirdPerson, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapThirdPerson), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapThirdPerson")]
-        public static float DecapitationThirdPersonDistribution = 0f;
+
 
         #endregion
 
@@ -903,8 +803,7 @@ namespace CSM.Configuration
         [ModOption(name = OptionLastEnemyTransition, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyTransition")]
         public static string LastEnemyEasing = "Smoothstep";
 
-        [ModOption(name = OptionLastEnemyThirdPerson, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 60, defaultValueIndex = 0, valueSourceName = "CustomThirdPersonDistributionProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Third-person killcam frequency multiplier (0% disables)", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyThirdPerson), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyThirdPerson")]
-        public static float LastEnemyThirdPersonDistribution = 0f;
+
 
         #endregion
 
@@ -966,8 +865,7 @@ namespace CSM.Configuration
             Chance,
             TimeScale,
             Duration,
-            Cooldown,
-            Distribution
+            Cooldown
         }
 
         public struct TriggerCustomValues
@@ -977,7 +875,6 @@ namespace CSM.Configuration
             public float Duration;
             public float Cooldown;
             public string Easing;
-            public float Distribution;
         }
 
         public static bool IsTriggerEnabled(TriggerType triggerType)
@@ -1031,7 +928,6 @@ namespace CSM.Configuration
                     values.Duration = BasicKillDuration;
                     values.Cooldown = BasicKillCooldown;
                     values.Easing = BasicKillEasing;
-                    values.Distribution = BasicKillThirdPersonDistribution;
                     break;
                 case TriggerType.Critical:
                     values.Chance = CriticalKillChance;
@@ -1039,7 +935,6 @@ namespace CSM.Configuration
                     values.Duration = CriticalKillDuration;
                     values.Cooldown = CriticalKillCooldown;
                     values.Easing = CriticalKillEasing;
-                    values.Distribution = CriticalKillThirdPersonDistribution;
                     break;
                 case TriggerType.Dismemberment:
                     values.Chance = DismembermentChance;
@@ -1047,7 +942,6 @@ namespace CSM.Configuration
                     values.Duration = DismembermentDuration;
                     values.Cooldown = DismembermentCooldown;
                     values.Easing = DismembermentEasing;
-                    values.Distribution = DismembermentThirdPersonDistribution;
                     break;
                 case TriggerType.Decapitation:
                     values.Chance = DecapitationChance;
@@ -1055,7 +949,6 @@ namespace CSM.Configuration
                     values.Duration = DecapitationDuration;
                     values.Cooldown = DecapitationCooldown;
                     values.Easing = DecapitationEasing;
-                    values.Distribution = DecapitationThirdPersonDistribution;
                     break;
                 case TriggerType.Parry:
                     values.Chance = ParryChance;
@@ -1063,7 +956,6 @@ namespace CSM.Configuration
                     values.Duration = ParryDuration;
                     values.Cooldown = ParryCooldown;
                     values.Easing = ParryEasing;
-                    values.Distribution = 0f;
                     break;
                 case TriggerType.LastEnemy:
                     values.Chance = LastEnemyChance;
@@ -1071,7 +963,6 @@ namespace CSM.Configuration
                     values.Duration = LastEnemyDuration;
                     values.Cooldown = LastEnemyCooldown;
                     values.Easing = LastEnemyEasing;
-                    values.Distribution = LastEnemyThirdPersonDistribution;
                     break;
                 case TriggerType.LastStand:
                     values.Chance = 1f;
@@ -1079,7 +970,6 @@ namespace CSM.Configuration
                     values.Duration = LastStandDuration;
                     values.Cooldown = LastStandCooldown;
                     values.Easing = LastStandEasing;
-                    values.Distribution = 0f;
                     break;
             }
 
@@ -1088,7 +978,6 @@ namespace CSM.Configuration
             values.TimeScale = Mathf.Clamp(values.TimeScale, 0.01f, 1f);
             values.Duration = Mathf.Clamp(values.Duration, 0.1f, 60f);
             values.Cooldown = Mathf.Clamp(values.Cooldown, 0f, 300f);
-            values.Distribution = Mathf.Clamp(values.Distribution, 0f, 100f);
 
             return values;
         }
@@ -1098,47 +987,36 @@ namespace CSM.Configuration
             switch (triggerType)
             {
                 case TriggerType.BasicKill:
-                    SetTriggerValue(ref BasicKillChance, ref BasicKillTimeScale, ref BasicKillDuration, ref BasicKillCooldown,
-                        ref BasicKillThirdPersonDistribution, field, value);
+                    SetTriggerValue(ref BasicKillChance, ref BasicKillTimeScale, ref BasicKillDuration, ref BasicKillCooldown, field, value);
                     break;
                 case TriggerType.Critical:
-                    SetTriggerValue(ref CriticalKillChance, ref CriticalKillTimeScale, ref CriticalKillDuration, ref CriticalKillCooldown,
-                        ref CriticalKillThirdPersonDistribution, field, value);
+                    SetTriggerValue(ref CriticalKillChance, ref CriticalKillTimeScale, ref CriticalKillDuration, ref CriticalKillCooldown, field, value);
                     break;
                 case TriggerType.Dismemberment:
-                    SetTriggerValue(ref DismembermentChance, ref DismembermentTimeScale, ref DismembermentDuration, ref DismembermentCooldown,
-                        ref DismembermentThirdPersonDistribution, field, value);
+                    SetTriggerValue(ref DismembermentChance, ref DismembermentTimeScale, ref DismembermentDuration, ref DismembermentCooldown, field, value);
                     break;
                 case TriggerType.Decapitation:
-                    SetTriggerValue(ref DecapitationChance, ref DecapitationTimeScale, ref DecapitationDuration, ref DecapitationCooldown,
-                        ref DecapitationThirdPersonDistribution, field, value);
+                    SetTriggerValue(ref DecapitationChance, ref DecapitationTimeScale, ref DecapitationDuration, ref DecapitationCooldown, field, value);
                     break;
                 case TriggerType.Parry:
-                    {
-                        float unusedDistribution = 0f;
-                        SetTriggerValue(ref ParryChance, ref ParryTimeScale, ref ParryDuration, ref ParryCooldown,
-                            ref unusedDistribution, field, value);
-                    }
+                    SetTriggerValue(ref ParryChance, ref ParryTimeScale, ref ParryDuration, ref ParryCooldown, field, value);
                     break;
                 case TriggerType.LastEnemy:
-                    SetTriggerValue(ref LastEnemyChance, ref LastEnemyTimeScale, ref LastEnemyDuration, ref LastEnemyCooldown,
-                        ref LastEnemyThirdPersonDistribution, field, value);
+                    SetTriggerValue(ref LastEnemyChance, ref LastEnemyTimeScale, ref LastEnemyDuration, ref LastEnemyCooldown, field, value);
                     break;
                 case TriggerType.LastStand:
-                    if (field == TriggerField.Chance || field == TriggerField.Distribution)
+                    if (field == TriggerField.Chance)
                         break;
                     {
                         float unusedChance = 1f;
-                        float unusedDistribution = 0f;
-                        SetTriggerValue(ref unusedChance, ref LastStandTimeScale, ref LastStandDuration, ref LastStandCooldown,
-                            ref unusedDistribution, field, value);
+                        SetTriggerValue(ref unusedChance, ref LastStandTimeScale, ref LastStandDuration, ref LastStandCooldown, field, value);
                     }
                     break;
             }
         }
 
         private static void SetTriggerValue(ref float chance, ref float timeScale, ref float duration, ref float cooldown,
-            ref float distribution, TriggerField field, float value)
+            TriggerField field, float value)
         {
             switch (field)
             {
@@ -1157,10 +1035,6 @@ namespace CSM.Configuration
                 case TriggerField.Cooldown:
                     // Clamp cooldown to 0-300 seconds (0 to 5 minutes)
                     cooldown = Mathf.Clamp(value, 0f, 300f);
-                    break;
-                case TriggerField.Distribution:
-                    // Clamp distribution to 0-100
-                    distribution = Mathf.Clamp(value, 0f, 100f);
                     break;
             }
         }
@@ -1310,15 +1184,6 @@ namespace CSM.Configuration
             return Mathf.Lerp(1.0f, IntensityScalingMax, Mathf.Clamp01(intensity));
         }
 
-        /// <summary>
-        /// Get the killcam chance for a trigger based on its third-person distribution setting.
-        /// </summary>
-        public static float GetKillcamChance(TriggerType triggerType)
-        {
-            var values = GetCustomValues(triggerType);
-            // Distribution is a multiplier where 0 = off, 1 = 100%, 100 = always
-            return Mathf.Clamp01(values.Distribution);
-        }
 
         /// <summary>
         /// Get chance value for a trigger based on the current ChancePreset.

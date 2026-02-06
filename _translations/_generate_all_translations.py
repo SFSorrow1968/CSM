@@ -25,11 +25,6 @@ LANG_MAP = {
 
 # Map old IDs to new localization IDs
 ID_MAP = {
-    'CameraFirstPersonOnly': 'CameraFirstPersonOnly',
-    'CameraMixed': 'CameraMixed',
-    'CameraMostlyFirstPerson': 'CameraMixedRare',
-    'CameraMostlyThirdPerson': 'CameraMostlyThirdPerson',
-    'CameraThirdPersonOnly': 'CameraThirdPersonOnly',
     'CategoryAdvanced': 'CategoryAdvanced',
     'CategoryCustomBasic': 'CategoryCustomBasic',
     'CategoryCustomCritical': 'CategoryCustomCritical',
@@ -39,7 +34,6 @@ ID_MAP = {
     'CategoryCustomLastStand': 'CategoryCustomLastStand',
     'CategoryCustomParry': 'CategoryCustomParry',
     'CategoryDamageMultipliers': 'CategoryDamageMultipliers',
-    'CategoryKillcam': 'CategoryKillcam',
     'CategoryPresetSelection': 'CategoryPresetSelection',
     'CategoryTriggers': 'CategoryTriggers',
     'ChanceDefault': 'ChanceDefault',
@@ -83,7 +77,6 @@ TEXT_OVERRIDES = {
     'CategoryCustomLastStand': 'Last Stand',
     'CategoryCustomParry': 'Parry',
     'CategoryDamageMultipliers': 'Damage Modifiers',
-    'CategoryKillcam': 'Killcam',
     'CategoryPresetSelection': 'Quick Setup',
     'CategoryTriggers': 'Triggers',
 }
@@ -93,7 +86,7 @@ def strip_emoji(text):
     if not text:
         return text
     # Common emoji prefixes used in the old translations
-    prefixes = ['🔧 ', '► ', '⚖ ', '📷 ', '⚙ ', '⚡ ']
+    prefixes = ['🔧 ', '► ', '⚖ ', '⚙ ', '⚡ ']
     for prefix in prefixes:
         if text.startswith(prefix):
             return text[len(prefix):]

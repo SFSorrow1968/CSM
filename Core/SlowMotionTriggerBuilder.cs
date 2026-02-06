@@ -35,7 +35,7 @@ namespace CSM.Core
         }
 
         /// <summary>
-        /// Set the target creature for killcam tracking.
+        /// Set the target creature for the trigger.
         /// </summary>
         public SlowMotionTriggerBuilder WithCreature(Creature creature)
         {

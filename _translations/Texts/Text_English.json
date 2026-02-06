@@ -12,31 +12,6 @@
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraFirstPersonOnly",
-                    "text": "First Person Only"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraMixed",
-                    "text": "Mixed"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraMostlyFirstPerson",
-                    "text": "Mixed (Rare Third Person)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraMostlyThirdPerson",
-                    "text": "Mostly Third Person"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraThirdPersonOnly",
-                    "text": "Third Person Only"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
                     "text": "🔧 Advanced"
                 },
@@ -79,11 +54,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
                     "text": "⚖ Damage Modifiers"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CategoryKillcam",
-                    "text": "📷 Killcam"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -202,11 +172,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionBasicThirdPerson",
-                    "text": "Basic Third Person"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionBasicTimeScale",
                     "text": "Basic Time Scale"
                 },
@@ -219,16 +184,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionBluntMultiplier",
                     "text": "Blunt Multiplier"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionCameraDistance",
-                    "text": "Camera Distance"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionCameraHeight",
-                    "text": "Camera Height"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -254,11 +209,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionCriticalDuration",
                     "text": "Critical Duration"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionCriticalThirdPerson",
-                    "text": "Critical Third Person"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -302,11 +252,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionDecapThirdPerson",
-                    "text": "Decap Third Person"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionDecapTimeScale",
                     "text": "Decap Time Scale"
                 },
@@ -329,11 +274,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionDismemberDuration",
                     "text": "Dismember Duration"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionDismemberThirdPerson",
-                    "text": "Dismember Third Person"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -392,11 +332,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionLastEnemyThirdPerson",
-                    "text": "LastEnemy Third Person"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionLastEnemyTimeScale",
                     "text": "LastEnemy Time Scale"
                 },
@@ -429,11 +364,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionLastStandTransition",
                     "text": "LastStand Transition"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionOrbitSpeed",
-                    "text": "Orbit Speed"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -477,23 +407,8 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionRandomizeDistance",
-                    "text": "Randomize Distance"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionRandomizeHeight",
-                    "text": "Randomize Height"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionSlashMultiplier",
                     "text": "Slash Multiplier"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionThirdPersonDistribution",
-                    "text": "Third Person Distribution"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -577,11 +492,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipBasicThirdPerson",
-                    "text": "Third-person killcam frequency multiplier (0% disables)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipBasicTimeScale",
                     "text": "Time scale"
                 },
@@ -594,16 +504,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipBluntMultiplier",
                     "text": "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipCameraDistance",
-                    "text": "Distance from target"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipCameraHeight",
-                    "text": "Height offset"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -629,11 +529,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipCriticalDuration",
                     "text": "Duration"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipCriticalThirdPerson",
-                    "text": "Third-person killcam frequency multiplier (0% disables)"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -677,11 +572,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipDecapThirdPerson",
-                    "text": "Third-person killcam frequency multiplier (0% disables)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipDecapTimeScale",
                     "text": "Time scale"
                 },
@@ -704,11 +594,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipDismemberDuration",
                     "text": "Duration"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipDismemberThirdPerson",
-                    "text": "Third-person killcam frequency multiplier (0% disables)"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -767,11 +652,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipLastEnemyThirdPerson",
-                    "text": "Third-person killcam frequency multiplier (0% disables)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipLastEnemyTimeScale",
                     "text": "Time scale"
                 },
@@ -804,11 +684,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipLastStandTransition",
                     "text": "Transition curve (20% of duration). Off = instant."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipOrbitSpeed",
-                    "text": "Camera rotation speed (0 for static)"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -852,23 +727,8 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipRandomizeDistance",
-                    "text": "Randomize distance per killcam"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipRandomizeHeight",
-                    "text": "Randomize height per killcam"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipSlashMultiplier",
                     "text": "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipThirdPersonDistribution",
-                    "text": "Controls how often third-person killcam appears."
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",

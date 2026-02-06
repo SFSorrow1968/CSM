@@ -251,8 +251,8 @@ namespace CSM.Core
                 if (CSMModOptions.DebugLogging)
                 {
                     var raw = CSMModOptions.GetCustomValues(type);
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type, raw.Distribution));
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type, raw.Distribution));
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type));
+                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type));
                     Debug.Log("[CSM] TriggerSlow(" + type + ") presets: " +
                               "Intensity=" + CSMModOptions.CurrentPreset +
                               " | Chance=" + CSMModOptions.ChancePresetSetting +
@@ -732,7 +732,7 @@ namespace CSM.Core
             }
         }
 
-        private static string FormatValues(float chance, float timeScale, float duration, float cooldown, TriggerType type, float distribution)
+        private static string FormatValues(float chance, float timeScale, float duration, float cooldown, TriggerType type)
         {
             string chanceLabel = (chance * 100f).ToString("F0") + "%";
             string scaleLabel = (timeScale * 100f).ToString("F0") + "%";

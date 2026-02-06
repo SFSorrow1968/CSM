@@ -12,31 +12,6 @@
             "texts": [
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraFirstPersonOnly",
-                    "text": "1인칭 시점만 가능"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraMixed",
-                    "text": "혼합"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraMostlyFirstPerson",
-                    "text": "혼합형 (드물게 3인칭 시점 사용)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraMostlyThirdPerson",
-                    "text": "주로 3인칭 시점"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CameraThirdPersonOnly",
-                    "text": "3인칭 시점만 사용"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryAdvanced",
                     "text": "🔧 고급"
                 },
@@ -79,11 +54,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "CategoryDamageMultipliers",
                     "text": "⚖ 피해 수정치"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "CategoryKillcam",
-                    "text": "📷 킬캠"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -202,11 +172,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionBasicThirdPerson",
-                    "text": "기본 3인칭"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionBasicTimeScale",
                     "text": "기본 시간 척도"
                 },
@@ -219,16 +184,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionBluntMultiplier",
                     "text": "둔한 배율"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionCameraDistance",
-                    "text": "카메라 거리"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionCameraHeight",
-                    "text": "카메라 높이"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -254,11 +209,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionCriticalDuration",
                     "text": "임계 지속 시간"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionCriticalThirdPerson",
-                    "text": "비판적 3인칭 시점"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -302,11 +252,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionDecapThirdPerson",
-                    "text": "데캡 3인칭"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionDecapTimeScale",
                     "text": "디캡 시간 척도"
                 },
@@ -329,11 +274,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionDismemberDuration",
                     "text": "해체 기간"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionDismemberThirdPerson",
-                    "text": "제3자를 사지 절단하다"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -392,11 +332,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionLastEnemyThirdPerson",
-                    "text": "라스트이너미 3인칭"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionLastEnemyTimeScale",
                     "text": "라스트에너미 시간 척도"
                 },
@@ -429,11 +364,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionLastStandTransition",
                     "text": "라스트스탠드 전환"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionOrbitSpeed",
-                    "text": "궤도 속도"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -477,23 +407,8 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionRandomizeDistance",
-                    "text": "거리 무작위화"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionRandomizeHeight",
-                    "text": "높이 무작위화"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "OptionSlashMultiplier",
                     "text": "슬래시 배율"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "OptionThirdPersonDistribution",
-                    "text": "제3자 배포"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -577,11 +492,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipBasicThirdPerson",
-                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipBasicTimeScale",
                     "text": "시간 척도"
                 },
@@ -594,16 +504,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipBluntMultiplier",
                     "text": "둔기 공격(충격) 피해에 대한 배율입니다. 0x는 이 유형에 대한 슬로우 모션을 비활성화합니다."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipCameraDistance",
-                    "text": "목표물과의 거리"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipCameraHeight",
-                    "text": "높이 오프셋"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -629,11 +529,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipCriticalDuration",
                     "text": "지속"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipCriticalThirdPerson",
-                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -677,11 +572,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipDecapThirdPerson",
-                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipDecapTimeScale",
                     "text": "시간 척도"
                 },
@@ -704,11 +594,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipDismemberDuration",
                     "text": "지속"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipDismemberThirdPerson",
-                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -767,11 +652,6 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipLastEnemyThirdPerson",
-                    "text": "3인칭 킬캠 빈도 배율 (0%는 비활성화)"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipLastEnemyTimeScale",
                     "text": "시간 척도"
                 },
@@ -804,11 +684,6 @@
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipLastStandTransition",
                     "text": "전환 곡선(지속 시간의 20%). 꺼짐 = 즉시."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipOrbitSpeed",
-                    "text": "카메라 회전 속도 (정지 상태일 경우 0)"
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
@@ -852,23 +727,8 @@
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipRandomizeDistance",
-                    "text": "킬캠당 거리 무작위화"
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipRandomizeHeight",
-                    "text": "킬캠마다 높이를 무작위로 설정합니다."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
                     "id": "TooltipSlashMultiplier",
                     "text": "베기 공격(베기) 피해량 배율입니다. 0x는 이 유형에 대한 슬로우 모션을 비활성화합니다."
-                },
-                {
-                    "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-                    "id": "TooltipThirdPersonDistribution",
-                    "text": "3인칭 킬캠이 나타나는 빈도를 조절합니다."
                 },
                 {
                     "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
