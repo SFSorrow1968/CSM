@@ -19,5 +19,5 @@ When making changes in this repo:
 - `_design/MENU_MOCK.xlsx` is the current UI reference (preset guide removed).
 - Check `References/` for new logs/screenshots before starting; screenshots live in `References/Screenshots/`.
 - Common edit points: UI options in `Configuration/CSMModOptions.cs`, UI sync/tooltips in `Core/CSMModOptionVisibility.cs`, runtime logic in `Core/CSMManager.cs`.
-- **QUIRKS.md**: Check this file before tackling complex problems. Add new entries if a redundant task cost significant time and the note would help future agents avoid it.
+- **QUIRKS.md**: Consult when you suspect a time sink or before diving deep on a tricky issue. Contribute proactively—if investigation took significant time or uncovered a non-obvious fix, add it. Do not hesitate to add small but time-saving notes.
 - If the user says "publish", follow `_docs/PUBLISH.md`.
