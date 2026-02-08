@@ -33,6 +33,7 @@ namespace CSM.Core
         private float _easingOutDuration;
         private CSMModOptions.EasingCurve _cachedEasingCurve; // Cached at slow-mo start to avoid per-frame lookup
         private string _activeTriggerCorrelationId = "none";
+        private string _nextExternalCorrelationId;
         private readonly Dictionary<string, float> _blockLogCooldownUntil = new Dictionary<string, float>(32);
 
         public bool IsActive => _isSlowMotionActive;
@@ -48,6 +49,7 @@ namespace CSM.Core
                 _globalCooldownEndTime = 0f;
                 _triggerCooldownEndTimes.Clear();
                 _activeTriggerCorrelationId = "none";
+                _nextExternalCorrelationId = null;
                 _blockLogCooldownUntil.Clear();
 
                 Debug.Log("[CSM] Manager initialized");
@@ -179,7 +181,7 @@ namespace CSM.Core
         {
             try
             {
-                _activeTriggerCorrelationId = BuildCorrelationId(targetCreature, Time.unscaledTime);
+                _activeTriggerCorrelationId = GetNextCorrelationId(targetCreature, Time.unscaledTime);
                 if (!CSMModOptions.EnableMod)
                 {
                     if (CSMModOptions.DebugLogging)
@@ -349,6 +351,16 @@ namespace CSM.Core
                 CSMTelemetry.RecordError("trigger_slow_exception");
                 return false;
             }
+        }
+
+        public void SetExternalCorrelationId(string correlationId)
+        {
+            if (string.IsNullOrWhiteSpace(correlationId))
+            {
+                return;
+            }
+
+            _nextExternalCorrelationId = correlationId.Trim();
         }
 
         /// <summary>
@@ -726,6 +738,7 @@ namespace CSM.Core
         public void Shutdown()
         {
             CancelSlowMotion();
+            _nextExternalCorrelationId = null;
             _instance = null;
         }
 
@@ -788,6 +801,18 @@ namespace CSM.Core
 
             uint stable = (uint)hash;
             return stable.ToString("X8").Substring(2);
+        }
+
+        private string GetNextCorrelationId(Creature creature, float now)
+        {
+            if (!string.IsNullOrWhiteSpace(_nextExternalCorrelationId))
+            {
+                string external = _nextExternalCorrelationId;
+                _nextExternalCorrelationId = null;
+                return external;
+            }
+
+            return BuildCorrelationId(creature, now);
         }
 
         private void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
