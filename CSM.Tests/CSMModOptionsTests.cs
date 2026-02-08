@@ -29,7 +29,8 @@ namespace CSM.Tests
             var constants = new[]
             {
                 CSMModOptions.OptionEnableMod,
-                CSMModOptions.OptionDebugLogging
+                CSMModOptions.OptionDebugLogging,
+                CSMModOptions.OptionSessionDiagnostics
             };
 
             var uniqueSet = new System.Collections.Generic.HashSet<string>(constants);

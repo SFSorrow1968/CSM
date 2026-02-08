@@ -8,6 +8,7 @@ namespace CSM.Core
     internal static class CSMTelemetry
     {
         private const float SummaryIntervalSeconds = 30f;
+        private static bool DiagnosticsEnabled => CSMModOptions.DebugLogging || CSMModOptions.SessionDiagnostics;
 
         private static string runId = "none";
         private static bool initialized;
@@ -84,7 +85,7 @@ namespace CSM.Core
             ResetInterval();
             ResetTotals();
 
-            if (CSMModOptions.DebugLogging)
+            if (DiagnosticsEnabled)
             {
                 Debug.Log(
                     "[CSM] diag evt=session_start run=" + runId +
@@ -92,7 +93,8 @@ namespace CSM.Core
                     " chancePreset=" + CSMModOptions.ChancePresetSetting +
                     " cooldownPreset=" + CSMModOptions.CooldownPresetSetting +
                     " durationPreset=" + CSMModOptions.DurationPresetSetting +
-                    " deferredQueue=off");
+                    " deferredQueue=off" +
+                    " sessionDiagnostics=" + CSMModOptions.SessionDiagnostics);
             }
         }
 
@@ -105,7 +107,7 @@ namespace CSM.Core
 
             EmitSummary(force: true);
             EmitSessionTotals();
-            if (CSMModOptions.DebugLogging)
+            if (DiagnosticsEnabled)
             {
                 Debug.Log(
                     "[CSM] diag evt=session_end run=" + runId +
@@ -373,7 +375,7 @@ namespace CSM.Core
                 ? (triggerSuccesses * 100f) / triggerAttempts
                 : 0f;
 
-            if (CSMModOptions.DebugLogging)
+            if (DiagnosticsEnabled)
             {
                 Debug.Log(
                     "[CSM] diag evt=summary run=" + runId +
@@ -419,7 +421,14 @@ namespace CSM.Core
                 ? (totalTriggerSuccesses * 100f) / totalTriggerAttempts
                 : 0f;
 
-            if (CSMModOptions.DebugLogging)
+            float blockRate = totalTriggerAttempts > 0
+                ? ((totalTriggerAttempts - totalTriggerSuccesses) * 100f) / totalTriggerAttempts
+                : 0f;
+            float severeDropRate = totalFrameDrops > 0
+                ? (totalSevereFrameDrops * 100f) / totalFrameDrops
+                : 0f;
+
+            if (DiagnosticsEnabled)
             {
                 Debug.Log(
                     "[CSM] diag evt=session_totals run=" + runId +
@@ -454,6 +463,14 @@ namespace CSM.Core
                     " topTriggerOk=" + FormatTop(triggerSuccessByTypeTotal) +
                     " topDeferred=" + FormatTop(deferredReasonsTotal) +
                     " topErrors=" + FormatTop(errorReasonsTotal));
+
+                Debug.Log(
+                    "[CSM] diag evt=session_kpi run=" + runId +
+                    " triggerRate=" + triggerRate.ToString("F1") + "%" +
+                    " blockRate=" + blockRate.ToString("F1") + "%" +
+                    " frameDrop=" + totalFrameDrops +
+                    " severeDropRate=" + severeDropRate.ToString("F1") + "%" +
+                    " errors=" + totalErrorCount);
             }
         }
 
