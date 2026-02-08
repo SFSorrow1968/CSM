@@ -332,7 +332,11 @@ namespace CSM.Core
             bool debugChanged = _lastDebugLogging != CSMModOptions.DebugLogging;
             _lastDebugLogging = CSMModOptions.DebugLogging;
             
-            if (!debugChanged || !CSMModOptions.DebugLogging)
+            if (!debugChanged)
+                return false;
+
+            Debug.Log("[CSM] Debug logging state updated: " + CSMModOptions.DebugLogging);
+            if (!CSMModOptions.DebugLogging)
                 return false;
 
             // When debug enabled, show effective values in tooltips
