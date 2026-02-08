@@ -16,3 +16,6 @@ When making changes in this repo:
 - If the user asks for a new project, scaffold a similar project structure plus build and git workflows, then tailor `AGENTS.md`, `DEVELOPMENT.md`, and themed quirk files to that project's domain.
 - Use a feature branch for every task (for example `agent/<topic>`), and avoid direct work on `main`/`master`.
 - End each substantial task update with a merge reminder that names the active feature branch and target branch.
+- When a user reports an issue, always recommend a specific logging profile first (not generic "turn logs on").
+- For low-noise repro in this repo, start with: `Session Diagnostics=On`, `Debug Logging=Off`.
+- If trigger-level troubleshooting is needed, enable `Debug Logging=On` for a short targeted repro run, then switch it back off.
