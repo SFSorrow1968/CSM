@@ -1,14 +1,14 @@
-# CSM Quirks & Gotchas
+# Quirks Index
 
-Document unexpected behaviors, platform differences, and gotchas that future agents should know about.
+Use this file to route agents to theme-specific quirk logs.
+Do not keep long-form quirks directly in this file.
 
-## Format
+## Themes
 
-Each entry should include:
-- **Issue**: Brief description
-- **Context**: When/why this matters
-- **Solution/Workaround**: How to handle it
+- `GENERALQUIRKS.md`: Cross-cutting notes that do not fit a specific theme yet.
 
----
+## Adding A Theme
 
-*(Add entries below as you encounter them)*
+- Create a new file named `<THEME>QUIRKS.md` (example: `MENUQUIRKS.md`).
+- Use Issue/Context/Solution entries.
+- Add the new file to the theme list above.

@@ -110,13 +110,15 @@ namespace CSM.Core
             if (frameTimeMs > FRAME_DROP_THRESHOLD_MS)
             {
                 _frameDropCount++;
+                bool severeDrop = frameTimeMs > SEVERE_FRAME_DROP_MS;
+                CSMTelemetry.RecordFrameDrop(frameTimeMs, severeDrop);
 
                 if (_frameDropCount == WARNING_FRAME_DROP_COUNT && CSMModOptions.DebugLogging)
                 {
                     Debug.LogWarning($"[CSM] Performance: {_frameDropCount} frame drops detected during slow motion");
                 }
 
-                if (frameTimeMs > SEVERE_FRAME_DROP_MS && CSMModOptions.DebugLogging)
+                if (severeDrop && CSMModOptions.DebugLogging)
                 {
                     Debug.LogWarning($"[CSM] Severe frame drop: {frameTimeMs:F1}ms ({1000f / frameTimeMs:F0} FPS)");
                 }
@@ -145,16 +147,14 @@ namespace CSM.Core
 
             if (CSMModOptions.DebugLogging)
             {
-                Debug.Log($"[CSM] Performance session ended:");
-                Debug.Log($"[CSM]   Duration: {sessionDuration:F2}s | Frames: {_frameTimeSamples.Count}");
-                Debug.Log($"[CSM]   Avg frame time: {AverageFrameTimeMs:F1}ms ({1000f / AverageFrameTimeMs:F0} FPS)");
-                Debug.Log($"[CSM]   Worst frame: {WorstFrameTimeMs:F1}ms | Frame drops: {_frameDropCount}");
+                float avgFps = AverageFrameTimeMs > 0.0001f ? 1000f / AverageFrameTimeMs : 0f;
+                float dropRate = _frameTimeSamples.Count > 0
+                    ? (float)_frameDropCount / _frameTimeSamples.Count * 100f
+                    : 0f;
 
-                if (_frameDropCount > 0)
-                {
-                    float dropRate = (float)_frameDropCount / _frameTimeSamples.Count * 100f;
-                    Debug.Log($"[CSM]   Drop rate: {dropRate:F1}% of frames exceeded {FRAME_DROP_THRESHOLD_MS}ms threshold");
-                }
+                Debug.Log(
+                    $"[CSM] Performance session ended | Duration={sessionDuration:F2}s Frames={_frameTimeSamples.Count} " +
+                    $"Avg={AverageFrameTimeMs:F1}ms ({avgFps:F0} FPS) Worst={WorstFrameTimeMs:F1}ms Drops={_frameDropCount} ({dropRate:F1}%)");
             }
         }
 

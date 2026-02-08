@@ -1,23 +1,18 @@
 # Agent Instructions
 
 When making changes in this repo:
-- Always build (Release and Nomad).
-- Only regenerate `_design/MENU_MOCK.xlsx` if user says "Mock" or explicitly requests it.
-- Only update translations if user says "Translations" or explicitly requests it.
-- Work on a dedicated branch. Create a new branch when starting a new task or after a merge. Reuse the same branch for related changes. Never commit directly to `main`/`master`.
-- Ensure the working tree is clean before making changes; if not, ask the user how to proceed.
-- Always commit your changes.
-- Every update must end with a snapshot commit that has a clear message.
-- After changes, run `_agent/snapshot.ps1 -Message "<short>"` to create a snapshot commit and a tag `snapshot-YYYYMMDD-HHMMSS`. Do not create archives unless the user explicitly asks.
-- After the snapshot commit, push the branch and tags (`git push -u origin HEAD` and `git push origin --tags`).
-- Periodically remind the user to merge the working branch; include the branch name in the reminder.
-- `DEVELOPMENT.md` contains platform/ModOptions notes; consult it when needed.
-- Quick refs: `DEVELOPMENT.md` sections "Platform Differences", "ModOptions System", "EventManager Events".
-- User does not want learning-oriented content; optimize for agent clarity over human prose (except MENU_MOCK, PUBLISH, and build steps).
-- When adding/renaming presets or ModOption labels, follow `_docs/PRESET_CHANGE_CHECKLIST.md`.
-- Build artifacts: `bin/Release/PCVR/CSM/` and `bin/Release/Nomad/CSM/`.
-- `_design/MENU_MOCK.xlsx` is the current UI reference (preset guide removed).
-- Check `References/` for new logs/screenshots before starting; screenshots live in `References/Screenshots/`.
-- Common edit points: UI options in `Configuration/CSMModOptions.cs`, UI sync/tooltips in `Core/CSMModOptionVisibility.cs`, runtime logic in `Core/CSMManager.cs`.
-- **QUIRKS.md**: Consult when you suspect a time sink or before diving deep on a tricky issue. Contribute proactively—if investigation took significant time or uncovered a non-obvious fix, add it. Do not hesitate to add small but time-saving notes.
-- If the user says "publish", follow `_docs/PUBLISH.md`.
+- Always build `Release` and `Nomad` before finalizing.
+- Keep edits aligned with this repo's existing structure and docs (`DEVELOPMENT.md`, `QUIRKS.md`).
+- Use local references in `References/` and local tooling in `../.tools/` to decompile `../libs/*.dll` when API behavior is unclear.
+- Shared game DLL path for this workspace is `D:\Documents\Projects\repos\BS\libs`.
+- Only regenerate `_design/MENU_MOCK.xlsx` when explicitly requested.
+- Build artifacts are expected in `bin/Release/PCVR/CSM/` and `bin/Release/Nomad/CSM/`.
+- Common edit points: `Configuration/CSMModOptions.cs`, `Core/CSMModOptionVisibility.cs`, `Core/CSMManager.cs`.
+- If the user asks to publish, follow `_docs/PUBLISH.md`.
+- Treat `QUIRKS.md` as an index of theme-specific quirk logs, not a single catch-all file.
+- Before deep refactors or debugging sessions, review `DEVELOPMENT.md`, `QUIRKS.md`, and the relevant `<THEME>QUIRKS.md` files.
+- Add non-obvious findings to a specifically named quirk file such as `IMBUESQUIRKS.md`, `UIQUIRKS.md`, or `TOOLINGQUIRKS.md`.
+- If a themed quirk file does not exist yet, create it with Issue/Context/Solution entries and add it to `QUIRKS.md`.
+- If the user asks for a new project, scaffold a similar project structure plus build and git workflows, then tailor `AGENTS.md`, `DEVELOPMENT.md`, and themed quirk files to that project's domain.
+- Use a feature branch for every task (for example `agent/<topic>`), and avoid direct work on `main`/`master`.
+- End each substantial task update with a merge reminder that names the active feature branch and target branch.

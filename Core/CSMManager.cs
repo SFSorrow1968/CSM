@@ -31,6 +31,7 @@ namespace CSM.Core
         private bool _isEasingOut;
         private float _easingOutDuration;
         private CSMModOptions.EasingCurve _cachedEasingCurve; // Cached at slow-mo start to avoid per-frame lookup
+        private string _activeTriggerCorrelationId = "none";
 
         public bool IsActive => _isSlowMotionActive;
 
@@ -44,6 +45,7 @@ namespace CSM.Core
                 _slowMotionStartTime = 0f;
                 _globalCooldownEndTime = 0f;
                 _triggerCooldownEndTimes.Clear();
+                _activeTriggerCorrelationId = "none";
 
                 Debug.Log("[CSM] Manager initialized");
             }
@@ -81,6 +83,7 @@ namespace CSM.Core
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] Update error: " + ex.Message);
+                CSMTelemetry.RecordError("manager_update_exception");
                 TryRestoreTimeScale();
             }
         }
@@ -173,11 +176,13 @@ namespace CSM.Core
         {
             try
             {
+                _activeTriggerCorrelationId = BuildCorrelationId(targetCreature, Time.unscaledTime);
                 if (!CSMModOptions.EnableMod)
                 {
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Mod disabled");
                     SetLastTriggerDebug(type, "Blocked: Mod disabled", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.ModDisabled, isQuickTest);
                     return false;
                 }
 
@@ -198,6 +203,7 @@ namespace CSM.Core
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - DOT kill disabled (0x multiplier)");
                         SetLastTriggerDebug(type, "Blocked: DOT kill disabled", isQuickTest);
+                        CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.DOTKillDisabled, isQuickTest);
                         return false;
                     }
                 }
@@ -212,6 +218,7 @@ namespace CSM.Core
                         if (CSMModOptions.DebugLogging)
                             Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Thrown weapon kill disabled (0x multiplier)");
                         SetLastTriggerDebug(type, "Blocked: Thrown disabled", isQuickTest);
+                        CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.ThrownWeaponDisabled, isQuickTest);
                         return false;
                     }
                 }
@@ -222,6 +229,7 @@ namespace CSM.Core
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Damage type " + damageType + " disabled (0x multiplier)");
                     SetLastTriggerDebug(type, "Blocked: " + damageType + " disabled", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.DamageTypeDisabled, isQuickTest);
                     return false;
                 }
 
@@ -251,13 +259,15 @@ namespace CSM.Core
                 if (CSMModOptions.DebugLogging)
                 {
                     var raw = CSMModOptions.GetCustomValues(type);
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") enabled=" + enabled + " raw: " + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type));
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") effective: " + FormatValues(chance, timeScale, duration, cooldown, type));
-                    Debug.Log("[CSM] TriggerSlow(" + type + ") presets: " +
-                              "Intensity=" + CSMModOptions.CurrentPreset +
-                              " | Chance=" + CSMModOptions.ChancePresetSetting +
-                              " | Cooldown=" + CSMModOptions.CooldownPresetSetting +
-                              " | Duration=" + CSMModOptions.DurationPresetSetting);
+                    Debug.Log(
+                        "[CSM] TriggerSlow(" + type + ") enabled=" + enabled +
+                        " cid=" + _activeTriggerCorrelationId +
+                        " | raw=" + FormatValues(raw.Chance, raw.TimeScale, raw.Duration, raw.Cooldown, type) +
+                        " | effective=" + FormatValues(chance, timeScale, duration, cooldown, type) +
+                        " | presets Intensity=" + CSMModOptions.CurrentPreset +
+                        ", Chance=" + CSMModOptions.ChancePresetSetting +
+                        ", Cooldown=" + CSMModOptions.CooldownPresetSetting +
+                        ", Duration=" + CSMModOptions.DurationPresetSetting);
                 }
 
                 if (!enabled)
@@ -265,6 +275,7 @@ namespace CSM.Core
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Trigger disabled");
                     SetLastTriggerDebug(type, "Blocked: Trigger disabled", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.TriggerDisabled, isQuickTest);
                     return false;
                 }
 
@@ -275,6 +286,7 @@ namespace CSM.Core
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Global cooldown");
                     SetLastTriggerDebug(type, "Blocked: Global cooldown", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.GlobalCooldown, isQuickTest);
                     return false;
                 }
 
@@ -283,6 +295,7 @@ namespace CSM.Core
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Trigger cooldown");
                     SetLastTriggerDebug(type, "Blocked: Trigger cooldown", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.TriggerCooldown, isQuickTest);
                     return false;
                 }
 
@@ -291,6 +304,7 @@ namespace CSM.Core
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - SlowMo already active");
                     SetLastTriggerDebug(type, "Blocked: SlowMo already active", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.AlreadyActive, isQuickTest);
                     return false;
                 }
 
@@ -300,6 +314,7 @@ namespace CSM.Core
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Easing out in progress");
                     SetLastTriggerDebug(type, "Blocked: Easing out", isQuickTest);
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.EasingOut, isQuickTest);
                     return false;
                 }
 
@@ -311,6 +326,7 @@ namespace CSM.Core
                         Debug.Log("[CSM] TriggerSlow(" + type + "): BLOCKED - Chance roll failed (" + (roll*100).ToString("F0") + "% vs " + (chance*100).ToString("F0") + "%)");
                         SetLastTriggerDebug(type, "Blocked: Chance failed (" + (roll * 100f).ToString("F0") + "% > " + (chance * 100f).ToString("F0") + "%)", isQuickTest);
                     }
+                    CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.ChanceFailed, isQuickTest);
                     return false;
                 }
 
@@ -318,9 +334,7 @@ namespace CSM.Core
                     Debug.Log("[CSM] SlowMo START: " + type + " at " + (timeScale*100).ToString("F0") + "% for " + duration.ToString("F1") + "s");
                 StartSlowMotion(type, timeScale, duration, cooldown, damageDealt);
                 SetLastTriggerDebug(type, "Triggered", isQuickTest);
-
-                if (CSMModOptions.DebugLogging)
-                    Debug.Log("[CSM] " + GetTriggerDisplayName(type));
+                CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.Success, isQuickTest);
                 
                 return true;
             }
@@ -328,6 +342,8 @@ namespace CSM.Core
             {
                 Debug.LogError("[CSM] TriggerSlow error: " + ex.Message);
                 SetLastTriggerDebug(type, "Error: " + ex.Message, isQuickTest);
+                CSMTelemetry.RecordTriggerAttempt(type, TriggerResult.Error, isQuickTest);
+                CSMTelemetry.RecordError("trigger_slow_exception");
                 return false;
             }
         }
@@ -585,10 +601,12 @@ namespace CSM.Core
 
                 // Start performance tracking session
                 PerformanceMetrics.Instance?.StartSession();
+                CSMTelemetry.RecordSlowmoStart(type);
             }
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] StartSlowMotion error: " + ex.Message);
+                CSMTelemetry.RecordError("start_slowmo_exception");
                 TryRestoreTimeScale();
             }
         }
@@ -640,10 +658,13 @@ namespace CSM.Core
 
                 if (CSMModOptions.DebugLogging)
                     Debug.Log("[CSM] SlowMo END: " + endedType);
+
+                CSMTelemetry.RecordSlowmoEnd(cancelled: false);
             }
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] EndSlowMotion error: " + ex.Message);
+                CSMTelemetry.RecordError("end_slowmo_exception");
                 TryRestoreTimeScale();
             }
 
@@ -671,10 +692,13 @@ namespace CSM.Core
                               "s (expected " + expected.ToString("0.###") +
                               "s, delta " + (elapsed - expected).ToString("0.###") + "s)");
                 }
+
+                CSMTelemetry.RecordSlowmoEnd(cancelled: true);
             }
             catch (Exception ex)
             {
                 Debug.LogError("[CSM] CancelSlowMotion error: " + ex.Message);
+                CSMTelemetry.RecordError("cancel_slowmo_exception");
                 TryRestoreTimeScale();
             }
 
@@ -745,14 +769,33 @@ namespace CSM.Core
                    " | CD " + cooldownLabel;
         }
 
-        private static void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
+        private static string BuildCorrelationId(Creature creature, float now)
+        {
+            if (creature == null)
+            {
+                return "none";
+            }
+
+            int bucket = Mathf.FloorToInt(now * 2f);
+            int hash;
+            unchecked
+            {
+                hash = (creature.GetInstanceID() * 397) ^ bucket;
+            }
+
+            uint stable = (uint)hash;
+            return stable.ToString("X8").Substring(2);
+        }
+
+        private void SetLastTriggerDebug(TriggerType type, string reason, bool isQuickTest)
         {
             if (!CSMModOptions.DebugLogging)
                 return;
 
             string summary = GetTriggerUiName(type);
             string finalReason = isQuickTest ? reason + " (Quick Test)" : reason;
-            Debug.Log("[CSM] " + summary + " -> " + finalReason);
+            string correlationId = string.IsNullOrWhiteSpace(_activeTriggerCorrelationId) ? "none" : _activeTriggerCorrelationId;
+            Debug.Log("[CSM] " + summary + " -> " + finalReason + " [cid=" + correlationId + "]");
         }
 
     }

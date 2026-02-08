@@ -12,7 +12,6 @@ namespace CSM.Tests
             // Verify reasonable defaults
             Assert.That(CSMModOptions.EnableMod, Is.True, "Mod should be enabled by default");
             Assert.That(CSMModOptions.DebugLogging, Is.False, "Debug logging should be off by default");
-            Assert.That(CSMModOptions.DebugOverlay, Is.False, "Debug overlay should be off by default");
         }
 
         [Test]
@@ -30,8 +29,7 @@ namespace CSM.Tests
             var constants = new[]
             {
                 CSMModOptions.OptionEnableMod,
-                CSMModOptions.OptionDebugLogging,
-                CSMModOptions.OptionDebugOverlay
+                CSMModOptions.OptionDebugLogging
             };
 
             var uniqueSet = new System.Collections.Generic.HashSet<string>(constants);

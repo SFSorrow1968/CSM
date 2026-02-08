@@ -12,17 +12,17 @@ namespace CSM.Configuration
 
         #region Labels and Categories
 
-        public const string CategoryPresetSelection = "⚙ Quick Setup";
-        public const string CategoryTriggers = "⚡ Triggers";
+        public const string CategoryPresetSelection = "Quick Setup";
+        public const string CategoryTriggers = "Triggers";
 
-        public const string CategoryAdvanced = "🔧 Advanced";
-        public const string CategoryCustomBasic = "► Basic Kill";
-        public const string CategoryCustomCritical = "► Critical Kill";
-        public const string CategoryCustomDismemberment = "► Dismemberment";
-        public const string CategoryCustomDecapitation = "► Decapitation";
-        public const string CategoryCustomLastEnemy = "► Last Enemy";
-        public const string CategoryCustomLastStand = "► Last Stand";
-        public const string CategoryCustomParry = "► Parry";
+        public const string CategoryAdvanced = "Advanced";
+        public const string CategoryCustomBasic = "Basic Kill";
+        public const string CategoryCustomCritical = "Critical Kill";
+        public const string CategoryCustomDismemberment = "Dismemberment";
+        public const string CategoryCustomDecapitation = "Decapitation";
+        public const string CategoryCustomLastEnemy = "Last Enemy";
+        public const string CategoryCustomLastStand = "Last Stand";
+        public const string CategoryCustomParry = "Parry";
 
         public const string OptionEnableMod = "Enable Mod";
 
@@ -99,13 +99,12 @@ namespace CSM.Configuration
         public const string OptionParryTransition = "Parry Transition";
 
         public const string OptionDebugLogging = "Debug Logging";
-        public const string OptionDebugOverlay = "Debug Overlay";
         public const string OptionQuickTestTrigger = "Quick Test Trigger";
         public const string OptionQuickTestNow = "Quick Test Now";
 
         public const string OptionEasingCurve = "Easing Curve";
 
-        public const string CategoryDamageMultipliers = "⚖ Damage Modifiers";
+        public const string CategoryDamageMultipliers = "Damage Modifiers";
         public const string OptionPierceMultiplier = "Pierce Multiplier";
         public const string OptionSlashMultiplier = "Slash Multiplier";
         public const string OptionBluntMultiplier = "Blunt Multiplier";
@@ -588,8 +587,8 @@ namespace CSM.Configuration
         [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionIntensityPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipIntensityPreset")]
         public static string CurrentPreset = "Default";
 
-        [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 0, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionChancePreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipChancePreset")]
-        public static string ChancePresetSetting = "Off";
+        [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 3, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionChancePreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipChancePreset")]
+        public static string ChancePresetSetting = "Default";
 
         [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDurationPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipDurationPreset")]
         public static string DurationPresetSetting = "Default";
@@ -847,9 +846,6 @@ namespace CSM.Configuration
         [ModOption(name = OptionDebugLogging, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDebugLogging), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryAdvanced), tooltipLocalizationId = LocalizationGroupId + ".TooltipDebugLogging")]
         public static bool DebugLogging = false;
 
-        [ModOption(name = OptionDebugOverlay, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 15, defaultValueIndex = 0, tooltip = "Show on-screen debug overlay with CSM state", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDebugOverlay), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryAdvanced), tooltipLocalizationId = LocalizationGroupId + ".TooltipDebugOverlay")]
-        public static bool DebugOverlay = false;
-
         [ModOption(name = OptionQuickTestTrigger, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionQuickTestTrigger), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryAdvanced), tooltipLocalizationId = LocalizationGroupId + ".TooltipQuickTestTrigger")]
         public static string QuickTestTrigger = TriggerBasicKill;
 
@@ -1066,7 +1062,7 @@ namespace CSM.Configuration
 
         public static ChancePreset GetChancePreset()
         {
-            return ParsePreset(ChancePresetSetting, ChancePresetMap, ChancePreset.Off);
+            return ParsePreset(ChancePresetSetting, ChancePresetMap, ChancePreset.Default);
         }
 
         public static CooldownPreset GetCooldownPreset()

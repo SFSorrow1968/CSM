@@ -24,10 +24,22 @@ namespace CSM.Core
                 Debug.Log("[CSM] === CSM v" + CSMModOptions.VERSION + " (PCVR) ===");
 #endif
 
+                CSMTelemetry.Initialize();
                 CSMManager.Instance.Initialize();
                 CSMModOptionVisibility.Instance.Initialize();
                 PerformanceMetrics.Instance.Initialize();
-                DebugOverlay.Instance.Initialize();
+                Debug.Log(
+                    "[CSM] Damage multipliers: " +
+                    "Pierce=" + CSMModOptions.PierceMultiplier.ToString("0.##") + "x, " +
+                    "Slash=" + CSMModOptions.SlashMultiplier.ToString("0.##") + "x, " +
+                    "Blunt=" + CSMModOptions.BluntMultiplier.ToString("0.##") + "x, " +
+                    "Elemental=" + CSMModOptions.ElementalMultiplier.ToString("0.##") + "x, " +
+                    "DOT=" + CSMModOptions.GetDOTMultiplier().ToString("0.##") + "x, " +
+                    "Thrown=" + CSMModOptions.GetThrownMultiplier().ToString("0.##") + "x, " +
+                    "IntensityScaling=" + (CSMModOptions.IntensityScalingEnabled
+                        ? ("on(max=" + CSMModOptions.IntensityScalingMax.ToString("0.##") + "x)")
+                        : "off"));
+                Debug.Log("[CSM] Trigger pipeline: deferredQueue=off (cooldown-blocked triggers are not queued)");
 
 #if NOMAD
                 Debug.Log("[CSM] Subscribing event hooks (Nomad mode)...");
@@ -49,6 +61,7 @@ namespace CSM.Core
             try
             {
                 base.ScriptUpdate();
+                CSMTelemetry.Update(Time.unscaledTime);
                 CSMManager.Instance?.Update();
                 CSMModOptionVisibility.Instance?.Update();
 
@@ -62,19 +75,6 @@ namespace CSM.Core
             }
         }
 
-        private void OnGUI()
-        {
-            try
-            {
-                DebugOverlay.Instance?.Draw();
-            }
-            catch (Exception ex)
-            {
-                if (CSMModOptions.DebugLogging)
-                    Debug.LogError("[CSM] OnGUI error: " + ex.Message);
-            }
-        }
-
         public override void ScriptDisable()
         {
             try
@@ -84,7 +84,7 @@ namespace CSM.Core
                 CSMManager.Instance?.CancelSlowMotion();
                 CSMModOptionVisibility.Instance?.Shutdown();
                 PerformanceMetrics.Instance?.Shutdown();
-                DebugOverlay.Instance?.Shutdown();
+                CSMTelemetry.Shutdown();
 
                 EventHooks.Unsubscribe();
                 EventHooks.ResetState();

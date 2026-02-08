@@ -15,15 +15,23 @@ def run(cmd, cwd=None):
     print(f"$ {cmd}")
     subprocess.run(cmd, shell=True, cwd=cwd or BASE, check=True)
 
+def require_clean_non_main_git_state():
+    branch = subprocess.check_output("git branch --show-current", shell=True, cwd=BASE, text=True).strip()
+    if branch in {"main", "master"}:
+        raise RuntimeError(f"Refusing release on protected branch '{branch}'. Use a feature/release branch.")
+
+    status = subprocess.check_output("git status --porcelain", shell=True, cwd=BASE, text=True).strip()
+    if status:
+        raise RuntimeError("Working tree is dirty. Commit or stash changes before releasing.")
+
 def main():
     version = get_version()
     tag = f"v{version}"
 
     print(f"\n=== Building CSM {version} ===\n")
 
-    # Build both configurations
-    run("dotnet build -c Release")
-    run("dotnet build -c Nomad")
+    require_clean_non_main_git_state()
+    run("powershell -ExecutionPolicy Bypass -File _agent/ci-smoke.ps1 -Strict")
 
     # Create zips
     print("\n=== Creating release zips ===\n")

@@ -24,6 +24,7 @@ namespace CSM.Hooks
         private float _lastEnemyCountRefreshTime = 0f;
         private const float ENEMY_COUNT_REFRESH_INTERVAL = 15f; // Increased from 5s - event-driven tracking handles most updates
         private readonly Dictionary<int, float> _recentSlicedParts = new Dictionary<int, float>();
+        private readonly List<int> _expiredSlicePartIds = new List<int>(16);
         private float _lastSliceCleanupTime = 0f;
         private const float SLICE_REARM_SECONDS = 30f;
         private const float SLICE_CLEANUP_INTERVAL = 10f;
@@ -40,9 +41,13 @@ namespace CSM.Hooks
         // Track creatures the player has recently damaged
         // This allows attributing DOT/status effect kills (bleeds, fire DOT, lightning) to the player
         private readonly Dictionary<int, PlayerDamageHit> _playerDamageHits = new Dictionary<int, PlayerDamageHit>();
+        private readonly List<int> _expiredDamageHitIds = new List<int>(32);
         private const float DOT_ATTRIBUTION_WINDOW = 15f; // Seconds after last hit to attribute DOT kill
         private float _lastDamageHitCleanupTime = 0f;
         private const float DAMAGE_HIT_CLEANUP_INTERVAL = 5f;
+        private float _nextParrySkipLogTime = 0f;
+        private float _nextDeflectSkipLogTime = 0f;
+        private const float SKIP_LOG_THROTTLE_SECONDS = 1.0f;
 
         private class PlayerDamageHit
         {
@@ -238,10 +243,13 @@ namespace CSM.Hooks
         {
             try
             {
-                if (Creature.allActive == null) return;
+                List<Creature> allActive = Creature.allActive;
+                if (allActive == null) return;
+
                 int aliveCount = 0;
-                foreach (var creature in Creature.allActive)
+                for (int i = 0; i < allActive.Count; i++)
                 {
+                    Creature creature = allActive[i];
                     RegisterRagdollHooks(creature);
                     if (creature != null && !creature.isPlayer && !creature.isKilled)
                         aliveCount++;
@@ -357,8 +365,10 @@ namespace CSM.Hooks
                 float elementalDamage;
                 bool wasThrown;
                 bool killedByPlayer = WasKilledByPlayer(collisionInstance, creature, out elementalDamageType, out elementalDamage, out wasThrown);
+                CSMTelemetry.RecordKillEvaluation(killedByPlayer);
                 if (!killedByPlayer)
                 {
+                    CSMTelemetry.RecordKillSkip("not_player_kill");
                     if (CSMModOptions.DebugLogging)
                         Debug.Log("[CSM] Kill skipped - not player kill");
                     return;
@@ -492,6 +502,7 @@ namespace CSM.Hooks
             }
             catch (Exception ex)
             {
+                CSMTelemetry.RecordError("on_creature_kill_exception");
                 Debug.LogError("[CSM] OnCreatureKill error: " + ex.Message);
             }
         }
@@ -564,6 +575,7 @@ namespace CSM.Hooks
             }
             catch (Exception ex)
             {
+                CSMTelemetry.RecordError("on_creature_hit_exception");
                 Debug.LogError("[CSM] OnCreatureHit error: " + ex.Message);
             }
         }
@@ -619,19 +631,17 @@ namespace CSM.Hooks
                 return;
 
             _lastSliceCleanupTime = now;
-            List<int> expired = null;
+            _expiredSlicePartIds.Clear();
             foreach (var kvp in _recentSlicedParts)
             {
                 if (now - kvp.Value > SLICE_REARM_SECONDS)
                 {
-                    if (expired == null) expired = new List<int>();
-                    expired.Add(kvp.Key);
+                    _expiredSlicePartIds.Add(kvp.Key);
                 }
             }
 
-            if (expired == null) return;
-            foreach (var key in expired)
-                _recentSlicedParts.Remove(key);
+            for (int i = 0; i < _expiredSlicePartIds.Count; i++)
+                _recentSlicedParts.Remove(_expiredSlicePartIds[i]);
         }
 
         private void HandlePlayerHit(Creature player)
@@ -644,6 +654,7 @@ namespace CSM.Hooks
                 if (_lastPlayerHealthRatio > threshold && currentHealth <= threshold && currentHealth > 0 && !_lastStandTriggered)
                 {
                     _lastStandTriggered = true;
+                    CSMTelemetry.RecordLastStandTrigger();
                     Debug.Log("[CSM] Last Stand triggered! Health: " + (currentHealth * 100f).ToString("F0") + "%");
                     CSMManager.Instance.TriggerSlow(TriggerType.LastStand);
                 }
@@ -657,6 +668,7 @@ namespace CSM.Hooks
             }
             catch (Exception ex)
             {
+                CSMTelemetry.RecordError("handle_player_hit_exception");
                 Debug.LogError("[CSM] HandlePlayerHit error: " + ex.Message);
             }
         }
@@ -712,11 +724,13 @@ namespace CSM.Hooks
         {
             try
             {
-                if (Creature.allActive == null) return 0;
+                List<Creature> allActive = Creature.allActive;
+                if (allActive == null) return 0;
 
                 int aliveEnemies = 0;
-                foreach (var c in Creature.allActive)
+                for (int i = 0; i < allActive.Count; i++)
                 {
+                    Creature c = allActive[i];
                     if (c != null && !c.isPlayer && !c.isKilled)
                     {
                         aliveEnemies++;
@@ -862,10 +876,11 @@ namespace CSM.Hooks
         {
             if (creature == null) return;
             int id = creature.GetInstanceID();
+            float now = Time.unscaledTime;
             
             if (_playerDamageHits.TryGetValue(id, out var existing))
             {
-                existing.Timestamp = Time.unscaledTime;
+                existing.Timestamp = now;
                 existing.DamageType = damageType;
                 existing.TotalDamage += damage;
                 // Once thrown, always mark as thrown for this creature
@@ -875,7 +890,7 @@ namespace CSM.Hooks
             {
                 _playerDamageHits[id] = new PlayerDamageHit
                 {
-                    Timestamp = Time.unscaledTime,
+                    Timestamp = now,
                     DamageType = damageType,
                     TotalDamage = damage,
                     WasThrown = wasThrown
@@ -937,21 +952,19 @@ namespace CSM.Hooks
                 return;
             
             _lastDamageHitCleanupTime = now;
-            List<int> expired = null;
+            _expiredDamageHitIds.Clear();
             
             foreach (var kvp in _playerDamageHits)
             {
                 if (now - kvp.Value.Timestamp > DOT_ATTRIBUTION_WINDOW)
                 {
-                    if (expired == null) expired = new List<int>();
-                    expired.Add(kvp.Key);
+                    _expiredDamageHitIds.Add(kvp.Key);
                 }
             }
             
-            if (expired != null)
+            for (int i = 0; i < _expiredDamageHitIds.Count; i++)
             {
-                foreach (var key in expired)
-                    _playerDamageHits.Remove(key);
+                _playerDamageHits.Remove(_expiredDamageHitIds[i]);
             }
         }
 
@@ -961,11 +974,16 @@ namespace CSM.Hooks
             {
                 bool playerDeflected = deflectingItem?.mainHandler?.creature?.isPlayer == true ||
                                        deflectingItem?.lastHandler?.creature?.isPlayer == true;
+                CSMTelemetry.RecordDeflectEvaluation(playerDeflected);
 
                 if (!playerDeflected)
                 {
-                    if (CSMModOptions.DebugLogging)
+                    CSMTelemetry.RecordKillSkip("deflect_non_player");
+                    if (CSMModOptions.DebugLogging && Time.unscaledTime >= _nextDeflectSkipLogTime)
+                    {
+                        _nextDeflectSkipLogTime = Time.unscaledTime + SKIP_LOG_THROTTLE_SECONDS;
                         Debug.Log("[CSM] Deflect skipped - not player weapon (item=" + (deflectingItem ? deflectingItem.name : "null") + ")");
+                    }
                     return;
                 }
 
@@ -976,6 +994,7 @@ namespace CSM.Hooks
             }
             catch (Exception ex)
             {
+                CSMTelemetry.RecordError("on_deflect_exception");
                 if (CSMModOptions.DebugLogging)
                     Debug.LogError("[CSM] OnDeflect error: " + ex.Message);
             }
@@ -988,11 +1007,16 @@ namespace CSM.Hooks
                 bool playerParried = defender?.isPlayer == true ||
                                      defenderItem?.mainHandler?.creature?.isPlayer == true ||
                                      defenderItem?.lastHandler?.creature?.isPlayer == true;
+                CSMTelemetry.RecordParryEvaluation(playerParried);
 
                 if (!playerParried)
                 {
-                    if (CSMModOptions.DebugLogging)
+                    CSMTelemetry.RecordKillSkip("parry_non_player");
+                    if (CSMModOptions.DebugLogging && Time.unscaledTime >= _nextParrySkipLogTime)
+                    {
+                        _nextParrySkipLogTime = Time.unscaledTime + SKIP_LOG_THROTTLE_SECONDS;
                         Debug.Log("[CSM] Parry skipped - defender not player (attacker=" + (attacker ? attacker.name : "null") + ")");
+                    }
                     return;
                 }
 
@@ -1003,6 +1027,7 @@ namespace CSM.Hooks
             }
             catch (Exception ex)
             {
+                CSMTelemetry.RecordError("on_parry_exception");
                 if (CSMModOptions.DebugLogging)
                     Debug.LogError("[CSM] OnCreatureAttackParry error: " + ex.Message);
             }
