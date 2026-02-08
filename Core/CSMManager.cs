@@ -28,10 +28,12 @@ namespace CSM.Core
         private float _transitionStartScale;
         private const float TransitionTimeoutSeconds = 5f;
         private const float EndOverrunGraceSeconds = 2f;
+        private const float BlockLogCooldownSeconds = 1f;
         private bool _isEasingOut;
         private float _easingOutDuration;
         private CSMModOptions.EasingCurve _cachedEasingCurve; // Cached at slow-mo start to avoid per-frame lookup
         private string _activeTriggerCorrelationId = "none";
+        private readonly Dictionary<string, float> _blockLogCooldownUntil = new Dictionary<string, float>(32);
 
         public bool IsActive => _isSlowMotionActive;
 
@@ -46,6 +48,7 @@ namespace CSM.Core
                 _globalCooldownEndTime = 0f;
                 _triggerCooldownEndTimes.Clear();
                 _activeTriggerCorrelationId = "none";
+                _blockLogCooldownUntil.Clear();
 
                 Debug.Log("[CSM] Manager initialized");
             }
@@ -794,6 +797,18 @@ namespace CSM.Core
 
             string summary = GetTriggerUiName(type);
             string finalReason = isQuickTest ? reason + " (Quick Test)" : reason;
+            if (finalReason.StartsWith("Blocked:", StringComparison.Ordinal))
+            {
+                string gateKey = summary + "|" + finalReason;
+                float now = Time.unscaledTime;
+                if (_blockLogCooldownUntil.TryGetValue(gateKey, out float nextAllowedTime) && now < nextAllowedTime)
+                {
+                    return;
+                }
+
+                _blockLogCooldownUntil[gateKey] = now + BlockLogCooldownSeconds;
+            }
+
             string correlationId = string.IsNullOrWhiteSpace(_activeTriggerCorrelationId) ? "none" : _activeTriggerCorrelationId;
             Debug.Log("[CSM] " + summary + " -> " + finalReason + " [cid=" + correlationId + "]");
         }

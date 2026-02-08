@@ -84,13 +84,16 @@ namespace CSM.Core
             ResetInterval();
             ResetTotals();
 
-            Debug.Log(
-                "[CSM] diag evt=session_start run=" + runId +
-                " preset=" + CSMModOptions.CurrentPreset +
-                " chancePreset=" + CSMModOptions.ChancePresetSetting +
-                " cooldownPreset=" + CSMModOptions.CooldownPresetSetting +
-                " durationPreset=" + CSMModOptions.DurationPresetSetting +
-                " deferredQueue=off");
+            if (CSMModOptions.DebugLogging)
+            {
+                Debug.Log(
+                    "[CSM] diag evt=session_start run=" + runId +
+                    " preset=" + CSMModOptions.CurrentPreset +
+                    " chancePreset=" + CSMModOptions.ChancePresetSetting +
+                    " cooldownPreset=" + CSMModOptions.CooldownPresetSetting +
+                    " durationPreset=" + CSMModOptions.DurationPresetSetting +
+                    " deferredQueue=off");
+            }
         }
 
         public static void Shutdown()
@@ -102,10 +105,13 @@ namespace CSM.Core
 
             EmitSummary(force: true);
             EmitSessionTotals();
-            Debug.Log(
-                "[CSM] diag evt=session_end run=" + runId +
-                " uptimeSec=" + Mathf.Max(0f, Time.unscaledTime - sessionStartTime).ToString("F1") +
-                " summaryCount=" + summaryCount);
+            if (CSMModOptions.DebugLogging)
+            {
+                Debug.Log(
+                    "[CSM] diag evt=session_end run=" + runId +
+                    " uptimeSec=" + Mathf.Max(0f, Time.unscaledTime - sessionStartTime).ToString("F1") +
+                    " summaryCount=" + summaryCount);
+            }
             initialized = false;
         }
 
@@ -367,38 +373,41 @@ namespace CSM.Core
                 ? (triggerSuccesses * 100f) / triggerAttempts
                 : 0f;
 
-            Debug.Log(
-                "[CSM] diag evt=summary run=" + runId +
-                " intervalSec=" + SummaryIntervalSeconds.ToString("F0") +
-                " killEval=" + killEvaluations +
-                " killPlayer=" + killPlayerAttributed +
-                " parry=" + parryEvents +
-                " parryPlayer=" + parryPlayerQualified +
-                " deflect=" + deflectEvents +
-                " deflectPlayer=" + deflectPlayerQualified +
-                " lastStand=" + lastStandTriggers +
-                " triggerTry=" + triggerAttempts +
-                " triggerOk=" + triggerSuccesses +
-                " triggerRate=" + triggerRate.ToString("F1") + "%" +
-                " quickTests=" + triggerQuickTests +
-                " slowStart=" + slowmoStarts +
-                " slowEnd=" + slowmoEnds +
-                " slowCancel=" + slowmoCancels +
-                " frameDrop=" + frameDrops +
-                " severeDrop=" + severeFrameDrops +
-                " worstDropMs=" + worstFrameDropMs.ToString("F1") +
-                " deferredQueued=" + deferredQueued +
-                " deferredExecuted=" + deferredExecuted +
-                " deferredDropped=" + deferredDropped +
-                " deferredExpired=" + deferredExpired +
-                " errors=" + errorCount +
-                " topKillSkips=" + FormatTop(killSkipReasonsInterval) +
-                " topTriggerBlocks=" + FormatTop(triggerBlockReasonsInterval) +
-                " topTriggerBlocksByType=" + FormatTop(triggerBlockByTypeInterval) +
-                " topTriggerBlocksByFamily=" + FormatTop(triggerBlockByFamilyInterval) +
-                " topTriggerOk=" + FormatTop(triggerSuccessByTypeInterval) +
-                " topDeferred=" + FormatTop(deferredReasonsInterval) +
-                " topErrors=" + FormatTop(errorReasonsInterval));
+            if (CSMModOptions.DebugLogging)
+            {
+                Debug.Log(
+                    "[CSM] diag evt=summary run=" + runId +
+                    " intervalSec=" + SummaryIntervalSeconds.ToString("F0") +
+                    " killEval=" + killEvaluations +
+                    " killPlayer=" + killPlayerAttributed +
+                    " parry=" + parryEvents +
+                    " parryPlayer=" + parryPlayerQualified +
+                    " deflect=" + deflectEvents +
+                    " deflectPlayer=" + deflectPlayerQualified +
+                    " lastStand=" + lastStandTriggers +
+                    " triggerTry=" + triggerAttempts +
+                    " triggerOk=" + triggerSuccesses +
+                    " triggerRate=" + triggerRate.ToString("F1") + "%" +
+                    " quickTests=" + triggerQuickTests +
+                    " slowStart=" + slowmoStarts +
+                    " slowEnd=" + slowmoEnds +
+                    " slowCancel=" + slowmoCancels +
+                    " frameDrop=" + frameDrops +
+                    " severeDrop=" + severeFrameDrops +
+                    " worstDropMs=" + worstFrameDropMs.ToString("F1") +
+                    " deferredQueued=" + deferredQueued +
+                    " deferredExecuted=" + deferredExecuted +
+                    " deferredDropped=" + deferredDropped +
+                    " deferredExpired=" + deferredExpired +
+                    " errors=" + errorCount +
+                    " topKillSkips=" + FormatTop(killSkipReasonsInterval) +
+                    " topTriggerBlocks=" + FormatTop(triggerBlockReasonsInterval) +
+                    " topTriggerBlocksByType=" + FormatTop(triggerBlockByTypeInterval) +
+                    " topTriggerBlocksByFamily=" + FormatTop(triggerBlockByFamilyInterval) +
+                    " topTriggerOk=" + FormatTop(triggerSuccessByTypeInterval) +
+                    " topDeferred=" + FormatTop(deferredReasonsInterval) +
+                    " topErrors=" + FormatTop(errorReasonsInterval));
+            }
 
             ResetInterval();
         }
@@ -410,39 +419,42 @@ namespace CSM.Core
                 ? (totalTriggerSuccesses * 100f) / totalTriggerAttempts
                 : 0f;
 
-            Debug.Log(
-                "[CSM] diag evt=session_totals run=" + runId +
-                " uptimeSec=" + uptime.ToString("F1") +
-                " summaryCount=" + summaryCount +
-                " killEval=" + totalKillEvaluations +
-                " killPlayer=" + totalKillPlayerAttributed +
-                " parry=" + totalParryEvents +
-                " parryPlayer=" + totalParryPlayerQualified +
-                " deflect=" + totalDeflectEvents +
-                " deflectPlayer=" + totalDeflectPlayerQualified +
-                " lastStand=" + totalLastStandTriggers +
-                " triggerTry=" + totalTriggerAttempts +
-                " triggerOk=" + totalTriggerSuccesses +
-                " triggerRate=" + triggerRate.ToString("F1") + "%" +
-                " quickTests=" + totalTriggerQuickTests +
-                " slowStart=" + totalSlowmoStarts +
-                " slowEnd=" + totalSlowmoEnds +
-                " slowCancel=" + totalSlowmoCancels +
-                " frameDrop=" + totalFrameDrops +
-                " severeDrop=" + totalSevereFrameDrops +
-                " worstDropMs=" + totalWorstFrameDropMs.ToString("F1") +
-                " deferredQueued=" + totalDeferredQueued +
-                " deferredExecuted=" + totalDeferredExecuted +
-                " deferredDropped=" + totalDeferredDropped +
-                " deferredExpired=" + totalDeferredExpired +
-                " errors=" + totalErrorCount +
-                " topKillSkips=" + FormatTop(killSkipReasonsTotal) +
-                " topTriggerBlocks=" + FormatTop(triggerBlockReasonsTotal) +
-                " topTriggerBlocksByType=" + FormatTop(triggerBlockByTypeTotal) +
-                " topTriggerBlocksByFamily=" + FormatTop(triggerBlockByFamilyTotal) +
-                " topTriggerOk=" + FormatTop(triggerSuccessByTypeTotal) +
-                " topDeferred=" + FormatTop(deferredReasonsTotal) +
-                " topErrors=" + FormatTop(errorReasonsTotal));
+            if (CSMModOptions.DebugLogging)
+            {
+                Debug.Log(
+                    "[CSM] diag evt=session_totals run=" + runId +
+                    " uptimeSec=" + uptime.ToString("F1") +
+                    " summaryCount=" + summaryCount +
+                    " killEval=" + totalKillEvaluations +
+                    " killPlayer=" + totalKillPlayerAttributed +
+                    " parry=" + totalParryEvents +
+                    " parryPlayer=" + totalParryPlayerQualified +
+                    " deflect=" + totalDeflectEvents +
+                    " deflectPlayer=" + totalDeflectPlayerQualified +
+                    " lastStand=" + totalLastStandTriggers +
+                    " triggerTry=" + totalTriggerAttempts +
+                    " triggerOk=" + totalTriggerSuccesses +
+                    " triggerRate=" + triggerRate.ToString("F1") + "%" +
+                    " quickTests=" + totalTriggerQuickTests +
+                    " slowStart=" + totalSlowmoStarts +
+                    " slowEnd=" + totalSlowmoEnds +
+                    " slowCancel=" + totalSlowmoCancels +
+                    " frameDrop=" + totalFrameDrops +
+                    " severeDrop=" + totalSevereFrameDrops +
+                    " worstDropMs=" + totalWorstFrameDropMs.ToString("F1") +
+                    " deferredQueued=" + totalDeferredQueued +
+                    " deferredExecuted=" + totalDeferredExecuted +
+                    " deferredDropped=" + totalDeferredDropped +
+                    " deferredExpired=" + totalDeferredExpired +
+                    " errors=" + totalErrorCount +
+                    " topKillSkips=" + FormatTop(killSkipReasonsTotal) +
+                    " topTriggerBlocks=" + FormatTop(triggerBlockReasonsTotal) +
+                    " topTriggerBlocksByType=" + FormatTop(triggerBlockByTypeTotal) +
+                    " topTriggerBlocksByFamily=" + FormatTop(triggerBlockByFamilyTotal) +
+                    " topTriggerOk=" + FormatTop(triggerSuccessByTypeTotal) +
+                    " topDeferred=" + FormatTop(deferredReasonsTotal) +
+                    " topErrors=" + FormatTop(errorReasonsTotal));
+            }
         }
 
         private static void ResetInterval()

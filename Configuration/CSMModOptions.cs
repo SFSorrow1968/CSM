@@ -8,7 +8,6 @@ namespace CSM.Configuration
     public static class CSMModOptions
     {
         public const string VERSION = "2.0.1";
-        public const string LocalizationGroupId = "CSM";
 
         #region Labels and Categories
 
@@ -185,17 +184,15 @@ namespace CSM.Configuration
 
         private readonly struct PresetOption<TEnum>
         {
-            public PresetOption(string label, string value, string localizationId, TEnum preset)
+            public PresetOption(string label, string value, TEnum preset)
             {
                 Label = label;
                 Value = value;
-                LocalizationId = localizationId;
                 Preset = preset;
             }
 
             public string Label { get; }
             public string Value { get; }
-            public string LocalizationId { get; }
             public TEnum Preset { get; }
         }
 
@@ -205,14 +202,7 @@ namespace CSM.Configuration
             for (int i = 0; i < options.Length; i++)
             {
                 var option = options[i];
-                if (!string.IsNullOrWhiteSpace(option.LocalizationId))
-                {
-                    result[i] = new ModOptionString(option.Label, option.LocalizationId, option.Value);
-                }
-                else
-                {
-                    result[i] = new ModOptionString(option.Label, option.Value);
-                }
+                result[i] = new ModOptionString(option.Label, option.Value);
             }
             return result;
         }
@@ -245,54 +235,54 @@ namespace CSM.Configuration
 
         private static readonly PresetOption<Preset>[] IntensityPresetOptions =
         {
-            new PresetOption<Preset>("Subtle", "Subtle", LocalizationGroupId + ".PresetSubtle", Preset.Subtle),
-            new PresetOption<Preset>("Default", "Default", LocalizationGroupId + ".PresetDefault", Preset.Default),
-            new PresetOption<Preset>("Dramatic", "Dramatic", LocalizationGroupId + ".PresetDramatic", Preset.Dramatic),
-            new PresetOption<Preset>("Cinematic", "Cinematic", LocalizationGroupId + ".PresetCinematic", Preset.Cinematic),
-            new PresetOption<Preset>("Epic", "Epic", LocalizationGroupId + ".PresetEpic", Preset.Epic)
+            new PresetOption<Preset>("Subtle", "Subtle", Preset.Subtle),
+            new PresetOption<Preset>("Default", "Default", Preset.Default),
+            new PresetOption<Preset>("Dramatic", "Dramatic", Preset.Dramatic),
+            new PresetOption<Preset>("Cinematic", "Cinematic", Preset.Cinematic),
+            new PresetOption<Preset>("Epic", "Epic", Preset.Epic)
         };
 
         private static readonly PresetOption<TriggerProfilePreset>[] TriggerProfileOptions =
         {
-            new PresetOption<TriggerProfilePreset>("All Triggers", "All", LocalizationGroupId + ".ProfileAll", TriggerProfilePreset.All),
-            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", LocalizationGroupId + ".ProfileKillsOnly", TriggerProfilePreset.KillsOnly),
-            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", LocalizationGroupId + ".ProfileHighlights", TriggerProfilePreset.Highlights),
-            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", LocalizationGroupId + ".ProfileLastEnemyOnly", TriggerProfilePreset.LastEnemyOnly),
-            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", LocalizationGroupId + ".ProfileParryOnly", TriggerProfilePreset.ParryOnly)
+            new PresetOption<TriggerProfilePreset>("All Triggers", "All", TriggerProfilePreset.All),
+            new PresetOption<TriggerProfilePreset>("Kills Only", "Kills Only", TriggerProfilePreset.KillsOnly),
+            new PresetOption<TriggerProfilePreset>("Highlights", "Highlights", TriggerProfilePreset.Highlights),
+            new PresetOption<TriggerProfilePreset>("Last Enemy Only", "Last Enemy Only", TriggerProfilePreset.LastEnemyOnly),
+            new PresetOption<TriggerProfilePreset>("Parry Only", "Parry Only", TriggerProfilePreset.ParryOnly)
         };
 
         private static readonly PresetOption<ChancePreset>[] ChancePresetOptions =
         {
-            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", LocalizationGroupId + ".ChanceOff", ChancePreset.Off),
-            new PresetOption<ChancePreset>("Very Rare", "Very Rare", LocalizationGroupId + ".ChanceVeryRare", ChancePreset.VeryRare),
-            new PresetOption<ChancePreset>("Rare", "Rare", LocalizationGroupId + ".ChanceRare", ChancePreset.Rare),
-            new PresetOption<ChancePreset>("Default", "Default", LocalizationGroupId + ".ChanceDefault", ChancePreset.Default),
-            new PresetOption<ChancePreset>("Frequent", "Frequent", LocalizationGroupId + ".ChanceFrequent", ChancePreset.Frequent)
+            new PresetOption<ChancePreset>("Off (Cooldown Only)", "Off", ChancePreset.Off),
+            new PresetOption<ChancePreset>("Very Rare", "Very Rare", ChancePreset.VeryRare),
+            new PresetOption<ChancePreset>("Rare", "Rare", ChancePreset.Rare),
+            new PresetOption<ChancePreset>("Default", "Default", ChancePreset.Default),
+            new PresetOption<ChancePreset>("Frequent", "Frequent", ChancePreset.Frequent)
         };
 
         private static readonly PresetOption<CooldownPreset>[] CooldownPresetOptions =
         {
-            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", LocalizationGroupId + ".CooldownOff", CooldownPreset.Off),
-            new PresetOption<CooldownPreset>("Short", "Short", LocalizationGroupId + ".CooldownShort", CooldownPreset.Short),
-            new PresetOption<CooldownPreset>("Default", "Default", LocalizationGroupId + ".CooldownDefault", CooldownPreset.Default),
-            new PresetOption<CooldownPreset>("Long", "Long", LocalizationGroupId + ".CooldownLong", CooldownPreset.Long),
-            new PresetOption<CooldownPreset>("Extended", "Extended", LocalizationGroupId + ".CooldownExtended", CooldownPreset.Extended)
+            new PresetOption<CooldownPreset>("Off (No Cooldown)", "Off", CooldownPreset.Off),
+            new PresetOption<CooldownPreset>("Short", "Short", CooldownPreset.Short),
+            new PresetOption<CooldownPreset>("Default", "Default", CooldownPreset.Default),
+            new PresetOption<CooldownPreset>("Long", "Long", CooldownPreset.Long),
+            new PresetOption<CooldownPreset>("Extended", "Extended", CooldownPreset.Extended)
         };
 
         private static readonly PresetOption<DurationPreset>[] DurationPresetOptions =
         {
-            new PresetOption<DurationPreset>("Very Short", "Very Short", LocalizationGroupId + ".DurationVeryShort", DurationPreset.VeryShort),
-            new PresetOption<DurationPreset>("Short", "Short", LocalizationGroupId + ".DurationShort", DurationPreset.Short),
-            new PresetOption<DurationPreset>("Default", "Default", LocalizationGroupId + ".DurationDefault", DurationPreset.Default),
-            new PresetOption<DurationPreset>("Long", "Long", LocalizationGroupId + ".DurationLong", DurationPreset.Long),
-            new PresetOption<DurationPreset>("Extended", "Extended", LocalizationGroupId + ".DurationExtended", DurationPreset.Extended)
+            new PresetOption<DurationPreset>("Very Short", "Very Short", DurationPreset.VeryShort),
+            new PresetOption<DurationPreset>("Short", "Short", DurationPreset.Short),
+            new PresetOption<DurationPreset>("Default", "Default", DurationPreset.Default),
+            new PresetOption<DurationPreset>("Long", "Long", DurationPreset.Long),
+            new PresetOption<DurationPreset>("Extended", "Extended", DurationPreset.Extended)
         };
 
         private static readonly PresetOption<TransitionPreset>[] TransitionPresetOptions =
         {
-            new PresetOption<TransitionPreset>("Off (Instant)", "Off", LocalizationGroupId + ".TransitionOff", TransitionPreset.Off),
-            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", LocalizationGroupId + ".TransitionSmoothstep", TransitionPreset.Smoothstep),
-            new PresetOption<TransitionPreset>("Linear", "Linear", LocalizationGroupId + ".TransitionLinear", TransitionPreset.Linear)
+            new PresetOption<TransitionPreset>("Off (Instant)", "Off", TransitionPreset.Off),
+            new PresetOption<TransitionPreset>("Smoothstep", "Smoothstep", TransitionPreset.Smoothstep),
+            new PresetOption<TransitionPreset>("Linear", "Linear", TransitionPreset.Linear)
         };
 
         private static readonly Dictionary<string, Preset> IntensityPresetMap = BuildPresetMap(IntensityPresetOptions,
@@ -348,13 +338,13 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
-                new ModOptionString(TriggerBasicKill, LocalizationGroupId + "." + nameof(TriggerBasicKill), TriggerBasicKill),
-                new ModOptionString(TriggerCriticalKill, LocalizationGroupId + "." + nameof(TriggerCriticalKill), TriggerCriticalKill),
-                new ModOptionString(TriggerDismemberment, LocalizationGroupId + "." + nameof(TriggerDismemberment), TriggerDismemberment),
-                new ModOptionString(TriggerDecapitation, LocalizationGroupId + "." + nameof(TriggerDecapitation), TriggerDecapitation),
-                new ModOptionString(TriggerParry, LocalizationGroupId + "." + nameof(TriggerParry), TriggerParry),
-                new ModOptionString(TriggerLastEnemy, LocalizationGroupId + "." + nameof(TriggerLastEnemy), TriggerLastEnemy),
-                new ModOptionString(TriggerLastStand, LocalizationGroupId + "." + nameof(TriggerLastStand), TriggerLastStand)
+                new ModOptionString(TriggerBasicKill, TriggerBasicKill),
+                new ModOptionString(TriggerCriticalKill, TriggerCriticalKill),
+                new ModOptionString(TriggerDismemberment, TriggerDismemberment),
+                new ModOptionString(TriggerDecapitation, TriggerDecapitation),
+                new ModOptionString(TriggerParry, TriggerParry),
+                new ModOptionString(TriggerLastEnemy, TriggerLastEnemy),
+                new ModOptionString(TriggerLastStand, TriggerLastStand)
             };
         }
 
@@ -382,9 +372,9 @@ namespace CSM.Configuration
         {
             return new ModOptionString[]
             {
-                new ModOptionString("Off", LocalizationGroupId + ".EasingOff", "Off"),
-                new ModOptionString("Smoothstep", LocalizationGroupId + ".EasingSmoothstep", "Smoothstep"),
-                new ModOptionString("Linear", LocalizationGroupId + ".EasingLinear", "Linear")
+                new ModOptionString("Off", "Off"),
+                new ModOptionString("Smoothstep", "Smoothstep"),
+                new ModOptionString("Linear", "Linear")
             };
         }
 
@@ -579,27 +569,27 @@ namespace CSM.Configuration
 
         #region CSM (Main Settings)
 
-        [ModOption(name = OptionEnableMod, order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionEnableMod), tooltipLocalizationId = LocalizationGroupId + ".TooltipEnableMod")]
+        [ModOption(name = OptionEnableMod, order = 0, defaultValueIndex = 1, tooltip = "Master switch for the entire mod")]
         public static bool EnableMod = true;
 
 
 
-        [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionIntensityPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipIntensityPreset")]
+        [ModOption(name = OptionIntensityPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 10, defaultValueIndex = 1, valueSourceName = "PresetProvider", tooltip = "Intensity profile. Subtle = brief, Default = balanced, Dramatic = stronger, Cinematic = dramatic, Epic = extreme")]
         public static string CurrentPreset = "Default";
 
-        [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 3, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionChancePreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipChancePreset")]
+        [ModOption(name = OptionChancePreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 40, defaultValueIndex = 3, valueSourceName = "ChancePresetProvider", tooltip = "Sets per-trigger chance values. Off means chance is ignored (cooldown only).")]
         public static string ChancePresetSetting = "Default";
 
-        [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDurationPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipDurationPreset")]
+        [ModOption(name = OptionDurationPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 30, defaultValueIndex = 2, valueSourceName = "DurationPresetProvider", tooltip = "Sets per-trigger duration values.")]
         public static string DurationPresetSetting = "Default";
 
-        [ModOption(name = OptionCooldownPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCooldownPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipCooldownPreset")]
+        [ModOption(name = OptionCooldownPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 50, defaultValueIndex = 2, valueSourceName = "CooldownPresetProvider", tooltip = "Sets per-trigger cooldown values. Off disables cooldown.")]
         public static string CooldownPresetSetting = "Default";
 
-        [ModOption(name = OptionTransitionPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 55, defaultValueIndex = 1, valueSourceName = "TransitionPresetProvider", tooltip = "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionTransitionPreset), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipTransitionPreset")]
+        [ModOption(name = OptionTransitionPreset, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 55, defaultValueIndex = 1, valueSourceName = "TransitionPresetProvider", tooltip = "Sets per-trigger transition curve. Off = instant, Smoothstep = smooth ramp, Linear = constant rate.")]
         public static string TransitionPresetSetting = "Smoothstep";
 
-        [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionTriggerProfile), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryPresetSelection), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerProfile")]
+        [ModOption(name = OptionTriggerProfile, category = CategoryPresetSelection, categoryOrder = CategoryOrderPreset, order = 20, defaultValueIndex = 0, valueSourceName = "TriggerProfileProvider", tooltip = "Which triggers are active. Selecting a profile updates the per-trigger toggles.")]
         public static string TriggerProfile = "All";
 
         public static int LastEnemyMinimumGroup = 1;
@@ -613,7 +603,7 @@ namespace CSM.Configuration
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionPierceMultiplier), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipPierceMultiplier")]
+            tooltip = "Multiplier for piercing damage (stabs). 0x disables slow-mo for this type.")]
         public static float PierceMultiplier = 1.0f;
 
         [ModOption(name = OptionSlashMultiplier, category = CategoryDamageMultipliers,
@@ -621,7 +611,7 @@ namespace CSM.Configuration
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionSlashMultiplier), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipSlashMultiplier")]
+            tooltip = "Multiplier for slashing damage (cuts). 0x disables slow-mo for this type.")]
         public static float SlashMultiplier = 1.0f;
 
         [ModOption(name = OptionBluntMultiplier, category = CategoryDamageMultipliers,
@@ -629,7 +619,7 @@ namespace CSM.Configuration
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBluntMultiplier), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipBluntMultiplier")]
+            tooltip = "Multiplier for blunt damage (impacts). 0x disables slow-mo for this type.")]
         public static float BluntMultiplier = 1.0f;
 
         [ModOption(name = OptionElementalMultiplier, category = CategoryDamageMultipliers,
@@ -637,7 +627,7 @@ namespace CSM.Configuration
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionElementalMultiplier), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipElementalMultiplier")]
+            tooltip = "Multiplier for elemental damage (Fire, Lightning, Energy). 0x disables slow-mo for elemental kills.")]
         public static float ElementalMultiplier = 1.0f;
 
         [ModOption(name = OptionThrownMultiplier, category = CategoryDamageMultipliers,
@@ -645,7 +635,7 @@ namespace CSM.Configuration
             defaultValueIndex = 10,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionThrownMultiplier), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipThrownMultiplier")]
+            tooltip = "Multiplier for projectile/thrown weapon kills (daggers, arrows, spears). 0x disables slow-mo for projectile kills.")]
         public static float ThrownMultiplier = 1.0f;
 
         [ModOption(name = OptionDOTMultiplier, category = CategoryDamageMultipliers,
@@ -653,13 +643,13 @@ namespace CSM.Configuration
             defaultValueIndex = 0,
             valueSourceName = nameof(DamageMultiplierProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Multiplier for DOT kills (DOT mod). Only applies when DOT is installed. 0x disables slow-mo for bleed/burn kills.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDOTMultiplier), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipDOTMultiplier")]
+            tooltip = "Multiplier for DOT kills (DOT mod). Only applies when DOT is installed. 0x disables slow-mo for bleed/burn kills.")]
         public static float DOTMultiplier = 0f;
 
         [ModOption(name = OptionIntensityScalingEnabled, category = CategoryDamageMultipliers,
             categoryOrder = CategoryOrderDamageMultipliers, order = 40,
             defaultValueIndex = 0,
-            tooltip = "Scale slow-mo intensity based on impact force. Off by default.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionIntensityScalingEnabled), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipIntensityScalingEnabled")]
+            tooltip = "Scale slow-mo intensity based on impact force. Off by default.")]
         public static bool IntensityScalingEnabled = false;
 
         [ModOption(name = OptionIntensityScalingMax, category = CategoryDamageMultipliers,
@@ -667,35 +657,35 @@ namespace CSM.Configuration
             defaultValueIndex = 5,
             valueSourceName = nameof(IntensityMaxProvider),
             interactionType = (ModOption.InteractionType)2,
-            tooltip = "Maximum multiplier at full intensity (min is always 1.0x).", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionIntensityScalingMax), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryDamageMultipliers), tooltipLocalizationId = LocalizationGroupId + ".TooltipIntensityScalingMax")]
+            tooltip = "Maximum multiplier at full intensity (min is always 1.0x).")]
         public static float IntensityScalingMax = 1.5f;
 
         #endregion
 
         #region CSM Triggers (Enable/Disable)
 
-        [ModOption(name = TriggerBasicKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerBasicKill), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerBasicKill")]
+        [ModOption(name = TriggerBasicKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 10, defaultValueIndex = 1, tooltip = "Trigger on any enemy kill")]
         public static bool EnableBasicKill = true;
 
-        [ModOption(name = TriggerCriticalKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerCriticalKill), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerCriticalKill")]
+        [ModOption(name = TriggerCriticalKill, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 20, defaultValueIndex = 1, tooltip = "Trigger on head/throat kills")]
         public static bool EnableCriticalKill = true;
 
-        [ModOption(name = TriggerDismemberment, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerDismemberment), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerDismemberment")]
+        [ModOption(name = TriggerDismemberment, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 30, defaultValueIndex = 1, tooltip = "Trigger when severing limbs")]
         public static bool EnableDismemberment = true;
 
-        [ModOption(name = TriggerDecapitation, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerDecapitation), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerDecapitation")]
+        [ModOption(name = TriggerDecapitation, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 40, defaultValueIndex = 1, tooltip = "Trigger on decapitation")]
         public static bool EnableDecapitation = true;
 
-        [ModOption(name = TriggerLastEnemy, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerLastEnemy), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerLastEnemy")]
+        [ModOption(name = TriggerLastEnemy, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 50, defaultValueIndex = 1, tooltip = "Trigger when killing the final enemy of a wave")]
         public static bool EnableLastEnemy = true;
 
-        [ModOption(name = TriggerLastStand, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerLastStand), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerLastStand")]
+        [ModOption(name = TriggerLastStand, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 60, defaultValueIndex = 1, tooltip = "Trigger when your health drops critically low")]
         public static bool EnableLastStand = true;
 
-        [ModOption(name = OptionLastStandThreshold, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastStandThreshold), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastStandThreshold")]
+        [ModOption(name = OptionLastStandThreshold, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 70, defaultValueIndex = 1, valueSourceName = "ThresholdProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Health % to trigger Last Stand")]
         public static float LastStandThreshold = 0.15f;
 
-        [ModOption(name = TriggerParry, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections", nameLocalizationId = LocalizationGroupId + "." + nameof(TriggerParry), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryTriggers), tooltipLocalizationId = LocalizationGroupId + ".TooltipTriggerParry")]
+        [ModOption(name = TriggerParry, category = CategoryTriggers, categoryOrder = CategoryOrderTriggers, order = 80, defaultValueIndex = 1, tooltip = "Trigger on successful weapon deflections")]
         public static bool EnableParry = true;
 
         #endregion
@@ -703,19 +693,19 @@ namespace CSM.Configuration
 
         #region Custom: Basic Kill
 
-        [ModOption(name = OptionBasicChance, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 10, defaultValueIndex = 2, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicChance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicChance")]
+        [ModOption(name = OptionBasicChance, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 10, defaultValueIndex = 2, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float BasicKillChance = 0.25f;
 
-        [ModOption(name = OptionBasicTimeScale, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 23, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicTimeScale")]
+        [ModOption(name = OptionBasicTimeScale, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 20, defaultValueIndex = 23, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float BasicKillTimeScale = 0.28f;
 
-        [ModOption(name = OptionBasicDuration, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 200, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicDuration")]
+        [ModOption(name = OptionBasicDuration, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 30, defaultValueIndex = 200, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float BasicKillDuration = 2.5f;
 
-        [ModOption(name = OptionBasicCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicCooldown")]
+        [ModOption(name = OptionBasicCooldown, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float BasicKillCooldown = 10f;
 
-        [ModOption(name = OptionBasicTransition, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionBasicTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomBasic), tooltipLocalizationId = LocalizationGroupId + ".TooltipBasicTransition")]
+        [ModOption(name = OptionBasicTransition, category = CategoryCustomBasic, categoryOrder = CategoryOrderCustomBasic, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string BasicKillEasing = "Smoothstep";
 
 
@@ -724,19 +714,19 @@ namespace CSM.Configuration
 
         #region Custom: Critical Kill
 
-        [ModOption(name = OptionCriticalChance, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 10, defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalChance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalChance")]
+        [ModOption(name = OptionCriticalChance, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 10, defaultValueIndex = 12, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float CriticalKillChance = 0.75f;
 
-        [ModOption(name = OptionCriticalTimeScale, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 20, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalTimeScale")]
+        [ModOption(name = OptionCriticalTimeScale, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 20, defaultValueIndex = 20, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float CriticalKillTimeScale = 0.25f;
 
-        [ModOption(name = OptionCriticalDuration, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 250, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalDuration")]
+        [ModOption(name = OptionCriticalDuration, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 30, defaultValueIndex = 250, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float CriticalKillDuration = 3.0f;
 
-        [ModOption(name = OptionCriticalCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalCooldown")]
+        [ModOption(name = OptionCriticalCooldown, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float CriticalKillCooldown = 10f;
 
-        [ModOption(name = OptionCriticalTransition, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionCriticalTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomCritical), tooltipLocalizationId = LocalizationGroupId + ".TooltipCriticalTransition")]
+        [ModOption(name = OptionCriticalTransition, category = CategoryCustomCritical, categoryOrder = CategoryOrderCustomCritical, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string CriticalKillEasing = "Smoothstep";
 
 
@@ -745,19 +735,19 @@ namespace CSM.Configuration
 
         #region Custom: Dismemberment
 
-        [ModOption(name = OptionDismemberChance, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 10, defaultValueIndex = 4, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberChance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberChance")]
+        [ModOption(name = OptionDismemberChance, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 10, defaultValueIndex = 4, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DismembermentChance = 0.3f;
 
-        [ModOption(name = OptionDismemberTimeScale, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 25, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberTimeScale")]
+        [ModOption(name = OptionDismemberTimeScale, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 20, defaultValueIndex = 25, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DismembermentTimeScale = 0.3f;
 
-        [ModOption(name = OptionDismemberDuration, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 150, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberDuration")]
+        [ModOption(name = OptionDismemberDuration, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 30, defaultValueIndex = 150, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DismembermentDuration = 2.0f;
 
-        [ModOption(name = OptionDismemberCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberCooldown")]
+        [ModOption(name = OptionDismemberCooldown, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DismembermentCooldown = 10f;
 
-        [ModOption(name = OptionDismemberTransition, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDismemberTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDismemberment), tooltipLocalizationId = LocalizationGroupId + ".TooltipDismemberTransition")]
+        [ModOption(name = OptionDismemberTransition, category = CategoryCustomDismemberment, categoryOrder = CategoryOrderCustomDismemberment, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string DismembermentEasing = "Smoothstep";
 
 
@@ -766,19 +756,19 @@ namespace CSM.Configuration
 
         #region Custom: Decapitation
 
-        [ModOption(name = OptionDecapChance, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 10, defaultValueIndex = 14, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapChance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapChance")]
+        [ModOption(name = OptionDecapChance, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 10, defaultValueIndex = 14, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float DecapitationChance = 0.9f;
 
-        [ModOption(name = OptionDecapTimeScale, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 18, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapTimeScale")]
+        [ModOption(name = OptionDecapTimeScale, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 20, defaultValueIndex = 18, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float DecapitationTimeScale = 0.23f;
 
-        [ModOption(name = OptionDecapDuration, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 275, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapDuration")]
+        [ModOption(name = OptionDecapDuration, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 30, defaultValueIndex = 275, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float DecapitationDuration = 3.25f;
 
-        [ModOption(name = OptionDecapCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapCooldown")]
+        [ModOption(name = OptionDecapCooldown, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 40, defaultValueIndex = 10, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float DecapitationCooldown = 10f;
 
-        [ModOption(name = OptionDecapTransition, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDecapTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomDecapitation), tooltipLocalizationId = LocalizationGroupId + ".TooltipDecapTransition")]
+        [ModOption(name = OptionDecapTransition, category = CategoryCustomDecapitation, categoryOrder = CategoryOrderCustomDecapitation, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string DecapitationEasing = "Smoothstep";
 
 
@@ -787,19 +777,19 @@ namespace CSM.Configuration
 
         #region Custom: Last Enemy
 
-        [ModOption(name = OptionLastEnemyChance, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 10, defaultValueIndex = 15, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyChance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyChance")]
+        [ModOption(name = OptionLastEnemyChance, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 10, defaultValueIndex = 15, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float LastEnemyChance = 1.0f;
 
-        [ModOption(name = OptionLastEnemyTimeScale, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 21, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyTimeScale")]
+        [ModOption(name = OptionLastEnemyTimeScale, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 20, defaultValueIndex = 21, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastEnemyTimeScale = 0.26f;
 
-        [ModOption(name = OptionLastEnemyDuration, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 225, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyDuration")]
+        [ModOption(name = OptionLastEnemyDuration, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 30, defaultValueIndex = 225, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastEnemyDuration = 2.75f;
 
-        [ModOption(name = OptionLastEnemyCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 30, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyCooldown")]
+        [ModOption(name = OptionLastEnemyCooldown, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 40, defaultValueIndex = 30, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastEnemyCooldown = 30f;
 
-        [ModOption(name = OptionLastEnemyTransition, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastEnemyTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastEnemy), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastEnemyTransition")]
+        [ModOption(name = OptionLastEnemyTransition, category = CategoryCustomLastEnemy, categoryOrder = CategoryOrderCustomLastEnemy, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string LastEnemyEasing = "Smoothstep";
 
 
@@ -808,48 +798,48 @@ namespace CSM.Configuration
 
         #region Custom: Last Stand
 
-        [ModOption(name = OptionLastStandTimeScale, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 25, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastStandTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastStand), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastStandTimeScale")]
+        [ModOption(name = OptionLastStandTimeScale, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 10, defaultValueIndex = 25, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float LastStandTimeScale = 0.30f;
 
-        [ModOption(name = OptionLastStandDuration, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 350, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastStandDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastStand), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastStandDuration")]
+        [ModOption(name = OptionLastStandDuration, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 20, defaultValueIndex = 350, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float LastStandDuration = 4.0f;
 
-        [ModOption(name = OptionLastStandCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 43, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastStandCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastStand), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastStandCooldown")]
+        [ModOption(name = OptionLastStandCooldown, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 30, defaultValueIndex = 43, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float LastStandCooldown = 90f;
 
-        [ModOption(name = OptionLastStandTransition, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionLastStandTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomLastStand), tooltipLocalizationId = LocalizationGroupId + ".TooltipLastStandTransition")]
+        [ModOption(name = OptionLastStandTransition, category = CategoryCustomLastStand, categoryOrder = CategoryOrderCustomLastStand, order = 40, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string LastStandEasing = "Smoothstep";
 
         #endregion
 
         #region Custom: Parry
 
-        [ModOption(name = OptionParryChance, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 10, defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionParryChance), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomParry), tooltipLocalizationId = LocalizationGroupId + ".TooltipParryChance")]
+        [ModOption(name = OptionParryChance, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 10, defaultValueIndex = 8, valueSourceName = "CustomChanceProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Chance to trigger")]
         public static float ParryChance = 0.5f;
 
-        [ModOption(name = OptionParryTimeScale, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 29, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionParryTimeScale), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomParry), tooltipLocalizationId = LocalizationGroupId + ".TooltipParryTimeScale")]
+        [ModOption(name = OptionParryTimeScale, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 20, defaultValueIndex = 29, valueSourceName = "CustomTimeScaleProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Time scale")]
         public static float ParryTimeScale = 0.34f;
 
-        [ModOption(name = OptionParryDuration, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 100, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionParryDuration), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomParry), tooltipLocalizationId = LocalizationGroupId + ".TooltipParryDuration")]
+        [ModOption(name = OptionParryDuration, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 30, defaultValueIndex = 100, valueSourceName = "CustomDurationProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Duration")]
         public static float ParryDuration = 1.5f;
 
-        [ModOption(name = OptionParryCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionParryCooldown), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomParry), tooltipLocalizationId = LocalizationGroupId + ".TooltipParryCooldown")]
+        [ModOption(name = OptionParryCooldown, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 40, defaultValueIndex = 5, valueSourceName = "CustomCooldownProvider", interactionType = (ModOption.InteractionType)2, tooltip = "Cooldown")]
         public static float ParryCooldown = 5f;
 
-        [ModOption(name = OptionParryTransition, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionParryTransition), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryCustomParry), tooltipLocalizationId = LocalizationGroupId + ".TooltipParryTransition")]
+        [ModOption(name = OptionParryTransition, category = CategoryCustomParry, categoryOrder = CategoryOrderCustomParry, order = 50, defaultValueIndex = 1, valueSourceName = "EasingCurveProvider", tooltip = "Transition curve (20% of duration). Off = instant.")]
         public static string ParryEasing = "Smoothstep";
 
         #endregion
 
         #region CSM Advanced
 
-        [ModOption(name = OptionDebugLogging, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionDebugLogging), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryAdvanced), tooltipLocalizationId = LocalizationGroupId + ".TooltipDebugLogging")]
+        [ModOption(name = OptionDebugLogging, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 10, defaultValueIndex = 0, tooltip = "Enable verbose debug logging")]
         public static bool DebugLogging = false;
 
-        [ModOption(name = OptionQuickTestTrigger, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionQuickTestTrigger), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryAdvanced), tooltipLocalizationId = LocalizationGroupId + ".TooltipQuickTestTrigger")]
+        [ModOption(name = OptionQuickTestTrigger, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 20, defaultValueIndex = 0, valueSourceName = "QuickTestTriggerProvider", tooltip = "Which trigger to simulate")]
         public static string QuickTestTrigger = TriggerBasicKill;
 
-        [ModOption(name = OptionQuickTestNow, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once", nameLocalizationId = LocalizationGroupId + "." + nameof(OptionQuickTestNow), categoryLocalizationId = LocalizationGroupId + "." + nameof(CategoryAdvanced), tooltipLocalizationId = LocalizationGroupId + ".TooltipQuickTestNow")]
+        [ModOption(name = OptionQuickTestNow, category = CategoryAdvanced, categoryOrder = CategoryOrderAdvanced, order = 30, defaultValueIndex = 0, tooltip = "Toggle to fire the selected trigger once")]
         public static bool QuickTestNow = false;
 
         #endregion
