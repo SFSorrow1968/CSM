@@ -124,8 +124,7 @@ namespace CSM.Core
             TryInitialize();
             if (_initialized)
             {
-                ApplyAllPresets(true);
-                ModManager.RefreshModOptionsUI();
+                SeedPresetTrackingState();
             }
         }
 
@@ -138,8 +137,7 @@ namespace CSM.Core
                 TryInitialize();
                 if (_initialized)
                 {
-                    ApplyAllPresets(true);
-                    ModManager.RefreshModOptionsUI();
+                    SeedPresetTrackingState();
                 }
                 return;
             }
@@ -177,6 +175,16 @@ namespace CSM.Core
                 if (!_baseTooltips.ContainsKey(key))
                     _baseTooltips[key] = option.tooltip ?? string.Empty;
             }
+        }
+
+        private void SeedPresetTrackingState()
+        {
+            _lastIntensityPreset = CSMModOptions.GetCurrentPreset();
+            _lastChancePreset = CSMModOptions.GetChancePreset();
+            _lastCooldownPreset = CSMModOptions.GetCooldownPreset();
+            _lastDurationPreset = CSMModOptions.GetDurationPreset();
+            _lastTransitionPreset = CSMModOptions.GetTransitionPreset();
+            _lastTriggerProfile = CSMModOptions.GetTriggerProfilePreset();
         }
 
         private bool ApplyAllPresets(bool force)

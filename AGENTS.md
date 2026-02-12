@@ -1,12 +1,12 @@
-# Agent Instructions
+﻿# Agent Instructions
 
 When making changes in this repo:
-- Always build `Release` and `Nomad` before finalizing.
+- Always build both targets before finalizing (`Release` for PCVR and `Nomad` for Nomad).
 - Keep edits aligned with this repo's existing structure and docs (`DEVELOPMENT.md`, `QUIRKS.md`).
 - Use local references in `References/` and local tooling in `../.tools/` to decompile `../libs/*.dll` when API behavior is unclear.
 - Shared game DLL path for this workspace is `D:\Documents\Projects\repos\BS\libs`.
 - Only regenerate `_design/MENU_MOCK.xlsx` when explicitly requested.
-- Build artifacts are expected in `bin/Release/PCVR/CSM/` and `bin/Release/Nomad/CSM/`.
+- Build artifacts must end up in `bin/PCVR/<ModName>/` and `bin/Nomad/<ModName>/` (platform folder, then mod-name folder; no intermediate build folders).
 - Common edit points: `Configuration/CSMModOptions.cs`, `Core/CSMModOptionVisibility.cs`, `Core/CSMManager.cs`.
 - If the user asks to publish, follow `_docs/PUBLISH.md`.
 - Treat `QUIRKS.md` as an index of theme-specific quirk logs, not a single catch-all file.
@@ -19,3 +19,6 @@ When making changes in this repo:
 - When a user reports an issue, always recommend a specific logging profile first (not generic "turn logs on").
 - For low-noise repro in this repo, start with: `Session Diagnostics=On`, `Debug Logging=Off`.
 - If trigger-level troubleshooting is needed, enable `Debug Logging=On` for a short targeted repro run, then switch it back off.
+
+- In BS batch mode, also consult root quirk docs: ../QUIRKS.md and _quirks/CSM_*QUIRKS.md.
+

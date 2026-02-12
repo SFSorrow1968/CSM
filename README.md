@@ -84,7 +84,7 @@ dotnet build -c Release
 dotnet build -c Nomad
 ```
 
-Output will be in `bin/Release/` or `bin/Nomad/`.
+Output will be in `bin/PCVR/CSM/` or `bin/Nomad/CSM/`.
 
 ## Platform Differences
 
