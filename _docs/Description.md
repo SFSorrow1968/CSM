@@ -1,18 +1,29 @@
-# Description
+<!--
+AGENT INSTRUCTIONS:
+This file is the source of truth for the mod's description GUIDELINES.
+When asked to "generate description" or similar:
+1. READ the ModOptions and Manager files to understand the current features.
+2. OUTPUT the following:
+   - **GitHub Repository Description**: A concise (<250 chars) summary.
+   - **README.md**: A formatted Markdown file for the repository root (or mod folder).
+   - **Nexus/Mod.io Description**: A formatted description (Bbcode/Markdown) suitable for these platforms.
+3. ENSURE the tone is aesthetic, concise, and non-childish.
+4. IF asking to publish, UPDATE the `README.md` and push to GitHub.
+-->
 
-## Overview (<=250 chars)
-Conditional Slow Motion adds cinematic slow motion for key combat moments with presets, trigger profiles, and per-trigger customization, plus debug tools.
+# Description Guidelines
 
-## Detailed Description (<=50,000 chars)
-⚠️ **Trigger Warning:** This mod is 100% vibe coded. If the mere thought of AI-assisted development sends you into an existential spiral about the sanctity of "real" programming, I'd recommend you close this page before your monocle pops out. The code compiles, the tests pass, and the mod works exactly as intended—but I understand if that's less important to you than the private pleasure of stroking every line of code yourself. ⚠️
+## Tone
+- Aesthetic, concise, non-childish.
+- Focus on what the user *feels* and *does*, not just technical implementation details.
+- For CSM specifically: Emphasize "Cinematic" and "Vibe".
 
-Conditional Slow Motion (CSM) brings controlled, cinematic slow motion to Blade & Sorcery. It triggers on meaningful combat moments and provides a clear, layered configuration model: presets set the baseline, trigger toggles control eligibility, and per-trigger custom values override everything else.
+## Required Sections
+1. **Overview**: <= 250 chars. Hook the user immediately.
+2. **Detailed Description**:
+   - **Key Features**: Bullet points of what the mod actually does.
+   - **Usage/Config**: Brief mention of how to use it (e.g. "Configurable via Mod Options").
 
-Key features:
-- Trigger profiles: All, Kills Only, Highlights, Last Enemy Only, and Parry Only to quickly scope which events are active.
-- Preset system: intensity, chance, cooldown, duration, and transition presets set consistent defaults across all triggers.
-- Per-trigger customization: adjust chance, time scale, duration, cooldown, and transition curve for each trigger.
-- Transition curves: Off (instant), Smoothstep (smooth ramp), or Linear. Ramp duration is 20% of slow-mo duration.
-- Debug/QA tools: quick-test trigger and detailed debug logging, including effective values tooltips.
-
-The system is designed so presets and profiles shape behavior quickly, while per-trigger controls allow fine-tuning without hidden state. It supports both PCVR and Nomad builds.
+## Source Files to Analyze
+- `Configuration/CSMModOptions.cs`
+- `Core/CSMManager.cs`
